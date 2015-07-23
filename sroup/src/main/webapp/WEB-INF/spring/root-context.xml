@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<context:annotation-config/>
+	<!-- META-INF/properties 파일 읽는 객체 등록 -->
+	<context:property-placeholder location="classpath:/META-INF/properties/*.properties"/>
+	
+	<!-- Connection pool 객체 등록 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${db.driver}"
+		p:url="${db.url}"
+		p:username="${db.username}"
+		p:password="${db.password}"/>
 		
+	<!-- 트랜잭션매니저 관련객체 등록 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource"/>
+	<tx:annotation-driven/>
+	
+	<!-- mybatis 관련 객체 등록 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:configLocation="classpath:/META-INF/mybatis/mybatis-config.xml"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+	 	p:basePackage="com.cj.sroup.dao"/>
+	
+	<!-- Service 객체들 등록 -->
+	<context:component-scan base-package="com.cj.sroup.service"/>
+	
+	
 </beans>
