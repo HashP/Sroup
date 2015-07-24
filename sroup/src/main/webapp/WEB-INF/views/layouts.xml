@@ -5,11 +5,20 @@
 
 <tiles-definitions>
 	<!-- 디폴트 레이아웃을 정의한다. -->
-	<definition name="default" template="">
+	
+	
+	<definition name="default" template="/WEB-INF/views/template.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
-		<put-attribute name="h" value=""></put-attribute>
-		<put-attribute name="c" value=""></put-attribute>
-		<put-attribute name="f" value=""></put-attribute>
+		<put-attribute name="content" value=""></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
 
+	<definition name="template" extends="default">
+	
+	</definition>
+	
+	<definition name="login/*" extends="default">
+		<put-attribute name="content" value="/WEB-INF/views/login/{1}.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
