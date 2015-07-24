@@ -43,27 +43,31 @@ hr {
 			<hr>
 			<div class="form-group">
 				<label for="id">아이디</label>
-				<input type="text" class="form-control input-lg" placeholder="아이디를 입력하세요" name="id" id="id">
+				<input type="text" class="form-control input-lg" placeholder="아이디" name="id" id="id">
 			</div>
 			<div class="form-group">
 				<label for="pwd">비밀번호</label>
-				<input type="password" class="form-control input-lg" placeholder="비밀번호를 입력하세요" name="pwd" id="pwd">
+				<input type="password" class="form-control input-lg" placeholder="비밀번호" name="pwd" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwdcheck">비밀번호확인</label>
+				<input type="password" class="form-control input-lg" placeholder="비밀번호 재확인" name="pwdcheck" id="pwdcheck">
 			</div>
 			<div class="form-group">
 				<label for="name">이름</label>
-				<input type="text" class="form-control input-lg" placeholder="이름을 입력하세요" name="name" id="name">
+				<input type="text" class="form-control input-lg" placeholder="이름" name="name" id="name">
 			</div>
 			<div class="form-group">
 				<label for="nickname">별명</label>
-				<input type="text" class="form-control input-lg" placeholder="별명을 입력하세요" name="nickname" id="nickname">
+				<input type="text" class="form-control input-lg" placeholder="별명" name="nickname" id="nickname">
 			</div>
 			<div class="form-group">
 				<label for="phone">휴대폰</label>
-				<input type="text" class="form-control input-lg" placeholder="휴대폰 번호를 입력하세요" name="phone" id="phone">
+				<input type="text" class="form-control input-lg" placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone">
 			</div>
 			<div class="form-group">
 				<label for="email">이메일 주소</label>
-				<input type="text" class="form-control input-lg" placeholder="이메일 주소를 입력하세요" name="email" id="email">
+				<input type="text" class="form-control input-lg" placeholder="이메일 주소" name="email" id="email">
 			</div>
 			<div class="form-group">
 				<label for="profilephoto">프로필 사진</label>

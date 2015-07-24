@@ -3,6 +3,7 @@
 <style type="text/css">
 .navbar {
 	min-height: 30px;
+	margin: 0px;
 }
 
 .navbar-nav > li > a, .navbar-brand{
