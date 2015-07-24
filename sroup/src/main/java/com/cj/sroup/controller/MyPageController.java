@@ -18,5 +18,11 @@ public class MyPageController {
 	public String pwdupdate() {
 		return "mypage/pwdupdate";
 	}
+	
+	
+	@RequestMapping("/mystudy.do")
+	public String mystudy() {
+		return "mypage/mystudy";
+	}
 
 }

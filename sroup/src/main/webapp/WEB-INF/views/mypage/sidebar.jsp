@@ -32,7 +32,7 @@
             <a href="pwdupdate.do">비밀번호 변경 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
         <li class="list-group-item link-item">
-            <a href="#">나의 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
+            <a href="mystudy.do">나의 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
         <li class="list-group-item link-item">
             <a href="#">내가 참여한 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
