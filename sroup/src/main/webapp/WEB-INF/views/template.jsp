@@ -8,12 +8,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<style type="text/css">
+ <style type="text/css">
 	.body {
 		width: 1140px;
 		margin: 0 auto 0 auto;
-		height: 400px;
-		border: 1px dotted red;
 	}
 </style>
 <script type="text/javascript" src="/sroup/resources/jqeuery/jquery-1.11.3.js"></script>
@@ -29,7 +27,6 @@
 </div>
 
 <tiles:insertAttribute name="footer"/>
-
 
 </body>
 </html>
