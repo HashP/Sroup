@@ -14,7 +14,7 @@
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
 
-	<definition name="default" template="/WEB-INF/views/mypage/mypage_template.jsp">
+	<definition name="mypagedefault" template="/WEB-INF/views/mypage/mypage_template.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
 		<put-attribute name="header" value=""></put-attribute>
 		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/sidebar.jsp"></put-attribute>
@@ -30,7 +30,7 @@
 		<put-attribute name="content" value="/WEB-INF/views/login/{1}.jsp"></put-attribute>
 	</definition>
 
-	<definition name="mypage/*" extends="default">
+	<definition name="mypage/*" extends="mypagedefault">
 		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

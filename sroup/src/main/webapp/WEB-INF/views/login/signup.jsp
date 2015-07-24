@@ -22,7 +22,7 @@ hr {
 	width: 60%;
 	padding: 50px;
 	padding-bottom: 25px;
-	margin: auto;
+	margin: 50px auto 50px auto;
 	background-color: white;	
 }
 
@@ -31,7 +31,7 @@ hr {
 	width: 600px;
 /* 	height: 300px; */
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 </style>

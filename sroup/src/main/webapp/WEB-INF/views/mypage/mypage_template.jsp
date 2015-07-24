@@ -13,8 +13,28 @@
 	.wrapper {
 		width: 1140px;
 		margin: 0 auto 0 auto;
+		
+		margin-top: 20px;
 	}
 	
+	#sidebar {
+		float: left;		
+		width:	200px;
+	}
+	#content {
+		float: left;
+		margin-left: 20px;		
+		width:	900px;
+		height: 600px;
+		
+		/* border: 1px dotted red; */
+	}
+
+	.mypagetitle {
+		margin: 50px 0px 20px 0px;
+		font-family: '나눔고딕코딩';
+	}
+		
 	
 </style>
 <script type="text/javascript" src="/sroup/resources/jqeuery/jquery-1.11.3.js"></script>
@@ -25,9 +45,18 @@
 <tiles:insertAttribute name="nav"/>
 <tiles:insertAttribute name="header"/>
 
+
 <div class="wrapper">
-	<tiles:insertAttribute name="sidebar"/>
-	<tiles:insertAttribute name="content"/>
+
+	<div id="sidebar">
+		<h1 class="mypagetitle">
+			마이페이지
+		</h1>
+		<tiles:insertAttribute name="sidebar"/>
+	</div>
+	<div id="content">
+		<tiles:insertAttribute name="content"/>
+	</div>
 </div>
 
 <tiles:insertAttribute name="footer"/>

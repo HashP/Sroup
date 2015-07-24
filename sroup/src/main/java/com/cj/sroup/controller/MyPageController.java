@@ -13,5 +13,10 @@ public class MyPageController {
 		
 		return "mypage/profileupdate";
 	}
+	
+	@RequestMapping("/pwdupdate.do")
+	public String pwdupdate() {
+		return "mypage/pwdupdate";
+	}
 
 }
