@@ -38,7 +38,7 @@
 	</bean>
 	
 	<!-- 첨부파일 다운로드 지원하는 view 등록 -->
-	<bean id="filedownloadView"
+ 	<bean id="filedownloadView"
 	class="com.cj.sroup.view.FileDownloadView">
 	</bean>
 	
