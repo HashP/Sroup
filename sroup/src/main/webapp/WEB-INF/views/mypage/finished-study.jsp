@@ -4,15 +4,11 @@
 <link rel="stylesheet" href="../resources/css/panel-tab.css">
 <style type="text/css">
 
-
 #mystudytitle {
 	padding-left: 10px;
 	font-family: '나눔고딕';
-	display: inline-block;
-	margin: 0px;
+	margin-top: 0px;
 }
-
-
 
 #mystudy {
 	width: 600px;
@@ -21,13 +17,12 @@
 
 .study-list {
 	/* border: 1px dotted #DDD; */
-	overflow: auto;
+	overflow: hidden;
 	margin-top: 20px;
 	display: none;
 }
 
 </style>
-
 
 	<h1 class="text-left" id="mystudytitle">나의 스터디</h1>
 	<div  id="mystudy" class="panel panel-primary with-nav-tabs">
@@ -42,32 +37,31 @@
 				<table class="table table-hover">
 					<tbody>
 						<tr>
-							<td>영어회화 스터디</td>
+							<td>[종료]영어회화 스터디</td>
 						</tr>			
 						<tr>
-							<td>OPIC IL 공략 스터디</td>
+							<td>[종료]OPIC IL 공략 스터디</td>
 						</tr>			
 						<tr>
-							<td>취업스터디</td>
+							<td>[종료]취업스터디</td>
 						</tr>			
 				
 					</tbody>
 				</table>
 			</div>	
 			<div class="study-list" id="attend" >
-			<table class="table table-hover">
+				<table class="table table-hover">
 					<tbody>
 						<tr>
-							<td>토익 스터디</td>
+							<td>[종료]토익 스터디</td>
 						</tr>			
 						<tr>
-							<td>JAVA스터디</td>
+							<td>[종료]JAVA스터디</td>
 						</tr>			
 				
 					</tbody>
 				</table>
 			</div>	
-	
 		</div>
 	</div>
 
@@ -90,7 +84,7 @@ $(function() {
 		
 
 	});
-
-	$(".nav-tabs li a").filter("[href=#${cate}]").click();
+	
+	$(".nav-tabs li a").filter("[href=#create]").click();
 });
 </script>

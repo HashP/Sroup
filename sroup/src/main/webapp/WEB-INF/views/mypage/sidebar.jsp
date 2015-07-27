@@ -35,16 +35,16 @@
             <a href="mystudy.do">나의 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
         <li class="list-group-item link-item">
-            <a href="#">내가 참여한 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
+            <a href="mystudy.do?cate=attend">내가 참여한 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
         <li class="list-group-item link-item">
-            <a href="#">내가 개설한 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
+            <a href="mystudy.do?cate=create">내가 개설한 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
         <li class="list-group-item link-item">
             <a href="#">스터디 캘린더 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
         <li class="list-group-item link-item">
-            <a href="#">종료된 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
+            <a href="finished-study.do">종료된 스터디 <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span></a>
         </li>
      </ul>
  </div>

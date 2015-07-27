@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
  <style type="text/css">
+	body {
+		background-color: #EBF5FF;
+	}
+	
 	.wrapper {
 		width: 1140px;
 		margin: 0 auto 0 auto;
@@ -23,10 +27,7 @@
 	}
 	#content {
 		float: left;
-		margin-left: 20px;		
-		width:	900px;
-		height: 600px;
-		
+		margin: 50px 0px 100px 150px;
 		/* border: 1px dotted red; */
 	}
 
@@ -34,7 +35,7 @@
 		margin: 50px 0px 20px 0px;
 		font-family: '나눔고딕코딩';
 	}
-		
+	
 	
 </style>
 <script type="text/javascript" src="/sroup/resources/jqeuery/jquery-1.11.3.js"></script>
