@@ -39,8 +39,13 @@
 	</bean>
 	
 	<!-- 첨부파일 다운로드 지원하는 view 등록 -->
+<<<<<<< Upstream, based on origin/master
  	<bean id="filedownloadView"
 	class="com.cj.sroup.view.FileDownloadView">
+=======
+	<bean id="filedownloadView" 
+		class="com.cj.sroup.view.FileDownloadView">
+>>>>>>> 4b7ba35 헤더
 	</bean>
 	
 	<!-- EmailSender 객체 등록하기 -->

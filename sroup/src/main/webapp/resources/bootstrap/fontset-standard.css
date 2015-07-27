@@ -1,0 +1,35 @@
+body {
+	font-family: Dotum, 돋움, sans, sans-serif, apple-gothic;
+}
+
+input, textarea {
+	font-family: Dotum, 돋움, sans, sans-serif, apple-gothic;
+}
+
+input.text, textarea.text {
+	font-family: Dotum, 돋움, sans, sans-serif, apple-gothic;
+}
+
+.normalFont {
+	font-family: Dotum, "돋움", sans, sans-serif, apple-gothic;
+}
+
+.graphicFont {
+	font-family: "나눔 고딕", "나눔고딕", NanumGothic, 'NanumGothic', Dotum, 돋움, sans, sans-serif, apple-gothic;
+}
+
+.confirm .ui-dialog-buttonpane button .ui-button-text {
+	font-family: Dotum, 돋움, sans, sans-serif, apple-gothic;
+}
+
+.ui-datepicker .ui-datepicker-title {
+	font-family: Myriad Pro;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+	font-family: Verdana;
+}
+
+.ui-multiselect {
+	font-family: Dotum, 돋움, sans, sans-serif, apple-gothic;
+}

@@ -1,0 +1,82 @@
+.searchBtn {
+  font-family: '나눔고딕OTF';
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #333;
+  text-decoration: none;
+}
+.searchBtn {
+  color: #fff;
+  background-color: #4195f5;
+  border-color: #4195f5;
+}
+.searchBtn:hover,
+.searchBtn:focus,
+.searchBtn.focus,
+.searchBtn:active,
+.searchBtn.active,
+.open > .dropdown-toggle.searchBtn {
+  color: #fff;
+  background-color: #54a4ff;
+  border-color: #54a4ff;
+}
+.searchBtn:active,
+.searchBtn.active,
+.open > .dropdown-toggle.searchBtn {
+  background-image: none;
+}
+.searchBtn.disabled,
+.searchBtn[disabled],
+fieldset[disabled] .searchBtn,
+.searchBtn.disabled:hover,
+.searchBtn[disabled]:hover,
+fieldset[disabled] .searchBtn:hover,
+.searchBtn.disabled:focus,
+.searchBtn[disabled]:focus,
+fieldset[disabled] .searchBtn:focus,
+.searchBtn.disabled.focus,
+.searchBtn[disabled].focus,
+fieldset[disabled] .searchBtn.focus,
+.searchBtn.disabled:active,
+.searchBtn[disabled]:active,
+fieldset[disabled] .searchBtn:active,
+.searchBtn.disabled.active,
+.searchBtn[disabled].active,
+fieldset[disabled] .searchBtn.active {
+  background-color: #4195f5;
+  border-color: #4195f5;
+}
+.searchBtn .badge {
+  color: #4195f5;
+  background-color: #fff;
+}

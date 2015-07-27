@@ -1,0 +1,44 @@
+.searchBtn {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.searchBtn:active {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.searchBtn .badge {
+  text-shadow: none;
+}
+.searchBtn:active,
+.searchBtn.active {
+  background-image: none;
+}
+/* .searchBtn {
+  background-image: -webkit-linear-gradient(top, #54a4ff 0%, #54a4ff 100%);
+  background-image:      -o-linear-gradient(top, #54a4ff 0%, #54a4ff 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#54a4ff), to(#54a4ff));
+  background-image:         linear-gradient(to bottom, #4195f5 0%, #4195f5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff54a4ff', endColorstr='#ff54a4ff', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-color: #54a4ff;
+} */
+.searchBtn:hover,
+.searchBtn:focus {
+  background-color: #54a4ff;
+  background-position: 0 -15px;
+}
+.searchBtn:active,
+.searchBtn.active {
+  background-color: #54a4ff;
+  border-color: #54a4ff;
+}
+.searchBtn.disabled,
+.searchBtn:disabled,
+.searchBtn[disabled] {
+  background-color: #54a4ff;
+  background-image: none;
+}
