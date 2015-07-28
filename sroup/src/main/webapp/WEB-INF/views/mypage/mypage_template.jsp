@@ -23,11 +23,12 @@
 	
 	#sidebar {
 		float: left;		
-		width:	200px;
+		width:	300px;
+		margin-top: 50px;
 	}
 	#content {
 		float: left;
-		margin: 50px 0px 100px 150px;
+		margin: 50px 0px 100px 30px;
 		/* border: 1px dotted red; */
 	}
 
@@ -50,9 +51,11 @@
 <div class="wrapper">
 
 	<div id="sidebar">
+<!-- 		
 		<h1 class="mypagetitle">
 			마이페이지
-		</h1>
+		</h1> 
+-->
 		<tiles:insertAttribute name="sidebar"/>
 	</div>
 	<div id="content">

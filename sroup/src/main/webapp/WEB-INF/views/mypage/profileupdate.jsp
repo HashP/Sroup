@@ -19,41 +19,44 @@
 </style>
 
 
-<div  id="updateform">
-	<form class="form">
-		<h1 class="text-left" id="updatetitle">회원정보 수정</h1>
-		<br>
-		<div class="form-group">
-			<label for="id">아이디</label>
-			<input type="text" class="form-control input-lg" placeholder="아이디" name="id" id="id">
-		</div>
-		<div class="form-group">
-			<label for="name">이름</label>
-			<input type="text" class="form-control input-lg" placeholder="이름" name="name" id="name">
-		</div>
-		<div class="form-group">
-			<label for="nickname">별명</label>
-			<input type="text" class="form-control input-lg" placeholder="별명" name="nickname" id="nickname">
-		</div>
-		<div class="form-group">
-			<label for="phone">휴대폰</label>
-			<input type="text" class="form-control input-lg" placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone">
-		</div>
-		<div class="form-group">
-			<label for="email">이메일 주소</label>
-			<input type="text" class="form-control input-lg" placeholder="이메일 주소" name="email" id="email">
-		</div>
-		<div class="form-group">
-			<label for="profilephoto">프로필 사진</label>
-			<input type="file" class="form-control input-lg" placeholder="프로필 사진" name="profilephoto" id="profilephoto">
-			<br>
-			<div id="img-thumbnail">
+<div  id="updateform" class="panel panel-default">
+	<div class="panel-body">
+
+		<h1 class="panel-title" id="updatetitle">회원정보 수정</h1>
+		<hr>
+		<form class="form">
+			<div class="form-group">
+				<label for="id">아이디</label>
+				<input type="text" class="form-control" placeholder="아이디" name="id" id="id">
 			</div>
-		</div>
-		<div class="form-group">
-			<button class="btn btn-primary btn-lg ">수정하기</button>
-		</div>
-	</form>
+			<div class="form-group">
+				<label for="name">이름</label>
+				<input type="text" class="form-control" placeholder="이름" name="name" id="name">
+			</div>
+			<div class="form-group">
+				<label for="nickname">별명</label>
+				<input type="text" class="form-control" placeholder="별명" name="nickname" id="nickname">
+			</div>
+			<div class="form-group">
+				<label for="phone">휴대폰</label>
+				<input type="text" class="form-control" placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone">
+			</div>
+			<div class="form-group">
+				<label for="email">이메일 주소</label>
+				<input type="text" class="form-control" placeholder="이메일 주소" name="email" id="email">
+			</div>
+			<div class="form-group">
+				<label for="profilephoto">프로필 사진</label>
+				<input type="file" class="form-control" placeholder="프로필 사진" name="profilephoto" id="profilephoto">
+				<br>
+				<div id="img-thumbnail">
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary">수정하기</button>
+			</div>
+		</form>
+	</div>
 </div>
 
 <script type="text/javascript">
