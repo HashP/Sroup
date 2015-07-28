@@ -69,6 +69,10 @@ html, body {
 #page-wrapper {
 	height: 80%;
 }
+
+#notice_content{
+	padding-left: 
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -115,7 +119,7 @@ html, body {
 		</div>
 	</div>
 	</nav>
-	<div class="col-md-6 col-md-offset-2 main"
+	<div id="notice_content" class="col-md-6 col-md-offset-4 main"
 		style="padding-bottom: 100px;">
 		<h1 class="page-header">공지사항 제목</h1>
 		<img data-src="holder.js/200x200/auto/sky" class="img-responsive"
