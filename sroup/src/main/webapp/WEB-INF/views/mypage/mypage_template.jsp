@@ -24,11 +24,11 @@
 	#sidebar {
 		float: left;		
 		width:	300px;
-		margin-top: 50px;
+		margin-top: 30px;
 	}
 	#content {
 		float: left;
-		margin: 50px 0px 100px 30px;
+		margin: 30px 0px 100px 30px;
 		/* border: 1px dotted red; */
 	}
 

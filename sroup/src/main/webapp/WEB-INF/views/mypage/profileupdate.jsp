@@ -18,7 +18,6 @@
 
 </style>
 
-
 <div  id="updateform" class="panel panel-default">
 	<div class="panel-body">
 

@@ -61,18 +61,22 @@
 						<colgroup>
 							<col width="*">
 							<col width="50px">
+							<col width="50px">
 						</colgroup>
 						<tbody>
 							<tr>
 								<td>영어회화 스터디 <span class="label label-warning">모집중</span></td>
+								<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
 								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
 							</tr>			
 							<tr>
 								<td>OPIC IL 공략 스터디 <span class="label label-warning">모집중</span></td>
+								<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
 								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
 							</tr>			
 							<tr>
 								<td>취업스터디 <span class="label label-success">진행중</span></td>
+								<td></td>
 								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
 							</tr>			
 					
@@ -84,14 +88,17 @@
 						<colgroup>
 							<col width="*">
 							<col width="50px">
+							<col width="50px">
 						</colgroup>
 						<tbody>
 							<tr>
 								<td>토익 스터디 <span class="label label-success">진행중</span></td>
+								<td></td>
 								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
 							</tr>			
 							<tr>
 								<td>JAVA스터디 <span class="label label-warning">모집중</span></td>
+								<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
 								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
 							</tr>			
 					
