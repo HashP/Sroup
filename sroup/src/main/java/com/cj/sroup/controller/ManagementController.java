@@ -10,4 +10,12 @@ public class ManagementController {
 	public String main(){
 		return "m_main.jsp";
 	}
+	@RequestMapping("/m_border.do")
+	public String border(){
+		return "m_border.jsp";
+	}
+	@RequestMapping("/m_memberspeak.do")
+	public String memberspeak(){
+		return "m_memberspeak.jsp";
+	}
 }
