@@ -31,9 +31,11 @@ public class MyPageController {
 	}
 	
 	
-	
-	
-	
+	@RequestMapping("/calendar.do")
+	public String calendar(Model model) {
+		model.addAttribute("current_page", "studycalendar");
+		return "mypage/calendar";
+	}
 	
 	
 	
