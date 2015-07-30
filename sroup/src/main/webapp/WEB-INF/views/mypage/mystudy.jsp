@@ -50,61 +50,64 @@
 		<div class="panel-body">
 
 			<h1 class="panel-title" id="mystudytitle">나의 스터디</h1>
-			<br />
+			<hr/>
 			<div id="mystudy">
 				<ul class="nav nav-tabs">
 				  <li role="presentation"><a href="#create">내가 개설한</a></li>
 				  <li role="presentation"><a href="#attend">내가 참여한</a></li>
 				</ul>
-				<div class="study-list " id="create">
+				
+				<div class="tab-content">
+					<div class="study-list tab-pane fade" id="create">
+						<table class="table table-hover">
+							<colgroup>
+								<col width="*">
+								<col width="50px">
+								<col width="50px">
+							</colgroup>
+							<tbody>
+								<tr>
+									<td>영어회화 스터디 <span class="label label-warning">모집중</span></td>
+									<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+								</tr>			
+								<tr>
+									<td>OPIC IL 공략 스터디 <span class="label label-warning">모집중</span></td>
+									<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+								</tr>			
+								<tr>
+									<td>취업스터디 <span class="label label-success">진행중</span></td>
+									<td></td>
+									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+								</tr>			
+						
+							</tbody>
+						</table>
+					</div>	
+					<div class="study-list tab-pane fade" id="attend" >
 					<table class="table table-hover">
-						<colgroup>
-							<col width="*">
-							<col width="50px">
-							<col width="50px">
-						</colgroup>
-						<tbody>
-							<tr>
-								<td>영어회화 스터디 <span class="label label-warning">모집중</span></td>
-								<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
-								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-							</tr>			
-							<tr>
-								<td>OPIC IL 공략 스터디 <span class="label label-warning">모집중</span></td>
-								<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
-								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-							</tr>			
-							<tr>
-								<td>취업스터디 <span class="label label-success">진행중</span></td>
-								<td></td>
-								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-							</tr>			
-					
-						</tbody>
-					</table>
-				</div>	
-				<div class="study-list" id="attend" >
-				<table class="table table-hover">
-						<colgroup>
-							<col width="*">
-							<col width="50px">
-							<col width="50px">
-						</colgroup>
-						<tbody>
-							<tr>
-								<td>토익 스터디 <span class="label label-success">진행중</span></td>
-								<td></td>
-								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-							</tr>			
-							<tr>
-								<td>JAVA스터디 <span class="label label-warning">모집중</span></td>
-								<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
-								<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-							</tr>			
-					
-						</tbody>
-					</table>
-				</div>	
+							<colgroup>
+								<col width="*">
+								<col width="50px">
+								<col width="50px">
+							</colgroup>
+							<tbody>
+								<tr>
+									<td>토익 스터디 <span class="label label-success">진행중</span></td>
+									<td></td>
+									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+								</tr>			
+								<tr>
+									<td>JAVA스터디 <span class="label label-warning">모집중</span></td>
+									<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+								</tr>			
+						
+							</tbody>
+						</table>
+					</div>	
+				</div>
 			</div>
 	
 		</div>
@@ -116,16 +119,16 @@ $(function() {
 	$(".nav-tabs li a").on("click", function(event) {
 		event.preventDefault();
 		
-		$(".nav-tabs li").removeClass("active");
-		$(this).parent().addClass("active");
-		
-		
+		//$(".nav-tabs li").removeClass("active");
+		//$(this).parent().addClass("active");
 		//스터디 목록 숨기고 클릭된 것 보여주기
-		$(".study-list").hide();
-				
+		//$(".study-list").hide();
 		//클릭된 것 href
-		$clicked = $(this).attr("href");
-		$($clicked).show();
+		//$clicked = $(this).attr("href");
+		//$($clicked).show();
+		
+		// 사실 저위에꺼 이 한줄로 정리됨; ㅡㅡ
+		$(this).tab("show");
 		
 
 	});

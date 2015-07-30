@@ -16,6 +16,9 @@
 	width: 600px;
 }
 
+/* .fc-sat {color:blue;}
+.fc-sun {color:red;} */
+
 </style>
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script src="../resources/fullcalendar/lib/moment.min.js"></script>
@@ -43,9 +46,9 @@ $(function(){
     var m = date.getMonth(); 
     var y = date.getFullYear(); 
 
-    $('#calendar').fullCalendar({ 
+    var calendar = $('#calendar').fullCalendar({ 
         header: { 
-            left: 'prev,next prevYear,nextYear today', 
+            left: 'prev,next,today', 
             center: 'title', 
             right: 'month,agendaWeek,agendaDay' 
         }, 
@@ -59,6 +62,10 @@ $(function(){
                     + "\n view: " + view 
             );  */
         }, 
+        eventAfterAllRender: function(view) { 
+        	coloring(); 
+			$(".fc-toolbar h2").css("font-size", "20px");
+        },
         events: [ 
              
             { 
@@ -114,15 +121,18 @@ $(function(){
                 
             } 
         ] 
-    }); 
+    })
 	    
-	    
-    //for문으로 처리 , 색깔은 색깔코드 미리 저장해서 몇개 배열로 넣어놓자
-   	$(".study999").css({"border":"1px solid #f0ad4e","background-color":"#f0ad4e"});
-   	$(".study133").css({"border":"1px solid #3a87ad","background-color":"#3a87ad"});
-   	$(".study450").css({"border":"1px solid #ed4e7d","background-color":"#ed4e7d"});
-	   
-	    
+    
+    
+    
+    
+	function coloring() {
+	    //for문으로 처리 , 색깔은 색깔코드 미리 저장해서 몇개 배열로 넣어놓자
+	   	$(".study999").css({"border":"1px solid #f0ad4e","background-color":"#f0ad4e"});
+	   	$(".study133").css({"border":"1px solid #3a87ad","background-color":"#3a87ad"});
+	   	$(".study450").css({"border":"1px solid #ed4e7d","background-color":"#ed4e7d"});
+	}
 
 });
 </script> 
