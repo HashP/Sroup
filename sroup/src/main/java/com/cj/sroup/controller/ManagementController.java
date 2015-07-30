@@ -30,4 +30,8 @@ public class ManagementController {
 	public String calenda(){
 		return "management/m_calendar";
 	}
+	@RequestMapping("/board_write.do")
+	public String board_write(){
+		return "management/board_write";
+	}
 }

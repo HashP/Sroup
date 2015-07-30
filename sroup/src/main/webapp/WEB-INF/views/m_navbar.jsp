@@ -27,15 +27,15 @@
 </style> 
 <div id="side_nav">
 	<nav id="left_nav" class="col-md-2 sidebar, nav nav-pills nav-stacked">
-	<div style="width: 136px; height: 135px;">
+	<div style="width: 130px; height: 130px;">
 		<img alt="프로필" src="resources/images/woo.jpg"
 			style="width: 130px; height: 130px; margin-bottom: 5px; margin-top: 5px;">
 	</div>
-	<ul class="nav">
+	<ul class="nav nav-sidebar">
 		<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
 		<li><a href="/sroup/m_main.do">공지사항</a></li>
 		<li><a href="#">출석부</a></li>
-		<li><a href="#">캘린더</a></li>
+		<li><a href="/sroup/m_calendar.do">캘린더</a></li>
 		<li><a href="/sroup/m_album.do">갤러리</a></li>
 		<li><a href="/sroup/m_memberspeak.do">회원한마디</a></li>
 		<li><a href="/sroup/m_border.do">게시판</a></li>
