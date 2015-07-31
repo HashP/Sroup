@@ -17,15 +17,22 @@
 .control-label {
 	width: 100px;
 }
-.form-control, input[type=file]  {
-	width: 400px;
-	display: inline-block;
+
+.form-inline .form-group {
+	margin-bottom: 15px;
 }
+.form-control, input[type=file]  {
+/* 	width: 400px; */
+} 
 
 .error-message {
 	display: none;
 	color: #a94442;
 	margin-left:100px;
+	margin-bottom: 0px;
+}
+.form-control-feedback {
+	/* display: none; */
 }
 
 .btn-area {
@@ -41,7 +48,7 @@
 
 		<h1 class="panel-title" id="updatetitle">회원정보 수정</h1>
 		<hr>
-		<form class="form">
+		<form class="form-inline">
 			<div class="form-group">
 				<label for="id" class="control-label">아이디</label>
 				<input type="text" class="form-control not-null" placeholder="아이디" name="id" id="id">
@@ -53,8 +60,8 @@
 				<p class="error-message">이름은 필수입니다.</p>
 			</div>
 			<div class="form-group">
-				<label for="nickname" class="control-label not-null">별명</label>
-				<input type="text" class="form-control" placeholder="별명" name="nickname" id="nickname">
+				<label for="nickname" class="control-label">별명</label>
+				<input type="text" class="form-control not-null" placeholder="별명" name="nickname" id="nickname">
 				<p class="error-message">별명은 필수입니다.</p>
 			</div>
 			<div class="form-group">
@@ -73,46 +80,56 @@
 				<div id="img-thumbnail">
 				</div>
 			</div>
-			<div class="form-group pull-right btn-area">
+			<br>
+			<div class="form-group">
 				<button class="btn btn-primary">수정하기</button>
 			</div>
 		</form>
 	</div>
 </div>
-
+<script type="text/javascript" src="../resources/js/form-validation.js"></script>
 <script type="text/javascript">
 $(function(){
-
-	$(".form").on("submit", function(event) {
-		console.log('submit');
-		$(".error-message").hide();
-		$(".not-null").parent().removeClass("has-error")
+	$("form").on("submit", function(event) {
+		//console.log('submit');
+		form.clear($(".not-null"));
 		
 		var check_null = $(".not-null").filter(function(index, el){  
-
-			if($(el).val()===''){
-				$(el).siblings(".error-message").show();	
+			
+			console.log("[" + $(el).val() + "]");
+			if($(el).val()==''){
+				form.error($(el));	
 				return true;
 			}
-		}).parent().addClass("has-error");
+		});
 			
 		if(check_null.length) {
 			event.preventDefault();
 			return false;
 		}
-			
+		
+		console.log("submit");
 		return true;
-	
 	});
 	
+
 	
+	
+	
+	
+//**	
 	var upload = $("input[name='profilephoto']")[0];
 	var holder = document.getElementById('img-thumbnail');
 
-	upload.onchange = function(e) {
+	var uploadchange = function(e) {
 		e.preventDefault();
 
 		var file = upload.files[0], reader = new FileReader();
+		
+		if(!checkvalue()) {
+			return false;
+		}
+		
 		reader.onload = function(event) {
 			var img = new Image();
 			img.src = event.target.result;
@@ -127,18 +144,20 @@ $(function(){
 
 		return false;
 	}
-		
+	
+	$("input[name='profilephoto']").on("change", uploadchange);
+	
 	function checkvalue() {
-		var upload = $("input[name='profilephoto']")[0];
+		var upload = $("input[name='profilephoto']");
 		var imgex = ['bmp', 'jpg', 'gif', 'png', 'jpeg', 'BMP', 'JPG', 'GIF', 'PNG', 'JPEG'];
 
-		if(!upload.value) {
+		/* if(!upload.val()) {
 			alert("이미지 파일을 업로드 해야합니다.")
 			return false;
-		}
+		} */
 		
 		
-		var v = upload.value.split('\\');
+		var v = upload.val().split('\\');
 		var filename = v[v.length-1];
 		
 		v = filename.split('.');
@@ -147,6 +166,7 @@ $(function(){
 		var isImg = imgex.indexOf(extension);
 		if(isImg === -1) {
 			alert("이미지 파일만 업로드할 수 있습니다. ");
+			upload.replaceWith( upload = upload.clone( true ) );
 			return false;
 		}
 		
