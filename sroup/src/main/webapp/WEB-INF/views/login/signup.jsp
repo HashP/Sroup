@@ -34,6 +34,11 @@ hr {
 	margin-top: 25px;
 }
 
+.error-message {
+	display: none;
+	color: #a94442;
+}
+
 </style>
  
 <div id="page-wrapper">
@@ -42,53 +47,86 @@ hr {
 			<h1 class="text-left" id="signuptitle">회원가입</h1>
 			<hr>
 			<div class="form-group">
-				<label for="id">아이디</label>
-				<input type="text" class="form-control input-lg" placeholder="아이디" name="id" id="id">
+				<label for="id" class="control-label">아이디</label>
+				<input type="text" class="form-control " placeholder="아이디" name="id" id="id">
+				<p class="error-message">아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.</p>
 			</div>
 			<div class="form-group">
-				<label for="pwd">비밀번호</label>
-				<input type="password" class="form-control input-lg" placeholder="비밀번호" name="pwd" id="pwd">
+				<label for="pwd" class="control-label">비밀번호</label>
+				<input type="password" class="form-control " placeholder="비밀번호" name="pwd" id="pwd">
 			</div>
 			<div class="form-group">
-				<label for="pwdcheck">비밀번호확인</label>
-				<input type="password" class="form-control input-lg" placeholder="비밀번호 재확인" name="pwdcheck" id="pwdcheck">
+				<label for="pwdcheck" class="control-label">비밀번호확인</label>
+				<input type="password" class="form-control " placeholder="비밀번호 재확인" name="pwdcheck" id="pwdcheck">
 			</div>
 			<div class="form-group">
-				<label for="name">이름</label>
-				<input type="text" class="form-control input-lg" placeholder="이름" name="name" id="name">
+				<label for="name" class="control-label">이름</label>
+				<input type="text" class="form-control " placeholder="이름" name="name" id="name">
 			</div>
 			<div class="form-group">
-				<label for="nickname">별명</label>
-				<input type="text" class="form-control input-lg" placeholder="별명" name="nickname" id="nickname">
+				<label for="nickname" class="control-label">별명</label>
+				<input type="text" class="form-control " placeholder="별명" name="nickname" id="nickname">
 			</div>
 			<div class="form-group">
-				<label for="phone">휴대폰</label>
-				<input type="text" class="form-control input-lg" placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone">
+				<label for="phone" class="control-label">휴대폰</label>
+				<input type="text" class="form-control " placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone">
 			</div>
 			<div class="form-group">
-				<label for="email">이메일 주소</label>
-				<input type="text" class="form-control input-lg" placeholder="이메일 주소" name="email" id="email">
+				<label for="email" class="control-label">이메일 주소</label>
+				<input type="text" class="form-control " placeholder="이메일 주소" name="email" id="email">
 			</div>
 			<div class="form-group">
-				<label for="profilephoto">프로필 사진</label>
-				<input type="file" class="form-control input-lg" placeholder="프로필 사진" name="profilephoto" id="profilephoto">
+				<label for="profilephoto" class="control-label">프로필 사진</label>
+				<input type="file" class="form-control " placeholder="프로필 사진" name="profilephoto" id="profilephoto">
 				<br>
 				<div id="img-thumbnail">
 				</div>
 			</div>
 			<hr>
 			<div class="form-group">
-				<button class="btn btn-primary btn-lg ">가입하기</button>
-				<a class="btn btn-default btn-lg " href="login.do" >이전으로</a>
+				<button class="btn btn-default  ">가입하기</button>
+				<a class="btn btn-default " href="login.do" >이전으로</a>
 			</div>
 		</form>
 	</div>
 
 </div>    
-
+<script type="text/javascript" src="../resources/js/form-validation.js"></script>
 <script type="text/javascript">
 $(function(){
 
+	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+	var passwordReg = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+	var usernameRegExp = /^[가-힝]{2,}$/;
+	var emailReg = /^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/;
+	
+	
+	
+	$("#id").on("blur", function() {
+		
+		var id = $("#id").val();
+		
+		if(!idReg.test(id)) {
+			form.error($(this));	
+			return false;
+		}
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	var upload = $("input[name='profilephoto']")[0];
 	var holder = document.getElementById('img-thumbnail');
 
