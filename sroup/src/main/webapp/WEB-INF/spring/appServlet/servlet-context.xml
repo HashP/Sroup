@@ -61,4 +61,8 @@
 	<bean id="jsonView"
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">		
 	</bean>
+	
+	<!-- 네이버 에디터 -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
 </beans>
