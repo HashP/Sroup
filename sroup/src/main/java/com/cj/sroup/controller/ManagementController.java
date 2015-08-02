@@ -9,7 +9,7 @@ public class ManagementController {
 	@RequestMapping("/m_main.do")
 	public String main(){
 		return "management/m_main";
-	}
+	} 
 	@RequestMapping("/m_border.do")
 	public String border(){
 		return "management/m_border";

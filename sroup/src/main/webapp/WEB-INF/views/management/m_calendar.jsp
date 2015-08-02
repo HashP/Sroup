@@ -48,6 +48,17 @@ margin : auto;
 
 $(document).ready(function()
 {
+	
+	   
+	    $('#chkRec').click(function () {
+	        if ($(this).is(':checked')) {
+	            $('#RecEvent').show();
+	        }
+	        else {
+	            $('#RecEvent').hide();
+	        }
+	   
+	});
    /*
       date store today date.
       d store today date.
@@ -84,7 +95,7 @@ $(document).ready(function()
          defaultView option used to define which view to show by default,
          for example we have used agendaWeek.
       */
-      defaultView: 'agendaWeek',
+      defaultView: 'month',
       /*
          selectable:true will enable user to select datetime slot
          selectHelper will add helpers for selectable.
@@ -100,33 +111,77 @@ $(document).ready(function()
       */
       select: function(start, end, allDay)
       {
-         /*
-            after selection user will be promted for enter title for event.
-         */
-         var title = prompt('Event Title:');
-         /*
-            if title is enterd calendar will add title and event into fullCalendar.
-         */
-         if (title)
-         {
-            calendar.fullCalendar('renderEvent',
-               {
-                  title: title,
-                  start: start,
-                  end: end,
-                  allDay: allDay
-               },
-               true // make the event "stick"
-            );
-         }
-         calendar.fullCalendar('unselect');
+    	  $("#StartDt").val("" + start.toLocaleString());
+          $("#EvtStartDt").val("" + start.toLocaleString());
+
+          $("#EndDt").val("" + end.toLocaleString());
+          $("#EvtEndDt").val("" + end.toLocaleString());
+
+          $("#ModalAdd").dialog(
+          {
+              title: "Add event",
+              width: 500,
+              modal: true,
+              buttons: {
+                  "Add": function () {
+                      var event = new Object(), eventToSave = new Object(); ;
+                      eventToSave.EventID = event.id = Math.floor(200 * Math.random());
+                      event.start = new Date($("#StartDt").val());
+                      eventToSave.StartDate = $("#StartDt").val();
+                      eventToSave.EndDate = $("#EndDt").val();
+                      eventToSave.EventName = event.title = eventToSave.title = $("#Name").val();
+                      if ($('#chkRec').is(':checked')) {
+                          eventToSave.title += " (Recurring)";
+                          eventToSave.IsRecurring = true;
+                          eventToSave.Freq = "Daily";
+                          eventToSave.Count = $("#txtCount").val();
+                          eventToSave.Interval = $("#txtInterval").val();
+                      }
+                      $.ajax({
+                          type: "POST",
+                          contentType: "application/json",
+                          data: "{eventdata:" + JSON.stringify(eventToSave) + "}",
+                          url: "Test2.aspx/AddEvents",
+                          dataType: "json",
+                          success: function (data) {
+                              var events = new Array();
+                              $.map(data.d, function (item, i) {
+                                  var event = new Object();
+                                  event.id = item.EventID;
+                                  event.start = new Date(item.StartDate);
+                                  event.end = new Date(item.EndDate);
+                                  event.title = item.EventName;
+                                  event.allDay = false;
+                                  events.push(event);
+                              })
+                              $('div[id*=calendar]').fullCalendar('addEventSource', events);
+                              $("#ModalAdd").dialog("close");
+                          },
+                          error: function (XMLHttpRequest, textStatus, errorThrown) {
+                              debugger;
+                          }
+                      });
+                  }
+              }
+          });
+          calendar.fullCalendar('unselect');
       },
+      eventRender: function (event, element) {
+          element.attr('href', 'javascript:void(0);');
+          element.click(function() {
+              $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+              $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+              $("#eventInfo").html(event.description);
+              //$("#eventLink").attr('href', event.url);
+              $("#eventContent").dialog({ modal: true, title: event.title, width:350});
+          });
+      },
+      
       /*
          editable: true allow user to edit events.
       */
       editable: true,
       /*
-         events is the main option for calendar.
          for demo we have added predefined events in json object.
       */
       events: [
@@ -179,3 +234,32 @@ $(document).ready(function()
    
 });
 </script> 
+<div id="eventContent" title="Event Details" style="display:none;">
+    Start: <span id="startTime"></span><br>
+    End: <span id="endTime"></span><br><br>
+    <p id="eventInfo"></p>
+    
+    <!-- 이 부분을 이용해 원하는 곳으 링크 가능 -->
+    <!--<p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>-->
+</div>
+
+<div id="ModalAdd" style="display:none;width:400px;">
+<div id="AddEvent" style="width:400px;" >
+    Event Name:&nbsp;
+    <input id="Name" type="text" style="width:200px;" /><br /><br />
+    Start date:&nbsp;&nbsp;
+    <input id="StartDt" type="text" style="width:360px;" /><br /><br />
+    End date:&nbsp;&nbsp;
+    <input id="EndDt" type="text" style="width:360px;" /><br /><br />
+    Recurrence: <input type="checkbox" id="chkRec" />
+    <br />
+</div>
+
+<div id="RecEvent" style="display: none; width:400px;">
+    <hr />
+    <b>Repeat:</b><br />
+    Daily:   | &nbsp;&nbsp;&nbsp; Every <input id="txtInterval" type="text" style="width:30px;" /> day(s).
+    <br /><br />
+    End after <input id="txtCount" type="text" style="width:30px;" /> occurences.<br />
+</div>        
+</div>

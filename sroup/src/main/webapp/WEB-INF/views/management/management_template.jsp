@@ -37,7 +37,7 @@
 	height: 80%;
 }
 #content{
-	padding-left: 250px;
+	margin-left: 260px;
 }
 
 	
