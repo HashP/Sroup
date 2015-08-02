@@ -15,6 +15,19 @@ function resetURL(input){
 	
 	$('#blah').attr('src','http://placehold.it/750x500');
 }
+
+function imageClick(){
+	alert($("img",this));
+	$('#img-detail').attr('src',$(this).find("img").attr('src'));
+}
+$(document).ready(function(){ 
+	
+// 사진 상세 보기시 현제 저장된 이미지 보여주는 기능
+$(".photo_a").click(function() {
+	  var a = $( "img",this ).attr('src');
+	  $("#img-detail").attr('src',a);
+	});
+});
 </script>
 
 
@@ -37,7 +50,7 @@ function resetURL(input){
 	<!-- Projects Row -->
 	<div class="row">
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -47,7 +60,7 @@ function resetURL(input){
 				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
 		</div>
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -57,7 +70,7 @@ function resetURL(input){
 				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
 		</div>
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -72,7 +85,7 @@ function resetURL(input){
 	<!-- Projects Row -->
 	<div class="row">
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -82,7 +95,7 @@ function resetURL(input){
 				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
 		</div>
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -92,7 +105,7 @@ function resetURL(input){
 				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
 		</div>
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -106,8 +119,8 @@ function resetURL(input){
 	<!-- Projects Row -->
 	<div class="row">
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
-				class="img-responsive" src="resources/images/woo.jpg" alt="">
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
+				class="img-responsive" src="resources/images/woo.jpg"  alt="">
 			</a>
 			<h3>
 				<a href="#">사진 제목</a>
@@ -116,7 +129,7 @@ function resetURL(input){
 				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
 		</div>
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -126,7 +139,7 @@ function resetURL(input){
 				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
 		</div>
 		<div class="col-md-4 portfolio-item">
-			<a href="#" data-toggle="modal" data-target="#myModal"> <img
+			<a href="#" class="photo_a" data-toggle="modal" data-target="#myModal" > <img
 				class="img-responsive" src="http://placehold.it/700x400" alt="">
 			</a>
 			<h3>
@@ -182,7 +195,7 @@ function resetURL(input){
 				<div class="row">
 
 					<div class="col-md-8">
-						<img class="img-responsive" src="http://placehold.it/750x500"
+						<img id="img-detail" class="img-responsive" src="http://placehold.it/750x500"
 							alt="">
 					</div>
 
