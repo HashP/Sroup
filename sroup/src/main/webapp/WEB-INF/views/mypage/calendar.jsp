@@ -66,6 +66,7 @@ $(function(){
         	coloring(); 
 			$(".fc-toolbar h2").css("font-size", "20px");
         },
+       
         events: [ 
              
             { 
