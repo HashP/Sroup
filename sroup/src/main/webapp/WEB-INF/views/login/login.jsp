@@ -42,15 +42,15 @@ hr {
 
 <div id="page-wrapper">
 	<div id="loginform">
-		<form class="form">
+		<form class="form" method="post" action="login.do">
 			<h1 class="text-left" id="logintitle">로그인</h1>
 			<hr>
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" placeholder="id">
+				<input type="text" class="form-control input-lg" placeholder="id" id="id" name="id">
 			</div>
 			<div class="form-group">
 				<input type="password" class="form-control input-lg"
-					placeholder="Password">
+					placeholder="Password" id="pwd" name="pwd">
 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary btn-lg btn-block">Sign In</button>
