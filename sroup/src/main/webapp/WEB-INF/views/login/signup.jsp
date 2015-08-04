@@ -45,7 +45,7 @@ hr {
  
 <div id="page-wrapper">
 	<div  id="signform">
-		<form class="form" method="post" action="" >
+		<form class="form" method="post" action="register.do" enctype="multipart/form-data">
 			<h1 class="text-left" id="signuptitle">회원가입</h1>
 			<hr>
 			<div class="form-group">
@@ -85,7 +85,7 @@ hr {
 			</div>
 			<div class="form-group">
 				<label for="profilephoto" class="control-label">프로필 사진</label>
-				<input type="file" accept="image/*" class="form-control " placeholder="프로필 사진" name="profilephoto" id="profilephoto">
+				<input type="file" accept="image/*" class="form-control " placeholder="프로필 사진" name="photofile" id="profilephoto">
 				<br>
 				<div id="img-thumbnail">
 				</div>
@@ -119,6 +119,12 @@ $(function(){
 			form.success($("#id"));
 			return true;
 		}
+		
+		//http://localhost/sroup/login/idduplication.do?id= 로 ajax요청하기 
+		//isIdOk : false --> 중복된 아이디 , true --> 사용가능한 아이디
+		// 내일 하기
+	
+		
 	};
 
 	$("#pwd").on("blur", function() {
@@ -276,7 +282,7 @@ $(function(){
 	var uploadchange = function(e) {
 		e.preventDefault();
 
-		var upload = $("input[name='profilephoto']")[0];
+		var upload = $("#profilephoto")[0];
 		var file = upload.files[0], reader = new FileReader();
 		
 		if(!checkvalue()) {
@@ -298,10 +304,10 @@ $(function(){
 		return false;
 	}
 	
-	$("input[name='profilephoto']").on("change", uploadchange);
+	$("#profilephoto").on("change", uploadchange);
 	
 	function checkvalue() {
-		var upload = $("input[name='profilephoto']");
+		var upload = $("#profilephoto");
 		var imgex = ['bmp', 'jpg', 'gif', 'png', 'jpeg', 'BMP', 'JPG', 'GIF', 'PNG', 'JPEG'];
 
 		/* if(!upload.val()) {
