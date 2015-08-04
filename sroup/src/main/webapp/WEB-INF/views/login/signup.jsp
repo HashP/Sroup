@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<!-- 저장됐나 보는용 -->
+
 <style type="text/css">
 
 body {
