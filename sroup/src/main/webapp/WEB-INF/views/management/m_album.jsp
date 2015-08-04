@@ -1,72 +1,82 @@
+<%@page import="com.cj.sroup.vo.M_galleryVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	.albumlist_img{		
+		max-height: 300px;		 
+	}
+	textarea[name='contents']{
+		resize: none
+	}
+
+</style>
 <script type="text/javascript">
-function readURL(input) {	
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        if(!checkvalue()) {
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			if (!checkvalue()) {
+				return false;
+			}
+			reader.onload = function(e) {
+				$('#blah').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	// 사진 올리기 클릭시 전에 띄었던 모달창 초기화
+	function resetModal() {
+		var upload = $("input[name='albumphoto']");
+		upload.replaceWith(upload = upload.clone(true));
+		$("input[name='title']").val("");
+		$("textarea[name='contents']").val("");
+
+		$('#blah').attr('src', 'http://placehold.it/750x500');
+	}
+
+	function imageClick() {
+		alert($("img", this));
+		$('#img-detail').attr('src', $(this).find("img").attr('src'));
+	}
+	$(document).ready(function() {
+
+		// 사진 상세 보기시 현제 저장된 이미지 보여주는 기능
+		$(".photo_a").click(function() {
+			var a = $("img", this).attr('src');
+			$("#img-detail").attr('src', a);
+		});
+
+	});
+
+	// 사진 업로드시 이미지 파일인지 검사
+	function checkvalue() {
+		var upload = $("input[name='albumphoto']");
+		var imgex = [ 'bmp', 'jpg', 'gif', 'png', 'jpeg', 'BMP', 'JPG', 'GIF',
+				'PNG', 'JPEG' ];
+
+		/* if(!upload.val()) {
+			alert("이미지 파일을 업로드 해야합니다.")
+			return false;
+		} */
+
+		var v = upload.val().split('\\');
+		var filename = v[v.length - 1];
+
+		v = filename.split('.');
+		var extension = v[v.length - 1];
+
+		var isImg = imgex.indexOf(extension);
+		if (isImg === -1) {
+			alert("이미지 파일만 업로드할 수 있습니다. ");
+			// 파일 리더 초기화
+			upload.replaceWith(upload = upload.clone(true));
 			return false;
 		}
-        reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
-// 사진 올리기 클릭시 전에 띄었던 모달창 초기화
-function resetModal(){
-	var upload = $("input[name='albumphoto']");
-	upload.replaceWith( upload = upload.clone( true ) );
-	$("input[name='title']").val("");
-	 $("input[name='contents']").val("");
-	 
-	$('#blah').attr('src','http://placehold.it/750x500');
-}
-
-function imageClick(){
-	alert($("img",this));
-	$('#img-detail').attr('src',$(this).find("img").attr('src'));
-}
-$(document).ready(function(){ 
-	
-// 사진 상세 보기시 현제 저장된 이미지 보여주는 기능
-$(".photo_a").click(function() {
-	  var a = $( "img",this ).attr('src');
-	  $("#img-detail").attr('src',a);
-	});
-	
-
-});
-
-// 사진 업로드시 이미지 파일인지 검사
-function checkvalue() {
-	var upload = $("input[name='albumphoto']");
-	var imgex = ['bmp', 'jpg', 'gif', 'png', 'jpeg', 'BMP', 'JPG', 'GIF', 'PNG', 'JPEG'];
-
-	/* if(!upload.val()) {
-		alert("이미지 파일을 업로드 해야합니다.")
-		return false;
-	} */
-	
-	
-	var v = upload.val().split('\\');
-	var filename = v[v.length-1];
-	
-	v = filename.split('.');
-	var extension = v[v.length-1];
-	
-	var isImg = imgex.indexOf(extension);
-	if(isImg === -1) {
-		alert("이미지 파일만 업로드할 수 있습니다. ");
-		// 파일 리더 초기화
-		upload.replaceWith( upload = upload.clone( true ) );
-		return false;
+		return true;
 	}
-	
-	return true;
-}
-
 </script>
 
 
@@ -86,118 +96,107 @@ function checkvalue() {
 	</div>
 	<!-- /.row -->
 
-	<!-- Projects Row -->
-	<div class="row">
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-	</div>
-	<!-- /.row -->
 
-	<!-- Projects Row -->
-	<div class="row">
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-	</div>
-
-	<!-- Projects Row -->
-	<div class="row">
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="resources/images/woo.jpg" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-		<div class="col-md-4 portfolio-item">
-			<a href="#" class="photo_a" data-toggle="modal"
-				data-target="#myModal"> <img class="img-responsive"
-				src="http://placehold.it/700x400" alt="">
-			</a>
-			<h3>
-				<a href="#">사진 제목</a>
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-				viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-		</div>
-	</div>
-	<!-- /.row -->
+	<!-- 앨범 사진 뿌려주는 곳 -->
+	<c:choose>	
+		<c:when test="${galleryList.size() > 6 }">
+		<div class="row">
+				<c:forEach var="galleryList" items="${galleryList }" begin="0"
+					end="2">
+					<div class="col-md-4 portfolio-item">
+						<a href="#" class="photo_a" data-toggle="modal"
+							data-target="#myModal"> <img class="img-responsive albumlist_img"
+							src="resources/upload/album_photo/${galleryList.imageName}" alt="">
+						</a>
+						<h3>
+							<a href="#">${galleryList.g_title}</a>
+						</h3>
+						<p>${galleryList.g_content}</p>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="row">
+				<c:forEach var="galleryList" items="${galleryList }" begin="3"
+					end="5">
+					<div class="col-md-4 portfolio-item">
+						<a href="#" class="photo_a" data-toggle="modal"
+							data-target="#myModal"> <img class="img-responsive albumlist_img"
+							src="resources/upload/album_photo/${galleryList.imageName}" alt="">
+						</a>
+						<h3>
+							<a href="#">${galleryList.g_title}</a>
+						</h3>
+						<p>${galleryList.g_content}</p>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="row">
+				<c:forEach var="galleryList" items="${galleryList }" begin="6">
+					<div class="col-md-4 portfolio-item">
+						<a href="#" class="photo_a" data-toggle="modal"
+							data-target="#myModal"> <img class="img-responsive albumlist_img"
+							src="resources/upload/album_photo/${galleryList.imageName}" alt="">
+						</a>
+						<h3>
+							<a href="#">${galleryList.g_title}</a>
+						</h3>
+						<p>${galleryList.g_content}</p>
+					</div>
+				</c:forEach>
+			</div>			
+		</c:when>
+		<c:when test="${galleryList.size() > 3 }">
+			<div class="row">
+				<c:forEach var="galleryList" items="${galleryList }" begin="0"
+					end="2">
+					<div class="col-md-4 portfolio-item">
+						<a href="#" class="photo_a" data-toggle="modal"
+							data-target="#myModal"> <img class="img-responsive albumlist_img"
+							src="resources/upload/album_photo/${galleryList.imageName}" alt="">
+						</a>
+						<h3>
+							<a href="#">${galleryList.g_title}</a>
+						</h3>
+						<p>${galleryList.g_content}</p>
+					</div>
+				</c:forEach>
+			</div>
+				<div class="row">
+					<c:forEach var="galleryList" items="${galleryList }" begin="3">
+						<div class="col-md-4 portfolio-item">
+							<a href="#" class="photo_a" data-toggle="modal"
+								data-target="#myModal"> <img class="img-responsive albumlist_img"
+								src="resources/upload/album_photo/${galleryList.imageName}" alt="">
+							</a>
+							<h3>
+								<a href="#">${galleryList.g_title}</a>
+							</h3>
+							<p>${galleryList.g_content}</p>
+						</div>
+					</c:forEach>
+				</div>
+			
+		</c:when>
+		<c:otherwise>
+			<div class="row">
+				<c:forEach var="galleryList" items="${galleryList }" begin="0">
+					<div class="col-md-4 portfolio-item">
+						<a href="#" class="photo_a" data-toggle="modal"
+							data-target="#myModal"> <img class="img-responsive albumlist_img"
+							src="resources/upload/album_photo/${galleryList.imageName}" alt="">
+						</a>
+						<h3>
+							<a href="#">${galleryList.g_title}</a>
+						</h3>
+						<p>${galleryList.g_content}</p>
+					</div>
+				</c:forEach>
+			</div>
+		</c:otherwise>
+	</c:choose>
+<!-- 앨범사진 뿌려주는 곳 끝 -->
+	
+	
 
 	<hr>
 
@@ -332,19 +331,22 @@ function checkvalue() {
 
 					<div class="col-md-4">
 
-						<form id="form1" runat="server" method="post"
+						<form id="form1"  action="/sroup/m_album.do" method="post"
 							enctype="multipart/form-data">
 
 							<input type='file' onclick="readURL(this)"
-								onchange="readURL(this);" accept="image/*" name="albumphoto" placeholder="앨범 사진"/>
-							<div class="form-group" >
+								onchange="readURL(this);" accept="image/*" name="albumphoto"
+								placeholder="앨범 사진" />
+							<div class="form-group">
 
 								<div class="col-sm-12" style="padding: 0px;">
-									<input type="text" class="form-control" placeholder="제목" name="title">
+									<input type="text" class="form-control" placeholder="제목"
+										name="title">
 								</div>
 							</div>
 
-							<textarea rows="15" class="form-control" placeholder="내용" name="contents"></textarea>
+							<textarea rows="15" class="form-control" placeholder="내용"
+								name="contents"></textarea>
 							<button style="float: right;">올리기</button>
 						</form>
 
