@@ -21,6 +21,14 @@
 		<put-attribute name="content" value=""></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
+	
+	<definition name="managementdefault" template="/WEB-INF/views/management/management_template.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/m_navbar.jsp"></put-attribute>
+		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="content" value=""></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/views/management/m_footer.jsp"></put-attribute>
+	</definition>
 
 	<definition name="template" extends="default">
 	
@@ -32,5 +40,8 @@
 
 	<definition name="mypage/*" extends="mypagedefault">
 		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"></put-attribute>
+	</definition>
+	<definition name="management/*" extends="managementdefault">
+		<put-attribute name="content" value="/WEB-INF/views/management/{1}.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
