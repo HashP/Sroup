@@ -10,6 +10,7 @@ public class M_galleryVO {
 	private Date g_write_day;
 	private String g_title;
 	private String g_content;
+	private String imageName;
 	private int g_like;
 	private int g_hit;
 	public int getStudy_no() {
@@ -65,6 +66,12 @@ public class M_galleryVO {
 	}
 	public void setG_hit(int g_hit) {
 		this.g_hit = g_hit;
+	}
+	public String getImageName() {
+		return imageName;
+	}
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 	
 	
