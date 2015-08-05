@@ -7,7 +7,6 @@
 	<table class="table table-hover">
 		<thead>
 			<tr class="active">
-
 				<th>번호</th>
 				<th>제목</th>
 				<th>글쓴이</th>
