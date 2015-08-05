@@ -1,5 +1,6 @@
 package com.cj.sroup.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class M_boardVO {
@@ -30,8 +31,9 @@ public class M_boardVO {
 	public void setB_no(int b_no) {
 		this.b_no = b_no;
 	}
-	public Date getB_write_day() {
-		return b_write_day;
+	public String getB_write_day() {
+		SimpleDateFormat sf = new SimpleDateFormat("yy.MM.dd");
+		return sf.format(b_write_day); 
 	}
 	public void setB_write_day(Date b_write_day) {
 		this.b_write_day = b_write_day;

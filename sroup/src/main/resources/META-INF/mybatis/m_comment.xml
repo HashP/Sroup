@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cj.sroup.dao.M_commentDao">   
+ 
+   <select id="getAllComment" resultType="m_comment">
+   <!-- 차후 사진 가져오기 위해 회원 테이블과 c_writer를 가지고 조인후 프로필사진을 가져와야함 -->
+   select	STUDY_NO	as study_no,
+   			LIST_NAME	as list_name,
+   			C_NO		as C_no, 
+   			C_WRITE_DAY	as C_write_day, 
+   			C_WRITER	as C_writer,   			 
+   			C_CONTENT	as C_content   			
+	from s_comment
+    order by C_NO desc      
+   </select>
+
+   <insert id="addComment" parameterType="m_comment">
+   		insert into s_comment (STUDY_NO,
+   							LIST_NAME,
+   							C_NO, 
+   							C_WRITE_DAY, 
+   							C_WRITER,   			 
+   							C_CONTENT)
+		values 
+				(20,
+				'회원한마디', 
+				<!-- 시퀀스 바꾸기 다른것 들도 -->
+				test_seq.NEXTVAL, 
+				sysdate, 
+				'cj',				 
+				#{c_content}
+				)
+   </insert>
+
+   
+   
+</mapper>

@@ -4,32 +4,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.M_galleryDao">   
-   <insert id="addGallery" parameterType="m_gallery">
-   insert into s_gallery(STUDY_NO,
-                      LIST_NAME,
-                      G_NO,
-                      G_WRITER,
-                      G_WRITE_DAY,
-                      G_TITLE	,
-                      G_CONTENT	,
-                      G_IMGNAME ,
-                      G_LIKE ,
-                      G_HIT	)
-            values (3,
-                    '갤러리',
-                    '10',
-                    '창진',                    
-                    sysdate,
-                    #{g_title},
-                    #{g_content},
-                    #{imageName},            
-                    0,            
-                    0            
-            )
-   </insert>
-
+  
    <select id="getAllGallery" resultType="m_gallery">
-   select	STUDY_NO	as study_no,
+   	select	STUDY_NO	as study_no,
             LIST_NAME 	as list_name,
             G_NO		as g_no,
             G_WRITER	as g_writer,
@@ -42,6 +19,30 @@
 	from s_gallery
           
    </select>
+   
+   <insert id="addGallery" parameterType="m_gallery">
+   	insert into s_gallery(STUDY_NO,
+                      LIST_NAME,
+                      G_NO,
+                      G_WRITER,
+                      G_WRITE_DAY,
+                      G_TITLE	,
+                      G_CONTENT	,
+                      G_IMGNAME ,
+                      G_LIKE ,
+                      G_HIT	)
+   			values (3,
+                    '갤러리',
+                    '10',
+                    '창진',                    
+                    sysdate,
+                    #{g_title},
+                    #{g_content},
+                    #{imageName},            
+                    0,            
+                    0            
+            )
+   </insert>
    
    
 </mapper>

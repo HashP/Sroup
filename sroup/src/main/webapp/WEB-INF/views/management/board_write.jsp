@@ -9,7 +9,7 @@
 <h1 id="bordname">게시판 글쓰기</h1>
 <hr>
 <div style="text-align:center">
-<form id="frm" action="/sroup/insert.do" method="post" >
+<form id="frm" action="/sroup/board_writesave.do" method="post" >
 <table style="width: 802px; margin:0 auto;">
 		<tr>
 			<th>제목</th>

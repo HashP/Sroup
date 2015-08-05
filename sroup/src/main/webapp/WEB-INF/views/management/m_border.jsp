@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
 	<!-- ì°¨í h2 ìì´ë ê°(bordname)ì¼ë¡ ê²ìí ì´ë¦ì ë³ê²½íë¤. -->
 	<h1 id="bordname">게시판</h1>
@@ -13,29 +14,17 @@
 				<th>날짜</th>
 				<th>조회수</th>
 			</tr>
-		</thead>
+		</thead>		
 		<tbody>
+		<c:forEach var="boardList" items="${boardList }">			
 			<tr>
-				<td>3</td>
-				<td>제목테스트 1</td>
-				<td>cj</td>
-				<td>15.07.28</td>
-				<td>0</td>
+				<td>${boardList.b_no }</td>
+				<td>${boardList.b_title }</td>
+				<td>${boardList.b_writer }</td>
+				<td>${boardList.b_write_day }</td>
+				<td>${boardList.b_hit }</td>
 			</tr>
-			<tr>
-				<td>2</td>
-				<td>제목테스트 2</td>
-				<td>지니어스</td>
-				<td>15.07.28</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>제목테스트 3</td>
-				<td>流</td>
-				<td>15.07.25</td>
-				<td>0</td>
-			</tr>
+		</c:forEach>			
 		</tbody>
 	</table>
 	<a href="/sroup/board_write.do"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a>

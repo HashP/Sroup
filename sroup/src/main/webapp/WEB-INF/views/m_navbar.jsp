@@ -37,7 +37,7 @@
 		<li><a href="#">출석부</a></li>
 		<li><a href="/sroup/m_calendar.do">캘린더</a></li>
 		<li><a href="/sroup/m_album.do">갤러리</a></li>
-		<li><a href="/sroup/m_memberspeak.do">회원한마디</a></li>
+		<li><a href="/sroup/m_comment.do">회원한마디</a></li>
 		<li><a href="/sroup/m_border.do">게시판</a></li>
 	</ul>
 	</nav>

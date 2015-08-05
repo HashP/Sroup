@@ -1,5 +1,6 @@
 package com.cj.sroup.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class M_galleryVO {
@@ -13,6 +14,7 @@ public class M_galleryVO {
 	private String imageName;
 	private int g_like;
 	private int g_hit;
+	
 	public int getStudy_no() {
 		return study_no;
 	}
@@ -37,8 +39,9 @@ public class M_galleryVO {
 	public void setG_writer(String g_writer) {
 		this.g_writer = g_writer;
 	}
-	public Date getG_write_day() {
-		return g_write_day;
+	public String getG_write_day() {
+		SimpleDateFormat sf = new SimpleDateFormat("yy.MM.dd");
+		return sf.format(g_write_day);
 	}
 	public void setG_write_day(Date g_write_day) {
 		this.g_write_day = g_write_day;
