@@ -88,6 +88,14 @@ public class MyPageController {
 		return "mypage/pwdupdate";
 	}
 	
+	@RequestMapping(value="/pwdupdate.do", method=RequestMethod.POST)
+	public String pwdupdate() {
+		
+		
+		
+		
+		return "redirect:pwdupdate.do";
+	}
 	
 	@RequestMapping("/mystudy.do")
 	public String mystudy(@RequestParam(value="cate", defaultValue="create", required=false)String cate

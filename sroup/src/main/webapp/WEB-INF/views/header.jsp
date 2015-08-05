@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="resources/bootstrap/style.css">
-<link rel="stylesheet" href="resources/bootstrap/style-theme.css">
-<link rel="stylesheet" href="resources/bootstrap/boot.css">
+<link rel="stylesheet" href="/sroup/resources/bootstrap/style.css">
+<link rel="stylesheet" href="/sroup/resources/bootstrap/style-theme.css">
+<link rel="stylesheet" href="/sroup/resources/bootstrap/boot.css">
 <!-- <link rel="stylesheet" href="../resources/bootstrap/bootstrap.css">
 <link rel="stylesheet" href="../resources/bootstrap/bootstrap-theme.css"> -->
 <style type="text/css">
@@ -30,7 +30,7 @@
 <div class="header">
 	<div class="logoSearchArea">
 		<h1>
-			<a href="#;"> <img src="resources/images/logoOnoffmix.gif">
+			<a href="#;"> <img src="/sroup/resources/images/logoOnoffmix.gif">
 			</a>
 		</h1>
 		<div class="fieldset">
