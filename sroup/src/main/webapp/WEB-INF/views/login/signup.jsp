@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 저장됐나 보는용 -->
-
 <style type="text/css">
 
 body {
@@ -111,20 +109,32 @@ $(function(){
 	
 	function idcheck() {
 		var id = $("#id").val();
+		var returnvalue;
 		
 		if(!idReg.test(id)) {
+			$("#id ~ .error-message").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
 			form.error($("#id"));	
 			return false;
-		} else {
-			form.success($("#id"));
-			return true;
-		}
+		} 
 		
-		//http://localhost/sroup/login/idduplication.do?id= 로 ajax요청하기 
 		//isIdOk : false --> 중복된 아이디 , true --> 사용가능한 아이디
-		// 내일 하기
-	
+		$.ajaxSetup({
+			async: false
+		});		
+		$.getJSON("idduplication.do", {id:id}, function(result) {
+			console.log(result);		
+			if(result.isIdOk) {
+				form.success($("#id"));
+				returnvalue = true;			
+			} else {
+				$("#id ~ .error-message").text("중복된 아이디 입니다.");
+				form.error($("#id"));
+				returnvalue = false;
+			}			
 		
+		});
+		console.log("2");		
+		return returnvalue;
 	};
 
 	$("#pwd").on("blur", function() {
@@ -227,35 +237,9 @@ $(function(){
 		// 에러가 있는지		
 		if($(".has-error").length > 0) {
 			event.preventDefault();
+			$(".has-error > input").first().focus();
 			return false;
 		}
-		
-		//아이디검사 -- 중복검사 했는지도 체크
-		//비밀번호확인 --> 비밀번호 체크만 잘되도 됭
-		//이름검사
-		//별명
-		//이메일
-		
-		
-/* 		if(!idcheck()) {
-			validation = false;
-		}
-		
-		if(!pwdcheck()) {
-			validation = false;
-		}
-		
-		if(!namecheck()) {
-			validation = false;
-		}
-		
-		if(!nickcheck()) {
-			validation = false;
-		}
-		
-		if(!emailcheck()) {
-			validation = false;
-		} */
 		
 		validation = validation & idcheck() & pwdcheck() & namecheck() & nickcheck() & emailcheck(); 
 		
@@ -263,6 +247,7 @@ $(function(){
 		if(!validation) {
 			console.log("false");
 			event.preventDefault();
+			$(".has-error > input").first().focus();
 			return false;
 		}
 		
