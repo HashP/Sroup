@@ -28,7 +28,7 @@
    							 B_CONTENT,
    							 B_HIT)
 		values 
-				(20,
+				(test_seq.NEXTVAL,
 				'게시판', 
 				board_seq.NEXTVAL, 
 				sysdate, 

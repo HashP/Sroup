@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cj.sroup.dao.M_calendarDao">   
+ 
+   <select id="getAllEvent" resultType="m_calEvent">
+  	select CAL_START	as cal_strart,
+   			CAL_END		as cal_end,
+   			CAL_TITLE	as cal_title,
+   			CAL_CONTENT as cal_content,
+   			CAL_WRITER 	as cal_writer
+	from s_calendar            
+   </select>
+   
+   <insert id="addCalEvent" parameterType="m_calendar">
+  		insert into S_CALENDAR (STUDY_NO,
+                        CAL_NO,
+                        CAL_START,
+                        CAL_END,
+                        CAL_WRITER,
+                        CAL_TITLE,
+                        CAL_CONTENT)
+        values (20,
+                1,
+                sysdate,
+                SYSDATE + 1,
+                'cj',
+                '공부합시다.',
+                '쉽다. 쉽다. 쉽다. 쉽다........'
+                );
+   </insert>  
+   
+</mapper>

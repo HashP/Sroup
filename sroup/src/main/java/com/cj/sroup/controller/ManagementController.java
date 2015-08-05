@@ -4,16 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.cj.sroup.service.M_boardService;
+import com.cj.sroup.service.M_calendarService;
 import com.cj.sroup.service.M_commentService;
 import com.cj.sroup.service.M_galleryService;
 import com.cj.sroup.vo.M_boardVO;
+import com.cj.sroup.vo.M_calEventVO;
 import com.cj.sroup.vo.M_commentVO;
 import com.cj.sroup.vo.M_galleryVO;
 
@@ -27,8 +32,13 @@ public class ManagementController {
 	M_boardService m_boardservice;
 	@Autowired
 	M_commentService m_commentservice;
+	@Autowired
+	M_calendarService m_calendarservice;
 	
-	//  메뉴 페이지 이동 경로
+	@Autowired
+	private MappingJackson2JsonView jsonView;
+	
+//  메뉴 페이지 이동 경로
 	@RequestMapping("/m_main.do")
 	public String main(){
 		return "management/m_main";
@@ -74,7 +84,7 @@ public class ManagementController {
 	
 	
 
-	// 게시글 등록시 이동 경로
+// 게시글 등록시 이동 경로
 	@RequestMapping(value="/m_album.do", method=RequestMethod.POST)	
 	public String albumAdd(@RequestParam("title")String title,
 						@RequestParam("contents")String contents,
@@ -112,6 +122,16 @@ public class ManagementController {
 		m_commentservice.addComment(m_comment);
 		// 차후 작성글 바로 보기로 페이지 변경
 		return "redirect:m_comment.do";
+	}
+	
+	
+// 캘린더 이벤트 jsonView로 읽어오는 곳
+	@RequestMapping("/calEvent.do")	
+	public View calEvent(Model model){		
+		List<M_calEventVO> eventList = m_calendarservice.getAllEvent();
+		model.addAttribute("eventList",eventList);
+		
+		return jsonView;
 	}
 	
 	
