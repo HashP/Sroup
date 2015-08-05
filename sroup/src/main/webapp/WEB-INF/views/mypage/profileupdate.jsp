@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style type="text/css">
 
@@ -39,6 +41,9 @@
 	margin-right: 60px;
 }
 
+#img-thumbnail {
+	text-align: center;
+}
 
 
 </style>
@@ -51,34 +56,35 @@
 		<form class="form-inline">
 			<div class="form-group">
 				<label for="id" class="control-label">아이디</label>
-				<input type="text" class="form-control input" placeholder="아이디" name="id" id="id">
-				<p class="error-message">아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.</p>
+				<input type="text" class="form-control input" placeholder="아이디" name="id" id="id" disabled="disabled" value="${userinfo.id }">
 			</div>
 			<div class="form-group">
 				<label for="name" class="control-label">이름</label>
-				<input type="text" class="form-control input" placeholder="이름" name="name" id="name">
+				<input type="text" class="form-control input" placeholder="이름" name="name" id="name" value="${userinfo.name }">
 				<p class="error-message">이름은 한글로 2글자 이상 입력해 주세요.</p>
 			</div>
 			<div class="form-group">
 				<label for="nickname" class="control-label">별명</label>
-				<input type="text" class="form-control input" placeholder="별명" name="nickname" id="nickname">
+				<input type="text" class="form-control input" placeholder="별명" name="nickname" id="nickname" value="${userinfo.nickname }">
 				<p class="error-message">별명을 입력해주세요.</p>
 			</div>
 			<div class="form-group">
 				<label for="phone" class="control-label">휴대폰</label>
-				<input type="text" class="form-control input" placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone">
+				<input type="text" class="form-control input" placeholder="휴대폰 번호 또는 전화번호" name="phone" id="phone" value="${userinfo.phone }">
 				<p class="error-message">올바른 휴대폰 번호 형식이 아닙니다.</p>
 			</div>
 			<div class="form-group">
 				<label for="email" class="control-label">이메일 주소</label>
-				<input type="text" class="form-control input" placeholder="이메일 주소" name="email" id="email">
+				<input type="text" class="form-control input" placeholder="이메일 주소" name="email" id="email" value="${userinfo.email }">
 				<p class="error-message">이메일 형식에 맞지 않습니다.</p>
 			</div>
 			<div class="form-group">
 				<label for="profilephoto" class="control-label">프로필 사진</label>
 				<input type="file" accept="image/*" class="form-control input" placeholder="프로필 사진" name="profilephoto" id="profilephoto">
 				<br>
-				<div id="img-thumbnail">
+				<br>
+				<div id="img-thumbnail" >
+					<img alt="" src="${imgpath}${userinfo.profilephoto }">
 				</div>
 			</div>
 			<br>
@@ -92,24 +98,9 @@
 <script type="text/javascript">
 $(function(){
 	
-	var idReg = /^[a-z]+[a-z0-9]{5,19}$/;
 	var usernameRegExp = /^[가-힝]{2,}$/;
 	var emailReg = /^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/;
 	var phoneReg = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;	
-	
-	function idcheck() {
-		var id = $("#id").val();
-		
-		console.log(id);
-		
-		if(!idReg.test(id)) {
-			form.error($("#id"));	
-			return false;
-		} else {
-			form.success($("#id"));
-			return true;
-		}
-	};
 	
 	function namecheck() {
 		
@@ -177,35 +168,24 @@ $(function(){
 		if($(".has-error").length > 0) {
 			event.preventDefault();
 			console.log("has-error");
+			$(".has-error > input").first().focus();
 			return false;
 		}
 		
-		if(!idcheck()) {
-			validation = false;
-		}
+		validation = validation & namecheck() & nickcheck() & emailcheck(); 
 		
-		if(!namecheck()) {
-			validation = false;
-		}
-		
-		if(!nickcheck()) {
-			validation = false;
-		}
-		
-		if(!emailcheck()) {
-			validation = false;
-		}
-		
+
+		// 다 검사해야 다음페이지로 
 		if(!validation) {
+			console.log("false");
 			event.preventDefault();
+			$(".has-error > input").first().focus();
 			return false;
 		}
 		
-		console.log("submit");
 		return true;
 	});
 
-	$("#id").on("blur", idcheck);
 	$("#name").on("blur", namecheck);
 	$("#nickname").on("blur", nickcheck);
 	$("#email").on("blur", emailcheck);

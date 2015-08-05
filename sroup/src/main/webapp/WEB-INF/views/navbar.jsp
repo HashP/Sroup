@@ -97,7 +97,7 @@
             <li><a href="/sroup/mypage/profileupdate.do">회원정보수정</a></li>
             <li><a href="#">나의 스터디</a></li>
             <li class="divider"></li>
-            <li><a href="#">로그아웃</a></li>
+            <li><a href="/sroup/login/logout.do">로그아웃</a></li>
           </ul>
         </li>
       </ul>
