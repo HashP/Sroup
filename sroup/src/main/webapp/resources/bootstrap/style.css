@@ -1,9 +1,12 @@
 .searchBtn {
+  float: right;
+  width: 48px;
+  height: 30px;
   font-family: '나눔고딕OTF';
   display: inline-block;
-  padding: 6px 12px;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 0px;
+  font-size: 13px;
+  font-weight: normal;
   line-height: 1.5;
   text-align: center;
   white-space: nowrap;
@@ -18,6 +21,65 @@
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
+}
+.header {
+	width: 100%;
+	table-layout: fixed;
+	background: none;
+	border-bottom: 2px solid #4195f5;
+	background-color: #ffffff;
+}
+.logoSearchArea h1{
+	width: 206px; 
+	height: 28px;
+	float: left;
+	margin: 25px 0 0 10px;
+}
+.fieldset {
+	width: 470px;
+	height: 80px;
+	display:block;
+	float:left;
+	margin: -10px 0 0 0px;
+}
+.logoSearchArea {
+	
+	width: 980px;
+	height: 76px;
+	vertical-align: top;
+	margin: auto;
+	padding: 0;
+}
+.searchArea {
+	float:right;
+	margin: 23px 0 0 82px;
+	width: 380px;
+	height: 30px;
+	vertical-align: top;
+	padding: 0;
+}
+#searchInput{
+	background: url("http://static.onoffmix.com/images3/global/searchSlogan.png") no-repeat 50% 65%;
+    background-position-x: 50%;
+    background-position-y: 65%;
+    background-size: initial;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(247, 247, 247);
+	display:block;
+	width:318px;
+	padding:0 0 0 7px;
+	border:1px solid #c6c6c6;
+	border-radius: 4px;
+	font-size:12px;
+	font-weight:bold;
+	line-height:28px;
+	color:#333;
+	vertical-align:top;
+	float:left;
 }
 .btn:focus,
 .btn:active:focus,
@@ -80,3 +142,1881 @@ fieldset[disabled] .searchBtn.active {
   color: #4195f5;
   background-color: #fff;
 }
+.sroup {
+	background: #f7f7f7;
+}
+
+div.content {
+	margin-bottom: 0px;
+	clear: both;
+	width: 980px;
+	margin: 20px auto;
+	position: relative;
+}
+.mgTop .content {
+	margin-top: 0;
+}
+.eventMain {
+	width: 978px;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid #d8d8d8;
+}
+
+.eventMain .sideLeft {
+	float: left;
+	width: 739px;
+	min-height: 989px;
+	border-right: 1px solid #d8d8d8;
+	overflow: hidden;
+}
+
+.eventMain .titArea {
+	width: 699px;
+	margin: 0 20px 10px;
+	padding: 0 0 5px;
+	border-bottom: 1px solid #ebebeb;
+	overflow: hidden;
+}
+
+.eventMain .titArea h2 {
+	float: left;
+	margin: 21px 0 0;
+	padding: 0 0 1px;
+	font-weight: 400;
+	font-size: 28px;
+	line-height: 1.3em;
+}
+
+.eventMain .titArea ul {
+	float: right;
+	margin: 41px 0 0 0;
+}
+
+.eventMain .titArea ul li {
+	float: left;
+	list-style: none;
+}
+
+.eventMain .titArea ul li a.select {
+	font-weight: bold;
+	color: #4195f5;
+}
+
+.eventMain .titArea ul li a {
+	display: block;
+	padding: 0 11px 0 10px;
+	background: url("http://static.onoffmix.com/images3/main/rightLine.gif")
+		no-repeat 100% 2px;
+	font-size: 11px;
+	line-height: 1.3em;
+	color: #666;
+}
+
+.eventMain a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.eventMain .titArea ul li.last a {
+	background: none;
+	padding-right: 0;
+}
+
+.eventMain .contentBox {
+	float: left;
+	width: 717px;
+	padding: 0 0 10px 13px;
+	background: #fff;
+}
+
+.eventMain .contentBox .todayEvent {
+	margin: 10px 11px 10px 6px;
+	float: left;
+	width: 220px;
+	height: 317px;
+	border: 1px solid #b8b8b8;
+	overflow: hidden;
+	padding: 0px;
+}
+
+.eventMain .contentBox .eventThumbnail {
+	width: 220px;
+	height: 220px;
+	margin: auto;
+}
+
+.eventMain li {
+	list-style: none;
+}
+
+.eventMain .contentBox .eventTitle {
+	display: block;
+	width: 195px;
+	height: 36px;
+	max-height: 36px;
+	margin: 12px 10px 5px 10px;
+	font-size: 12px;
+	line-height: 18px;
+	overflow: hidden;
+	white-space: normal;
+	text-overflow: ellipsis;
+	letter-spacing: 0.04em;
+}
+
+.eventMain .contentBox .eventBottomArea {
+	height: 44px;
+	border-top: 1px solid #efefef;
+	background: #fafafa;
+}
+
+.eventMain .contentBox .eventThumbnail .thumb {
+	border-bottom: 1px solid #d8d8d8;
+}
+
+.eventMain .contentBox .eventThumbnail img {
+	width: 220px;
+	height: 220px;
+}
+
+.eventMain .contentBox .eventTitle a.eventLink {
+	color: #333;
+	text-decoration: none;
+}
+
+.eventMain .contentBox .eventBottomArea ul {
+	overflow: hidden;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	vertical-align: top;
+}
+
+.eventMain .contentBox .eventBottomArea li {
+	float: left;
+}
+
+.eventMain .contentBox .eventBottomArea .eventPin a {
+	float: left;
+	overflow: hidden;
+	width: 22px;
+	height: 22px;
+	margin-top: 10px;
+	margin-left: 10px;
+	background: #e7e7e7;
+	border: 1px solid #d8d8d8;
+	border-radius: 3px;
+}
+
+.eventMain .contentBox .eventBottomArea .eventPin .pinNumber {
+	float: left;
+	margin-top: 14px;
+	padding-left: 3px;
+	color: #264f73;
+	font-family: tahoma, geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.eventMain .contentBox .eventBottomArea .eventPin a span.heart {
+	display: block;
+	height: 22px;
+	line-height: 900px;
+	background:
+		url("http://static.onoffmix.com/images3/main/event_pin_heart.png")
+		no-repeat 4px 5px;
+}
+
+.eventMain .contentBox .eventBottomArea .eventPersonnel {
+	float: right;
+	height: 14px;
+	margin-right: 10px;
+	font-size: 11px;
+}
+
+.eventMain .contentBox .eventBottomArea .eventPersonnel .disable {
+	background: #e7e7e7;
+	border: 1px solid #d8d8d8;
+	color: #999;
+}
+
+.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .disable {
+	display: block;
+	width: 88px;
+	height: 12px;
+	margin-top: 10px;
+	padding: 6px 6px 4px;
+	line-height: 9px;
+	background: #264f73;
+	border: 1px solid #214464;
+	border-radius: 3px;
+	color: #fff; letter-spacing : -1px;
+	text-align: center;
+	vertical-align: middle;
+	letter-spacing: -1px;
+}
+
+.eventMain .contentBox .eventGraphBar {
+	display: block;
+	position: relative;
+	height: 3px;
+	background: #e7e7e7;
+	border-top: 1px solid #d8d8d8;
+}
+
+.eventMain .contentBox .eventGraphBar .eventStandby {
+	height: 3px;
+	margin-top: -1px;
+	border-top: 1px solid #89c754;
+	background: #93d55a;
+}
+
+.eventMain .contentBox .eventGraphBar .eventAttend {
+	height: 3px;
+	margin-top: -1px;
+	border-top: 1px solid #3289ec;
+	background: #4195f5;
+}
+
+.main .contentBox .eventBottomArea .eventPersonnel .eventButton span.entered,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton span.entered
+	{
+	display: none
+}
+
+.main .contentBox .eventBottomArea .eventPersonnel .eventButton.hovered span,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton.hovered span,
+	.main .contentBox .eventBottomArea .eventPersonnel .eventButton:hover span,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton:hover span
+	{
+	display: none
+}
+
+.main .contentBox .eventBottomArea .eventPersonnel .eventButton.hovered span.entered,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton.hovered span.entered,
+	.main .contentBox .eventBottomArea .eventPersonnel .eventButton:hover span.entered,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton:hover span.entered
+	{
+	display: inline
+}
+
+.main .contentBox .eventBottomArea .eventPersonnel .eventButton:hover,
+	.eventMain .contentBox .eventBottomArea .eventPersonnel .eventButton:hover
+	{
+	background: #4195f5;
+	border: 1px solid #3085e6;
+	text-decoration: none
+}
+.eventMain form {
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	vertical-align: top;
+}
+.eventMain input {
+	line-height: normal;
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+input {
+	border: 1px solid #ccc;
+	padding: 0;
+	text-indent: 3px;
+	background: url("http://static.onoffmix.com/images2/background/input_shadow.gif") no-repeat;
+}
+.eventMain .eventSearch fieldset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.eventMain fieldset {
+	font-size: 100%;
+	vertical-align: top;
+}
+.eventMain .eventSearch legend {
+	display: none;
+	border: 0 none;
+}
+.eventMain .eventSearch dl {
+	width: 198px;
+	margin: 0 0 0 4px;
+}
+.eventMain .eventSearch dl dt {
+	padding: 23px 0 0 0;
+	font-size: 12px;
+	font-weight: bold;
+	overflow: hidden;
+}
+.eventMain .eventSearch dl dt span {
+	float: left;
+	display: block;
+}
+.eventMain .eventSearch dl dt .chkEvent {
+	float: right;
+	font-size: 11px;
+	font-weight: normal;
+	text-align: right;
+}
+.eventMain .eventSearch dl dt .chkEvent input {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-right: 2px;
+	vertical-align: middle;
+}
+.eventMain .eventSearch dl dt .chkEvent label {
+	letter-spacing: -1px;
+	color: #666;
+	vertical-align: middle;
+}
+.eventMain label {
+	cursor: pointer;
+}
+.eventMain .eventSearch dl dd {
+	position: relative;
+	padding: 6px 0 0 0;
+}
+.eventMain .eventSearch dl dd input {
+	width: 175px;
+	height: 30px;
+	padding: 0 10px;
+	background: #f7f7f7;
+	border: 1px solid #c6c6c6;
+	font-size: 11px;
+	line-height: 30px;
+	color: #666;
+}
+.eventMain .eventSearch dl dd input.btnEventSearch {
+	position: absolute;
+	top: 11px;
+	right: 8px;
+	width: 14px;
+	height: 14px;
+	margin: 0;
+	padding: 4px;
+	border: 0;
+}
+.eventMain dl.category {
+	border-bottom: 1px solid #d8d8d8;
+}
+.eventMain dl.comSearch {
+	width: 197px;
+	margin: 0 0 0 4px;
+	overflow: hidden;
+}
+.eventMain dl.comSearch dt {
+	width: 100%;
+	padding: 28px 0 6px 0;
+}
+.eventMain dl.comSearch dd {
+	float: left;
+	position: static;
+	margin: 0 -1px -1px 0;
+	padding: 0;
+	border: 1px solid #d8d8d8;
+}
+.eventMain dl.category dd a {
+	letter-spacing: -1px;
+}
+.eventMain dl.comSearch dd a {
+	display: block;
+	width: 77px;
+	height: 34px;
+	padding: 0 10px;
+	font-size: 11px;
+	line-height: 35px;
+	color: #999;
+}
+.eventMain dl.comSearch dd input[type=checkbox] {
+	display: none;
+}
+.eventMain dl.comSearch dd.hide {
+	display: none;
+}
+.eventMain dl.comSearch dd.btnMore {
+	width: 195px;
+	height: 20px;
+	margin: 1px 0 0;
+	background: #f2f2f2;
+	border: 1px solid #d8d8d8;
+	border-top: 0;
+	border-bottom: 0;
+	text-align: center;
+}
+.eventMain dl.comSearch dd.btnMore a {
+	width: auto;
+	height: 20px;
+	margin: 0 auto;
+	border: 0;
+	font-size: 11px;
+	line-height: 22px;
+	text-align: center;
+	color: #666;
+}
+.eventMain dl.price {
+	border-bottom: 1px solid #d8d8d8;
+}
+.eventMain dl.price dd {
+	float: none;
+	width: 195px;
+	margin: 0 0 -1px 0;
+}
+.eventMain dl.price dd a {
+	width: 196px;
+	padding: 0;
+	text-align: center;
+}
+.eventMain dl.date dd {
+	margin: 0;
+	border: 0;
+}
+.eventMain dl.date dd .positionArea {
+	position: relative;
+	vertical-align: middle;
+}
+.eventMain dl.date dd .bulCalendar1 {
+	position: absolute;
+	top: 10px;
+	left: 7px;
+	z-index: 1;
+}
+.eventMain img {
+	border: 0;
+}
+.eventMain dl.date dd input {
+	width: 61px;
+	margin: 0;
+	padding: 0 5px 0 21px;
+	vertical-align: middle;
+}
+.eventMain dl.date dd .bulCalendar2 {
+	position: absolute;
+	top: 10px;
+	left: 114px;
+	z-index: 1;
+}
+.eventMain .dataReset {
+	width: 197px;
+	margin: 20px 0 0 4px;
+	padding: 7px 0 0 0;
+	border-top: 1px dotted #ebebeb;
+	text-align: right;
+}
+.eventMain .dataReset input {
+	height: 14px;
+	padding: 0 0 0 14px;
+	background: url("http://static.onoffmix.com/images3/main/btnReset.gif") no-repeat 0 0;
+	border: 0;
+	font-size: 11px;
+	color: #666;
+	text-indent: 6px;
+	letter-spacing: -1px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.eventMain .sideRight {
+	float: right;
+	width: 218px;
+	padding: 20px 4px 0 0;
+}
+.eventMain dl.comSearch dd a:hover{
+	background:#4195f5;font-weight:bold;color:#fff
+}
+.eventMain dl.comSearch dd a.select{
+	background:#4195f5;font-weight:bold;color:#fff
+}
+.eventMain dl.comSearch dd a.select:hover{
+	background:#4195f5;font-weight:bold;color:#fff
+}
+.eventMain dl.comSearch dd.btnMore a:hover{
+	border-color:#d8d8d8;font-weight:normal;background:#f2f2f2;color:#4195f5
+}
+.eventMain .titArea ul li a.select:hover {
+	font-weight: bold;
+	color: #4195f5;
+}
+.eventMain .titArea ul li a:hover {
+	text-decoration: underline;
+}
+
+<!-- list end -->
+<!-- detail start -->
+div.content {
+	margin-top: 0;
+	position: relative;
+}
+div.issueInfo {
+	padding: 19px 14px;
+	margin-bottom: 12px;
+}
+div.issueInfo div.title {
+	border-bottom: solid 1px #d8d8d8;
+	height: 33px;
+}
+div.issueInfo div.title h3 {
+	display: inline-block;
+	vertical-align: top;
+	margin: 8px 0 0 9px;
+	width: 820px;
+	height: 20px;
+	font-size: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: bold;
+}
+div.issueInfo .info {
+	display: inline-block;
+	width: 630px;
+}
+div.issueInfo .issue {
+	padding-bottom: 10px;
+	width: 638px;
+	border-bottom: solid 1px #d8d8d8;
+}
+div.issueInfo .info .title {
+	margin: 30px 0 3px 10px;
+	width: 43px;
+	height: 13px;
+	background: url("http://static.onoffmix.com/images3/label/label_view_issueInfo.gif") no-repeat;
+	line-height: 999px;
+	overflow: hidden;
+}
+.issueInfo .event-summary {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 0;
+}
+.event-summary.event-mode-view {
+	width: auto;
+}
+.event-summary {
+	margin: 0;
+	width: 907px;
+	padding: 20px 20px 20px 10px;
+	overflow: hidden;
+	list-style: none;
+}
+.issueInfo .event-summary .event-banner {
+	margin-right: 9px;
+}
+.event-summary .event-banner {
+	float: left;
+	display: block;
+	margin-right: 9px;
+	border: 0;
+	position: relative;
+	background: #ffffff;
+	_overflow: hidden;
+	width: 110px;
+	height: 110px;
+}
+li {
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+}
+.event-summary .event-banner .event-link {
+	display: block;
+	position: absolute;
+	width: 110px;
+	height: 110px;
+}
+.event-summary .event-link {
+	color: #333333;
+	text-decoration: none;
+}
+.event-summary .event-banner img {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	max-width: 110px;
+	max-height: 110px;
+	min-width: 110px;
+	min-height: 110px;
+}
+img {
+	border: 0px;
+}
+.event-summary .event-banner .event-banner-border {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 108px;
+	height: 108px;
+	border: 1px solid #333333;
+	border-color: rgba(51,51,51,0.4);
+}
+.issueInfo .event-summary .event-title {
+	margin: 0;
+	padding: 0;
+	height: 7px;
+	overflow: hidden;
+	display: block;
+}
+.issueInfo .event-summary .event-location {
+	margin-bottom: 15px;
+}
+.event-summary .event-schedule, .event-summary .event-location {
+	line-height: 18px;
+	font-size: 11px;
+	letter-spacing: -1px;
+	color: #666666;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.event-schedule span, .event-location span {
+	color: #333;
+}
+.event-summary .number {
+	letter-spacing: 0;
+}
+.issueInfo .event-summary .event-graph {
+	margin-left: 1px;
+	
+}
+.event-summary .event-graph {
+	width: 386px;
+	height: 29px;
+	overflow: visible;
+	float: left;
+}
+.event-summary.event-mode-view .event-graph-bar {
+	display: block;
+	position: relative;
+	vertical-align: top;
+	border: 1px solid #d8d8d8;
+	border-bottom: 	0;
+	background: #e7e7e7;
+	box-shadow: inset 0 1px 0 #e2e2e2;
+	height: 5px;
+	line-height: 5px;
+	font-size: 5px;
+}
+.event-summary .event-graph .event-graph-bar .event-capacity-standby {
+	vertical-align: top;
+	margin: -1px 0 0 -1px;
+	border: 1px solid #89c754;
+	border-bottom: 0;
+	background: #93d55a;
+	box-shadow: inset 0 1px 0 #90d058;
+	height: 5px;
+	line-height: 5px;
+	font-size: 5px;
+}
+.event-summary .event-graph .event-graph-bar .event-capacity-standby span {
+	left: -1px;
+	border: 1px solid #74b13e;
+	color: #74b13e;
+	background: #f9fff3;
+}
+.event-summary .event-graph .event-graph-bar span {
+	display: none;
+	position: absolute;
+	top: 6px;
+	left: 1px;
+	width: 58px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 11px;
+	letter-spacing: -1px;
+	text-align: center;
+	background: blue;
+}
+.event-summary .event-graph .event-graph-bar .event-capacity-attend {
+	vertical-align: top;
+	background: #4195f5;
+	margin: -1px 0 0 -1px;
+	border: 1px solid #3289ec;
+	height: 4px;
+	line-height: 4px;
+	font-size: 4px;
+	overflow: hidden;
+}
+.event-summary .event-graph-text.event-mode-full, 
+.event-summary.event-mode-full .event-graph-text.event-mode-full, 
+.event-summary.event-mode-compressed .event-graph-text.event-mode-mini, 
+.event-summary.event-mode-mini .event-graph-text.event-mode-mini {
+	display: block;
+}
+.event-summary .event-graph .event-graph-text {
+	margin: 5px 0 0;
+	padding: 0;
+	line-height: 14px;
+	font-size: 11px;
+	letter-spacing: -1px;
+}
+.event-graph-text {
+	color: #666;	
+}
+.event-summary .event-graph .event-graph-text .number {
+	font-weight: bold;
+}
+.event-summary .event-graph .event-graph-text .event-capacity-total {
+	color: #333333;
+}
+.event-summary .event-graph .event-graph-text .bar {
+	margin-left: 2px;
+	margin-right: 3px;
+	color: #ccc;
+}
+.event-summary .event-graph .event-graph-text .event-capacity-attend {
+	color: #4195f5;
+}
+.event-summary .event-graph .event-graph-text .event-capacity-standby {
+	color: #89c754;
+}
+.event-summary .event-graph-text.event-mode-mini, 
+.event-summary.event-mode-full .event-graph-text.event-mode-mini, 
+.event-summary.event-mode-compressed .event-graph-text.event-mode-full, 
+.event-summary.event-mode-mini .event-graph-text.event-mode-full {
+	display: none;
+}
+.event-summary .event-action {
+	float: right;
+	display: inline-block;
+	margin-left: 10px;
+}
+div.issueInfo .info div.action.outside, div.issueInfo .info.pay div.action, div.issueInfo .info.free div.action {
+	margin-bottom: 4px;
+	display: block;
+}
+div.issueInfo .issue div.action {
+	margin-left: 130px;
+	display: none;
+}
+div.issueInfo .issue div.action a.attend {
+	margin-right: 1px;
+}
+a.attend {
+	background: url("http://static.onoffmix.com/images3/button/button_view_attendModify.gif") no-repeat;
+	display: inline-block;
+	overflow: hidden;
+	width: 202px;
+	height: 25px;
+	text-align: center;
+	color: #fff;
+	line-height: 13px;
+	font-weight: bold;
+	padding-top: 11px;
+	padding-right: 4px;
+	vertical-align: top;
+}
+div.issueInfo .issue div.action span.modify {
+	line-height: 13px;
+	background: url("http://static.onoffmix.com/images3/button/button_view_attendModify.gif") no-repeat 0 -72px;
+	text-align: center;
+	display: inline-block;
+	overflow: hidden;
+	width: 177px;
+	height: 25px;
+	color: #ccc;
+	margin-left: 4px;
+	padding-top: 11px;
+	vertical-align: top;
+}
+div.issueInfo .issue div.action span.modify a {
+	font-weight: bold;
+	color: #fff;
+}
+a.attend:hover {
+	background: url("http://static.onoffmix.com/images3/button/button_view_attend_hover.gif") no-repeat;
+	text-decoration: none;
+	color: #fff;
+}
+.eventTips {
+	margin-top: 8px;
+    padding-left: 130px;
+    font-size: 11px;
+    line-height: 11px;
+    color: #888;
+    vertical-align: middle;
+}
+.eventTips a {
+	color: #888;
+}
+.eventTips a:hover span {
+	text-decoration: underline;
+	color: #888;
+}
+div.issueInfo .info.free .free, div.issueInfo .info.pay .pay {
+	padding-bottom: 9px;
+}
+div.issueInfo .groups {
+	width: 628px;
+	padding: 19px 0 18px 9px;
+	font-size: 12px;
+	border-bottom: solid 1px #d8d8d8;
+	color: #333333;
+	position: relative;
+}
+div.issueInfo .groups strong {
+	color: #4195f5;
+}
+div.issueInfo .info.free .free ul.group {
+	display: block;
+}
+div.issueInfo div.groups.free ul.group {
+	max-height: 96px;
+}
+div.issueInfo .groups ul {
+	margin-left: 7px;
+	margin-top: 3px;
+	margin-bottom: 1px;
+	width: 570px;
+	overflow: hidden;
+}
+h4, h3, ul, p, dl, dd, dt, form, input, textarea {
+	padding: 0px;
+	margin: 0px;
+}
+ul, ol {
+	list-style: none;
+}
+div.issueInfo .groups li:last-child {
+	margin-right: 0px;
+}
+div.issueInfo .groups li {
+	display: inline-block;
+	margin-right: 27px;
+	line-height: 25px;
+	height: 24px;
+}
+span.dot2x2 {
+	display: inline-block;
+    vertical-align: middle;
+    font-size: 8px !important;
+    font-weight: normal !important;
+    width: 2px;
+    height: 2px;
+    text-align: left;
+    text-indent: 2px;
+    overflow: hidden;
+}
+span.dot2x2 {
+	color: #666666;
+	margin: 0 2px;
+	overflow: visible;
+	margin-right: 5px;
+	vertical-align: top;
+}
+div.issueInfo .groups li span.closed {
+	display: none;
+    margin-left: 8px;
+    vertical-align: middle;
+    letter-spacing: -1px;
+    color: #666666;
+    font-size: 11px;
+    line-height: 16px;
+    background-color: #eeeeee;
+    border: solid 1px #d8d8d8;
+    width: 28px;
+    padding-left: 6px;
+    padding-right: 1px;
+    padding-top: 2px;
+    font-weight: bold;
+    margin-top: -3px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
+}
+div.issueInfo div.abstractMoreClose {
+	width: 630px;
+}
+div.issueInfo div.abstractMoreClose.more .abstract {
+	padding: 17px 8px 0 9px;
+    color: #666666;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 17px;
+}
+div.issueInfo div.abstractMoreClose.more .abstract {
+	max-height: 36px;
+}
+div.issueInfo .mapBox {
+	display: inline-block;
+    vertical-align: top;
+    margin-left: 11px;
+}
+div.issueInfo .mapBox .map {
+	margin-top: 30px;
+	margin-left: 23px;
+    width: 271px;
+    position: relative;
+}
+div.issueInfo .mapBox .map img {
+	height: 271px;
+    width: 271px;
+    display: block;
+}
+div.issueInfo .mapBox .map .mapBorder {
+	bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 269px;
+    width: 269px;
+    position: absolute;
+    border: 1px solid #333333;
+    border-color: rgba(51, 51, 51, 0.4);
+}
+div.issueDetail {
+	padding: 19px 14px 18px 14px;
+    width: 664px;
+    display: inline-block;
+    margin-right: 14.8px;
+}
+div.sidebarWrapper {
+    width: 267px;
+    display: inline-block;
+    vertical-align: top;
+}
+div.sidebarWrapper .innerBorder {
+    padding: 0 14px 14px 14px;
+    width: 236px;
+    margin-bottom: 10px;
+}
+div.sidebarWrapper div.other, div.sidebarWrapper div.recommended, div.sidebarWrapper div.popular {
+    border-bottom: 1px solid #d8d8d8;
+}
+div.sidebarWrapper div.other h3.title {
+    margin-top: 20px;
+}
+div.sidebarWrapper h3.title {
+    display: block;
+    line-height: 999px;
+    overflow: hidden;
+    height: 12px;
+    background: url("http://static.onoffmix.com/images3/label/label_view_sidebar.png") no-repeat;
+    vertical-align: top;
+    margin-top: 30px;
+    margin-left: 1px;
+    margin-bottom: 10px;
+}
+div.sidebarWrapper dl.first {
+    border-color: #d8d8d8;
+}
+div.sidebarWrapper .issue {
+    letter-spacing: -1px;
+    font-size: 11px;
+    line-height: 16px;
+}
+div.sidebarWrapper dl {
+    padding: 8px 5px 6px 0px;
+    border-top: 1px solid #efefef;
+}
+div.sidebarWrapper dl.hovering {
+    padding-top: 10px;
+}
+div.sidebarWrapper .innerBorder.roundBox dl.issue.hovering {
+    font-weight: normal;
+    min-height: 52px;
+    padding-right: 10px;
+    padding-bottom: 8px;
+}
+div.sidebarWrapper dl .banner {
+    border: 0 none;
+    display: none;
+    float: left;
+    height: 50px;
+    position: relative;
+    width: 50px;
+    margin-right: 9px;
+}
+div.sidebarWrapper dl .banner img {
+    height: 50px;
+    width: 50px;
+}
+.banner .bannerBorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #333333;
+    border-color: rgba(51, 51, 51, 0.4);
+    filter: alpha(opacity=40);
+}
+div.sidebarWrapper .subject {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 0;
+}
+div.sidebarWrapper dl.hovering .subject {
+    white-space: normal;
+    max-height: 32px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 167px;
+}
+div.sidebarWrapper .subject a {
+    color: #333333;
+}
+div.sidebarWrapper dl.hovering .banner, div.sidebarWrapper dl.issue.hovering .description {
+    display: block;
+}
+div.sidebarWrapper .description {
+    height: 16px;
+    margin-left: 55px;
+    width: 167px;
+    overflow: hidden;
+    display: none;
+    color: #999999;
+}
+.number {
+    letter-spacing: 0px;
+}
+div.sidebarWrapper .popular .title {
+    background-position: 0 -24px;
+}
+div.sidebarWrapper .today h3.title {
+    background-position: 0 -48px;
+}
+div.sidebarWrapper div.adBox {
+    margin-top: 20px;
+}
+.sidebarWrapper .eventLink {
+    position: relative;
+    display: inline-block;
+}
+.sidebarWrapper .photoBorder {
+    border: 1px solid #d8d8d8;
+}
+div.sidebarWrapper dl:hover {
+    background-color: #f1f9ff;
+}
+.sidebarWrapper .photoBorder img {
+	display: block;
+}
+.roundBox {
+    border: 1px solid #d8d8d8;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin-right: 1px;
+    margin-right: 0 \9;
+    -webkit-box-shadow: 1px 1px 1px #d8d8d8;
+    -moz-box-shadow: 1px 1px 1px #d8d8d8;
+    box-shadow: 1px 1px 1px #d8d8d8;
+}
+.roundBox {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #d8d8d8;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin-right: 1px;
+    margin-right: 0 \9;
+    -webkit-box-shadow: 1px 1px 1px #d8d8d8;
+    -moz-box-shadow: 1px 1px 1px #d8d8d8;
+    box-shadow: 1px 1px 1px #d8d8d8;
+}
+.hr.singleLine {
+    border-top: 1px solid #cfc7be;
+}
+.hr {
+    clear: both;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    height: 0px;
+    line-height: 0px;
+}
+div.sidebarWrapper .faq .title {
+    background-position: 0 -36px;
+    width: 200px;
+    display: inline-block;
+}
+div.sidebarWrapper .faq .more {
+    line-height: 18px;
+    font-size: 11px;
+    letter-spacing: -1px;
+    color: #666;
+    vertical-align: bottom;
+    margin-bottom: 7px;
+    display: inline-block;
+}
+div.sidebarWrapper div.faq .list {
+    border: 1px solid #d8d8d8;
+    background-color: #f4f4f4;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    padding-left: 9px;
+}
+div.sidebarWrapper dl:first-child {
+    border: 0;
+}
+div.sidebarWrapper div.faq dl {
+    border: 0;
+    padding: 0;
+}
+body, ul, ol, html, h1, h2, h3, h4, h5, h6, p, img, form, dl, dd, dt {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+div.sidebarWrapper .popular dl.first a, div.sidebarWrapper .faq dl.first a {
+    font-weight: bold;
+}
+div.sidebarWrapper div.faq .list a {
+    font-size: 11px;
+    line-height: 24px;
+    letter-spacing: -1px;
+    color: #333;
+}
+div.issueDetail div.title {
+    padding-bottom: 10px;
+    border-bottom: solid 1px #d8d8d8;
+    margin-bottom: 20px;
+}
+div.issueDetail div.title h3 {
+    display: inline-block;
+    line-height: 999px;
+    overflow: hidden;
+    height: 12px;
+    width: 59px;
+    background: url("http://static.onoffmix.com/images3/label/label_view_detail.gif") no-repeat;
+    margin-left: 9px;
+    margin-top: 1px;
+    vertical-align: top;
+}
+div.issueDetail div.host .subTitle {
+    display: inline-block;
+    font-size: 11px;
+    margin-top: 2px;
+    margin-left: 296px;
+    letter-spacing: -1px;
+}
+.profile, dl.comment {
+    margin: 0 10px;
+    position: relative;
+}
+.profile .photo {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+}
+.photo .photoBorder {
+    bottom: 0;
+    height: 48px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 48px;
+    border: 1px solid #333333;
+    border-color: rgba(51, 51, 51, 0.4);
+    filter: alpha(opacity=40);
+}
+.profile .body {
+    padding: 4px 10px 4px 9px;
+    display: inline-block;
+    vertical-align: top;
+    width: 570px;
+    min-height: 37px;
+    line-height: 37px;
+    white-space: nowrap;
+}
+.profile .body .innerBody {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 20px;
+    white-space: normal;
+}
+.profile .body span {
+    display: inline-block;
+}
+.profile .name {
+    vertical-align: top;
+    height: 20px;
+    color: #333333;
+    line-height: 20px;
+    font-weight: bold;
+}
+.profile .info {
+    margin-left: 0;
+    margin-right: 0;
+    vertical-align: top;
+}
+.profile .info, .profile .email, .profile .tel, .profile .url, .profile .url:link, .profile .url:visited {
+    color: #666666;
+    font-size: 11px;
+}
+.profile .body span .separator {
+    margin-left: 9px;
+    margin-right: 8px;
+    color: #e1e1e1;
+    font-size: 11px;
+}
+.profile .tel {
+    margin-right: 0;
+}
+div.issueDetail .menu {
+    background-color: #d8d8d8;
+    margin-top: 30px;
+}
+div.issueDetail table.menu {
+    width: 100%;
+    border: 0;
+    table-layout: fixed;
+}
+div.issueDetail .menu a {
+    display: inline-block;
+    width: 131px;
+    display: block;
+    margin-left: -1px;
+    border: solid 1px #d8d8d8;
+    padding: 7px 0;
+    width: auto;
+    height: 14px;
+    line-height: 13px;
+    font-size: 12px;
+    text-align: center;
+    color: #333333;
+    background-color: #ebebeb;
+}
+div.issueDetail .menu a:hover {
+	color: #fff;
+	background-color: #4195f5;
+	text-decoration: none;
+}
+div.issueDetail .description {
+    margin-bottom: 70px;
+    padding-bottom: 40px;
+    border-bottom: solid 1px #d8d8d8;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+div.issueDetail .description .title h3 {
+    background-position: 0 -12px;
+    width: 69px;
+    height: 12px;
+    margin-top: 20px;
+    margin-bottom: 2px;
+}
+div.issueDetail center.attend {
+    margin-top: -60px;
+    margin-bottom: 50px;
+}
+div.barBanner {
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+div.barBanner a {
+    display: inline-block;
+}
+div.issueDetail div.comment {
+    margin-bottom: 49px;
+}
+div.issueDetail div.comment div.title {
+    margin-bottom: 0;
+}
+div.issueDetail div.comment .title h3 {
+    width: 81px;
+    height: 12px;
+    background-position: 0 -36px;
+}
+.title .status {
+    font-size: 11px;
+    margin-left: 3px;
+    line-height: 11px;
+    vertical-align: bottom;
+}
+.title .count {
+    font-weight: bold;
+    letter-spacing: 0;
+}
+div.issueDetail div.comment div.createForm {
+    padding-left: 10px;
+    padding: 20px 0;
+    border-bottom: 1px solid #d2d2d2;
+}
+div.issueDetail div.comment .createForm a.photo {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 8px 0 10px;
+    width: 50px;
+    height: 50px;
+}
+div.issueDetail div.comment .createForm img {
+    vertical-align: top;
+}
+textarea {
+    font-size: 11px;
+    overflow: auto;
+    resize: none;
+}
+div.issueDetail div.comment .createForm textarea {
+    margin: 0;
+    margin-right: 6px;
+    border: 1px solid #b8b8b8;
+    padding: 3px;
+    width: 492px;
+    height: 42px;
+    vertical-align: top;
+    background: none;
+}
+div.issueDetail div.comment .createForm textarea.fieldOut {
+    line-height: 42px;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #666666;
+}
+div.issueDetail div.comment .createForm input.submit {
+    background: none repeat scroll 0 0 #f6f6f6;
+    border: 1px solid #b8b8b8;
+    margin: 0;
+    font-size: 11px;
+    width: 72px;
+    height: 50px;
+    cursor: pointer;
+    letter-spacing: -1px;
+    text-indent: 0;
+    color: #666666;
+    font-weight: bold;
+}
+div.issueDetail div.comment .createForm input.submit:hover {
+	color: #4195f5;
+	border-color: #999999;
+}
+div.content div.issueDetail div.comment a.showComment {
+    display: block;
+    background-color: #f6f6f6;
+    border: 1px solid #d2d2d2;
+    color: #666;
+    text-align: center;
+    letter-spacing: -1px;
+    font-size: 11px;
+    height: 32px;
+    line-height: 32px;
+    margin-top: -1px;
+    position: relative;
+}
+div.content div.issueDetail div.comment.show a.showComment {
+    display: none;
+}
+div.content div.issueDetail div.comment a.showComment strong {
+    color: #4195f5;
+    letter-spacing: 0;
+}
+div.content div.issueDetail div.comment a.showComment:hover {
+	color: #333;
+	border-color: #aaa;
+	text-decoration: underline;
+}
+div.issueDetail .tips .title {
+    border: 0;
+    padding: 0;
+    margin-bottom: 8px;
+}
+div.issueDetail .tips .title h3 {
+    height: 14px;
+    width: 77px;
+    background-position: 0 -72px;
+}
+div.issueDetail .tips dl {
+    line-height: 18px;
+    border: solid 1px #d8d8d8;
+    background-color: #f8fcff;
+    color: #666666;
+    font-size: 11px;
+    padding: 12px 13px 9px 13px;
+    letter-spacing: -1px;
+}
+div.issueDetail .tips dd {
+    padding-left: 1.1ex;
+    text-indent: -1.1ex;
+    margin-top: 6px;
+    margin-bottom: 1px;
+}
+div.issueDetail .tips dd:first-child {
+    margin-top: 0;
+}
+div.issueDetail .tips dl a {
+    color: #666;
+    text-decoration: underline;
+}
+div.issueDetail .tips dl a:hover {
+	color: #4195f5;
+}
+.controller {
+    color: #cccccc;
+    letter-spacing: -1px;
+    float: right;
+    margin-top: 44px;
+    font-size: 11px;
+}
+.controller a {
+    color: #666666;
+    letter-spacing: -1px;
+}
+a.gotoHome {
+    margin-right: 3px;
+}
+a.gotoTop {
+    margin-left: 3px;
+    padding-left: 8px;
+    background: url("http://static.onoffmix.com/images3/misc/icon_bullet.gif") no-repeat 0 2px;
+}
+.controller a:hover {
+	color: #4195f5;
+	text-decoration: underline;
+}
+.content h2.title {
+    background: url("http://static.onoffmix.com/images3/label/label_adminWrite.gif") no-repeat 0 0 transparent;
+    height: 22px;
+    overflow: hidden;
+    line-height: 999px;
+    margin-bottom: 18px;
+    margin-left: 10px;
+}
+.content .firstCore {
+    padding-top: 22px;
+    width: 688px;
+    border-right: 1px solid #d8d8d8;
+}
+.content div.title {
+    width: 667px;
+    height: 32px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d2d2d2;
+}
+.content .title h3.title {
+    background: url("http://static.onoffmix.com/images3/label/label_step.gif") no-repeat 0 0 transparent;
+    overflow: hidden;
+    line-height: 999px;
+    display: inline-block;
+    height: 32px;
+    width: 232px;
+    margin-left: -25px;
+    vertical-align: top;
+}
+.content .roundBox .menu {
+    display: inline-block;
+    /* width: 189px; */
+    height: 25px;
+    vertical-align: top;
+    float: right;
+    margin-top: 3px;
+}
+.content .menu a {
+    position: relative;
+    display: inline-block;
+    background-color: #e7e7e7;
+    color: #666;
+    border: 1px solid #d8d8d8;
+    vertical-align: top;
+    height: 25px;
+    line-height: 25px;
+    font-family: Verdana;
+    font-size: 11px;
+    padding-right: 10px;
+    padding-left: 11px;
+}
+.content .menu a.firstStep {
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+    margin-right: -1px;
+}
+.content .firstStep .menu a.firstStep, .content .secondStep .menu a.secondStep, .content .lastStep .menu a.lastStep {
+    z-index: 1;
+    border-color: #3085e6;
+    background-color: #4195f5;
+    color: #fff;
+}
+.content .menu a.secondStep {
+    margin-right: -1px;
+}
+.content .menu a.lastStep, .content .modify .menu a.manage {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+.content .menu a:hover {
+	color: #4195f5;
+	text-decoration: underline;
+}
+.content .core {
+    padding-left: 9px;
+}
+.content .core .input {
+    border-bottom: solid 1px #d2d2d2;
+    display: inline-block;
+    padding-top: 17px;
+    padding-bottom: 16px;
+    width: 657px;
+    margin-right: 17.8px;
+    vertical-align: top;
+}
+.content .core .subCore {
+    vertical-align: top;
+}
+h4.subTitle {
+    margin-bottom: 7px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #4195f5;
+}
+h4.subTitle .star {
+    color: #ef3129;
+}
+.content .input input#title {
+    margin-left: 10px;
+    width: 523px;
+    height: 30px;
+    margin-bottom: 1px;
+}
+#title {
+    color: #bbb;
+}
+input.text:focus, textarea.text:focus {
+    border-color: #4195f5;
+}
+.content .category .lengthMsg {
+	text-align: right;
+	color: #666;
+	font-size: 11px;
+	margin-top: 10px;
+}
+
+.content .category .lengthMsg.tooLong {
+	color: #4498f8;
+}
+.content .category.brandOnly {
+	border: 1px solid #cccccc;
+	padding: 0;
+	width: 110px;
+	height: 30px;
+	line-height: 30px;
+	color: #333333;
+	font-size: 12px;
+	font-family: Dotum, �뗭�, sans, sans-serif, apple-gothic;
+}
+
+.content .category.brandOnly:focus {
+	border-color: #4195F5;
+}
+
+.content .category .lengthMsg.noMore {
+	color: #e92d22;
+}
+
+.content .category .subAdvice {
+	padding-bottom: 14px;
+}
+.content .core .advice {
+    display: inline-block;
+    width: 270px;
+    color: #999;
+    font-size: 11px;
+    line-height: 16px;
+    vertical-align: top;
+}
+.content .core .subAdvice {
+    margin: 0;
+    width: 260px;
+    border-top: solid 1px #e8e8e8;
+    border-bottom: solid 1px #e8e8e8;
+    border-left: solid 1px #d8d8d8;
+    margin-top: -1px;
+    padding-left: 9px;
+    position: relative;
+    padding-top: 18px;
+    padding-bottom: 16px;
+    display: block;
+}
+.content .core .focus {
+    color: #333;
+    background-color: #ecf4fe;
+    border-top: 1px solid #d7e0e9;
+    border-bottom: 1px solid #d7e0e9;
+    z-index: 1;
+}
+.content .banner {
+    display: inline-block;
+    width: 110px;
+    height: 167px;
+    position: relative;
+}
+.innerBanner {
+    position: relative;
+    top: 0;
+    width: 110px;
+    height: 110px;
+    display: inline-block;
+}
+.innerBanner img {
+    width: 110px;
+    height: 110px;
+}
+.innerBanner .bannerBorder {
+    width: 108px;
+    height: 108px;
+    position: absolute;
+    border: 1px solid #333333;
+    border-color: rgba(51, 51, 51, 0.4);
+    filter: alpha(opacity=40);
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+.innerBanner .bannerBorder .changeBox {
+    padding-top: 30px;
+    height: 80px;
+    visibility: hidden;
+}
+.noBanner .innerBanner .bannerBorder .changeBox {
+    height: 110px;
+    line-height: 110px;
+    padding-top: 0;
+    visibility: hidden;
+}
+.content .banner .recommend {
+    background: #fff url("http://static.onoffmix.com/images3/misc/image_adminWrite.png") no-repeat -11px -64px;
+    display: inline-block;
+    letter-spacing: -1px;
+    font-size: 11px;
+    border: 1px solid #b8b8b8;
+    width: 108px;
+    color: #666;
+    height: 21px;
+    text-indent: 14px;
+    line-height: 22px;
+    margin-top: 5px;
+}
+.content .recommendBox {
+    padding: 4px;
+    position: absolute;
+    left: 120px;
+    top: -3px;
+    width: 518px;
+    height: 154px;
+    display: inline-block;
+    border: 1px solid #4195f5;
+    background-color: #f8f8f8;
+}
+.content .recommendBox.none {
+    display: none;
+}
+.content .recommendBox .closeRecommend {
+    display: block;
+    text-align: right;
+    width: 100%;
+    height: 25px;
+    background: none;
+    border: none;
+}
+.content .recommendBox ul, .content .recommendBox li {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+.content .recommendBox ul, .content .recommendBox li {
+    display: inline-block;
+}
+.content .abstract {
+    margin-left: 6px;
+    display: inline-block;
+    width: 528px;
+}
+.content .abstract textarea {
+    width: 514px;
+    height: 96px;
+    border: solid 1px #ccc;
+    background: none #f8f8f8;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 6px;
+    resize: none;
+    overflow: auto;
+}
+.firstStep .registration {
+    line-height: 18px;
+}
+.firstStep .registration .tip {
+	margin-top: 10px;
+    font-size: 11px;
+    color: #666;
+    letter-spacing: -1px;
+    display: block;
+    margin-left: 1px;
+    padding: 6px 0;
+}
+.firstStep .registration .tip strong, .firstStep .isFree .tip strong {
+    color: #ef3129;
+}
+.content .core.isFree {
+    margin-bottom: -7px;
+}
+.content .isFree .subTitle, .content .funding .subTitle {
+    display: inline-block;
+    width: 116px;
+    
+}
+input.radio, input.checkbox {
+    vertical-align: top;
+    margin: 0;
+    margin-right: 4px;
+    margin-top: 3.5px;
+    border: 0;
+    background: none;
+}
+.content .isFree label {
+    margin-right: 20px;
+}
+.content .secondStep .title h3.title {
+    background-position: 0 -40px;
+}
+.content .lastStep .title h3.title {
+    background-position: 0 -82px;
+}
+.roundBox {
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding-left: 20px;
+    margin-right: 0;
+}
+#attachToContent {
+    float: right;
+    margin-top: 5px;
+}
+#attachToContent{
+	background: #fff;
+    display: inline-block;
+    letter-spacing: -1px;
+    font-size: 11px;
+    border: 1px solid #b8b8b8;
+    width: 108px;
+    color: #666;
+    height: 21px;
+    text-indent: 14px;
+    line-height: 22px;
+    margin-top: 5px;
+}
+.dues {
+	width: 100px;
+	height: 20px;
+}
+#dues {
+	margin-right: 20px;
+}
+.firstStep .isFree .tip {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: -1px;
+    display: block;
+    margin-left: 1px;
+    padding: 6px 0;
+}
+.divAccess {
+	margin-bottom: 5px;
+	margin-top: 10px;
+}
+.content .lastCore {
+    width: 688px;
+    border-right: 1px solid #d8d8d8;
+    position: relative;
+}
+.content .firstStep div.lastCore {
+    width: 679px;
+    height: 117px;
+}
+.roundBox .action {
+    display: block;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    height: 36px;
+    width: 662px;
+    text-align: center;
+}
+.roundBox.firstStep .action {
+    width: 635px;
+    padding-left: 14px;
+    padding-top: 30px;
+}
+.action .button {
+    cursor: pointer;
+    float: none;
+    display: inline-block;
+    width: 120px;
+    font-size: 12px;
+    line-height: 38px;
+    height: 35px;
+    color: #fff;
+    font-weight: bold;
+    background: none #4294f2;
+    border: 1px solid #3f8ce6;
+    border-top: 0;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
+    -webkit-box-shadow: 0 1px 0 0 #387ece;
+    -moz-box-shadow: 0 1px 0 0 #387ece;
+    box-shadow: 0 1px 0 0 #387ece;
+    vertical-align: top;
+    margin-right: 5px;
+}
+.action a.button {
+    line-height: 38px;
+    height: 39px;
+}
+.action .button.prev, .action .button.temp {
+    background-color: #999;
+    border-color: #828282;
+    -webkit-box-shadow: 0 1px 0 0 #828282;
+    -moz-box-shadow: 0 1px 0 0 #828282;
+    box-shadow: 0 1px 0 0 #828282;
+}
+.action .button:hover {
+	text-decoration: none;
+	background: #53a3ff;
+	border-color: #53a3ff #4f9bf2 #4f9bf2;
+	-webkit-box-shadow: 0 1px 0 #478bd9;
+	-moz-box-shadow: 0 1px 0 #478bd9;
+	box-shadow: 0 1px 0 #478bd9;
+}
+.action .button.prev:hover,
+.action .button.temp:hover {
+	text-decoration: none;
+	background: #aaa;
+	border-color: #928282 #928282 #928282;
+	-webkit-box-shadow: 0 1px 0 #aaa;
+	-moz-box-shadow: 0 1px 0 #aaa;
+	box-shadow: 0 1px 0 #aaa;
+}
+.Access {
+	width: 50px;
+	height: 20px;
+}
+#checkRule{
+	margin-right: 55px;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

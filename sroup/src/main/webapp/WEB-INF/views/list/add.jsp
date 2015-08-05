@@ -5,46 +5,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="resources/uploadify/jquery.uploadify.js"></script>
+<script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script type="text/javascript"
+	src="resources/uploadify/jquery.uploadify.js"></script>
 <script type="text/javascript">
-var oEditors = [];
-$(function(){
-      nhn.husky.EZCreator.createInIFrame({
-          oAppRef: oEditors,
-          elPlaceHolder: "content", //textarea에서 지정한 id와 일치해야 합니다. 
-          //SmartEditor2Skin.html 파일이 존재하는 경로
-          sSkinURI: "resources/se2/SmartEditor2Skin.html",  
-          htParams : {
-              // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-              bUseToolbar : true,             
-              // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-              bUseVerticalResizer : true,     
-              // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-              bUseModeChanger : true,         
-              fOnBeforeUnload : function(){
-                   
-              }
-          }, 
-          fOnAppLoad : function(){
-              //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-              oEditors.getById["content"].exec("PASTE_HTML", [""]);
-          },
-          fCreator: "createSEditor2"
-      });
-      
-      //저장버튼 클릭시 form 전송
-      $("#save").click(function(){
-          oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-          $("#frm").submit();
-      });    
-});
- 
- 
- 
+	var oEditors = [];
+	$(function() {
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors,
+			elPlaceHolder : "content", //textarea에서 지정한 id와 일치해야 합니다. 
+			//SmartEditor2Skin.html 파일이 존재하는 경로
+			sSkinURI : "resources/se2/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+				fOnBeforeUnload : function() {
+
+				}
+			},
+			fOnAppLoad : function() {
+				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+				oEditors.getById["content"].exec("PASTE_HTML", [ "" ]);
+			},
+			fCreator : "createSEditor2"
+		});
+
+		//저장버튼 클릭시 form 전송
+		$("#save").click(function() {
+			oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+			$("#frm").submit();
+		});
+	});
 </script>
- 
+
 </head>
 </head>
 <body>
@@ -55,9 +55,9 @@ $(function(){
 			<input type="hidden" name="proc" value="createBaseEvent" /> <input
 				type="hidden" name="eventIdx" value="0" /> <input type="hidden"
 				name="banner" value="" /> <input type="hidden"
-				name="eventPreviewUrl" value="/event/preview/0" target="_blank" /> <input
-				type="hidden" name="bannerUrl" value="" /> <input type="hidden"
-				name="bannerDelete" value="0" />
+				name="eventPreviewUrl" value="/event/preview/0" target="_blank" />
+			<input type="hidden" name="bannerUrl" value="" /> <input
+				type="hidden" name="bannerDelete" value="0" />
 
 			<h2 class="title">모임설정</h2>
 
@@ -79,7 +79,7 @@ $(function(){
 							<h4 class="subTitle">
 								카테고리 / 제목 입력 <span class="star">*</span>
 							</h4>
-							<select class="category" name="category">
+							<select class="category" name="category" style="height: 30px;">
 								<option value="">카테고리 선택</option>
 								<option value="15">번개/소모임</option>
 								<option value="16">교육/세미나</option>
@@ -104,8 +104,8 @@ $(function(){
 					<div class="advice focus">
 						<p class="subAdvice">
 							<strong>카테고리를 선택</strong>하고 <strong>모임제목</strong>을 입력해주세요. <br />
-							<br /> 카테고리에 맞게 설정하시면 개설 후 검색이나<br /> 카테고리별로 보기 편하고 쉽게 찾을 수 있습니다.<br />
-							<br />
+							<br /> 카테고리에 맞게 설정하시면 개설 후 검색이나<br /> 카테고리별로 보기 편하고 쉽게 찾을 수
+							있습니다.<br /> <br />
 						</p>
 					</div>
 				</div>
@@ -187,8 +187,8 @@ $(function(){
 					</div>
 					<div class="advice">
 						<p class="subAdvice">
-							모임 특성에 맞는 이미지로 업로드 해주시고 <br /> 대표 이미지가 없을 경우 온오프믹스에서 <br /> 추천하는
-							이미지를 선택해 사용할 수 있습니다. <br /> <br /> 이미지 등록에 대한 안내는 <a
+							모임 특성에 맞는 이미지로 업로드 해주시고 <br /> 대표 이미지가 없을 경우 온오프믹스에서 <br />
+							추천하는 이미지를 선택해 사용할 수 있습니다. <br /> <br /> 이미지 등록에 대한 안내는 <a
 								href="/cs/faq/host#167" class="guideSite" target="_blank">FAQ</a>
 							를 참고하세요.
 						</p>
@@ -207,7 +207,8 @@ $(function(){
 							</h4>
 
 							<div class="editor">
-								<textarea id="content" name="content" style="width:647px; height:412px; "></textarea>
+								<textarea id="content" name="content"
+									style="width: 647px; height: 412px;"></textarea>
 								<button class="attach" id="attachToContent">사진 / 파일
 									첨부하기</button>
 							</div>
@@ -216,8 +217,9 @@ $(function(){
 					<div class="advice">
 						<p class="subAdvice">
 							개설하는 모임의 <strong>상세내용을 입력</strong>하고 편집기를<br /> 이용해 다양한 형태의 내용을
-							입력해 주세요.<br /> <br /> 사진/파일 첨부에 대한 안내는 <a href="/cs/faq/host#168"
-								class="guideSite" target="_blank">FAQ</a> 를 참고하세요.
+							입력해 주세요.<br /> <br /> 사진/파일 첨부에 대한 안내는 <a
+								href="/cs/faq/host#168" class="guideSite" target="_blank">FAQ</a>
+							를 참고하세요.
 						</p>
 					</div>
 				</div>
@@ -225,18 +227,27 @@ $(function(){
 					<div class="input">
 						<div class="subCore">
 							<h4 class="subTitle">
-								참여자 등록방법 설정 <span class="star">*</span>
+								스터디 설정 <span class="star">*</span>
 							</h4>
-							<span class="tip">* 개설 후 <strong>참여 등록 방법 변경은 불가능</strong>하며
-								변경을 원하실 경우 모임을 새로 개설해야 하니 신중히 선택해주세요.
+							<div class="divAccess">
+								<label for="free" id="dues">스터디 최대 인원</label><input class="Access"
+									type="text" name="isDues" /><label for="dues">명</label> <br>
+							</div>
+							<label for="free" id="checkRule">승인 방식</label>
+							<input id="check" class="radio" type="radio" name="rule" value="1"/><label for="check" style="margin-right: 20px">검토 후 승인</label>
+							<input id="auto" class="radio" type="radio" name="rule" value="0"/><label for="auto">자동 승인</label>
+							
+							<span class="tip">승인 방식은 <strong>검토 후 승인을 권장</strong>합니다.
+								승인을 받지 못하면 간단한 스터디 정보만 공개되고,
+								자동 승인 방식을 선택하면 스터디 정보가 모두 공개됩니다.
 							</span>
 						</div>
 					</div>
 					<div class="advice">
 						<p class="subAdvice">
 							개설하려는 모임의 <strong>참여자 등록 방법</strong>을 선택해<br /> 주세요.<br /> <br />
-							개설은 하지만 참여 등록을 온오프믹스가 아닌<br /> 외부페이지나 별도의 다른 등록 방법을 원하시면<br /> 외부
-							참여 등록을 선택해 주시고 사이트 주소가<br /> 있으시면 입력창에 입력하세요.<br /> <br />
+							개설은 하지만 참여 등록을 온오프믹스가 아닌<br /> 외부페이지나 별도의 다른 등록 방법을 원하시면<br />
+							외부 참여 등록을 선택해 주시고 사이트 주소가<br /> 있으시면 입력창에 입력하세요.<br /> <br />
 							영문형식(한글 도메인 불가)의 사이트 주소만<br /> 가능하며, 개설 이후에는 주소를 변경하실 수<br />
 							없습니다.
 						</p>
@@ -246,13 +257,17 @@ $(function(){
 					<div class="input">
 						<div class="subCore isFree">
 							<h4 class="subTitle">
-								유/무료 선택 <span class="star">*</span>
+								회비 <span class="star">*</span>
 							</h4>
+							<br>
 							<!-- <input class="noChecked" type="radio" name="isFree" value="" /> -->
-							<input id="free" class="radio" type="radio" name="isFree"
-								value="1" /><label for="free">무료모임</label><input id="pay"
-								class="radio" type="radio" name="isFree" value="0" /><label
-								for="pay">유료모임</label>
+							<div class="divDues">
+								<label for="free" id="dues">회 당</label><input class="dues"
+									type="text" name="isDues" /><label for="dues">원</label> <br>
+								<span class="tip">* <strong> 모임의 회비를 정확히 적어주세요.</strong>
+									회비가 없다면 0원으로 입력바랍니다.
+								</span>
+							</div>
 						</div>
 					</div>
 					<div class="advice">
@@ -261,6 +276,12 @@ $(function(){
 							없습니다.
 						</p>
 					</div>
+					<div class="lastCore">
+					<div class="action">
+						<a href="#secondStep"
+							class="next button">다음단계</a><a class="temp button" href="#temp"><span>임시저장</span></a>
+					</div>
+				</div>
 				</div>
 			</div>
 			<!--firstStep end-->
@@ -406,8 +427,8 @@ $(function(){
 							</h4>
 
 							<div class="dateConfig">
-								<input type="hidden" name="recruitStartDateInUse" value="y" /> <input
-									type="hidden" name="recruitStartDateTime"
+								<input type="hidden" name="recruitStartDateInUse" value="y" />
+								<input type="hidden" name="recruitStartDateTime"
 									value="2015-07-31 17:30" /> <input type="hidden"
 									name="recruitEndDateTime" value="2015-08-01 17:00" /> <label
 									for="startAcceptDate" class="displayNone">모임등록시작 날짜설정</label> <input
@@ -521,13 +542,13 @@ $(function(){
 					</div>
 					<div class="advice">
 						<p class="subAdvice startEvent">
-							개설하려는 모임의 <strong>기간</strong>을 설정해 주세요.<br /> <br /> 모임기간이 하루 이상일
-							경우 체크박스를 선택하면<br /> 모임 시작일과 종료일 설정이 가능합니다.
+							개설하려는 모임의 <strong>기간</strong>을 설정해 주세요.<br /> <br /> 모임기간이 하루
+							이상일 경우 체크박스를 선택하면<br /> 모임 시작일과 종료일 설정이 가능합니다.
 						</p>
 
 						<p class="subAdvice setupTime">
-							모임에 참여하려는 참여자의 <strong>참여 신청기간</strong>을<br /> 설정합니다.<br /> (참여자는
-							신청기간이 끝나면 해당 모임에 등록을<br /> 할 수 없습니다.)
+							모임에 참여하려는 참여자의 <strong>참여 신청기간</strong>을<br /> 설정합니다.<br />
+							(참여자는 신청기간이 끝나면 해당 모임에 등록을<br /> 할 수 없습니다.)
 						</p>
 					</div>
 				</div>
@@ -556,14 +577,14 @@ $(function(){
 								<div id='mapzone'
 									style="width: 644px; height: 360px; display: block;"></div>
 								<input type="hidden" name='tm128x' id="tm128x" /> <input
-									type="hidden" name='tm128y' id="tm128y" /> <input type="hidden"
-									name='mapX' id="lng" size='' maxlength='64' value='127.035448'
-									required alias='지도좌표_X_를' confirm='123.' /> <input
-									type="hidden" name='mapY' id="lat" size='' maxlength='64'
-									value='37.503237' required alias='지도좌표_Y_를' confirm='123.' /> <input
-									type="hidden" name="locality" id="sido" /> <input type="hidden"
-									name="sublocality1" id="gugun" /> <input type="hidden"
-									name="sublocality2" id="dong" />
+									type="hidden" name='tm128y' id="tm128y" /> <input
+									type="hidden" name='mapX' id="lng" size='' maxlength='64'
+									value='127.035448' required alias='지도좌표_X_를' confirm='123.' />
+								<input type="hidden" name='mapY' id="lat" size='' maxlength='64'
+									value='37.503237' required alias='지도좌표_Y_를' confirm='123.' />
+								<input type="hidden" name="locality" id="sido" /> <input
+									type="hidden" name="sublocality1" id="gugun" /> <input
+									type="hidden" name="sublocality2" id="dong" />
 							</div>
 							<!-- .map.holder end -->
 						</div>
@@ -575,10 +596,10 @@ $(function(){
 
 						<p class="subAdvice map">
 							모임 장소 위치를 지도에 표시하기 위해 <br /> <strong>지도 위치 설정</strong>을 해 주세요.<br />
-							<br /> 설정은 지역명이나 주요명칭을 기입하여<br /> 지정 할 수 있습니다. <br /> <br /> 시,
-							도, 구, 동 단위로 설정할 수 있습니다.<br /> <br /> 지도를 클릭하고 핀을 이동하여 위치를<br />
-							지정할 수도 있습니다.<br /> <br /> 간혹 주소정보를 불러오지 못해<br /> 지역카테고리 범주에 속하지
-							못할 수 있습니다.<br />
+							<br /> 설정은 지역명이나 주요명칭을 기입하여<br /> 지정 할 수 있습니다. <br /> <br />
+							시, 도, 구, 동 단위로 설정할 수 있습니다.<br /> <br /> 지도를 클릭하고 핀을 이동하여 위치를<br />
+							지정할 수도 있습니다.<br /> <br /> 간혹 주소정보를 불러오지 못해<br /> 지역카테고리 범주에
+							속하지 못할 수 있습니다.<br />
 						</p>
 						<p class="subAdvice lend"></p>
 					</div>
@@ -654,7 +675,8 @@ $(function(){
 								<tr class="admin_email">
 									<th>개설자 이메일 입력</th>
 									<td><input title="개설자 이메일 입력" id="email" class="text"
-										type="text" name="ownerEmail" value="you645623@naver.com" /> <!--<input type="hidden" id="checkEmail" name="checkEmail" value="" equal="0" alias="이메일 중복확인이 되지 않았습니다."/>-->
+										type="text" name="ownerEmail" value="you645623@naver.com" />
+										<!--<input type="hidden" id="checkEmail" name="checkEmail" value="" equal="0" alias="이메일 중복확인이 되지 않았습니다."/>-->
 									</td>
 								</tr>
 								<tr class="admin_notify">
@@ -682,8 +704,8 @@ $(function(){
 						</p>
 						<p class="subAdvice admin">
 							연락처는 개설자의 전화번호, 이메일을 정확히<br /> 입력해 주셔야 하며 모임에 대한 문의나 정보를<br />
-							공유할 수 있습니다.<br /> <br /> 개설자의 SNS정보를 선택하여 모임개설의 여부를<br /> 개설과 동시에
-							바로 SNS로 알릴 수 있습니다.
+							공유할 수 있습니다.<br /> <br /> 개설자의 SNS정보를 선택하여 모임개설의 여부를<br /> 개설과
+							동시에 바로 SNS로 알릴 수 있습니다.
 						</p>
 					</div>
 				</div>
