@@ -12,6 +12,13 @@
 		<put-attribute name="content" value=""></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
+	
+	<definition name="listdefault" template="/WEB-INF/views/template2.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/navbar2.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp"></put-attribute>
+		<put-attribute name="content" value=""></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
 
 	<definition name="mypagedefault" template="/WEB-INF/views/mypage/mypage_template.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
@@ -33,7 +40,7 @@
 		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="list/*" extends="default">
+	<definition name="list/*" extends="listdefault">
 		<put-attribute name="content" value="/WEB-INF/views/list/{1}.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
