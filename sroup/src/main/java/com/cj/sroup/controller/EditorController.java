@@ -20,7 +20,7 @@ import com.cj.sroup.model.Editor;
 public class EditorController {
 	 @RequestMapping("/insert.do")
 	 public String insert(){
-		 return "insert.jsp";
+		 return "insert.jsp"; 
 	 }		
  }
 

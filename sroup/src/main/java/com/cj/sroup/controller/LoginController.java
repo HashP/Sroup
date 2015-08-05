@@ -26,18 +26,25 @@ import com.cj.sroup.vo.UserInfoVO;
 public class LoginController {
  
 	@Autowired
-	LoginService service;
-	Logger logger= Logger.getLogger(LoginController.class);
+	private LoginService service;
+	private Logger logger= Logger.getLogger(LoginController.class);
 	
 	@Autowired
-	MappingJackson2JsonView jsonView;
+	private MappingJackson2JsonView jsonView;
 	
 	@Value("${profile.image.path}")
 	private String filepath;
 	
 	
 	@RequestMapping("/login.do")
-	public String login() {
+	public String login(HttpSession session) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		
+		logger.info("loginId : [" + loginId + "]");
+		if(loginId != null) {
+			return "redirect:/mypage/profileupdate.do";
+		}
+		
 		return "login/login";
 	}
 	
@@ -98,5 +105,13 @@ public class LoginController {
 		model.addAttribute("isIdOk", isOk);
 		
 		return jsonView;
+	}
+	
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("LOGIN_ID");
+		
+		return "redirect:login.do";
 	}
 }

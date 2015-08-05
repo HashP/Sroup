@@ -6,10 +6,16 @@
 <tiles-definitions>
 	<!-- 디폴트 레이아웃을 정의한다. -->
 	
-	
 	<definition name="default" template="/WEB-INF/views/template.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
-		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="nav" value="/WEB-INF/views/navbar2.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp"></put-attribute>
+		<put-attribute name="content" value=""></put-attribute>
+		<put-attribute name="footer" value=""></put-attribute>
+	</definition>
+	
+	<definition name="listdefault" template="/WEB-INF/views/template2.jsp">
+		<put-attribute name="nav" value="/WEB-INF/views/navbar2.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
 	</definition>
@@ -20,14 +26,6 @@
 		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/sidebar.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
-	</definition>
-	
-	<definition name="managementdefault" template="/WEB-INF/views/management/management_template.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/m_navbar.jsp"></put-attribute>
-		<put-attribute name="header" value=""></put-attribute>
-		<put-attribute name="sidebar" value=""></put-attribute>
-		<put-attribute name="content" value=""></put-attribute>
-		<put-attribute name="footer" value="/WEB-INF/views/management/m_footer.jsp"></put-attribute>
 	</definition>
 
 	<definition name="template" extends="default">
@@ -41,7 +39,8 @@
 	<definition name="mypage/*" extends="mypagedefault">
 		<put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"></put-attribute>
 	</definition>
-	<definition name="management/*" extends="managementdefault">
-		<put-attribute name="content" value="/WEB-INF/views/management/{1}.jsp"></put-attribute>
+	
+	<definition name="list/*" extends="listdefault">
+		<put-attribute name="content" value="/WEB-INF/views/list/{1}.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
