@@ -26,4 +26,20 @@
 			USER_ID = #{value}
 	
 	</select>
+	
+	<update id="updateUserInfo" parameterType="UserInfo">
+		
+		update
+			USER_INFO
+		set
+			USER_NAME = #{name},
+			USER_NICKNAME = #{nickname},
+			USER_PHONE = #{phone},
+			<if test="profilephoto != null">
+				USER_PROFILEPHOTO = #{profilephoto},
+			</if>
+			USER_EMAIL = #{email}
+		where
+			USER_ID = #{id}
+	</update>
 </mapper>

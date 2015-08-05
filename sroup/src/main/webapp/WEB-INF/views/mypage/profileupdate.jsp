@@ -53,7 +53,7 @@
 
 		<h1 class="panel-title" id="updatetitle">회원정보 수정</h1>
 		<hr>
-		<form class="form-inline">
+		<form class="form-inline" method="post" action="profileupdate.do" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="id" class="control-label">아이디</label>
 				<input type="text" class="form-control input" placeholder="아이디" name="id" id="id" disabled="disabled" value="${userinfo.id }">
@@ -80,7 +80,7 @@
 			</div>
 			<div class="form-group">
 				<label for="profilephoto" class="control-label">프로필 사진</label>
-				<input type="file" accept="image/*" class="form-control input" placeholder="프로필 사진" name="profilephoto" id="profilephoto">
+				<input type="file" accept="image/*" class="form-control input" placeholder="프로필 사진" name="photofile" id="profilephoto">
 				<br>
 				<br>
 				<div id="img-thumbnail" >
