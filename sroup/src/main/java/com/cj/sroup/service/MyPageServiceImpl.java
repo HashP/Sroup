@@ -32,13 +32,19 @@ public class MyPageServiceImpl implements MyPageService {
 		UserInfoVO searchuser = userDao.getUserById(id);
 		String encryptOldPwd = DigestUtils.sha256Hex(oldpwd);
 		
-		// 기존의 패스
+		// 기존의 패스워드가 맞는지 아닌지 검사
 		if(!encryptOldPwd.equals(searchuser.getPwd())) {
 			return false;
 		}
 		
+		// 새로운 패스워드를 암호화
 		String encryptNewPwd = DigestUtils.sha256Hex(newpwd);
+		
+	
 		UserInfoVO user = new UserInfoVO();
+		user.setId(id);
+		user.setPwd(encryptNewPwd);
+		
 		
 		
 		

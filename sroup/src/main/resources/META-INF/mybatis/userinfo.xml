@@ -42,4 +42,13 @@
 		where
 			USER_ID = #{id}
 	</update>
+	
+	<update id="updateUserPwd" parameterType="UserInfo">
+		update
+			USER_INFO
+		set
+			USER_PWD = #{pwd},
+		where
+			USER_ID = #{id}
+	</update>
 </mapper>

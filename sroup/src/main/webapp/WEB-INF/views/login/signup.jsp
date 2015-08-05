@@ -54,7 +54,7 @@ hr {
 			<div class="form-group">
 				<label for="pwd" class="control-label">비밀번호</label>
 				<input type="password" class="form-control " placeholder="비밀번호" name="pwd" id="pwd">
-				<p class="error-message">비밀번호는 비밀번호는 영문, 숫자를 혼용하여 6~20자 이내로 입력해주세요.</p>
+				<p class="error-message">비밀번호는 영문, 숫자를 혼용하여 6~20자 이내로 입력해주세요.</p>
 			</div>
 			<div class="form-group">
 				<label for="pwdcheck" class="control-label">비밀번호확인</label>
@@ -107,34 +107,37 @@ $(function(){
 	var emailReg = /^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$/;
 	var phoneReg = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;	
 	
+	
+	var isValidId = true;
+	
 	function idcheck() {
+		isValidId = false;
 		var id = $("#id").val();
-		var returnvalue;
 		
 		if(!idReg.test(id)) {
 			$("#id ~ .error-message").text("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
-			form.error($("#id"));	
-			return false;
+			form.error($("#id"));
+			isValidId = false;
+			return;
 		} 
 		
 		//isIdOk : false --> 중복된 아이디 , true --> 사용가능한 아이디
+		/* 
 		$.ajaxSetup({
 			async: false
-		});		
+		});
+		*/
 		$.getJSON("idduplication.do", {id:id}, function(result) {
-			console.log(result);		
 			if(result.isIdOk) {
 				form.success($("#id"));
-				returnvalue = true;			
+				isValidId = true;
 			} else {
 				$("#id ~ .error-message").text("중복된 아이디 입니다.");
 				form.error($("#id"));
-				returnvalue = false;
+				isValidId = false;
 			}			
 		
 		});
-		console.log("2");		
-		return returnvalue;
 	};
 
 	$("#pwd").on("blur", function() {

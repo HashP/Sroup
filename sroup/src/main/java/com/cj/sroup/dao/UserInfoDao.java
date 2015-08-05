@@ -9,4 +9,5 @@ public interface UserInfoDao {
 	public UserInfoVO getUserById(String id);
 	
 	public void updateUserInfo(UserInfoVO user);
+	public void updateUserPwd(UserInfoVO user);
 }

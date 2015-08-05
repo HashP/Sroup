@@ -3,6 +3,8 @@ package com.cj.sroup.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,16 +85,26 @@ public class MyPageController {
 		if(loginId == null) {
 			return "redirect:/login/login.do";
 		}
+		Boolean updateResult = (Boolean) session.getAttribute("updateResult");
+		session.removeAttribute("updateResult");
+		
 		model.addAttribute("current_page", "pwdupdate");
+		model.addAttribute("updateResult", updateResult);	
 		
 		return "mypage/pwdupdate";
 	}
 	
 	@RequestMapping(value="/pwdupdate.do", method=RequestMethod.POST)
-	public String pwdupdate() {
+	public String pwdupdate(@RequestParam("oldpwd")String oldpwd
+							, @RequestParam("newpwd")String newpwd
+							, HttpSession session) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		if(loginId == null) {
+			return "redirect:/login/login.do";
+		}
 		
-		
-		
+		boolean updateResult = service.updatePassword(loginId, oldpwd, newpwd);
+		session.setAttribute("updateResult", updateResult);
 		
 		return "redirect:pwdupdate.do";
 	}
@@ -101,7 +113,7 @@ public class MyPageController {
 	public String mystudy(@RequestParam(value="cate", defaultValue="create", required=false)String cate
 						, Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
-
+		
 		if(loginId == null) {
 			return "redirect:/login/login.do";
 		}
