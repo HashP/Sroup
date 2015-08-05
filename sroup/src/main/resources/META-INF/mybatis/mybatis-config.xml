@@ -3,15 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	
-	<typeAliases>
-		<typeAlias type="com.cj.sroup.vo.UserInfoVO" alias="UserInfo"/>
-	</typeAliases>
-
-
-   
+ <typeAliases>
+   		<typeAlias type="com.cj.sroup.vo.M_galleryVO" alias="m_gallery"/>   		
+   		<typeAlias type="com.cj.sroup.vo.M_boardVO" alias="m_board"/>   		
+   </typeAliases>
+  <!-- SQL이 정의된 mapper파일을 등록한다. -->
   <mappers>
-    <!-- <mapper resource="META-INF/mybatis/employee.xml"/> -->
-    <mapper resource="META-INF/mybatis/userinfo.xml"/>
+    <mapper resource="META-INF/mybatis/m_gallery.xml"/>
   </mappers>
 </configuration>
