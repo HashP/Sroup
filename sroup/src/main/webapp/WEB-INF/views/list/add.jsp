@@ -13,8 +13,17 @@
 	src="resources/uploadify/jquery.uploadify.js"></script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script type="text/javascript">
+	try {
+		document.execCommand('BackgroundImageCache', false, true);
+	} catch (e) {
+	}
+</script>
+<script type="text/javascript"
+	src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 <script type="text/javascript">
 	var oEditors = [];
 	$(function() {
@@ -55,27 +64,25 @@
 			$(box).show();
 		})
 	})
-	
-	$(function () {
-		var date = new Date(); 
-		var year = date.getFullYear(); 
-		var month = new String(date.getMonth()+1); 
-		var day = new String(date.getDate()); 
-	
-		if(month.length == 1){ 
-		  month = "0" + month; 
-		} 
-		if(day.length == 1){ 
-		  day = "0" + day; 
+
+	$(function() {
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = new String(date.getMonth() + 1);
+		var day = new String(date.getDate());
+
+		if (month.length == 1) {
+			month = "0" + month;
 		}
-		
+		if (day.length == 1) {
+			day = "0" + day;
+		}
+
 		$("#startEventDate").val(year + "-" + month + "-" + day);
 		$("#startAcceptDate").val(year + "-" + month + "-" + day);
 		$("#endAcceptDate").val(year + "-" + month + "-" + day);
-		
-		
-	})	
 
+	})
 
 	$(function() {
 		$("#startEventDate").datepicker(
@@ -90,7 +97,7 @@
 					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
-		});
+				});
 		$("#startAcceptDate").datepicker(
 				{
 					dateFormat : "yy-mm-dd",
@@ -103,7 +110,7 @@
 					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
-		});
+				});
 		$("#endAcceptDate").datepicker(
 				{
 					dateFormat : "yy-mm-dd",
@@ -116,10 +123,25 @@
 					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
+				});
+	});
+
+	$(function(){
+		$("#searchBtn").on("click", function() {
+	
+			var addr = $("#POIword").val();
+			console.log("addr: " + addr);
+			$.ajax({
+				url : "map.do",
+				data : { addr : addr},
+				dataType : 'json',
+				success : function(data) {
+					console.log(data);
+				}
+			});
 		});
 	});
 </script>
-
 </head>
 </head>
 <body>
@@ -157,7 +179,8 @@
 							<h4 class="subTitle">
 								카테고리 / 제목 입력 <span class="star">*</span>
 							</h4>
-							<select class="category" name="category" style="height: 30px; width: 110px;">
+							<select class="category" name="category"
+								style="height: 30px; width: 110px;">
 								<option value="">카테고리 선택</option>
 								<option value="15">번개/소모임</option>
 								<option value="16">교육/세미나</option>
@@ -389,7 +412,7 @@
 									하루이상일경우</label>
 							</h4>
 
-							<div class="dateConfig">
+							<div class="dateConfig" style="width: 625px">
 								<input type="hidden" name="eventEndDateInUse" value="y" /> <input
 									type="hidden" name="eventStartDateTime"
 									value="2015-08-01 17:30" /> <input type="hidden"
@@ -503,7 +526,7 @@
 								</select> 까지
 							</div>
 						</div>
-						<div class="subCore setupTime">
+						<div class="subCore setupTime" style="width: 648px">
 							<h4 class="subTitle">
 								참여신청기간 설정 <span class="star">*</span>
 							</h4>
@@ -635,20 +658,21 @@
 					</div>
 				</div>
 				<div class="core place">
-					<div class="input">
+					<div class="input" style="width: 648px; padding-right: 9px;">
 						<div class="subCore location">
 							<h4 class="subTitle">
 								모임 장소 설정 <span class="star">*</span>
 							</h4>
 							<input class="location text" type='text' name='location'
 								id='location' size='' maxlength='64' value='' minlen='3'
-								required alias='장소를' title="정확한 장소명을 입력해 주세요." />
+								placeholder="정확한 장소명을 입력해 주세요." />
 						</div>
 						<div class="subCore map">
 							<div class="mapSearch">
-								<input id="POIword" title="시, 도, 구, 동 단위로 위치를 입력해 주세요."
-									class="text" type="text" value="" /><input
-									class="search button" type="button" value="" /><br />
+								<input id="POIword" placeholder="시, 도, 구, 동 단위로 위치를 입력해 주세요."
+									class="text" type="text" value="" /><input id="searchBtn"
+									class="search button" type="button" value=""
+									onclick="search();" /><br />
 
 								<div class="search result">
 									<select id="SearchResult" style="display: none" MULTIPLE>
@@ -658,6 +682,7 @@
 							<div class="map holder">
 								<div id='mapzone'
 									style="width: 644px; height: 360px; display: block;"></div>
+
 								<input type="hidden" name='tm128x' id="tm128x" /> <input
 									type="hidden" name='tm128y' id="tm128y" /> <input
 									type="hidden" name='mapX' id="lng" size='' maxlength='64'
@@ -668,6 +693,65 @@
 									type="hidden" name="sublocality1" id="gugun" /> <input
 									type="hidden" name="sublocality2" id="dong" />
 							</div>
+							<script type="text/javascript">
+								var Lat = 37.5675451;
+								var Lng = 126.9773356;
+								var oSeoulCityPoint = new nhn.api.map.LatLng(
+										Lat, Lng);
+								var defaultLevel = 11;
+								var oMap = new nhn.api.map.Map(document
+										.getElementById('mapzone'), {
+									point : oSeoulCityPoint,
+									zoom : defaultLevel,
+									enableWheelZoom : true,
+									enableDragPan : true,
+									enableDblClickZoom : false,
+									mapMode : 0,
+									activateTrafficMap : false,
+									activateBicycleMap : false,
+									minMaxLevel : [ 1, 14 ],
+									size : new nhn.api.map.Size(642, 358)
+								});
+								var oSlider = new nhn.api.map.ZoomControl();
+								oMap.addControl(oSlider);
+								oSlider.setPosition({
+									top : 40,
+									left : 10
+								});
+
+								var oMapTypeBtn = new nhn.api.map.MapTypeBtn();
+								oMap.addControl(oMapTypeBtn);
+								oMapTypeBtn.setPosition({
+									top : 10,
+									left : 10
+								});
+
+								var oSize = new nhn.api.map.Size(28, 37);
+								var oOffset = new nhn.api.map.Size(14, 37);
+								var oIcon = new nhn.api.map.Icon(
+										'/sroup/resources/images/map_pin.png',
+										oSize, oOffset);
+
+								var oInfoWnd = new nhn.api.map.InfoWindow();
+								oInfoWnd.setVisible(false);
+								oMap.addOverlay(oInfoWnd);
+
+								oMap.attach('click', function(oCustomEvent) {
+									oMap.clearOverlay();
+									var oPoint = oCustomEvent.point;
+									var oTarget = oCustomEvent.target;
+									oInfoWnd.setVisible(false);
+
+									var oMarker = new nhn.api.map.Marker(oIcon,
+											{
+												title : '마커 : '
+														+ oPoint.toString()
+											});
+									oMarker.setPoint(oPoint);
+									oMap.addOverlay(oMarker);
+
+								});
+							</script>
 							<!-- .map.holder end -->
 						</div>
 					</div>

@@ -2046,12 +2046,52 @@ label.displayNone {
     height: 30px;
     vertical-align: inherit;
 }
-
-
-
-
-
-
+input.text.outfocus, textarea.text.outfocus {
+    color: #bbb;
+}
+.secondStep .place #location {
+    margin-top: 10px;
+    width: 643px;
+}
+.content .core .subCore {
+    vertical-align: top;
+}
+.secondStep .place .subCore.map {
+    padding: 1px;
+    border: 1px solid #ccc;
+}
+.secondStep .place .map .mapSearch {
+    width: 644px;
+    height: 87px;
+    background: url("http://static.onoffmix.com/images3/background/bg_map_head.gif") no-repeat 0 0;
+    margin-bottom: 1px;
+}
+.secondStep .place .map .mapSearch #POIword {
+    margin-left: 19px;
+    margin-top: 38px;
+    width: 422px;
+    height: 26px;
+    border-color: #668db5;
+    background: url("http://static.onoffmix.com/images3/label/label_map_pin.gif") no-repeat left -3px #fff;
+    padding-left: 22px;
+    height: 22px \9;
+}
+.secondStep .place div.location {
+    padding-bottom: 20px;
+}
+.secondStep .place .map input.search {
+    margin-left: 3px;
+    margin-top: 38px;
+    float: none;
+    display: inline-block;
+    width: 42px;
+    height: 28px;
+    line-height: 28px;
+    background: url("http://static.onoffmix.com/images2/button/event_admin_write_map_search.png") no-repeat;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
 
 
 
