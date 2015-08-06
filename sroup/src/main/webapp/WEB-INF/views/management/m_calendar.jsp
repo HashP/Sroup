@@ -11,6 +11,12 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker.css">
+<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker-regularfont.css">
+<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker-glyphicons.css">
+<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker-fontawesome.css">
 <style type="text/css">
 #title {
 	padding-left: 10px;
@@ -61,6 +67,9 @@ label[for="end_d"]{
 <script type="text/javascript"
 	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
     </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
+<script src="resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <div class="container">
 	<h1 id="bordname">스터디 일정</h1>
 	<hr>
