@@ -11,6 +11,10 @@
 	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 <script type="text/javascript"
 	src="resources/uploadify/jquery.uploadify.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 	var oEditors = [];
 	$(function() {
@@ -43,6 +47,77 @@
 			$("#frm").submit();
 		});
 	});
+
+	$(function() {
+		$(".step a").on("click", function() {
+			$(".stepbox").hide();
+			var box = $(this).attr("href");
+			$(box).show();
+		})
+	})
+	
+	$(function () {
+		var date = new Date(); 
+		var year = date.getFullYear(); 
+		var month = new String(date.getMonth()+1); 
+		var day = new String(date.getDate()); 
+	
+		if(month.length == 1){ 
+		  month = "0" + month; 
+		} 
+		if(day.length == 1){ 
+		  day = "0" + day; 
+		}
+		
+		$("#startEventDate").val(year + "-" + month + "-" + day);
+		$("#startAcceptDate").val(year + "-" + month + "-" + day);
+		$("#endAcceptDate").val(year + "-" + month + "-" + day);
+		
+		
+	})	
+
+
+	$(function() {
+		$("#startEventDate").datepicker(
+				{
+					dateFormat : "yy-mm-dd",
+					prevText : '이전 달',
+					nextText : '다음 달',
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+							'7월', '8월', '9월', '10월', '11월', '12월' ],
+					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
+		});
+		$("#startAcceptDate").datepicker(
+				{
+					dateFormat : "yy-mm-dd",
+					prevText : '이전 달',
+					nextText : '다음 달',
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+							'7월', '8월', '9월', '10월', '11월', '12월' ],
+					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
+		});
+		$("#endAcceptDate").datepicker(
+				{
+					dateFormat : "yy-mm-dd",
+					prevText : '이전 달',
+					nextText : '다음 달',
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+							'7월', '8월', '9월', '10월', '11월', '12월' ],
+					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
+		});
+	});
 </script>
 
 </head>
@@ -61,15 +136,18 @@
 
 			<h2 class="title">모임설정</h2>
 
-			<div class="roundBox firstStep" style="display: block;">
+			<div id="firstBox" class="roundBox firstStep stepbox"
+				style="display: block;">
 				<div class="firstCore">
 					<div class="title">
 						<h3 class="title">step.1 모임 기본 정보입력</h3>
 
 						<div class="menu">
-							<a class="firstStep" href="#firstStep">STEP.1</a><a
-								class="secondStep" href="#secondStep">STEP.2</a><a
-								class="lastStep" href="#lastStep">STEP.3</a>
+							<div class="step">
+								<a id="firstStep" class="firstStep " href="#firstBox">STEP.1</a><a
+									id="secondStep" class="secondStep" href="#secondBox">STEP.2</a><a
+									id="lastStep" class="lastStep" href="#lastBox">STEP.3</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -79,7 +157,7 @@
 							<h4 class="subTitle">
 								카테고리 / 제목 입력 <span class="star">*</span>
 							</h4>
-							<select class="category" name="category" style="height: 30px;">
+							<select class="category" name="category" style="height: 30px; width: 110px;">
 								<option value="">카테고리 선택</option>
 								<option value="15">번개/소모임</option>
 								<option value="16">교육/세미나</option>
@@ -230,16 +308,17 @@
 								스터디 설정 <span class="star">*</span>
 							</h4>
 							<div class="divAccess">
-								<label for="free" id="dues">스터디 최대 인원</label><input class="Access"
-									type="text" name="isDues" /><label for="dues">명</label> <br>
+								<label for="free" id="dues">스터디 최대 인원</label><input
+									class="Access" type="text" name="isDues" /><label for="dues">명</label>
+								<br>
 							</div>
-							<label for="free" id="checkRule">승인 방식</label>
-							<input id="check" class="radio" type="radio" name="rule" value="1"/><label for="check" style="margin-right: 20px">검토 후 승인</label>
-							<input id="auto" class="radio" type="radio" name="rule" value="0"/><label for="auto">자동 승인</label>
-							
-							<span class="tip">승인 방식은 <strong>검토 후 승인을 권장</strong>합니다.
-								승인을 받지 못하면 간단한 스터디 정보만 공개되고,
-								자동 승인 방식을 선택하면 스터디 정보가 모두 공개됩니다.
+							<label for="free" id="checkRule">승인 방식</label> <input id="check"
+								class="radio" type="radio" name="rule" value="1" /><label
+								for="check" style="margin-right: 20px">검토 후 승인</label> <input
+								id="auto" class="radio" type="radio" name="rule" value="0" /><label
+								for="auto">자동 승인</label> <span class="tip">승인 방식은 <strong>검토
+									후 승인을 권장</strong>합니다. 승인을 받지 못하면 간단한 스터디 정보만 공개되고, 자동 승인 방식을 선택하면 스터디
+								정보가 모두 공개됩니다.
 							</span>
 						</div>
 					</div>
@@ -277,23 +356,26 @@
 						</p>
 					</div>
 					<div class="lastCore">
-					<div class="action">
-						<a href="#secondStep"
-							class="next button">다음단계</a><a class="temp button" href="#temp"><span>임시저장</span></a>
+						<div class="action">
+							<a href="#secondStep" class="next button">다음단계</a><a
+								class="temp button" href="#temp"><span>임시저장</span></a>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 			<!--firstStep end-->
-			<div class="roundBox secondStep" style="display: none;">
+			<div id="secondBox" class="roundBox secondStep stepbox"
+				style="display: none;">
 				<div class="firstCore">
 					<div class="title">
 						<h3 class="title">step.2 일정 / 장소 정보 입력</h3>
 
 						<div class="menu">
-							<a class="firstStep" href="#firstStep">STEP.1</a><a
-								class="secondStep" href="#secondStep">STEP.2</a><a
-								class="lastStep" href="#lastStep">STEP.3</a>
+							<div class="step">
+								<a id="firstStep" class="firstStep" href="#firstBox">STEP.1</a><a
+									id="secondStep" class="secondStep" href="#secondBox">STEP.2</a><a
+									id="lastStep" class="lastStep" href="#lastBox">STEP.3</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -613,15 +695,18 @@
 				</div>
 			</div>
 			<!--secondStep end-->
-			<div class="roundBox lastStep" style="display: none;">
+			<div id="lastBox" class="roundBox lastStep stepbox"
+				style="display: none;">
 				<div class="firstCore">
 					<div class="title">
 						<h3 class="title">step.3 부가 정보 입력</h3>
 
 						<div class="menu">
-							<a class="firstStep" href="#firstStep">STEP.1</a><a
-								class="secondStep" href="#secondStep">STEP.2</a><a
-								class="lastStep" href="#lastStep">STEP.3</a>
+							<div class="step">
+								<a id="firstStep" class="firstStep" href="#firstBox">STEP.1</a><a
+									id="secondStep" class="secondStep" href="#secondBox">STEP.2</a><a
+									id="lastStep" class="lastStep" href="#lastBox">STEP.3</a>
+							</div>
 						</div>
 					</div>
 				</div>

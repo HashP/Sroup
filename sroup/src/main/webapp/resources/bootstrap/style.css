@@ -1603,7 +1603,7 @@ a.gotoTop {
     margin-left: -25px;
     vertical-align: top;
 }
-.content .roundBox .menu {
+.content .roundBox .title .menu {
     display: inline-block;
     /* width: 189px; */
     height: 25px;
@@ -1611,7 +1611,7 @@ a.gotoTop {
     float: right;
     margin-top: 3px;
 }
-.content .menu a {
+.content .menu .step a {
     position: relative;
     display: inline-block;
     background-color: #e7e7e7;
@@ -1625,27 +1625,27 @@ a.gotoTop {
     padding-right: 10px;
     padding-left: 11px;
 }
-.content .menu a.firstStep {
+.content .menu .step a.firstStep {
     -webkit-border-radius: 3px 0 0 3px;
     -moz-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
     margin-right: -1px;
 }
-.content .firstStep .menu a.firstStep, .content .secondStep .menu a.secondStep, .content .lastStep .menu a.lastStep {
+.content .firstStep .menu .step a.firstStep, .content .secondStep .menu .step a.secondStep, .content .lastStep .menu .step a.lastStep {
     z-index: 1;
     border-color: #3085e6;
     background-color: #4195f5;
     color: #fff;
 }
-.content .menu a.secondStep {
+.content .menu .step a.secondStep {
     margin-right: -1px;
 }
-.content .menu a.lastStep, .content .modify .menu a.manage {
+.content .menu .step a.lastStep, .content .modify .menu .step a.manage {
     -webkit-border-radius: 0 3px 3px 0;
     -moz-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
 }
-.content .menu a:hover {
+.content .menu .step a:hover {
 	color: #4195f5;
 	text-decoration: underline;
 }
@@ -1933,7 +1933,7 @@ input.radio, input.checkbox {
     width: 679px;
     height: 117px;
 }
-.roundBox .action {
+.roundBox .lastCore .action {
     display: block;
     padding-top: 30px;
     padding-bottom: 50px;
@@ -2003,12 +2003,49 @@ input.radio, input.checkbox {
 #checkRule{
 	margin-right: 55px;	
 }
-
-
-
-
-
-
+.secondStep .startEvent {
+    padding-bottom: 13px;
+}
+.secondStep .eventDate label.days {
+    margin-top: 1px;
+    display: inline;
+    color: #666;
+    letter-spacing: -1px;
+    font-size: 11px;
+    font-weight: normal;
+    margin-left: 20px;
+}
+.secondStep .eventDate .dateConfig {
+    padding: 10px 11px;
+    border: 1px solid #ccc;
+    line-height: 30px;
+    vertical-align: top;
+    margin-top: -2px;
+}
+input.text {
+    background: none #f8f8f8;
+    line-height: 18px \9;
+    font-size: 12px;
+    color: #333;
+    border: 1px solid #ccc;
+    padding-left: 3px;
+    vertical-align: top;
+    height: 28px;
+    padding-top: 5px \9;
+    height: 23px \9;
+}
+.secondStep input.text.datepicker {
+    width: 115px;
+    margin-right: 6px;
+}
+label.displayNone {
+    display: none !important;
+}
+.date-select {
+    border: 1px solid #ccc;
+    height: 30px;
+    vertical-align: inherit;
+}
 
 
 

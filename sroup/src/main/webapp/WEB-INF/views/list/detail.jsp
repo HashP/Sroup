@@ -180,9 +180,6 @@
 								value="내용입력" />
 						</form>
 					</div>
-					<a class="showComment" href="#">댓글 <strong class="status count">108</strong>개
-						전체보기
-					</a>
 				</div>
 
 				<div class="tips">
