@@ -2,9 +2,8 @@ package com.cj.sroup.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cj.sroup.service.MyPageService;
+import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Controller
@@ -42,9 +42,9 @@ public class MyPageController {
 		model.addAttribute("current_page", "profileupdate");
 		model.addAttribute("userinfo", service.getUserInfoById(loginId));
 		
-		filepath = filepath.replace("C:\\Users\\jhta\\git\\sroup\\sroup\\src\\main\\webapp\\", "\\sroup\\");
+		String imagepath = "\\sroup\\"+filepath;
 		
-		model.addAttribute("imgpath", filepath);
+		model.addAttribute("imgpath", imagepath);
 		return "mypage/profileupdate";
 	}
 	
@@ -64,10 +64,12 @@ public class MyPageController {
 			// 첨부파일 정보 조회하기
 			String filename = photofile.getOriginalFilename();
 			filename = System.currentTimeMillis() + filename;		//이름이 같은 파일끼리의 겹침을 방지하기 위해 이름에 시간정보를 같이 넣어줌
-			//String filepath = session.getServletContext().getContextPath();
+			String rootpath = session.getServletContext().getRealPath("/");
 			//업로드 된 파일을 지정된 폴더에 저장하기
 			byte[] filedata = photofile.getBytes();
-			File file = new File(filepath + filename);
+			String uploadpath = rootpath + filepath;
+			System.out.println(uploadpath);
+			File file = new File(uploadpath + filename);
 			FileCopyUtils.copy(filedata, file);
 
 			user.setProfilephoto(filename);
@@ -118,11 +120,19 @@ public class MyPageController {
 			return "redirect:/login/login.do";
 		}
 		
+		List<StudyManagementVO> createStudy = service.getCreateStudiesById(loginId);
+		List<StudyManagementVO> attendStudy = service.getAttendStudiesById(loginId);
+		
+		model.addAttribute("createStudy", createStudy);
+		model.addAttribute("attendStudy", attendStudy);
+		
+//		System.out.println("create: " + createStudy);
+//		System.out.println("attend: " + attendStudy);
+		
 		model.addAttribute("cate", cate);
 		model.addAttribute("current_page", cate + "study");
 		return "mypage/mystudy";
 	}
-	
 	
 	@RequestMapping("/calendar.do")
 	public String calendar(Model model, HttpSession session) {
@@ -134,8 +144,6 @@ public class MyPageController {
 		model.addAttribute("current_page", "studycalendar");
 		return "mypage/calendar";
 	}
-	
-	
 	
 	@RequestMapping("/finished-study.do")
 	public String finished(Model model, HttpSession session) {

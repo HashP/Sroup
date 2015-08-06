@@ -6,14 +6,14 @@
 <link href='../resources/fullcalendar/fullcalendar.min.css' rel='stylesheet' media='print' />
 <style type="text/css">
 
-#title {
+#calendartitle {
 	padding-left: 10px;
 	font-family: '나눔고딕';
 	margin-top: 0px;
 }
 
 #calendarblock {
-	width: 600px;
+	width: 100%;
 }
 
 /* .fc-sat {color:blue;}
@@ -27,7 +27,7 @@
 <div  id="calendarblock" class="panel panel-default">
 	<div class="panel-body">
 
-		<h1 class="panel-title" id="title">스터디 캘린더</h1>
+		<h1 class="panel-title" id="calendartitle">스터디 캘린더</h1>
 		<hr>
 		
 		<div id="calendar"></div>
@@ -50,7 +50,7 @@ $(function(){
         header: { 
             left: 'prev,next,today', 
             center: 'title', 
-            right: 'month,agendaWeek,agendaDay' 
+            right: 'month,agendaWeek' 
         }, 
         editable: false, 
         dayClick: function(date, allDay, jsEvent, view) 

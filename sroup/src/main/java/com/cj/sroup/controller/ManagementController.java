@@ -1,5 +1,7 @@
 package com.cj.sroup.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.cj.sroup.service.M_commentService;
 import com.cj.sroup.service.M_galleryService;
 import com.cj.sroup.vo.M_boardVO;
 import com.cj.sroup.vo.M_calEventVO;
+import com.cj.sroup.vo.M_calendarVO;
 import com.cj.sroup.vo.M_commentVO;
 import com.cj.sroup.vo.M_galleryVO;
 
@@ -129,11 +132,33 @@ public class ManagementController {
 	@RequestMapping("/calEvent.do")	
 	public View calEvent(Model model){		
 		List<M_calEventVO> eventList = m_calendarservice.getAllEvent();
+		System.out.println(eventList.toString());
 		model.addAttribute("eventList",eventList);
 		
 		return jsonView;
 	}
 	
-	
+// 캘린더 이벤트 추가하는 곳
+	@RequestMapping("/calEventAdd.do")
+	public View calEventAdd(@RequestParam("cal_start") String cal_start,
+							@RequestParam("cal_end") String cal_end,
+							@RequestParam("cal_title") String cal_title,
+							@RequestParam("cal_content") String cal_content) throws ParseException{
+		SimpleDateFormat sd = new SimpleDateFormat(
+				"yyyy-MM-dd hh:mm");
+
+		System.out.println("!"+cal_start+cal_end);
+		M_calendarVO m_calendar = new M_calendarVO();
+		m_calendar.setCal_strart(sd.parse(cal_start));
+		m_calendar.setCal_end(sd.parse(cal_end));
+		m_calendar.setCal_title(cal_title);;
+		m_calendar.setCal_content(cal_content);
+		
+		m_calendarservice.addCalEvent(m_calendar);
+		
+		
+		return jsonView;		
+		
+	}
 	
 }

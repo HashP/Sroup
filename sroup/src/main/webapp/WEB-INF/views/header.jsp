@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/sroup/resources/bootstrap/style.css">
 <link rel="stylesheet" href="/sroup/resources/bootstrap/style-theme.css">
-<link rel="stylesheet" href="/sroup/resources/bootstrap/boot.css">
+<!-- <link rel="stylesheet" href="/sroup/resources/bootstrap/boot.css"> -->
 <!-- <link rel="stylesheet" href="../resources/bootstrap/bootstrap.css">
 <link rel="stylesheet" href="../resources/bootstrap/bootstrap-theme.css"> -->
 <style type="text/css">
@@ -25,6 +25,18 @@
 	width: 210px;
 	height: 76px;
 	float: right;
+}
+
+@media (max-width: 980px) {
+	.header {
+		width: 980px;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.logoSearchArea {
+		width: 100%;
+	}
+
 }
 </style>
 <div class="header">

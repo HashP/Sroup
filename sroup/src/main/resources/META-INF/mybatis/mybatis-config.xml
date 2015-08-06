@@ -11,7 +11,8 @@
    		<typeAlias type="com.cj.sroup.vo.M_calEventVO" alias="m_calEvent"/>   		
    		<typeAlias type="com.cj.sroup.vo.UserInfoVO" alias="UserInfo"/>   	
    		<typeAlias type="com.cj.sroup.vo.StudyVO" alias="Study"/>   		
-   		<typeAlias type="com.cj.sroup.vo.ListVO" alias="Lists"/>	
+   		<typeAlias type="com.cj.sroup.vo.ListVO" alias="Lists"/>
+   		<typeAlias type="com.cj.sroup.vo.StudyManagementVO" alias="StudyManagementVO"/>
    </typeAliases>
   <!-- SQL이 정의된 mapper파일을 등록한다. -->
   <mappers>
@@ -21,5 +22,6 @@
     <mapper resource="META-INF/mybatis/m_calendar.xml"/>
     <mapper resource="META-INF/mybatis/userinfo.xml"/>
     <mapper resource="META-INF/mybatis/study.xml"/>
+    <mapper resource="META-INF/mybatis/study-management.xml"/>
   </mappers>
 </configuration>

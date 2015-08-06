@@ -7,7 +7,7 @@
 	<!-- 디폴트 레이아웃을 정의한다. -->
 
 	<definition name="default" template="/WEB-INF/views/template.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/navbar2.jsp"></put-attribute>
+		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/views/header.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>
@@ -22,7 +22,7 @@
 
 	<definition name="mypagedefault" template="/WEB-INF/views/mypage/mypage_template.jsp">
 		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
-		<put-attribute name="header" value=""></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp"></put-attribute>
 		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/sidebar.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
 		<put-attribute name="footer" value=""></put-attribute>

@@ -1,10 +1,14 @@
 package com.cj.sroup.service;
 
+import java.util.List;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cj.sroup.dao.StudyManagementDao;
 import com.cj.sroup.dao.UserInfoDao;
+import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Service
@@ -12,6 +16,8 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired
 	private UserInfoDao userDao;
+	@Autowired
+	private StudyManagementDao studyManagementDao;
 	
 	@Override
 	public UserInfoVO getUserInfoById(String id) {
@@ -39,17 +45,36 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		// 새로운 패스워드를 암호화
 		String encryptNewPwd = DigestUtils.sha256Hex(newpwd);
-		
 	
 		UserInfoVO user = new UserInfoVO();
 		user.setId(id);
 		user.setPwd(encryptNewPwd);
 		
-		
-		
-		
-		
-		return false;
+		return true;
+	}
+
+	@Override
+	public List<StudyManagementVO> getCreateStudiesById(String id) {
+		// TODO Auto-generated method stub
+		return studyManagementDao.getCreateStudiesById(id);
+	}
+
+	@Override
+	public List<StudyManagementVO> getAttendStudiesById(String id) {
+		// TODO Auto-generated method stub
+		return studyManagementDao.getAttendStudiesById(id);
+	}
+
+	@Override
+	public List<StudyManagementVO> getFinishedCreateStudiesById(String id) {
+		// TODO Auto-generated method stub
+		return studyManagementDao.getFinishedCreateStudiesById(id);
+	}
+
+	@Override
+	public List<StudyManagementVO> getFinishedAttendStudiesById(String id) {
+		// TODO Auto-generated method stub
+		return studyManagementDao.getFinishedAttendStudiesById(id);
 	}
 
 }

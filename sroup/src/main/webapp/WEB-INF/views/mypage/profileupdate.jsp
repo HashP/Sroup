@@ -13,7 +13,7 @@
 }
 
 #updateform {
-	width: 600px;
+	width: 100%;
 }
 
 .control-label {
@@ -197,8 +197,8 @@ $(function(){
 	var uploadchange = function(e) {
 		e.preventDefault();
 		
-		form.clear($("input[name='profilephoto']"));
-		var upload = $("input[name='profilephoto']")[0];
+		form.clear($("#profilephoto"));
+		var upload = $("#profilephoto")[0];
 		var file = upload.files[0], reader = new FileReader();
 		
 		if(!checkvalue()) {
@@ -214,17 +214,17 @@ $(function(){
 			}
 			holder.innerHTML = '';
 			holder.appendChild(img);
-			form.success($("input[name='profilephoto']"));
+			form.success($("#profilephoto"));
 		};
 		reader.readAsDataURL(file);
 
 		return false;
 	}
 	
-	$("input[name='profilephoto']").on("change", uploadchange);
+	$("#profilephoto").on("change", uploadchange);
 	
 	function checkvalue() {
-		var upload = $("input[name='profilephoto']");
+		var upload = $("#profilephoto");
 		var imgex = ['bmp', 'jpg', 'gif', 'png', 'jpeg', 'BMP', 'JPG', 'GIF', 'PNG', 'JPEG'];
 
 		/* if(!upload.val()) {

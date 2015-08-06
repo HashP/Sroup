@@ -6,7 +6,7 @@
  <mapper namespace="com.cj.sroup.dao.M_calendarDao">   
  
    <select id="getAllEvent" resultType="m_calEvent">
-  	select CAL_START	as cal_strart,
+  	select CAL_START	as cal_start,
    			CAL_END		as cal_end,
    			CAL_TITLE	as cal_title,
    			CAL_CONTENT as cal_content,
@@ -24,12 +24,12 @@
                         CAL_CONTENT)
         values (20,
                 1,
-                sysdate,
-                SYSDATE + 1,
+                #{cal_start},
+                #{cal_end},
                 'cj',
-                '공부합시다.',
-                '쉽다. 쉽다. 쉽다. 쉽다........'
-                );
+                #{cal_title},
+                #{cal_content}
+                )
    </insert>  
    
 </mapper>

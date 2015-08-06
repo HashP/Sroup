@@ -55,6 +55,13 @@ public class LoginServiceImpl implements LoginService{
 		}
 	}
 
+	@Override
+	public String getUserName(String id) {
+		// TODO Auto-generated method stub
+		UserInfoVO user = userDao.getUserById(id);
+		return user.getName();
+	}
+
 	
 
 }
