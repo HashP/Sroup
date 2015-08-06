@@ -5,7 +5,7 @@ import java.util.Date;
 public class M_calendarVO {
 	private int study_no;
 	private int cal_no;	
-	private Date cal_strart;
+	private Date cal_start;
 	private	Date cal_end;
 	private	String cal_title;
 	private	String cal_content;
@@ -22,11 +22,11 @@ public class M_calendarVO {
 	public void setCal_no(int cal_no) {
 		this.cal_no = cal_no;
 	}
-	public Date getCal_strart() {
-		return cal_strart;
+	public Date getCal_start() {
+		return cal_start;
 	}
-	public void setCal_strart(Date cal_strart) {
-		this.cal_strart = cal_strart;
+	public void setCal_strart(Date cal_start) {
+		this.cal_start = cal_start;
 	}
 	public Date getCal_end() {
 		return cal_end;

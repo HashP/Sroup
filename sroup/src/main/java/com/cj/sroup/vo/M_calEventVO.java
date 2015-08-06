@@ -3,17 +3,24 @@ package com.cj.sroup.vo;
 import java.util.Date;
 
 public class M_calEventVO {
-	private Date cal_strart;
+	private int event_id;
+	private Date cal_start;
 	private	Date cal_end;
 	private	String cal_title;
 	private	String cal_content;
 	private String cal_writer;
-	
-	public Date getCal_strart() {
-		return cal_strart;
+		
+	public int getEvent_id() {
+		return event_id;
 	}
-	public void setCal_strart(Date cal_strart) {
-		this.cal_strart = cal_strart;
+	public void setEvent_id(int event_id) {
+		this.event_id = event_id;
+	}	
+	public Date getCal_start() {
+		return cal_start;
+	}
+	public void setCal_start(Date cal_start) {
+		this.cal_start = cal_start;
 	}
 	public Date getCal_end() {
 		return cal_end;

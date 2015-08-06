@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <link href='resources/fullcalendar/fullcalendar.css' rel='stylesheet' />
-<link href='resources/fullcalendar/fullcalendar.min.css' rel='stylesheet' media='print' />
+<link href='resources/fullcalendar/fullcalendar.min.css'
+	rel='stylesheet' media='print' />
+<link
+	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 <style type="text/css">
-
 #title {
 	padding-left: 10px;
 	font-family: '나눔고딕';
@@ -13,32 +19,62 @@
 }
 
 #calendarblock {
-margin : auto;
+	margin: auto;
 	width: 800px;
 	height: 720px;
 }
-.fc-sat {color:blue;}
-.fc-sun {color:red;}
 
+.fc-sat {
+	color: blue;
+}
 
+.fc-sun {
+	color: red;
+}
+input[type='text']{
+	height: 30px;
+	width: 218px;
+}
+.input-append .add-on{
+	width: 28px;	
+	height: 30px;
+}
+label[for="start_d"]{
+	display: inline-block;
+	padding-right : 10px;
+	margin: 6px 0;	
+	
+}
+label[for="end_d"]{
+	display: inline-block;
+	padding-right : 10px;
+	margin: 6px 0;
+}
 </style>
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script src="resources/fullcalendar/lib/moment.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
-<div class="container">  
-  <h1 id="bordname">스터디 일정</h1>
-  <hr>  
-  
-<div  id="calendarblock" class="panel panel-default">
-	<div class="panel-body">
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
+<script type="text/javascript"
+	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+    </script>
+<script type="text/javascript"
+	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+<div class="container">
+	<h1 id="bordname">스터디 일정</h1>
+	<hr>
 
-		<h1 class="panel-title" id="title">스터디 캘린더</h1>
-		<hr>
-		
-		<div id="calendar"></div>
-		
+	<div id="calendarblock" class="panel panel-default">
+		<div class="panel-body">
+
+			<h1 class="panel-title" id="title">스터디 캘린더</h1>
+			<hr>
+
+			<div id="calendar"></div>
+
+		</div>
 	</div>
-</div>
 </div>
 <script type="text/javascript">
 
@@ -49,8 +85,27 @@ margin : auto;
 $(document).ready(function()
 {
 	
+	
+	 $('#datetimepicker1').datetimepicker({
+	      language: 'en',
+	      format: 'yyyy-MM-dd hh:mm PP',
+	      pick12HourFormat: true
+	    });
+	 $('#datetimepicker2').datetimepicker({
+	      language: 'en',
+	      format: 'yyyy-MM-dd hh:mm PP',
+	      pick12HourFormat: true
+	    });
+	 $("#datetimepicker1").on("changeDate", function (e) {
+		 alert("!");
+         $('#datetimepicker2').data("DateTimePicker").minViewMode(e.date);
+     });      
+	  $("#datetimepicker2").on("changeDate", function (e) {
+          $('#datetimepicker1').data("DateTimePicker").maxViewMode(e.date);
+      });
+	
 	   
-	    $('#chkRec').click(function () {
+    $('#chkRec').click(function () {
 	        if ($(this).is(':checked')) {
 	            $('#RecEvent').show();
 	        }
@@ -79,6 +134,7 @@ $(document).ready(function()
    
    var calendar = $('#calendar').fullCalendar(
    {
+	  
       /*
          header option will define our calendar header.
          left define what will be at left position in calendar
@@ -111,10 +167,14 @@ $(document).ready(function()
       */
       select: function(start, end, allDay)
       {
-    	  $("#StartDt").val("" + start.toLocaleString());
+    	  var startdate = new Date(start);
+    	  var enddate = new Date(end);
+    	  var startval = startdate.getFullYear()+"/"+startdate.getMonth()+"/"+startdate.getDate()+" "+startdate.toTimeString();
+    	  var endval = enddate.getFullYear()+"/"+enddate.getMonth()+"/"+enddate.getDate()+" "+enddate.toTimeString();
+    	  $("#StartDt").val("" + startval.substr(0, 18) );
           $("#EvtStartDt").val("" + start.toLocaleString());
 
-          $("#EndDt").val("" + end.toLocaleString());
+          $("#EndDt").val("" + endval.substr(0, 18));
           $("#EvtEndDt").val("" + end.toLocaleString());
 
           $("#ModalAdd").dialog(
@@ -137,25 +197,34 @@ $(document).ready(function()
                           eventToSave.Count = $("#txtCount").val();
                           eventToSave.Interval = $("#txtInterval").val();
                       }
-                      $.ajax({
-                          type: "POST",
-                          contentType: "application/json",
-                          data: "{eventdata:" + JSON.stringify(eventToSave) + "}",
-                          url: "sroup/calEvent.do",
-                          dataType: "json",
+                      var allData = {"cal_start":$("#start_d").val(),"cal_end":$("#end_d").val(),"cal_title":$("#e_title").val(),"cal_content":$("#e_memo").val()}
+                      $.ajax({              
+                          url: "calEventAdd.do",
+                          data : allData,                                       
                           success: function (data) {
-                              var events = new Array();
-                              $.map(data.d, function (item, i) {
-                                  var event = new Object();
-                                  event.id = item.EventID;
-                                  event.start = new Date(item.StartDate);
-                                  event.end = new Date(item.EndDate);
-                                  event.title = item.EventName;
-                                  event.allDay = false;
-                                  events.push(event);
-                              })
-                              $('div[id*=calendar]').fullCalendar('addEventSource', events);
-                              $("#ModalAdd").dialog("close");
+                        	  // add 클릭시 바로 달력에 표시 이벤트 재 로드
+                        	  $.ajax({              
+                                  url: "calEvent.do",
+                                  dataType: 'json',             
+                                  success: function (data) {
+                                	  var events = new Array();
+                                	  $.each(data.eventList, function (i, item) {
+                                          var event = new Object();
+                                          event.id =  Math.floor(200 * Math.random());
+                                          event.start = new Date(item.cal_start);
+                                          event.end = new Date(item.cal_end);
+                                          event.title = item.cal_title;
+                                          event.content = item.cal_content;
+                                          event.allDay = false;
+                                          events.push(event);
+                                          
+                                      });    
+                                	 
+                              		$('div[id*=calendar]').fullCalendar('addEventSource', events);
+                             		$("#ModalAdd").dialog("close");
+                                  }                  
+                          
+                        	  });
                           },
                           error: function (XMLHttpRequest, textStatus, errorThrown) {
                               debugger;
@@ -172,6 +241,7 @@ $(document).ready(function()
               $("#eventContent").dialog({ modal: true, title: event.title, width:350});
               $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
               $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+              $("#s_content").html(event.content);
               $("#eventInfo").html(event.description);
               //$("#eventLink").attr('href', event.url);
           });
@@ -184,55 +254,77 @@ $(document).ready(function()
       /*
          for demo we have added predefined events in json object.
       */
-      events: [ 
-               
-               { 
-                    
-                   title: '취업 스터디', 
-                   start: new Date(y, m, 2, 16, 0), 
-                  end: new Date(y, m, 2, 16, 0)
-               }, 
-               
-               { 
-               	id:450,
-                   title: 'JAVA', 
-                   start: new Date(y, m, 28, 15, 0), 
-                   start: new Date(y, m, 28, 17, 0), 
-                   url: '../m_main.do',
-                   className:'study450'
-                   
-               } 
-           ] 
-   });
+     
+// 초기 이벤트 리스트
+      events: function (start, end, timezone, callback)  {
+    	  $.ajax({              
+              url: "calEvent.do",
+              dataType: 'json',             
+              success: function (data) {
+            	  var events = new Array();
+            	  $.each(data.eventList, function (i, item) {
+                      var event = new Object();
+                      event.id =  Math.floor(200 * Math.random());
+                      event.start = new Date(item.cal_start);
+                      event.end = new Date(item.cal_end);
+                      event.title = item.cal_title;
+                      event.content = item.cal_content;
+                      event.allDay = false;
+                      events.push(event);
+                      
+                  });    
+            	  callback(events);
+              }                  
+      
+    	  });
+   }
    
 });
-</script> 
-<div id="eventContent" title="Event Details" style="display:none;">
-    Start: <span id="startTime"></span><br>
-    End: <span id="endTime"></span><br><br>
-    <p id="eventInfo"></p>
-    
-    <!-- 이 부분을 이용해 원하는 곳으 링크 가능 -->
-    <!--<p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>-->
+});
+</script>
+<div id="eventContent" title="Event Details" style="display: none;">
+	시작 시간: <span id="startTime"></span><br> 종료 시간: <span id="endTime"></span><br>
+	<br> 스터디 내용 :
+	<sapn id="s_content"></sapn>
+	<br> <br>
+	<p id="eventInfo"></p>
+
+	<!-- 이 부분을 이용해 원하는 곳으 링크 가능 -->
+	<!--<p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>-->
 </div>
 
-<div id="ModalAdd" style="display:none;width:400px;">
-<div id="AddEvent" style="width:400px;" >
-    Event Name:&nbsp;
-    <input id="Name" type="text" style="width:200px;" /><br /><br />
-    Start date:&nbsp;&nbsp;
-    <input id="StartDt" type="text" style="width:360px;" /><br /><br />
-    End date:&nbsp;&nbsp;
-    <input id="EndDt" type="text" style="width:360px;" /><br /><br />
-    Recurrence: <input type="checkbox" id="chkRec" />
-    <br />
+<div id="ModalAdd" style="display: none; width: 400px;">
+	<div id="AddEvent" style="width: 400px;">
+	<div>제목 <input id="e_title" type="text" ></div>
+	<div id="datetimepicker1" class="input-append">
+		<label for="start_d"><strong>시작</strong> </label> <input id="start_d" data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input> <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i></span>
+		</div>
+	</div>
+	
+	<div id="datetimepicker2" class="input-append">
+	<label for="end_d"><strong>종료</strong> </label>
+		<input id="end_d" data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input> <span
+			class="add-on"> <i data-time-icon="icon-time"
+			data-date-icon="icon-calendar"> </i>
+		</span>
+	</div>
+	<div>
+		메모 <textarea id="e_memo" style="width :246px; height: 100px;"></textarea>
+	</div>
+	<br /> <br />
+
+
+
+		Recurrence: <input type="checkbox" id="chkRec" /> <br />
+	
+
+	<div id="RecEvent" style="display: none; width: 400px;">
+		<hr />
+		<b>Repeat:</b><br /> Daily: | &nbsp;&nbsp;&nbsp; Every <input
+			id="txtInterval" type="text" style="width: 30px;" /> day(s). <br />
+		<br /> End after <input id="txtCount" type="text"
+			style="width: 30px;" /> occurences.<br />
+	</div>
 </div>
 
-<div id="RecEvent" style="display: none; width:400px;">
-    <hr />
-    <b>Repeat:</b><br />
-    Daily:   | &nbsp;&nbsp;&nbsp; Every <input id="txtInterval" type="text" style="width:30px;" /> day(s).
-    <br /><br />
-    End after <input id="txtCount" type="text" style="width:30px;" /> occurences.<br />
-</div>        
-</div>
+
