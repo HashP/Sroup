@@ -13,7 +13,7 @@
 }
 
 #updateform {
-	width: 600px;
+	width: 100%;
 }
 
 .control-label {
@@ -58,13 +58,19 @@
 		<c:if test="${!empty updateResult }">
 			<c:choose>
 				<c:when test="${updateResult}">
-					<div class="alert alert-success" role="alert">
-					<p>비밀번호가 성공적으로 변경되었습니다.</p>
+					<div class="alert alert-success alert-dismissible" role="alert">
+						비밀번호가 성공적으로 변경되었습니다.
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="alert alert-warning" role="alert">
-					<p>입력하신 비밀번호가 틀립니다. 다른 비밀번호를 입력하십시오.</p>
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						입력하신 비밀번호가 틀립니다. 다른 비밀번호를 입력하십시오.
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
 					</div>
 				</c:otherwise>
 			</c:choose>

@@ -19,7 +19,7 @@ hr {
 
 #page-wrapper {
 	border-radius: 25px;
-	width: 60%;
+	width: 700px;
 	padding: 50px;
 	padding-bottom: 25px;
 	margin: 50px auto 50px auto;
@@ -244,7 +244,7 @@ $(function(){
 			return false;
 		}
 		
-		validation = validation & idcheck() & pwdcheck() & namecheck() & nickcheck() & emailcheck(); 
+		validation = validation & isValidId & pwdcheck() & namecheck() & nickcheck() & emailcheck(); 
 		
 		// 다 검사해야 다음페이지로 
 		if(!validation) {

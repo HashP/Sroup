@@ -14,7 +14,7 @@
 
 
 #mystudy {
-	width: 600px;
+	width: 100%;
 	/* margin-top: 50px;  */
 }
 
@@ -28,14 +28,15 @@
 .nav-tabs {
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
- 	background-color: #3072ab; 
+	margin-bottom: 0px;
+ 	/* background-color: #3072ab; */ 
 	/* background-image: linear-gradient(to bottom, white, #3072ab); */
-	padding: 20px 0px 0px 5px;
+	/* padding: 20px 0px 0px 5px; */
 	
 }
 
 .nav-tabs>li>a {
-	color: #EBF5FF;
+	color: #666;
 
 }
 
@@ -44,14 +45,20 @@
 	
 }
 
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
 </style>
 
-	<div class="panel panel-default">
+	<div class="panel panel-default" id="mystudy">
 		<div class="panel-body">
 
 			<h1 class="panel-title" id="mystudytitle">나의 스터디</h1>
 			<hr/>
-			<div id="mystudy">
+			<div>
 				<ul class="nav nav-tabs">
 				  <li role="presentation"><a href="#create">내가 개설한</a></li>
 				  <li role="presentation"><a href="#attend">내가 참여한</a></li>

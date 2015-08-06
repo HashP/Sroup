@@ -39,17 +39,12 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		// 새로운 패스워드를 암호화
 		String encryptNewPwd = DigestUtils.sha256Hex(newpwd);
-		
 	
 		UserInfoVO user = new UserInfoVO();
 		user.setId(id);
 		user.setPwd(encryptNewPwd);
 		
-		
-		
-		
-		
-		return false;
+		return true;
 	}
 
 }

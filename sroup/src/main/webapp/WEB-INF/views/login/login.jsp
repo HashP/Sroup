@@ -15,7 +15,7 @@ hr {
 
 #page-wrapper {
 	border-radius: 25px;
-	width: 60%;
+	width: 700px;
 /* 	height: 1000px; */
 	padding: 50px;
 	margin: auto;

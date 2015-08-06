@@ -12,23 +12,41 @@
  <style type="text/css">
 	body {
 		background-color: #EBF5FF;
+		font-size: 12px;
 	}
 	
 	.wrapper {
-		width: 1140px;
-		margin: 0 auto 0 auto;
+		width: 980px;
+		margin: 20px auto 0 auto;
+		font-size: 14px;
+	}
+	
+	@media (max-width: 980px) {
+		.wrapper {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
 		
-		margin-top: 20px;
+		.form-control, input[type=file] {
+			display: inline-block;
+		}
+		
+		.has-feedback label~.form-control-feedback {
+   			top: 0px;
+		}
 	}
 	
 	#sidebar {
 		float: left;		
-		width:	300px;
+		width:	250px;
 		margin-top: 30px;
 	}
 	#content {
-		float: left;
-		margin: 30px 0px 100px 30px;
+		float: right;
+		width: 700px;
+		margin-top: 30px;
+		margin-bottom: 100px;
+		/* margin: 30px 0px 100px 80px; */
 		/* border: 1px dotted red; */
 	}
 
@@ -36,6 +54,7 @@
 		margin: 50px 0px 20px 0px;
 		font-family: '나눔고딕코딩';
 	}
+	
 	
 	
 </style>

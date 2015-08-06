@@ -3,8 +3,6 @@ package com.cj.sroup.controller;
 import java.io.File;
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,7 +121,6 @@ public class MyPageController {
 		return "mypage/mystudy";
 	}
 	
-	
 	@RequestMapping("/calendar.do")
 	public String calendar(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
@@ -134,8 +131,6 @@ public class MyPageController {
 		model.addAttribute("current_page", "studycalendar");
 		return "mypage/calendar";
 	}
-	
-	
 	
 	@RequestMapping("/finished-study.do")
 	public String finished(Model model, HttpSession session) {

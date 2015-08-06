@@ -13,7 +13,7 @@
 }
 
 #updateform {
-	width: 600px;
+	width: 100%;
 }
 
 .control-label {
