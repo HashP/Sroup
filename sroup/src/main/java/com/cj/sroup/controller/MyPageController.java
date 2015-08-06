@@ -2,6 +2,7 @@ package com.cj.sroup.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cj.sroup.service.MyPageService;
+import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Controller
@@ -40,9 +42,9 @@ public class MyPageController {
 		model.addAttribute("current_page", "profileupdate");
 		model.addAttribute("userinfo", service.getUserInfoById(loginId));
 		
-		filepath = "\\sroup\\"+filepath;
+		String imagepath = "\\sroup\\"+filepath;
 		
-		model.addAttribute("imgpath", filepath);
+		model.addAttribute("imgpath", imagepath);
 		return "mypage/profileupdate";
 	}
 	
@@ -117,6 +119,15 @@ public class MyPageController {
 		if(loginId == null) {
 			return "redirect:/login/login.do";
 		}
+		
+		List<StudyManagementVO> createStudy = service.getCreateStudiesById(loginId);
+		List<StudyManagementVO> attendStudy = service.getAttendStudiesById(loginId);
+		
+		model.addAttribute("createStudy", createStudy);
+		model.addAttribute("attendStudy", attendStudy);
+		
+//		System.out.println("create: " + createStudy);
+//		System.out.println("attend: " + attendStudy);
 		
 		model.addAttribute("cate", cate);
 		model.addAttribute("current_page", cate + "study");

@@ -24,6 +24,10 @@
 		text-decoration: none;
 	}
 	
+	.current-page > a {
+		font-weight: bold;
+		color: #333;
+	}
 
 </style>
 
@@ -60,9 +64,11 @@
  
  <script type="text/javascript">
  $(function() {
+	$("#${current_page }").parent().addClass("current-page");
+	 /*  
 	$("#${current_page }").css("font-weight", "bold");
 	$("#${current_page }").css("color", "#333");
-	 
+	 */ 
 	 
  })
  </script>

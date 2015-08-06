@@ -55,6 +55,8 @@ public class LoginController {
 		
 		if(service.loginCheck(user)) {
 			session.setAttribute("LOGIN_ID", user.getId());
+			session.setAttribute("LOGIN_NAME", service.getUserName(user.getId()));
+			
 			return "redirect:/mypage/profileupdate.do";
 		} else {
 			
@@ -111,6 +113,7 @@ public class LoginController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("LOGIN_ID");
+		session.removeAttribute("LOGIN_NAME");
 		
 		return "redirect:login.do";
 	}

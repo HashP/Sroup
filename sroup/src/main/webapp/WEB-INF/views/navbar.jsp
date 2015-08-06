@@ -96,7 +96,7 @@ li.message-preview {
 				</ul></li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		          		<span class="glyphicon glyphicon-user" aria-hidden="true"></span> 홍길동 님 <span class="caret"></span></a>
+		          		<span class="glyphicon glyphicon-user" aria-hidden="true"></span> ${sessionScope.LOGIN_NAME } 님 <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li><a href="/sroup/mypage/profileupdate.do">마이페이지</a></li>
 		            <li><a href="/sroup/mypage/profileupdate.do">회원정보수정</a></li>

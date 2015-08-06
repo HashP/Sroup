@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="../resources/css/panel-tab.css">
 <style type="text/css">
 
@@ -53,6 +55,7 @@
 }
 </style>
 
+	<jsp:useBean id="now" class="java.util.Date" scope="request" />
 	<div class="panel panel-default" id="mystudy">
 		<div class="panel-body">
 
@@ -73,26 +76,55 @@
 								<col width="50px">
 							</colgroup>
 							<tbody>
+								
+								<c:forEach var="study" items="${createStudy }">
+									<tr>
+										<td>${study.study.study_name }
+										<c:choose>
+											<c:when test="${study.study.s_application_period lt now}">
+												<span class="label label-success">진행중</span>
+											</c:when>
+											<c:otherwise>
+												<span class="label label-warning">모집중</span>
+											</c:otherwise>
+										</c:choose>
+										</td>
+										<td>
+											<c:if test="${!(study.study.s_application_period lt now)}">
+												<a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a>
+											</c:if>
+										</td>
+										<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
+									</tr>
+								</c:forEach>
+								<c:if test="${fn:length(createStudy) == 0 }">
+									<tr>
+										<td colspan="3" class="text-center">참여한 스터디가 없습니다. </td>
+									</tr>
+								</c:if>
+								<!-- 
 								<tr>
 									<td>영어회화 스터디 <span class="label label-warning">모집중</span></td>
-									<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 								<tr>
 									<td>OPIC IL 공략 스터디 <span class="label label-warning">모집중</span></td>
-									<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 								<tr>
 									<td>취업스터디 <span class="label label-success">진행중</span></td>
 									<td></td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-								</tr>			
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
+								</tr>
+								-->	
 						
 							</tbody>
 						</table>
 					</div>	
 					<div class="study-list tab-pane fade" id="attend" >
+					
 					<table class="table table-hover">
 							<colgroup>
 								<col width="*">
@@ -100,16 +132,47 @@
 								<col width="50px">
 							</colgroup>
 							<tbody>
+								<c:forEach var="study" items="${attendStudy }">
+									<tr>
+										<td>${study.study.study_name }
+											<c:choose>
+												<c:when test="${study.study.s_application_period lt now}">
+													<span class="label label-success">진행중</span>
+												</c:when>
+												<c:otherwise>
+													<span class="label label-warning">모집중</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										
+										
+										<td>
+										<c:if test="${!(study.study.s_application_period lt now)}">
+											<a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a>
+										</c:if>
+										</td>
+										<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
+									</tr>
+								</c:forEach>
+								
+								<c:if test="${fn:length(attendStudy) == 0 }">
+									<tr>
+										<td colspan="3" class="text-center">참여한 스터디가 없습니다. </td>
+									</tr>
+								</c:if>
+								
+								<!-- 
 								<tr>
 									<td>토익 스터디 <span class="label label-success">진행중</span></td>
 									<td></td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 								<tr>
 									<td>JAVA스터디 <span class="label label-warning">모집중</span></td>
-									<td><a href="#" class="btn btn-default btn-xs">상세페이지로 이동</a></td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
-								</tr>			
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
+								</tr>
+								-->		
 						
 							</tbody>
 						</table>
@@ -122,6 +185,7 @@
 
 <script type="text/javascript">
 $(function() {
+	$('[data-toggle="tooltip"]').tooltip();
 	
 	$(".nav-tabs li a").on("click", function(event) {
 		event.preventDefault();
@@ -136,7 +200,11 @@ $(function() {
 		
 		// 사실 저위에꺼 이 한줄로 정리됨; ㅡㅡ
 		$(this).tab("show");
+		$(".list-group-item").removeClass("current-page");
 		
+		var current = $(this).attr("href") + "study";
+		console.log(current);
+		$(current).parent().addClass("current-page");
 
 	});
 

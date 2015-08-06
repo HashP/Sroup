@@ -70,15 +70,15 @@
 							<tbody>
 								<tr>
 									<td><span class="label label-default">종료</span> 영어회화 스터디</td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 								<tr>
 									<td><span class="label label-default">종료</span> OPIC IL 공략 스터디</td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 								<tr>
 									<td><span class="label label-default">종료</span> 취업스터디</td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 						
 							</tbody>
@@ -93,11 +93,11 @@
 							<tbody>
 								<tr>
 									<td><span class="label label-default">종료</span> 토익 스터디</td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 								<tr>
 									<td><span class="label label-default">종료</span> JAVA스터디</td>
-									<td><a href="#" class="btn btn-default btn-xs">모임페이지로 이동</a></td>
+									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 								</tr>			
 						
 							</tbody>
@@ -149,6 +149,7 @@
 	</div>
 <script type="text/javascript">
 $(function() {
+	$('[data-toggle="tooltip"]').tooltip();
 	
 	$(".nav-tabs li a").on("click", function(event) {
 		event.preventDefault();

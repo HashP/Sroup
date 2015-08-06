@@ -8,4 +8,6 @@ public interface LoginService {
 	public void register(UserInfoVO user);
 	
 	public boolean isDuplicatedId(String id);
+	
+	public String getUserName(String id);
 }
