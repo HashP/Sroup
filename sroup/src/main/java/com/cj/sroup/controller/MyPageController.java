@@ -40,7 +40,7 @@ public class MyPageController {
 		model.addAttribute("current_page", "profileupdate");
 		model.addAttribute("userinfo", service.getUserInfoById(loginId));
 		
-		filepath = filepath.replace("C:\\Users\\jhta\\git\\sroup\\sroup\\src\\main\\webapp\\", "\\sroup\\");
+		filepath = "\\sroup\\"+filepath;
 		
 		model.addAttribute("imgpath", filepath);
 		return "mypage/profileupdate";
@@ -62,10 +62,12 @@ public class MyPageController {
 			// 첨부파일 정보 조회하기
 			String filename = photofile.getOriginalFilename();
 			filename = System.currentTimeMillis() + filename;		//이름이 같은 파일끼리의 겹침을 방지하기 위해 이름에 시간정보를 같이 넣어줌
-			//String filepath = session.getServletContext().getContextPath();
+			String rootpath = session.getServletContext().getRealPath("/");
 			//업로드 된 파일을 지정된 폴더에 저장하기
 			byte[] filedata = photofile.getBytes();
-			File file = new File(filepath + filename);
+			String uploadpath = rootpath + filepath;
+			System.out.println(uploadpath);
+			File file = new File(uploadpath + filename);
 			FileCopyUtils.copy(filedata, file);
 
 			user.setProfilephoto(filename);

@@ -79,12 +79,12 @@ public class LoginController {
 			String filename = photofile.getOriginalFilename();
 			filename = System.currentTimeMillis() + filename;		//이름이 같은 파일끼리의 겹침을 방지하기 위해 이름에 시간정보를 같이 넣어줌
 			logger.info("filename : " + filename);
-			//String filepath = session.getServletContext().getContextPath();
-			logger.info("filepath : " + filepath);					// properties에서 가져온 filepath
-			
+			String rootpath = session.getServletContext().getRealPath("/");
 			//업로드 된 파일을 지정된 폴더에 저장하기
 			byte[] filedata = photofile.getBytes();
-			File file = new File(filepath + filename);
+			String uploadpath = rootpath + filepath;
+			logger.info(uploadpath);
+			File file = new File(uploadpath + filename);
 			FileCopyUtils.copy(filedata, file);
 
 			user.setProfilephoto(filename);
