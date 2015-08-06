@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cj.sroup.dao.StudyManagementDao">
+
+	<select id="getCreateStudiesById" parameterType="String" resultType="StudyManagementVO">
+		SELECT 	
+			m.STUDY_NO					as "study.study_no", 
+			s.STUDY_NAME 				as "study.study_name",
+			s.P_ADDRESS					as "study.p_address", 
+			s.S_APPLICATION_PERIOD		as "study.s_application_period",
+		    m.USER_ID					as "user.id", 
+		    m.USER_GRADE				as grade
+		FROM 
+			STUDY_MANAGEMENT m, USER_INFO u, STUDY s
+		WHERE 
+		  u.USER_ID = m.USER_ID
+		  and
+		  s.STUDY_NO = m.STUDY_NO
+		  and
+		  m.USER_ID = #{value}
+		  and
+		  s.END_DATE >= sysdate
+		  and
+		  m.USER_GRADE = 'ADMIN'
+	</select>
+
+	<select id="getAttendStudiesById" parameterType="String" resultType="StudyManagementVO">
+		SELECT 	
+			m.STUDY_NO					as "study.study_no", 
+			s.STUDY_NAME 				as "study.study_name",
+			s.P_ADDRESS					as "study.p_address", 
+			s.S_APPLICATION_PERIOD		as "study.s_application_period",
+		    m.USER_ID					as "user.id", 
+		    m.USER_GRADE				as grade
+		FROM 
+			STUDY_MANAGEMENT m, USER_INFO u, STUDY s
+		WHERE 
+		  u.USER_ID = m.USER_ID
+		  and
+		  s.STUDY_NO = m.STUDY_NO
+		  and
+		  m.USER_ID = #{value}
+		  and
+		  s.END_DATE >= sysdate
+		  and
+		  m.USER_GRADE = 'NORMAL'
+	</select>
+
+	<select id="getFinishedCreateStudiesById" parameterType="String" resultType="StudyManagementVO">
+	
+	</select>
+
+	<select id="getFinishedAttendStudiesById" parameterType="String" resultType="StudyManagementVO">
+	
+	</select>
+</mapper>
