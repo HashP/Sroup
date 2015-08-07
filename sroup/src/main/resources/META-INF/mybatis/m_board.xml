@@ -37,6 +37,12 @@
 				#{b_content}, 
 				3)
    </insert>
+   
+   <delete id="delBoard" parameterType="int">
+   		delete from s_board
+   		where
+   		B_NO=#{value};
+   </delete>
 
    
    

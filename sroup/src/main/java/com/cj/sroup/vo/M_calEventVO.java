@@ -4,48 +4,56 @@ import java.util.Date;
 
 public class M_calEventVO {
 	private int event_id;
-	private Date cal_start;
-	private	Date cal_end;
-	private	String cal_title;
-	private	String cal_content;
-	private String cal_writer;
-		
+	private Date event_start;
+	private	Date event_end;
+	private	String event_title;
+	private	String event_content;
+	private String event_writer;
+	private String event_color;
 	public int getEvent_id() {
 		return event_id;
 	}
 	public void setEvent_id(int event_id) {
 		this.event_id = event_id;
-	}	
-	public Date getCal_start() {
-		return cal_start;
 	}
-	public void setCal_start(Date cal_start) {
-		this.cal_start = cal_start;
+	public Date getEvent_start() {
+		return event_start;
 	}
-	public Date getCal_end() {
-		return cal_end;
+	public void setEvent_start(Date event_start) {
+		this.event_start = event_start;
 	}
-	public void setCal_end(Date cal_end) {
-		this.cal_end = cal_end;
+	public Date getEvent_end() {
+		return event_end;
 	}
-	public String getCal_title() {
-		return cal_title;
+	public void setEvent_end(Date event_end) {
+		this.event_end = event_end;
 	}
-	public void setCal_title(String cal_title) {
-		this.cal_title = cal_title;
+	public String getEvent_title() {
+		return event_title;
 	}
-	public String getCal_content() {
-		return cal_content;
+	public void setEvent_title(String event_title) {
+		this.event_title = event_title;
 	}
-	public void setCal_content(String cal_content) {
-		this.cal_content = cal_content;
+	public String getEvent_content() {
+		return event_content;
 	}
-	public String getCal_writer() {
-		return cal_writer;
+	public void setEvent_content(String event_content) {
+		this.event_content = event_content;
 	}
-	public void setCal_writer(String cal_writer) {
-		this.cal_writer = cal_writer;
+	public String getEvent_writer() {
+		return event_writer;
 	}
+	public void setEvent_writer(String event_writer) {
+		this.event_writer = event_writer;
+	}
+	public String getEvent_color() {
+		return event_color;
+	}
+	public void setEvent_color(String event_color) {
+		this.event_color = event_color;
+	}
+	
+	
 	
 	
 	

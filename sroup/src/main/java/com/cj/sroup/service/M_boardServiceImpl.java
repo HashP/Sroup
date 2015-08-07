@@ -24,6 +24,13 @@ public class M_boardServiceImpl implements M_boardService{
 	public void addBoard(M_boardVO m_board){
 		m_boarddao.addBoard(m_board);
 	}
+
+	@Override
+	public void delBoard(int b_no) {
+		// TODO Auto-generated method stub
+		m_boarddao.delBoard(b_no);
+	}
+	
 	
 	
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cj.sroup.dao.M_noticeDao">   
+ 
+    <select id="getAllNotice" resultType="m_notice">
+   select	STUDY_NO	as study_no,   			
+   			N_NO		as n_no, 
+   			N_WRITE_DAY	as n_write_day, 
+   			N_WRITER	as n_writer,
+   			N_TITLE		as n_title, 
+   			N_CONTENT	as n_content 			
+	from s_notice
+	order by N_NO desc 
+          
+   </select>
+
+   <insert id="addNotice" parameterType="m_notice">
+   		insert into s_notice (STUDY_NO,   							 
+   							 N_NO, 
+   							 N_WRITE_DAY, 
+   							 N_WRITER,
+   							 N_TITLE, 
+   							 N_CONTENT
+   							 )
+		values 
+				(test_seq.NEXTVAL,				 
+				notice_seq.NEXTVAL, 
+				sysdate, 
+				'cj',
+				#{n_title}, 
+				#{n_content}
+				)
+				
+   </insert>
+   
+   <delete id="delNotice" parameterType="int">
+   		delete from s_notice
+   		where
+   		N_NO=#{value}
+   </delete>
+
+   
+</mapper>

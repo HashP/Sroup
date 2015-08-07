@@ -6,29 +6,32 @@
  <mapper namespace="com.cj.sroup.dao.M_calendarDao">   
  
    <select id="getAllEvent" resultType="m_calEvent">
-  	select CAL_START	as cal_start,
-   			CAL_END		as cal_end,
-   			CAL_TITLE	as cal_title,
-   			CAL_CONTENT as cal_content,
-   			CAL_WRITER 	as cal_writer
+  	select  EVENT_START		as event_start,
+   			EVENT_END		as event_end,
+   			EVENT_TITLE		as event_title,
+   			EVENT_CONTENT	as event_content,
+   			EVENT_WRITER 	as event_writer,
+   			EVENT_COLOR		as event_color
 	from s_calendar            
    </select>
    
    <insert id="addCalEvent" parameterType="m_calendar">
   		insert into S_CALENDAR (STUDY_NO,
                         CAL_NO,
-                        CAL_START,
-                        CAL_END,
-                        CAL_WRITER,
-                        CAL_TITLE,
-                        CAL_CONTENT)
+                        EVENT_START,
+                        EVENT_END,
+                        EVENT_WRITER,
+                        EVENT_TITLE,
+                        EVENT_CONTENT,
+                        EVENT_COLOR)
         values (20,
                 1,
-                #{cal_start},
-                #{cal_end},
+                #{event_start},
+                #{event_end},
                 'cj',
-                #{cal_title},
-                #{cal_content}
+                #{event_title},
+                #{event_content},
+                #{event_color}
                 )
    </insert>  
    

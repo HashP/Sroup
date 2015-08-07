@@ -56,6 +56,12 @@ label[for="end_d"]{
 	padding-right : 10px;
 	margin: 6px 0;
 }
+.inline_div {
+	display: inline-block;
+}
+textarea{
+		resize: none
+	}
 </style>
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script src="resources/fullcalendar/lib/moment.min.js"></script>
@@ -67,8 +73,9 @@ label[for="end_d"]{
 <script type="text/javascript"
 	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
     </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
+    
+    
+
 <script src="resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <div class="container">
 	<h1 id="bordname">스터디 일정</h1>
@@ -94,6 +101,7 @@ label[for="end_d"]{
 $(document).ready(function()
 {
 	
+	 $('select[name="colorpicker-picker-delay"]').simplecolorpicker({picker: true, theme: 'glyphicons', pickerDelay: 1000});
 	
 	 $('#datetimepicker1').datetimepicker({
 	      language: 'en',
@@ -113,6 +121,10 @@ $(document).ready(function()
           $('#datetimepicker1').data("DateTimePicker").maxViewMode(e.date);
       });
 	
+	  // 이벤트에 마우스 올렸을 때 반응
+	  $(".fc-content").hover(function(){
+		  $( this ).append( $( "<span> ***</span>" ) )
+	  });
 	   
     $('#chkRec').click(function () {
 	        if ($(this).is(':checked')) {
@@ -189,7 +201,7 @@ $(document).ready(function()
           $("#ModalAdd").dialog(
           {
               title: "Add event",
-              width: 500,
+              width: 650,
               modal: true,
               buttons: {
                   "Add": function () {
@@ -206,7 +218,7 @@ $(document).ready(function()
                           eventToSave.Count = $("#txtCount").val();
                           eventToSave.Interval = $("#txtInterval").val();
                       }
-                      var allData = {"cal_start":$("#start_d").val(),"cal_end":$("#end_d").val(),"cal_title":$("#e_title").val(),"cal_content":$("#e_memo").val()}
+                      var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":$("#e_title").val(),"event_content":$("#e_memo").val(),"event_color":$("#e_color").select().val()}
                       $.ajax({              
                           url: "calEventAdd.do",
                           data : allData,                                       
@@ -220,15 +232,15 @@ $(document).ready(function()
                                 	  $.each(data.eventList, function (i, item) {
                                           var event = new Object();
                                           event.id =  Math.floor(200 * Math.random());
-                                          event.start = new Date(item.cal_start);
-                                          event.end = new Date(item.cal_end);
-                                          event.title = item.cal_title;
-                                          event.content = item.cal_content;
+                                          event.start = new Date(item.event_start);
+                                          event.end = new Date(item.event_end);
+                                          event.title = item.event_title;
+                                          event.content = item.event_content;
+                                          event.color = item.event_color;
                                           event.allDay = false;
                                           events.push(event);
                                           
-                                      });    
-                                	 
+                                      });                                  	 
                               		$('div[id*=calendar]').fullCalendar('addEventSource', events);
                              		$("#ModalAdd").dialog("close");
                                   }                  
@@ -247,9 +259,9 @@ $(document).ready(function()
       eventRender: function (event, element) {
           element.attr('href', 'javascript:void(0);');
           element.click(function() {
-              $("#eventContent").dialog({ modal: true, title: event.title, width:350});
-              $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
-              $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+              $("#eventContent").dialog({ modal: true, title: event.title, width:330});
+              $("#startTime").html(moment(event.start).format('YYYY년MM월DD일   HH:mm A'));
+              $("#endTime").html(moment(event.end).format('YYYY년MM월DD일\t\tHH:mm A'));
               $("#s_content").html(event.content);
               $("#eventInfo").html(event.description);
               //$("#eventLink").attr('href', event.url);
@@ -274,13 +286,13 @@ $(document).ready(function()
             	  $.each(data.eventList, function (i, item) {
                       var event = new Object();
                       event.id =  Math.floor(200 * Math.random());
-                      event.start = new Date(item.cal_start);
-                      event.end = new Date(item.cal_end);
-                      event.title = item.cal_title;
-                      event.content = item.cal_content;
+                      event.start = new Date(item.event_start);
+                      event.end = new Date(item.event_end);
+                      event.title = item.event_title;
+                      event.content = item.event_content;
+                      event.color = item.event_color;
                       event.allDay = false;
-                      events.push(event);
-                      
+                      events.push(event);                      
                   });    
             	  callback(events);
               }                  
@@ -292,9 +304,9 @@ $(document).ready(function()
 });
 </script>
 <div id="eventContent" title="Event Details" style="display: none;">
-	시작 시간: <span id="startTime"></span><br> 종료 시간: <span id="endTime"></span><br>
-	<br> 스터디 내용 :
-	<sapn id="s_content"></sapn>
+	시작 : <span id="startTime"></span><br> 종료 : <span id="endTime"></span><br>
+	<hr>
+	 <textarea id="s_content" style="width: 291px;" disabled="disabled" ></textarea>	
 	<br> <br>
 	<p id="eventInfo"></p>
 
@@ -302,38 +314,46 @@ $(document).ready(function()
 	<!--<p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>-->
 </div>
 
-<div id="ModalAdd" style="display: none; width: 400px;">
-	<div id="AddEvent" style="width: 400px;">
-	<div>제목 <input id="e_title" type="text" ></div>
-	<div id="datetimepicker1" class="input-append">
-		<label for="start_d"><strong>시작</strong> </label> <input id="start_d" data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input> <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i></span>
-		</div>
-	</div>
+<div id="ModalAdd" style="display: none; width: 600px;">
+	<div id="AddEvent" style="width: 600px;">
+	<div class="inline_div addEvent_div"><strong>제목</strong> <input id="e_title" type="text"  style="width: 550px;;"></div>
 	
-	<div id="datetimepicker2" class="input-append">
-	<label for="end_d"><strong>종료</strong> </label>
+	<div class="addEvent_div">
+	<div id="datetimepicker1" class="input-append inline_div">
+		<label for="start_d"><strong>시작</strong> </label> <input id="start_d" data-format="yyyy/MM/dd HH:mm:ss PP" type="text"></input> <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i></span>
+		</div>
+	<div id="datetimepicker2" class="input-append inline_div">
+	<label for="end_d">&nbsp&nbsp&nbsp<strong>종료</strong> </label>
 		<input id="end_d" data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input> <span
 			class="add-on"> <i data-time-icon="icon-time"
 			data-date-icon="icon-calendar"> </i>
 		</span>
 	</div>
-	<div>
-		메모 <textarea id="e_memo" style="width :246px; height: 100px;"></textarea>
 	</div>
-	<br /> <br />
-
-
-
-		Recurrence: <input type="checkbox" id="chkRec" /> <br />
-	
-
-	<div id="RecEvent" style="display: none; width: 400px;">
-		<hr />
-		<b>Repeat:</b><br /> Daily: | &nbsp;&nbsp;&nbsp; Every <input
-			id="txtInterval" type="text" style="width: 30px;" /> day(s). <br />
-		<br /> End after <input id="txtCount" type="text"
-			style="width: 30px;" /> occurences.<br />
+	<div  class="addEvent_div">
+	<strong>색상</strong>
+<select name="colorpicker-picker-delay" id="e_color">
+  <option value="#7bd148">Green</option>
+  <option value="#5484ed">Bold blue</option>
+  <option value="#a4bdfc">Blue</option>
+  <option value="#46d6db">Turquoise</option>
+  <option value="#7ae7bf">Light green</option>
+  <option value="#51b749">Bold green</option>
+  <option value="#fbd75b">Yellow</option>
+  <option value="#ffb878">Orange</option>
+  <option value="#ff887c">Red</option>
+  <option value="#dc2127">Bold red</option>
+  <option value="#dbadff">Purple</option>
+  <option value="#e1e1e1">Gray</option>
+</select>
+</div>
+	<div class="addEvent_div">
+		<strong>메모</strong> <textarea id="e_memo" style="width :551px; height: 100px;"></textarea>
+	</div>	
 	</div>
+	<br />
+
+
 </div>
 
 
