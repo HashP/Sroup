@@ -51,7 +51,7 @@ public class ListController {
 		
 		String addr = req.getParameter("addr");
 		System.out.println(addr);
-		URL urlMy=new URL("http://maps.googleapis.com/maps/api/geocode/json?address=%ED%9A%A8%EC%A0%9C%EC%B4%88");
+		URL urlMy=new URL("http://maps.google.kr/maps/api/geocode/json?address="+ addr);
 	       URLConnection tc = urlMy.openConnection();
 	       BufferedReader in = new BufferedReader(new InputStreamReader(
 	               tc.getInputStream()));

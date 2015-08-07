@@ -2092,8 +2092,24 @@ input.text.outfocus, textarea.text.outfocus {
     padding: 0;
     cursor: pointer;
 }
-
-
+#SearchResult-button {
+	display: none;
+}
+#resultList ul {
+    width: 439px;
+    background-color: #fff;
+    z-index: 11;
+    position: absolute;
+    margin-left: 20px;
+    padding: 5px 0 5px 5px;
+    font-size: 15px;
+    line-height: 1.8;
+}
+#resultList ul li:hover {
+    cursor: pointer;
+    background: #4195f5;
+    color: #fff;
+}
 
 
 

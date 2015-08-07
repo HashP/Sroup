@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/sroup/resources/bootstrap/style.css">
 <link rel="stylesheet" href="/sroup/resources/bootstrap/style-theme.css">
-<!-- <link rel="stylesheet" href="/sroup/resources/bootstrap/boot.css"> -->
+<link rel="stylesheet" href="/sroup/resources/bootstrap/boot.css">
 <!-- <link rel="stylesheet" href="../resources/bootstrap/bootstrap.css">
 <link rel="stylesheet" href="../resources/bootstrap/bootstrap-theme.css"> -->
 <style type="text/css">

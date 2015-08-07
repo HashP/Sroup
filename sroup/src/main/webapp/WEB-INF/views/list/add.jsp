@@ -12,7 +12,7 @@
 <script type="text/javascript"
 	src="resources/uploadify/jquery.uploadify.js"></script>
 <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	href="/sroup/resources/bootstrap/jquery-ui.css">
 <script type="text/javascript">
 	try {
 		document.execCommand('BackgroundImageCache', false, true);
@@ -136,10 +136,53 @@
 				data : { addr : addr},
 				dataType : 'json',
 				success : function(data) {
-					console.log(data);
+					$("#resultList ul").html("");
+					
+					for(var i=0; i<data.results.length; i++) {
+						
+						var result = data.results[i].address_components[0].long_name;
+						
+						var componentsCnt = data.results[i].address_components.length;
+						
+						if(componentsCnt <= 5) {
+							var dong = data.results[i].address_components[0].long_name;
+							var gusi = data.results[i].address_components[1].long_name;
+							var sido = data.results[i].address_components[2].long_name;
+						} else {
+							var dong = data.results[i].address_components[2].long_name;
+							var gusi = data.results[i].address_components[3].long_name;
+							var sido = data.results[i].address_components[4].long_name;
+						}
+						
+						var lat = data.results[i].geometry.location.lat;
+						var lng = data.results[i].geometry.location.lng;
+						
+						$("#resultList ul").append("<li id="+"rList"+" value="+lat+"A"+lng+">"+result+" ["+sido+" "+gusi+" "+dong+"]"+"</li>");
+					}
+					
+					if(data.results.length == 0) {
+						$("#resultList ul").append("<li value="+1+">존재하지 않는 주소입니다.</li>");
+					}
+					
+					$("#resultList").removeAttr("style", "display");
+					
 				}
 			});
+			
+			$("#resultList ul").on("click", "li", function(){
+				var value = $(this).attr("value");
+				var split = value.split("A");
+				
+				var lat = split[0];
+				var lng = split[1];
+				
+				
+			})
+			
 		});
+		$(".body").on("click", function() {
+			$("#resultList").attr("style", "display: none;")
+		})
 	});
 </script>
 </head>
@@ -671,12 +714,15 @@
 							<div class="mapSearch">
 								<input id="POIword" placeholder="시, 도, 구, 동 단위로 위치를 입력해 주세요."
 									class="text" type="text" value="" /><input id="searchBtn"
-									class="search button" type="button" value=""
-									onclick="search();" /><br />
+									class="search button" type="button" value="" /><br />
 
 								<div class="search result">
 									<select id="SearchResult" style="display: none" MULTIPLE>
 									</select>
+								</div>
+								<div id="resultList" style="display: none;">
+									<ul>
+									</ul>
 								</div>
 							</div>
 							<div class="map holder">
@@ -696,6 +742,7 @@
 							<script type="text/javascript">
 								var Lat = 37.5675451;
 								var Lng = 126.9773356;
+								
 								var oSeoulCityPoint = new nhn.api.map.LatLng(
 										Lat, Lng);
 								var defaultLevel = 11;
@@ -734,13 +781,19 @@
 
 								var oInfoWnd = new nhn.api.map.InfoWindow();
 								oInfoWnd.setVisible(false);
-								oMap.addOverlay(oInfoWnd);
+								
+								var oMarker = new nhn.api.map.Marker(oIcon,
+										{
+											title : '마커 : '
+													+ oSeoulCityPoint.toString()
+										});
+								oMarker.setPoint(oSeoulCityPoint);
+								oMap.addOverlay(oMarker);
 
 								oMap.attach('click', function(oCustomEvent) {
 									oMap.clearOverlay();
 									var oPoint = oCustomEvent.point;
 									var oTarget = oCustomEvent.target;
-									oInfoWnd.setVisible(false);
 
 									var oMarker = new nhn.api.map.Marker(oIcon,
 											{
