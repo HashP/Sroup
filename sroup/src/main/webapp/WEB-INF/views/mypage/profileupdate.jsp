@@ -35,7 +35,7 @@
 }
 
 .form-inline .form-group .input {
-	width: 450px;
+	width: 550px;
 }
 .btn-area {
 	margin-right: 60px;
@@ -51,7 +51,7 @@
 <div  id="updateform" class="panel panel-default">
 	<div class="panel-body">
 
-		<h1 class="panel-title" id="updatetitle">회원정보 수정</h1>
+		<h1 class="panel-title" id="updatetitle"><span class="glyphicons glyphicons-parents" aria-hidden="true"></span>  회원정보 수정</h1>
 		<hr>
 		<form class="form-inline" method="post" action="profileupdate.do" enctype="multipart/form-data">
 			<div class="form-group">

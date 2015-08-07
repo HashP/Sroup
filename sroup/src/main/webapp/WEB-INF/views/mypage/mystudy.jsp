@@ -56,6 +56,7 @@
 
 .table>tbody>tr>td {
     border-top: 0px;
+	
 }
 </style>
 

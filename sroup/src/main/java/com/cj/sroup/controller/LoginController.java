@@ -37,14 +37,14 @@ public class LoginController {
 	
 	
 	@RequestMapping("/login.do")
-	public String login(HttpSession session) {
+	public String login(HttpSession session, Model model) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
 		
 		logger.info("loginId : [" + loginId + "]");
 		if(loginId != null) {
 			return "redirect:/mypage/profileupdate.do";
 		}
-		
+		model.addAttribute("pagetitle", "로그인");
 		return "login/login";
 	}
 	
@@ -66,7 +66,8 @@ public class LoginController {
 	
 	
 	@RequestMapping("/signup.do")
-	public String signup() {
+	public String signup(Model model) {
+		model.addAttribute("pagetitle", "회원가입");
 		return "login/signup";
 	}
 	

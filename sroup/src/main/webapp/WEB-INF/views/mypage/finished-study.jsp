@@ -61,7 +61,7 @@
 		<div class="panel-body">
 		
 			<h1 class="panel-title" id="mystudytitle">나의 스터디</h1>
-			<br>
+			<hr/>
 			<div>
 				<ul class="nav nav-tabs">
 				  <li role="presentation"><a href="#create">내가 개설한</a></li>

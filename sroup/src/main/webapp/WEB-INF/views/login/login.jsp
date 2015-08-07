@@ -19,7 +19,7 @@ hr {
 /* 	height: 1000px; */
 	padding: 50px;
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 120px;
 	background-color: white;
 }
 

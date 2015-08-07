@@ -207,4 +207,20 @@ public class MyPageController {
 		return "mypage/finished-study";
 	}
 
+	/**
+	 * 쪽지함 페이지로 이동
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/messagebox.do")
+	public String messagebox(Model model, HttpSession session) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		
+		if(loginId == null) {
+			return "redirect:/login/login.do";
+		}
+		model.addAttribute("current_page", "messagebox");
+		return "mypage/messagebox";
+	}
 }

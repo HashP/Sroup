@@ -35,7 +35,7 @@
 }
 
 .form-inline .form-group .input {
-	width: 450px;
+	width: 550px;
 }
 
 .btn-area {

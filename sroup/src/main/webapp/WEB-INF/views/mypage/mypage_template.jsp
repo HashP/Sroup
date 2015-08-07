@@ -22,10 +22,21 @@
 		font-size: 14px;
 	}
 	
+	#sidebar {
+		float: left;		
+		width:	250px;
+		margin-top: 30px;
+	}
+
+
 	@media (max-width: 980px) {
 		.wrapper {
 			padding-left: 15px;
 			padding-right: 15px;
+		}
+		
+		#sidebar {
+			width: 220px;
 		}
 		
 		.form-control, input[type=file] {
@@ -37,11 +48,6 @@
 		}
 	}
 	
-	#sidebar {
-		float: left;		
-		width:	250px;
-		margin-top: 30px;
-	}
 	#content {
 		float: right;
 		width: 700px;

@@ -50,7 +50,7 @@ li.message-preview {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div>
       <ul class="nav navbar-nav">
-        <li><a href="#">모임 <span class="sr-only">(current)</span></a></li>
+        <li><a href="/sroup/list.do">모임 <span class="sr-only">(current)</span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 		<c:choose>
@@ -91,7 +91,7 @@ li.message-preview {
 						<p>모임신청이 거절 당하였습니다.</p>
 					</div>
 				</a></li>
-				<li class="message-footer"><a href="#">Read All New
+				<li class="message-footer"><a href="/sroup/mypage/messagebox.do">Read All New
 						Messages</a></li>
 				</ul></li>
 		        <li class="dropdown">
@@ -100,7 +100,7 @@ li.message-preview {
 		          <ul class="dropdown-menu" role="menu">
 		            <li><a href="/sroup/mypage/profileupdate.do">마이페이지</a></li>
 		            <li><a href="/sroup/mypage/profileupdate.do">회원정보수정</a></li>
-		            <li><a href="#">나의 스터디</a></li>
+		            <li><a href="/sroup/mypage/mystudy.do">나의 스터디</a></li>
 		            <li class="divider"></li>
 		            <li><a href="/sroup/login/logout.do">로그아웃</a></li>
 		          </ul>
