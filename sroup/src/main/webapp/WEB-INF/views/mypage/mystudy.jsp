@@ -53,6 +53,10 @@
     border-bottom: 1px solid #ddd;
     padding: 10px;
 }
+
+.table>tbody>tr>td {
+    border-top: 0px;
+}
 </style>
 
 	<jsp:useBean id="now" class="java.util.Date" scope="request" />
@@ -86,7 +90,7 @@
 											</c:when>
 											<c:otherwise>
 												<span class="label label-warning">모집중</span>
-											</c:otherwise>
+				.							</c:otherwise>
 										</c:choose>
 										</td>
 										<td>

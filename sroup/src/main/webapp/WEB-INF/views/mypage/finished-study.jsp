@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link rel="stylesheet" href="../resources/css/panel-tab.css">
 <style type="text/css">
@@ -48,6 +51,10 @@
     padding: 10px;
    /*  background-color: #EBF5FF; */
 }
+
+.table>tbody>tr>td {
+    border-top: 0px;
+}
 </style>
 
 	<div class="panel panel-default" id="mystudy">
@@ -68,6 +75,19 @@
 								<col width="50px">
 							</colgroup>
 							<tbody>
+								<c:forEach var="study" items="${createStudy }">
+									<tr>
+										<td><span class="label label-default">종료</span> ${study.study.study_name }</td>
+										<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
+									</tr>
+								</c:forEach>
+								<c:if test="${fn:length(createStudy) == 0 }">
+									<tr>
+										<td colspan="3" class="text-center">종료된 스터디가 없습니다. </td>
+									</tr>
+								</c:if>
+								
+								<!-- 
 								<tr>
 									<td><span class="label label-default">종료</span> 영어회화 스터디</td>
 									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
@@ -79,7 +99,8 @@
 								<tr>
 									<td><span class="label label-default">종료</span> 취업스터디</td>
 									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
-								</tr>			
+								</tr>
+								 -->			
 						
 							</tbody>
 						</table>
@@ -91,6 +112,19 @@
 								<col width="50px">
 							</colgroup>
 							<tbody>
+								<c:forEach var="study" items="${attendStudy }">
+									<tr>
+										<td><span class="label label-default">종료</span> ${study.study.study_name }</td>
+										<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
+									</tr>
+								</c:forEach>
+								<c:if test="${fn:length(attendStudy) == 0 }">
+									<tr>
+										<td colspan="3" class="text-center">종료된 스터디가 없습니다. </td>
+									</tr>
+								</c:if>
+								
+								<!-- 
 								<tr>
 									<td><span class="label label-default">종료</span> 토익 스터디</td>
 									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
@@ -98,7 +132,8 @@
 								<tr>
 									<td><span class="label label-default">종료</span> JAVA스터디</td>
 									<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
-								</tr>			
+								</tr>
+								-->		
 						
 							</tbody>
 						</table>

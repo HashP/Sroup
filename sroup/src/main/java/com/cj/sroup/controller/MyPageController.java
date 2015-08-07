@@ -30,7 +30,12 @@ public class MyPageController {
 	@Autowired
 	private MyPageService service;
 	
-	//회원가입수정
+	/**
+	 * 회원정보 수정 폼으로 이동
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/profileupdate.do")
 	public String profileupdate(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
@@ -48,7 +53,14 @@ public class MyPageController {
 		return "mypage/profileupdate";
 	}
 	
-	//회원정보 수정
+	/**
+	 * 폼에 입력된 데이터를 받아 회원정보를 수정
+	 * @param user
+	 * @param photofile
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/profileupdate.do", method=RequestMethod.POST)
 	public String profileupdate(UserInfoVO user
 							,@RequestParam(value="photofile", required=false) MultipartFile photofile
@@ -80,6 +92,12 @@ public class MyPageController {
 		return "redirect:profileupdate.do";
 	}
 	
+	/**
+	 * 패스워드 수정 폼으로 이동
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/pwdupdate.do")
 	public String pwdupdate(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
@@ -96,6 +114,13 @@ public class MyPageController {
 		return "mypage/pwdupdate";
 	}
 	
+	/**
+	 * 새로운 패스워드 정보를 받아 확인 후 수정 
+	 * @param oldpwd
+	 * @param newpwd
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/pwdupdate.do", method=RequestMethod.POST)
 	public String pwdupdate(@RequestParam("oldpwd")String oldpwd
 							, @RequestParam("newpwd")String newpwd
@@ -111,6 +136,13 @@ public class MyPageController {
 		return "redirect:pwdupdate.do";
 	}
 	
+	/**
+	 * 나의 스터디 목록을 받아 목록페이지로 이동
+	 * @param cate
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/mystudy.do")
 	public String mystudy(@RequestParam(value="cate", defaultValue="create", required=false)String cate
 						, Model model, HttpSession session) {
@@ -134,6 +166,12 @@ public class MyPageController {
 		return "mypage/mystudy";
 	}
 	
+	/**
+	 * 스터디 일정 정보를 받아 캘린더 페이지로 이동
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/calendar.do")
 	public String calendar(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
@@ -145,6 +183,12 @@ public class MyPageController {
 		return "mypage/calendar";
 	}
 	
+	/**
+	 * 이미 종료된 스터디 정보를 받아 목록페이지로 이동
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/finished-study.do")
 	public String finished(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
@@ -152,6 +196,13 @@ public class MyPageController {
 		if(loginId == null) {
 			return "redirect:/login/login.do";
 		}
+		
+		List<StudyManagementVO> createStudy = service.getFinishedCreateStudiesById(loginId);
+		List<StudyManagementVO> attendStudy = service.getFinishedAttendStudiesById(loginId);
+		
+		model.addAttribute("createStudy", createStudy);
+		model.addAttribute("attendStudy", attendStudy);
+		
 		model.addAttribute("current_page", "finished-study");
 		return "mypage/finished-study";
 	}
