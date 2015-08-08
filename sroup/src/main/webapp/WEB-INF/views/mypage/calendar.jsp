@@ -24,12 +24,15 @@
 <script src="../resources/fullcalendar/lib/moment.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
 
+<div class="panel panel-default" >
+	<div class="panel-body">
+		<h1 class="panel-title" id="calendartitle">스터디 캘린더</h1>
+	</div>
+</div>
+
 <div  id="calendarblock" class="panel panel-default">
 	<div class="panel-body">
 
-		<h1 class="panel-title" id="calendartitle">스터디 캘린더</h1>
-		<hr>
-		
 		<div id="calendar"></div>
 		
 	</div>

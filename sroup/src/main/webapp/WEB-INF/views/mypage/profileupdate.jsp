@@ -14,6 +14,7 @@
 
 #updateform {
 	width: 100%;
+	padding-top: 10px;
 }
 
 .control-label {
@@ -48,11 +49,14 @@
 
 </style>
 
+<div class="panel panel-default" >
+	<div class="panel-body">
+		<h1 class="panel-title" id="updatetitle"><span class="glyphicons glyphicons-parents" aria-hidden="true"></span>  회원정보 수정</h1>
+	</div>
+</div>
+
 <div  id="updateform" class="panel panel-default">
 	<div class="panel-body">
-
-		<h1 class="panel-title" id="updatetitle"><span class="glyphicons glyphicons-parents" aria-hidden="true"></span>  회원정보 수정</h1>
-		<hr>
 		<form class="form-inline" method="post" action="profileupdate.do" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="id" class="control-label">아이디</label>

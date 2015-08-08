@@ -14,6 +14,7 @@
 
 #updateform {
 	width: 100%;
+	padding-top: 10px;
 }
 
 .control-label {
@@ -49,12 +50,13 @@
 
 </style>
 
-
-<div  id="updateform" class="panel panel-default">
+<div class="panel panel-default" >
 	<div class="panel-body">
 		<h1 class="panel-title" id="updatetitle">비밀번호 변경</h1>
-		<hr>
-		
+	</div>
+</div>
+<div  id="updateform" class="panel panel-default">
+	<div class="panel-body">
 		<c:if test="${!empty updateResult }">
 			<c:choose>
 				<c:when test="${updateResult}">
