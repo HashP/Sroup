@@ -19,8 +19,7 @@
 	} catch (e) {
 	}
 </script>
-<script type="text/javascript"
-	src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=3a22f3e4a016459e5a21808b4e5c46d3"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
@@ -125,6 +124,43 @@
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
 				});
 	});
+	
+	$(function(){
+		$("#sendCode").on("click", function() {
+			var head = $("#ownerPhone").val();
+			var body = $("#ownerPhoneBody").val();
+			var tail = $("#ownerPhoneTail").val();
+			
+			if(head.trim() === "") {
+				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			} else if(body.trim() === "") {
+				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			} else if(tail.trim() === "") {
+				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			}
+			
+			var phone = head + body + tail;
+			console.log("phone : " +phone);
+			$.ajax({
+				url:"sms.do",
+				data: {phone : phone},
+				dataType: "text",
+				success : function(data) {
+					alert("메시지가 발송되었습니다.")
+				}
+			})
+		})
+		
+		$("#codeCheck").on("click", function() {
+			alert("인증이 완료되었습니다");
+		})
+	})
 
 	$(function(){
 		$("#searchBtn").on("click", function() {
@@ -169,14 +205,79 @@
 				}
 			});
 			
-			$("#resultList ul").on("click", "li", function(){
+			$("#resultList ul").on("click", "li", function(){	
+				$(".nmap:first-child").remove();
+				
 				var value = $(this).attr("value");
 				var split = value.split("A");
 				
 				var lat = split[0];
 				var lng = split[1];
 				
+				var SearchPoint = new nhn.api.map.LatLng(
+						lat, lng);
+				var defaultLevel = 11;
+				var oMap = new nhn.api.map.Map(document
+						.getElementById('mapzone'), {
+					point : SearchPoint,
+					zoom : defaultLevel,
+					enableWheelZoom : true,
+					enableDragPan : true,
+					enableDblClickZoom : false,
+					mapMode : 0,
+					activateTrafficMap : false,
+					activateBicycleMap : false,
+					minMaxLevel : [ 1, 14 ],
+					size : new nhn.api.map.Size(642, 358)
+				});
+				var oSlider = new nhn.api.map.ZoomControl();
+				oMap.addControl(oSlider);
+				oSlider.setPosition({
+					top : 40,
+					left : 10
+				});
+
+				var oMapTypeBtn = new nhn.api.map.MapTypeBtn();
+				oMap.addControl(oMapTypeBtn);
+				oMapTypeBtn.setPosition({
+					top : 10,
+					left : 10
+				});
+
+				var oSize = new nhn.api.map.Size(28, 37);
+				var oOffset = new nhn.api.map.Size(14, 37);
+				var oIcon = new nhn.api.map.Icon(
+						'/sroup/resources/images/map_pin.png',
+						oSize, oOffset);
+
+				var oInfoWnd = new nhn.api.map.InfoWindow();
+				oInfoWnd.setVisible(false);
 				
+				var oMarker = new nhn.api.map.Marker(oIcon,
+						{
+							title : '마커 : '
+									+ SearchPoint.toString()
+						});
+				oMarker.setPoint(SearchPoint);
+				oMap.addOverlay(oMarker);
+
+				oMap.attach('click', function(oCustomEvent) {
+					oMap.clearOverlay();
+					var oPoint = oCustomEvent.point;
+					var oTarget = oCustomEvent.target;
+
+					var oMarker = new nhn.api.map.Marker(oIcon,
+							{
+								title : '마커 : '
+										+ oPoint.toString()
+							});
+					oMarker.setPoint(oPoint);
+					oMap.addOverlay(oMarker);
+					console.log(oMarker.getPoint());
+
+				});
+				
+				console.log(oMarker.getPoint());
 			})
 			
 		});
@@ -802,8 +903,10 @@
 											});
 									oMarker.setPoint(oPoint);
 									oMap.addOverlay(oMarker);
+									console.log(oMarker.getPoint());
 
 								});
+								console.log(oMarker.getPoint());
 							</script>
 							<!-- .map.holder end -->
 						</div>
@@ -849,70 +952,32 @@
 				</div>
 				<div class="core publicAdmin">
 					<div class="input">
-						<div class="subCore public">
-							<h4 class="subTitle">
-								공개 설정 <span class="star">*</span>
-							</h4>
-							<table>
-								<tr>
-									<th>온오프믹스 모임 목록에 노출</th>
-									<td><label for="open1"><input id="open1"
-											class="open radio" type="radio" name="isExposed" value="1"
-											checked="checked" />노출함</label></td>
-									<td><label for="close1"><input id="close1"
-											class="close radio" type="radio" name="isExposed" value="0" />노출안함</label></td>
-								</tr>
-								<tr>
-									<th>모임 공개 여부</th>
-									<td><label for="open"><input id="open"
-											type="radio" class="radio" name="oc" value="0"
-											checked="checked" />공개 모임</label></td>
-									<td><label for="close" class="close"><input
-											id="close" type="radio" class="radio" name="oc" value="1" />비공개
-											모임</label><input id="eventPw" title="비밀번호 입력" type="text"
-										class="text outfocus" name="eventPw" value=""
-										disabled="disabled" /></td>
-								</tr>
-							</table>
-						</div>
 						<div class="subCore admin">
 							<h4 class="subTitle">
-								연락처 및 알림 설정 <span class="star">*</span>
+								개설자 인증 서비스 <span class="star">*</span>
 							</h4>
 							<table width="100%">
 								<tr class="admin_num">
 									<th>개설자 전화번호 입력</th>
 									<td><label for="ownerPhone" class="displayNone">전화번호
 											앞부분 입력</label> <input class="text mask-pint" type="text"
-										name="ownerPhone_head" id="ownerPhone" value="010" size="4"
+										name="ownerPhone_head" id="ownerPhone" value="" size="4"
 										maxlength="4" /> <label for="ownerPhoneBody"
 										class="displayNone">전화번호 중간부분입력</label> <input
 										id="ownerPhoneBody" class="mask-pint text" type="text"
-										name="ownerPhone_body" value="8545" size="4" maxlength="4" />
+										name="ownerPhone_body" value="" size="4" maxlength="4" />
 										<label for="ownerPhoneTail" class="displayNone">전화번호
 											뒷부분 입력</label> <input id="ownerPhoneTail" class="text mask-pint"
-										type="text" name="ownerPhone_tail" value="1359" size="4"
-										maxlength="4" /></td>
+										type="text" name="ownerPhone_tail" value="" size="4"
+										maxlength="4" /><button type="button" id="sendCode">인증번호 발송</button></td>
 								</tr>
-								<tr class="admin_email">
-									<th>개설자 이메일 입력</th>
-									<td><input title="개설자 이메일 입력" id="email" class="text"
-										type="text" name="ownerEmail" value="you645623@naver.com" />
+								<tr class="admin_check">
+									<th>인증번호 확인</th>
+									<td><input id="secretCode" class="text"
+										type="text" name="ownerCode" value="" />
+										<button type="button" id="codeCheck">인증번호 확인</button>
 										<!--<input type="hidden" id="checkEmail" name="checkEmail" value="" equal="0" alias="이메일 중복확인이 되지 않았습니다."/>-->
 									</td>
-								</tr>
-								<tr class="admin_notify">
-									<th>모임개설 알림 설정</th>
-									<td><input type="checkbox" class="checkbox"
-										name="postSns[]" value="facebook" id="post_to_facebook"
-										checked="checked" /><label for="post_to_facebook"><span
-											class="facebook"></span></label> <input type="checkbox"
-										class="checkbox" name="postSns[]" value="twitter"
-										id="post_to_twitter" /><label for="post_to_twitter"><span
-											class="twitter"></span></label> <input type="checkbox"
-										class="checkbox" name="postSns[]" value="kakao"
-										id="post_to_kakao" /><label for="post_to_kakao"><span
-											class="kakao"></span></label></td>
 								</tr>
 							</table>
 						</div>
