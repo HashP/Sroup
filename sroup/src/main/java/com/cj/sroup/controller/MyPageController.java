@@ -232,6 +232,11 @@ public class MyPageController {
 		return "mypage/messagebox";
 	}
 	
+	/**
+	 * ajax 요청으로 message no를 전달시 메시지를 삭제해줌 
+	 * @param no  message no
+	 * @return
+	 */
 	@RequestMapping("/remove-message.do")
 	@ResponseBody
 	public String removeMessage(@RequestParam("msgNo")int no) {
@@ -240,4 +245,12 @@ public class MyPageController {
 		
 		return "success";
 	}
+	
+	@RequestMapping("/join-manage.do")
+	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo) {
+		
+		
+		return "mypage/join-manage";
+	}
+	
 }

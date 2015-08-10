@@ -105,7 +105,7 @@ td strong {
 													<strong>${message.sender.nickname }</strong> 님께서 <strong>${message.study.study_name }</strong> 참여 신청을 하셨습니다.<br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
 												</td>
-												<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a></td>
+												<td><a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a></td>
 												<td><a href="${message.no }" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="이 메시지 삭제하기">삭제</a></td>
 											</tr>				
 										</c:when>
@@ -180,7 +180,7 @@ td strong {
 													<strong>${message.sender.nickname }</strong> 님께서 <strong>${message.study.study_name }</strong> 참여 신청을 하셨습니다.<br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
 												</td>
-												<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a></td>
+												<td><a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a></td>
 												<td><a href="${message.no }" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="이 메시지 삭제하기">삭제</a></td>
 											</tr>				
 										</c:when>
@@ -236,22 +236,10 @@ $(function() {
 	$(".messagenav li a").on("click", function(event) {
 		event.preventDefault();
 		
-		//$(".nav-tabs li").removeClass("active");
-		//$(this).parent().addClass("active");
-		//스터디 목록 숨기고 클릭된 것 보여주기
-		//$(".study-list").hide();
-		//클릭된 것 href
-		//$clicked = $(this).attr("href");
-		//$($clicked).show();
-		
-		// 사실 저위에꺼 이 한줄로 정리됨; ㅡㅡ
 		$(this).tab("show");
 	});
 	
 	$(".messagenav li:first() a").click();
-	
-	
-	
 
 	function emptytable() {
 		
