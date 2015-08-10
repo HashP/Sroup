@@ -78,9 +78,8 @@ textarea{
 
 <script src="resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <div class="container">
-	<h1 id="bordname">스터디 일정</h1>
-	<hr>
-
+	<h1 id="bordname" class="bordname1" onclick='removeClick();'>스터디 일정</h1>
+	
 	<div id="calendarblock" class="panel panel-default">
 		<div class="panel-body">
 
@@ -98,8 +97,24 @@ textarea{
    jQuery document ready
 */
 
+// 달력 이벤트 x표 클릭했을 시
+function removeClick(calEvent_id){
+	
+	event.stopPropagation ();	
+	
+	  $.ajax({              
+          url: "calEventDel.do",
+          data:{"calEvent_id":calEvent_id},             
+          success: function (data) {        	  
+        	  
+          }                  
+  
+	  });
+}
+
 $(document).ready(function()
 {
+	
 	
 	 $('select[name="colorpicker-picker-delay"]').simplecolorpicker({picker: true, theme: 'glyphicons', pickerDelay: 1000});
 	
@@ -113,19 +128,13 @@ $(document).ready(function()
 	      format: 'yyyy-MM-dd hh:mm PP',
 	      pick12HourFormat: true
 	    });
-	 $("#datetimepicker1").on("changeDate", function (e) {
-		 alert("!");
+	 $("#datetimepicker1").on("changeDate", function (e) {		
          $('#datetimepicker2').data("DateTimePicker").minViewMode(e.date);
      });      
 	  $("#datetimepicker2").on("changeDate", function (e) {
           $('#datetimepicker1').data("DateTimePicker").maxViewMode(e.date);
-      });
-	
-	  // 이벤트에 마우스 올렸을 때 반응
-	  $(".fc-content").hover(function(){
-		  $( this ).append( $( "<span> ***</span>" ) )
-	  });
-	   
+      });	
+
     $('#chkRec').click(function () {
 	        if ($(this).is(':checked')) {
 	            $('#RecEvent').show();
@@ -256,8 +265,8 @@ $(document).ready(function()
           });
           calendar.fullCalendar('unselect');
       },
-      eventRender: function (event, element) {
-          element.attr('href', 'javascript:void(0);');
+      eventRender: function (event, element) {         
+          //element.attr('href', 'javascript:void(0);');
           element.click(function() {
               $("#eventContent").dialog({ modal: true, title: event.title, width:330});
               $("#startTime").html(moment(event.start).format('YYYY년MM월DD일   HH:mm A'));
@@ -266,7 +275,16 @@ $(document).ready(function()
               $("#eventInfo").html(event.description);
               //$("#eventLink").attr('href', event.url);
           });
+          element.hover(function(){
+        	  
+        	  $(this).children().append("<span class='glyphicon glyphicon-remove' id="+event.id+" onclick='removeClick("+event.id+");' style='float:right;'></span>");        	  
+          },function(){
+        	  
+        	 $(".glyphicon-remove").remove();        	  
+          });
       },
+      
+      //removeEvents : function()
       
       /*
          editable: true allow user to edit events.
@@ -285,23 +303,27 @@ $(document).ready(function()
             	  var events = new Array();
             	  $.each(data.eventList, function (i, item) {
                       var event = new Object();
-                      event.id =  Math.floor(200 * Math.random());
+                      event.id =  item.event_id;
                       event.start = new Date(item.event_start);
                       event.end = new Date(item.event_end);
                       event.title = item.event_title;
                       event.content = item.event_content;
                       event.color = item.event_color;
                       event.allDay = false;
+                 
                       events.push(event);                      
                   });    
-            	  callback(events);
+            	  callback(events);     
+            	  
               }                  
       
     	  });
    }
    
 });
+ 	
 });
+
 </script>
 <div id="eventContent" title="Event Details" style="display: none;">
 	시작 : <span id="startTime"></span><br> 종료 : <span id="endTime"></span><br>
@@ -355,5 +377,7 @@ $(document).ready(function()
 
 
 </div>
+<script>
 
+</script>
 

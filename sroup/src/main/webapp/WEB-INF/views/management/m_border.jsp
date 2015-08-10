@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+	.b_title:link,.b_title:visited,.b_title:active,.b_title:hover {color:black;}
+</style>
 <div class="container">
 	<!-- ì°¨í h2 ìì´ë ê°(bordname)ì¼ë¡ ê²ìí ì´ë¦ì ë³ê²½íë¤. -->
 	<h1 id="bordname">게시판</h1>
@@ -19,7 +22,7 @@
 		<c:forEach var="boardList" items="${boardList }">			
 			<tr>
 				<td>${boardList.b_no }</td>
-				<td>${boardList.b_title }</td>
+				<td><a class="b_title" href="board_read.do?b_no=${boardList.b_no }">${boardList.b_title }</a></td>
 				<td>${boardList.b_writer }</td>
 				<td>${boardList.b_write_day }</td>
 				<td>${boardList.b_hit }</td>

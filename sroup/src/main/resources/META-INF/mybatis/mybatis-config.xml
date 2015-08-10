@@ -6,6 +6,7 @@
  <typeAliases>
    		<typeAlias type="com.cj.sroup.vo.M_galleryVO" alias="m_gallery"/>   		
    		<typeAlias type="com.cj.sroup.vo.M_boardVO" alias="m_board"/> 
+   		<typeAlias type="com.cj.sroup.vo.M_boardReplyVO" alias="m_boardReply"/> 
    		<typeAlias type="com.cj.sroup.vo.M_commentVO" alias="m_comment" />   		
    		<typeAlias type="com.cj.sroup.vo.M_calendarVO" alias="m_calendar"/>   		
    		<typeAlias type="com.cj.sroup.vo.M_calEventVO" alias="m_calEvent"/>   		
@@ -14,6 +15,7 @@
    		<typeAlias type="com.cj.sroup.vo.StudyVO" alias="Study"/>   		
    		<typeAlias type="com.cj.sroup.vo.ListVO" alias="Lists"/>
    		<typeAlias type="com.cj.sroup.vo.StudyManagementVO" alias="StudyManagementVO"/>
+   		<typeAlias type="com.cj.sroup.vo.MessageVO" alias="MessageVO"/>
    </typeAliases>
   <!-- SQL이 정의된 mapper파일을 등록한다. -->
   <mappers>
@@ -25,5 +27,6 @@
     <mapper resource="META-INF/mybatis/userinfo.xml"/>
     <mapper resource="META-INF/mybatis/study.xml"/>
     <mapper resource="META-INF/mybatis/study-management.xml"/>
+    <mapper resource="META-INF/mybatis/message.xml"/>
   </mappers>
 </configuration>

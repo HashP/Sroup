@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import com.cj.sroup.service.M_calendarService;
 import com.cj.sroup.service.M_commentService;
 import com.cj.sroup.service.M_galleryService;
 import com.cj.sroup.service.M_noticeService;
+import com.cj.sroup.vo.M_boardReplyVO;
 import com.cj.sroup.vo.M_boardVO;
 import com.cj.sroup.vo.M_calEventVO;
 import com.cj.sroup.vo.M_calendarVO;
@@ -97,8 +99,17 @@ public class ManagementController {
 	@RequestMapping("/notice_write.do")
 	public String notice_write(){
 		return "management/notice_write";
+	}	
+	@RequestMapping("/board_read.do")
+	public ModelAndView board_read(@RequestParam("b_no") int b_no){
+		ModelAndView mav = new ModelAndView();
+		M_boardVO b_detail =  m_boardservice.getBoardDetail(b_no);
+		List<M_boardReplyVO> b_reply =m_boardservice.getBoardReply(b_no);
+		mav.addObject("b_detail", b_detail);
+		mav.addObject("b_reply",b_reply);
+		mav.setViewName("management/board_read");
+		return mav;
 	}
-
 
 
 	// 게시글 등록시 이동 경로
@@ -128,6 +139,26 @@ public class ManagementController {
 		// 차후 작성글 바로 보기로 페이지 변경
 		return "redirect:m_border.do";
 	}
+	
+	// 덧글 등록 삭제 기능 
+	@RequestMapping("/boardreply_add.do")	
+	public String boardreply_save(@RequestParam("b_no")int b_no,
+			@RequestParam("content")String content){
+		M_boardReplyVO m_boardreply = new M_boardReplyVO();
+		m_boardreply.setB_no(b_no);
+		m_boardreply.setRe_content(content);
+				
+		m_boardservice.addBoardReply(m_boardreply);
+		return "redirect:board_read.do?b_no="+b_no;
+	}
+	@RequestMapping("/boardreply_del.do")	
+	public String boardreply_del(@RequestParam("re_no")int re_no, @RequestParam("b_no")int b_no){					
+		m_boardservice.delBoardReply(re_no);	
+		return "redirect:board_read.do?b_no="+b_no;
+	}
+	// 덧글 등록 삭제 끝 
+	
+	
 	@RequestMapping("/notice_writesave.do")
 	public String notice_writesave(@RequestParam("title")String title,
 			@RequestParam("content")String content){		
@@ -152,6 +183,12 @@ public class ManagementController {
 		// 차후 작성글 바로 보기로 페이지 변경
 		return "redirect:m_comment.do";
 	}
+	@RequestMapping("/comment_del.do")	
+	@ResponseBody
+	public void comment_writesave(@RequestParam("c_no")int c_no){					
+		m_commentservice.delComment(c_no);			
+	}
+	
 	// 공지사항 글 삭제하는 곳
 	@RequestMapping("/notice_del.do")
 	@ResponseBody

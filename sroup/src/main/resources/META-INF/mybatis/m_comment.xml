@@ -9,16 +9,16 @@
    <!-- 차후 사진 가져오기 위해 회원 테이블과 c_writer를 가지고 조인후 프로필사진을 가져와야함 -->
    select	STUDY_NO	as study_no,
    			LIST_NAME	as list_name,
-   			C_NO		as C_no, 
-   			C_WRITE_DAY	as C_write_day, 
-   			C_WRITER	as C_writer,   			 
-   			C_CONTENT	as C_content   			
+   			C_NO		as c_no, 
+   			C_WRITE_DAY	as c_write_day, 
+   			C_WRITER	as c_writer,   			 
+   			C_CONTENT	as c_content   			
 	from s_comment
     order by C_NO desc      
    </select>
 
    <insert id="addComment" parameterType="m_comment">
-   		insert into s_comment (STUDY_NO,
+   		insert into S_COMMENT (STUDY_NO,
    							LIST_NAME,
    							C_NO, 
    							C_WRITE_DAY, 
@@ -35,6 +35,11 @@
 				)
    </insert>
 
+ <delete id="delComment" parameterType="int">
+   		delete from S_COMMENT
+   		where
+   		C_NO=#{value}
+ </delete>
    
    
 </mapper>
