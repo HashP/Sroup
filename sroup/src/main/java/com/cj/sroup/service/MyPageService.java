@@ -2,6 +2,7 @@ package com.cj.sroup.service;
 
 import java.util.List;
 
+import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
@@ -16,4 +17,7 @@ public interface MyPageService {
 	public List<StudyManagementVO> getAttendStudiesById (String id) ;
 	public List<StudyManagementVO> getFinishedCreateStudiesById (String id) ;
 	public List<StudyManagementVO> getFinishedAttendStudiesById (String id) ;
+	
+	public List<MessageVO> getMessageByUserId(String id);
+	public void removeMessage(int no);
 }
