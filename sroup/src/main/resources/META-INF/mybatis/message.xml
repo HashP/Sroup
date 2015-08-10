@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cj.sroup.dao.MessageDao">
+
+	<select id="getMessageByReceiver" parameterType="String" resultType="MessageVO">
+		SELECT 
+			m.MESSAGE_NO			as no, 
+			m.MESSAGE_RECEIVER		as receiver,
+			m.MESSAGE_TYPE			as type,
+			m.WRITE_DATE			as writeDate,
+	      	sender.USER_ID			as "sender.id",
+	      	sender.USER_NICKNAME	as "sender.nickname",
+	      	study.STUDY_NO			as "study.study_no",
+	      	study.STUDY_NAME		as "study.study_name",
+	      	study.P_ADDRESS			as "study.p_address"
+		FROM 
+			MESSAGE m,
+			USER_INFO sender,
+			STUDY study
+		WHERE 
+		  study.STUDY_NO = m.STUDY_NO
+		  and
+		  sender.USER_ID = m.MESSAGE_SENDER
+		  and
+		  m.MESSAGE_RECEIVER = #{value}
+	</select>
+	
+	<delete id="removeMessage" parameterType="int">
+		delete from 
+			message
+		where
+			message_no = #{value}
+	
+	</delete>
+</mapper>

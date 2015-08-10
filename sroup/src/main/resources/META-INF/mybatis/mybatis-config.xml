@@ -14,6 +14,7 @@
    		<typeAlias type="com.cj.sroup.vo.StudyVO" alias="Study"/>   		
    		<typeAlias type="com.cj.sroup.vo.ListVO" alias="Lists"/>
    		<typeAlias type="com.cj.sroup.vo.StudyManagementVO" alias="StudyManagementVO"/>
+   		<typeAlias type="com.cj.sroup.vo.MessageVO" alias="MessageVO"/>
    </typeAliases>
   <!-- SQL이 정의된 mapper파일을 등록한다. -->
   <mappers>
@@ -25,5 +26,6 @@
     <mapper resource="META-INF/mybatis/userinfo.xml"/>
     <mapper resource="META-INF/mybatis/study.xml"/>
     <mapper resource="META-INF/mybatis/study-management.xml"/>
+    <mapper resource="META-INF/mybatis/message.xml"/>
   </mappers>
 </configuration>
