@@ -28,7 +28,7 @@
 <div id="side_nav">
 	<nav id="left_nav" class="col-md-2 sidebar, nav nav-pills nav-stacked">
 	<div style="width: 130px; height: 130px;">
-		<img alt="프로필" src="resources/images/woo.jpg"
+		<img alt="프로필" src="resources/images/프로필.png"
 			style="width: 130px; height: 130px; margin-bottom: 5px; margin-top: 5px;">
 	</div>
 	<ul class="nav nav-sidebar">

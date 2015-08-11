@@ -49,10 +49,14 @@
 }
 
 .tab-content {
-    border-left: 1px solid #ddd;
+/*
+	border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; 
+*/
     padding: 10px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
 }
 
 .table>tbody>tr>td {
@@ -72,7 +76,7 @@
 	<div class="panel panel-default" id="mystudy">
 		<div class="panel-body">
 			<div>
-				<ul class="nav nav-tabs">
+				<ul class="nav nav-pills studymenu">
 				  <li role="presentation"><a href="#create">내가 개설한</a></li>
 				  <li role="presentation"><a href="#attend">내가 참여한</a></li>
 				</ul>
@@ -197,7 +201,7 @@
 $(function() {
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	$(".nav-tabs li a").on("click", function(event) {
+	$(".studymenu li a").on("click", function(event) {
 		event.preventDefault();
 		
 		//$(".nav-tabs li").removeClass("active");
@@ -218,6 +222,6 @@ $(function() {
 
 	});
 
-	$(".nav-tabs li a").filter("[href=#${cate}]").click();
+	$(".studymenu li a").filter("[href=#${cate}]").click();
 });
 </script>

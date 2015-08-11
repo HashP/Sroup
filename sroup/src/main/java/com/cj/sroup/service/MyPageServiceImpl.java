@@ -6,8 +6,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cj.sroup.dao.MessageDao;
 import com.cj.sroup.dao.StudyManagementDao;
 import com.cj.sroup.dao.UserInfoDao;
+import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
@@ -18,6 +20,8 @@ public class MyPageServiceImpl implements MyPageService {
 	private UserInfoDao userDao;
 	@Autowired
 	private StudyManagementDao studyManagementDao;
+	@Autowired
+	private MessageDao messageDao;
 	
 	@Override
 	public UserInfoVO getUserInfoById(String id) {
@@ -75,6 +79,16 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<StudyManagementVO> getFinishedAttendStudiesById(String id) {
 		// TODO Auto-generated method stub
 		return studyManagementDao.getFinishedAttendStudiesById(id);
+	}
+
+	@Override
+	public List<MessageVO> getMessageByUserId(String id) {
+		// TODO Auto-generated method stub
+		return messageDao.getMessageByReceiver(id);
+	}
+	
+	public void removeMessage(int no) {
+		messageDao.removeMessage(no);
 	}
 
 }

@@ -7,12 +7,44 @@
 		resize: none
 	}
 </style>
+<link href="resources/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="resources/jquery-ui/external/jquery/jquery.js"></script>
+<script src="resources/jquery-ui/jquery-ui.js"></script>
 <script type="text/javascript">
 	function commentCheck(){		
 		if($("textarea[name='content']").val().trim() == ""){
 			event.preventDefault();
 		}
 	}
+	
+	$(function() {		
+		$(".glyphicon").hide();
+		
+		$(".comment_content").hover(function(){
+			$(this).find(".glyphicon").show();
+		},function(){
+			$(".glyphicon").hide();
+		})
+		
+		$(".c_remove").on("click",function(){
+			var id = $(this).attr("id");
+			 $.ajax({              
+	             url: "comment_del.do",
+	             data :  {"c_no":id},                         
+	             success: function (data) {	            	 
+	           	  	$("#comment_content_"+id).hide("blind","slow");
+	           	 	$("#comment_content_"+id).remove();
+	             }                  
+	     
+	   	  });
+			//location.replace('boardreply_del.do?re_no='+re_no+'&b_no='+b_no);	
+		})
+		$(".c_rewrite").on("click",function(){
+			
+			//location.replace('boardreply_del.do?re_no='+re_no+'&b_no='+b_no);	
+		})
+		
+	})
 	
 </script>
 <!-- content 부분 -->
@@ -35,13 +67,17 @@
 		<!-- 내용 입력한거 보는 곳 -->
 		<div class="speak_contents" style="padding-top: 20px;">
 		<c:forEach var="comment" items="${commentList}">
-		<div class="row" style="padding-left: 15px;">
-			<div class="col-sm-10">
-				<div class="row">
+		<div class="comment_content" id="comment_content_${comment.c_no}" style="margin-left: -40px;">
+		<div style="width: 4%; display: inline-block;">
+		<button href="#" class="btn btn-default glyphicon c_remove"  id="${comment.c_no}" style="padding-left: 8px; padding-right: 8px; color: gray"><span class="glyphicon glyphicon-remove"></span></button><br>
+		<a href="#" class="btn btn-default glyphicon c_rewrite" id="${comment.c_no}" style="padding-left: 8px; padding-right: 8px; color: gray"><span class="glyphicon glyphicon-pencil"></span></a>
+		</div>
+			<div style="width: 82%; display: inline-block; vertical-align: top;"  >
+				
 				<h4>${comment.c_content} </h4>
-				</div>
+				
 			</div>
-			<div class="col-sm-2">
+			<div style="width: 13%; display: inline-block; vertical-align: top;">
 			<small class="text-muted">${comment.c_writer}</small>
 					<small class="text-muted">${comment.c_write_day}</small>
 				<a href="#" class="pull-right">

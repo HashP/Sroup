@@ -22,11 +22,42 @@
 </style>
 <script type="text/javascript" src="/sroup/resources/jquery/jquery-1.11.3.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	//footer 고정
+	$( window ).resize(function() {
+		var window_height = $(window).height();
+		
+		var nah_height = $(".nav-and-header").outerHeight(true);
+		var w_height = $(".body").outerHeight(true);
+		var footer = $(".footer").outerHeight(true);
+		var html_height = (nah_height + w_height + footer);
+		console.log("window: " + window_height );
+		console.log("html: " + html_height);
+		console.log("	nah_height: " + nah_height);
+		console.log("	w_height: " + w_height);
+		console.log("	footer: " + footer);
+		
+		if(window_height > html_height) {
+			$(".footer").addClass("navbar-fixed-bottom");	
+		} else {
+			$(".footer").removeClass("navbar-fixed-bottom");
+		}
+		
+	});
+	
+	$(window).resize();
+
+});
+</script>
 </head>
 <body>
 
-<tiles:insertAttribute name="nav"/>
-<tiles:insertAttribute name="header"/>
+<div class="nav-and-header">
+	<tiles:insertAttribute name="nav"/>
+	<tiles:insertAttribute name="header"/>
+</div>
 
 <div class="body">
 	<tiles:insertAttribute name="content"/>

@@ -8,4 +8,5 @@ import com.cj.sroup.vo.M_commentVO;
 public interface M_commentService {
 	void addComment(M_commentVO m_comment);
 	List<M_commentVO> getAllComment();
+	void delComment(int c_no);
 }

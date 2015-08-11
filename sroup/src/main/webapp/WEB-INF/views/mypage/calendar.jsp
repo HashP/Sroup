@@ -66,6 +66,7 @@ $(function(){
             );  */
         }, 
         eventAfterAllRender: function(view) { 
+        	$(window).resize();
         	coloring(); 
 			$(".fc-toolbar h2").css("font-size", "20px");
         },

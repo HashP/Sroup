@@ -14,9 +14,11 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cj.sroup.service.MyPageService;
+import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
@@ -220,7 +222,35 @@ public class MyPageController {
 		if(loginId == null) {
 			return "redirect:/login/login.do";
 		}
+		
+		List<MessageVO> messageList = service.getMessageByUserId(loginId);
+		model.addAttribute("messageList", messageList);
+		
+		System.out.println(messageList);
+		
 		model.addAttribute("current_page", "messagebox");
 		return "mypage/messagebox";
 	}
+	
+	/**
+	 * ajax 요청으로 message no를 전달시 메시지를 삭제해줌 
+	 * @param no  message no
+	 * @return
+	 */
+	@RequestMapping("/remove-message.do")
+	@ResponseBody
+	public String removeMessage(@RequestParam("msgNo")int no) {
+		//System.out.println(no);
+		service.removeMessage(no);		
+		
+		return "success";
+	}
+	
+	@RequestMapping("/join-manage.do")
+	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo) {
+		
+		
+		return "mypage/join-manage";
+	}
+	
 }

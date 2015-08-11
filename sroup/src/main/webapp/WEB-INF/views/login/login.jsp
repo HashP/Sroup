@@ -35,12 +35,6 @@ hr {
 }
 </style>
 
-
-
-
-
-
-
 <div id="page-wrapper">
 	<div id="loginform">
 		<form class="form" method="post" action="login.do">
@@ -62,3 +56,23 @@ hr {
 	</div>
 
 </div>
+
+<script>
+$(function() {
+	$(".form").on("submit", function(event) {
+		
+		// null검사
+		$(".form input").filter(function(index, el){  
+
+			if($(el).val().trim() == ''){
+				event.preventDefault();
+				return true;
+			}
+			return false;
+		})[0].focus();
+		
+	});
+	
+});
+
+</script>
