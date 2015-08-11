@@ -1,19 +1,30 @@
 package com.cj.sroup.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cj.sroup.service.StudyService;
@@ -22,7 +33,9 @@ import com.cj.sroup.vo.ListVO;
 
 @Controller
 public class ListController {
-
+	@Value("${profile.image.path}")
+	private String filepath;
+	
 	@Autowired
 	StudyService service;
 	
@@ -44,9 +57,65 @@ public class ListController {
 	public String add() {
 		return "list/add";
 	}
-	@RequestMapping("/upload.do")
-	public String upload() {
-		return "list/upload";
+	@RequestMapping(value=("/upload.do"), method = RequestMethod.POST)  
+	@ResponseBody
+	public String upload(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws Exception {
+		
+		 String responseStr = "";
+	        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) req;
+	        // 获取前台传值
+	        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+	        // String ctxPath =
+	        // request.getSession().getServletContext().getRealPath("/")+ "\\" +
+	        // "images\\";
+	        String configPath = File.separator + "upload" + File.separator;
+	        String ctxPath = req.getSession().getServletContext().getRealPath("/");
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+	        String year = sdf.format(new Date());
+	        configPath += year + File.separator;
+	        sdf = new SimpleDateFormat("MM");
+	        String month = sdf.format(new Date());
+	        configPath += month + File.separator;
+	        
+	        ctxPath += configPath;
+	        // 创建文件夹
+	        File file = new File(ctxPath);
+	        if (!file.exists()) {
+	            file.mkdirs();
+	        }
+	        String fileName = null;
+	        for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+	            // 上传文件名
+	            // System.out.println("key: " + entity.getKey());
+	            MultipartFile mf = entity.getValue();
+	            fileName = mf.getOriginalFilename();
+	            
+	            String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+	            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+	            String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+	            responseStr = configPath + newFileName + "|" + fileName;
+	            File uploadFile = new File(ctxPath + newFileName);
+	            try {
+	                FileCopyUtils.copy(mf.getBytes(), uploadFile);
+	            } catch (IOException e) {
+	                responseStr = "上传失败";
+	                e.printStackTrace();
+	            }
+	            
+	        }
+	        resp.setHeader("Content-type", "text/html;charset=UTF-8");  
+	        //这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859  
+	        resp.setCharacterEncoding("UTF-8");
+	        resp.getWriter().write(responseStr); 
+	        System.out.println(ctxPath);
+	        return null;
+	    }
+	
+
+	@RequestMapping("/uploadify.do")
+	public String uploadify() {
+		return "list/uploadify";
 	}
 	@RequestMapping("/map.do")
 	public void map(HttpServletRequest req, HttpServletResponse resp) throws Exception {

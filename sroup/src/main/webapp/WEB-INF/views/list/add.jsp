@@ -9,14 +9,9 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="/sroup/resources/uploadify/jquery.uploadify.js"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-<link rel="stylesheet"
-	href="/sroup/resources/uploadify/uploadify.css">
 <link rel="stylesheet"
 	href="/sroup/resources/bootstrap/jquery-ui.css">
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 
@@ -48,6 +43,28 @@
 			},
 			fCreator : "createSEditor2"
 		});
+		
+		function pasteHTML(fileName) {
+			
+			var sHTML = "<img style='color:#4195f5;'>"+fileName+"<\/span>";
+			oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+		}
+		
+		$("#attachToContent").uploadify({
+            'swf'      : '/sroup/resources/uploadify/uploadify.swf',
+            'uploader' : '/sroup/upload.do',  // 파일업로드를 실제로 처리할 php 파일입니다  
+            'fileTypeDesc' : '*.jpg;*.png;*.gif;*.bmp;',
+            'fileTypeExts' : '*.jpg;*.png;*.gif;*.bmp;',
+            'onUploadSuccess' : function(file, data, response) {  //업로드 성공시 세팅하는곳
+          	  	var data = data.split("|");
+            	var imgUrl = data[0];
+            	var html = "";
+            	
+            	html = '<img src="/sroup'+ imgUrl + '" />'
+            	
+            	oEditors.getById["content"].exec("PASTE_HTML", [html]);
+             }
+     });
 
 		//저장버튼 클릭시 form 전송
 		$("#save").click(function() {
@@ -386,17 +403,7 @@
 	}
 	
 	$(function() {
-	       $("#attachToContent").uploadify({
-	              'swf'      : '/sroup/resources/uploadify/uploadify.swf',
-	              'uploader' : '/sroup/resources/uploadify/uploadify.php',  // 파일업로드를 실제로 처리할 php 파일입니다        
-	              'queueID'  : 'content',  //  div id="some_file_queue" 에 파일 업로드정보를 보여주는곳입니다.
-	              'buttonImage' : '/img/btn/finding_file.gif',   // 파일찾기 이미지를 지정하는곳입니다.
-	              'height'   : 19,  // 버튼이미지 사용시 이미지 세로값지정
-	              'width'   : 73,   // 버튼이미지 사용시 이미지 가로값지정
-	              'onUploadSuccess' : function(file, data, response) {  //업로드 성공시 세팅하는곳
-	              		
-	               }
-	       });
+	       
 	 });
 </script>
 </head>

@@ -104,7 +104,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 					buttonClass     : '',                 // A class name to add to the browse button DOM object
 					buttonCursor    : 'hand',             // The cursor to use with the browse button
 					buttonImage     : null,               // (String or null) The path to an image to use for the Flash browse button if not using CSS to style the button
-					buttonText      : 'SELECT FILES',     // The text to use for the browse button
+					buttonText      : '이미지 첨부하기',     // The text to use for the browse button
 					checkExisting   : false,              // The path to a server-side script that checks for existing files on the server
 					debug           : false,              // Turn on swfUpload debugging mode
 					fileObjName     : 'Filedata',         // The name of the file object to use in your server-side script
@@ -569,7 +569,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 			var settings = this.settings;
 
 			// Reset some queue info
-			this.queueData.errorMsg       = 'Some files were not added to the queue:';
+			this.queueData.errorMsg       = '사진 파일만 업로드 가능합니다.';
 			this.queueData.filesReplaced  = 0;
 			this.queueData.filesCancelled = 0;
 

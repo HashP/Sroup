@@ -1889,25 +1889,6 @@ input.radio, input.checkbox {
     padding-left: 20px;
     margin-right: 0;
 }
-#attachToContent {
-    float: right;
-    margin-top: 5px;
-}
-#attachToContent{
-	background: #fff;
-    display: inline-block;
-    letter-spacing: -1px;
-    font-size: 11px;
-    border: 1px solid #b8b8b8;
-    width: 108px;
-    color: #666;
-    height: 21px;
-    margin-top: 5px;
-}
-#attachToContent:hover {
-	color: #4195f5;
-	text-decoration: underline;
-}
 .dues {
 	width: 100px;
 	height: 20px;
@@ -2127,5 +2108,51 @@ input.text.outfocus, textarea.text.outfocus {
     background-color: #4195f5;
     color: #fff;
 }
+#attachToContent.uploadify {
+	float: right;
+	margin-top: 5px;
 }
 
+button.attach,
+#attachToContent .uploadify-button {
+	border: 1px solid #b8b8b8;
+	width: 110px !important;
+	height: 21px !important;
+	text-align: center;
+	background: url("http://static.onoffmix.com/images2/background/mypage_photo_progress.gif") no-repeat 0 -500px;
+}
+
+button.attach:hover,
+#attachToContent.uploadify:hover .uploadify-button {
+	border-color: #999999;
+}
+
+button.attach,
+#attachToContent .uploadify-button-text {
+	/* FIXME text height */
+	position: relative;
+	line-height: 21px;
+	font-size: 11px;
+	letter-spacing: -1px;
+	color: #666666;
+}
+
+button.attach:hover,
+#attachToContent.uploadify:hover .uploadify-button-text {
+	color: #4195f5;
+}
+
+#attachToContent.uploadify.onProgress .uploadify-button-text {
+	color: #333333;
+}
+
+#attachToContent.uploadify-progress {
+	display: none;
+}
+
+#attachToContent.uploadify.onProgress .uploadify-progress {
+	position: absolute;
+	display: block;
+	background: #4195f5;
+	height: 21px;
+}

@@ -35,7 +35,7 @@
 	<!-- 첨부파일 업로드를 지원하는 Resolver 등록하기 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		 <property name="maxUploadSize" value="100000"/>		
+		 <property name="maxUploadSize" value="10000000"/>		
 	</bean>
 	
 	<!-- 첨부파일 다운로드 지원하는 view 등록 -->
