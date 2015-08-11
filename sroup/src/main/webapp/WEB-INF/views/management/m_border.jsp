@@ -3,19 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	.b_title:link,.b_title:visited,.b_title:active,.b_title:hover {color:black;}
+	table{
+		width: 1100px;
+	}
 </style>
 <div class="container">
 	<!-- ì°¨í h2 ìì´ë ê°(bordname)ì¼ë¡ ê²ìí ì´ë¦ì ë³ê²½íë¤. -->
 	<h1 id="bordname">게시판</h1>
 	<br>
-	<table class="table table-hover">
+	<table class="table table-hover" style="width: 1100px">
 		<thead>
-			<tr class="active">
-				<th>번호</th>
-				<th>제목</th>
-				<th>글쓴이</th>
-				<th>날짜</th>
-				<th>조회수</th>
+			<tr style="background-color: #E5E5E5">
+				<th style="width: 90px">번호</th>
+				<th style="width: 670px">제목</th>
+				<th style="width: 130px">글쓴이</th>
+				<th style="width: 130px">날짜</th>
+				<th style="width: 80px">조회</th>
 			</tr>
 		</thead>		
 		<tbody>

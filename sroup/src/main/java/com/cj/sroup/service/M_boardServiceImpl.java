@@ -52,6 +52,17 @@ public class M_boardServiceImpl implements M_boardService{
 		m_boarddao.delBoardReply(re_no);
 		
 	}
+
+	@Override
+	public void reBoard(M_boardVO m_board) {
+		m_boarddao.reBoard(m_board);
+		
+	}
+
+	@Override
+	public int nowAdd_no(String b_writer) {
+		return m_boarddao.nowAdd_no(b_writer);
+	}
 	
 	
 }

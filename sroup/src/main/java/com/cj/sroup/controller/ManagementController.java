@@ -96,6 +96,14 @@ public class ManagementController {
 	public String board_write(){
 		return "management/board_write";
 	}
+	@RequestMapping("/board_rewrite.do")
+	public ModelAndView board_rewrite(@RequestParam("b_no") int b_no){
+		ModelAndView mav = new ModelAndView();
+		M_boardVO b_detail =  m_boardservice.getBoardDetail(b_no);		
+		mav.addObject("b_detail", b_detail);		
+		mav.setViewName("management/board_rewrite");
+		return mav;		
+	}
 	@RequestMapping("/notice_write.do")
 	public String notice_write(){
 		return "management/notice_write";
@@ -136,6 +144,25 @@ public class ManagementController {
 		m_board.setB_content(content);
 
 		m_boardservice.addBoard(m_board);
+		//int_b_no=m_boardservice.nowAdd_no(b_writer;)
+		// 차후 작성글 바로 보기로 페이지 변경
+		return "redirect:m_border.do";
+	}
+	@RequestMapping("/board_del.do")	
+	public String board_del(@RequestParam("b_no")int b_no){					
+		m_boardservice.delBoard(b_no);	
+		return "redirect:board_read.do?b_no="+b_no;
+	}
+	@RequestMapping("/board_resave.do")
+	public String board_resave(@RequestParam("title")String title,
+			@RequestParam("content")String content,
+			@RequestParam("b_no") int b_no){
+		M_boardVO m_board = new M_boardVO();
+		m_board.setB_title(title);
+		m_board.setB_content(content);
+		m_board.setB_no(b_no);
+		
+		m_boardservice.reBoard(m_board);
 		// 차후 작성글 바로 보기로 페이지 변경
 		return "redirect:m_border.do";
 	}
@@ -187,6 +214,19 @@ public class ManagementController {
 	@ResponseBody
 	public void comment_writesave(@RequestParam("c_no")int c_no){					
 		m_commentservice.delComment(c_no);			
+	}
+	
+	@RequestMapping("/comment_rewrite.do")	
+	@ResponseBody
+	public M_commentVO comment_rewrite(@RequestParam("c_no")int c_no,
+						@RequestParam("c_content") String c_content){
+		
+		M_commentVO m_comment = new M_commentVO();
+		m_comment.setC_content(c_content);
+		m_comment.setC_no(c_no);
+		M_commentVO re_comment = m_commentservice.rewriteComment(m_comment);
+				
+		return re_comment;
 	}
 	
 	// 공지사항 글 삭제하는 곳

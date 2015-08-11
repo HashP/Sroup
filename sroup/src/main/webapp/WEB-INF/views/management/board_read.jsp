@@ -21,11 +21,24 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 	padding-right: 8px; 
 	color: gray;
 }
+.my_btn{
+	display: inline;
+    float: left;
+    height: 23px;
+    margin-left: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
 </style>
 <div class="col-md-8 col-md-offset-1">
 
 	<div class="col-md-12">
 		<div class="row">
+		
 			<table border="0" cellspacing="0" width="100%"
 				style="table-layout: fixed; border-bottom: 1px solid #e1e1e1;">
 				<tr>
@@ -66,8 +79,10 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 						</table>
 
 					</td>
-					<td width=205 align="right" style="padding-right: 10px;"
-						class="number"></td>
+					<td width=205 align="right" style="padding-right: 10px; vertical-align: bottom;"
+						class="number">
+																	
+						</td>
 				</tr>
 			</table>
 		</div>
@@ -99,8 +114,14 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 					<td class="i1"><textarea id="b_reply" style="overflow: hidden; line-height: 14px; height: 61px; width: 100%;"></textarea></td>
 					<td class="i2"><input type="image" name="" src="resources/images/ok_btn.gif" alt="확인"></td>
 				</table>
-			</div>
+			</div>			
+			<div>		
+					
+						<button class="btn btn-default btn-sm b_rewrite" style="float: right; margin-top: 10px" ><span>수정</span></button>			
+						<button class="btn btn-default btn-sm b_remove" style="float: right; margin-top: 10px" ><spna>삭제</sapn></button>						
+			</div>		
 		</div>
+		
 	</div>
 </div>
 <script>
@@ -109,7 +130,7 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 			var b_no = ${b_detail.b_no };
 			var content = $("#b_reply").val();
 			 location.replace('boardreply_add.do?b_no='+b_no+"&content="+content);			
-		})
+		});
 		$(".glyphicon").hide();
 		
 		$(".reply_content").hover(function(){
@@ -122,7 +143,19 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 			var re_no=$(this).attr("id");
 			var b_no = ${b_detail.b_no };
 			location.replace('boardreply_del.do?re_no='+re_no+'&b_no='+b_no);	
-		})
+		})		
 		
+		$(".b_rewrite").on("click",function(){			
+			var b_no = ${b_detail.b_no };
+			location.replace('board_rewrite.do?b_no='+b_no);	
+		})		
+		
+		$(".b_remove").on("click",function(){			
+			var b_no = ${b_detail.b_no };
+			location.replace('board_del.do?b_no='+b_no);	
+		})	
+				
 	})
+	
+	
 </script>

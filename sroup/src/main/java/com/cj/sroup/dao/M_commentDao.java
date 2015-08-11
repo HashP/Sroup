@@ -8,4 +8,6 @@ public interface M_commentDao {
 	void addComment(M_commentVO m_comment);
 	List<M_commentVO> getAllComment();
 	void delComment(int c_no);
+	void reComment(M_commentVO m_comment);
+	M_commentVO reComment_get(int c_no);
 }
