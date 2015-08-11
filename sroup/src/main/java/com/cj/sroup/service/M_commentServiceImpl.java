@@ -29,6 +29,12 @@ public class M_commentServiceImpl implements M_commentService{
 		m_commentdao.delComment(c_no);
 		
 	}
+
+	@Override
+	public M_commentVO rewriteComment(M_commentVO m_comment) {
+		m_commentdao.reComment(m_comment);
+		return m_commentdao.reComment_get(m_comment.getC_no());
+	}
 	
 
 }

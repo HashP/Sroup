@@ -40,6 +40,24 @@
    		where
    		C_NO=#{value}
  </delete>
+ 
+ <update id="reComment" parameterType="m_comment">
+ 	UPDATE S_COMMENT
+	SET C_CONTENT= #{c_content},
+		C_WRITE_DAY=sysdate
+	WHERE C_NO = #{c_no}
+ </update>
+ 
+ <select id="reComment_get" parameterType="int" resultType="m_comment">
+ 	select	STUDY_NO	as study_no,
+   			LIST_NAME	as list_name,
+   			C_NO		as c_no, 
+   			C_WRITE_DAY	as c_write_day, 
+   			C_WRITER	as c_writer,   			 
+   			C_CONTENT	as c_content   			
+	from s_comment
+    where C_NO = #{value}      
+ </select>
    
    
 </mapper>

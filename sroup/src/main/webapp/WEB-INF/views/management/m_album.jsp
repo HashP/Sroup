@@ -3,14 +3,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-	.albumlist_img{		
-		max-height: 300px;		 
-	}
-	textarea[name='contents']{
-		resize: none
-	}
+    <link rel="shortcut icon" href="images/favicon.png">
 
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/lightbox.css">
+    <script src="js/lightbox-plus-jquery.min.js"></script>
+
+<style>
+.albumlist_img {
+	max-height: 300px;
+}
+
+textarea[name='contents'] {
+	resize: none
+}
+
+.lb-nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	display: block;
+}
+
+.lb-nav a.lb-prev {
+	width: 34%;
+	left: 0;
+	float: left;
+	height: 100%;
+	cursor: pointer;
+	margin-left: -100px
+}
+
+.lb-nav a.lb-next {
+	width: 64%;
+	right: 0;
+	float: right;
+	height: 100%;
+	cursor: pointer;
+	display: block;
+	margin-right: -100px
+}
+
+.lb-nav a.lb-next img {
+	float: right;
+	vertical-align: middle;
+}
+
+.lb-nav a.lb-prev img {
+	vertical-align: bottom;
+	
+}
 </style>
 <script type="text/javascript">
 	function readURL(input) {
@@ -77,6 +123,24 @@
 
 		return true;
 	}
+	
+	$(function(){
+		$(".lb-prev").children().hide();
+		$(".lb-next").children().hide();
+		
+		$(".lb-prev").hover(function(){
+			$(".lb-prev").children().show();
+		},function(){
+			$(".lb-prev").children().hide();
+		})
+		
+		$(".lb-next").hover(function(){
+			$(".lb-next").children().show();
+		},function(){
+			$(".lb-next").children().hide();
+		})
+	})
+	
 </script>
 
 
@@ -263,44 +327,12 @@
 					</div>
 
 				</div>
-				<!-- /.row -->
-
-				<!-- Related Projects Row -->
-				<div class="row">
-
-					<div class="col-lg-12">
-						<h3 class="page-header">이전사진</h3>
-					</div>
-
-					<div class="col-sm-3 col-xs-6">
-						<a href="#"> <img class="img-responsive portfolio-item"
-							src="http://placehold.it/500x300" alt="">
-						</a>
-					</div>
-
-					<div class="col-sm-3 col-xs-6">
-						<a href="#"> <img class="img-responsive portfolio-item"
-							src="http://placehold.it/500x300" alt="">
-						</a>
-					</div>
-
-					<div class="col-sm-3 col-xs-6">
-						<a href="#"> <img class="img-responsive portfolio-item"
-							src="http://placehold.it/500x300" alt="">
-						</a>
-					</div>
-
-					<div class="col-sm-3 col-xs-6">
-						<a href="#"> <img class="img-responsive portfolio-item"
-							src="http://placehold.it/500x300" alt="">
-						</a>
-					</div>
-
-				</div>
+				<!-- /.row -->				
+			
+<div class="lb-nav" style="display: block;"><a class="lb-prev" href="" style="display: block;"><img src="http://lokeshdhakar.com/projects/lightbox2/images/prev.png.pagespeed.ce.hLdt7msnt5.png"/></a><a class="lb-next" href="" style="display: block;"><img src="http://lokeshdhakar.com/projects/lightbox2/images/next.png.pagespeed.ce.MfFYdZdaq2.png"/></a></div>
 			</div>
 
 		</div>
-
 	</div>
 </div>
 <!-- 사진 올리기 Modal -->

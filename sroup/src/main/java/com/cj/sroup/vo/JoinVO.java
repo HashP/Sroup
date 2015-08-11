@@ -7,7 +7,7 @@ public class JoinVO {
 	private StudyVO study;
 	private UserInfoVO applicant;
 	private Date regDate;
-	private String sAdmit;
+	private String admit;
 	
 	public JoinVO() {
 		// TODO Auto-generated constructor stub
@@ -37,18 +37,18 @@ public class JoinVO {
 		this.regDate = regDate;
 	}
 
-	public String getsAdmit() {
-		return sAdmit;
+	public String getAdmit() {
+		return admit;
 	}
 
-	public void setsAdmit(String sAdmit) {
-		this.sAdmit = sAdmit;
+	public void setAdmit(String admit) {
+		this.admit = admit;
 	}
 
 	@Override
 	public String toString() {
 		return "JoinVO [study=" + study + ", applicant=" + applicant
-				+ ", regDate=" + regDate + ", sAdmit=" + sAdmit + "]";
+				+ ", regDate=" + regDate + ", admit=" + admit + "]";
 	}
 	
 }

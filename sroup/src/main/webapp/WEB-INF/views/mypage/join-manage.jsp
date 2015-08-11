@@ -64,49 +64,62 @@ td strong {
 					
 					<thead>
 						<tr>
-							<th><input type="checkbox" class="joincheck"  data-toggle="tooltip" data-placement="left" title="전체선택 / 해제" /></th>
+							<th><input type="checkbox" class="joincheck" id="allcheck"  data-toggle="tooltip" data-placement="left" title="전체선택 / 해제" /></th>
 							<th> 신청한 회원 </th>
 							<th>
-								<a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="left" title="선택한 회원의 가입을 승인하기">승인</a>
-								<a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="left" title="선택한 회원의 가입신청을 거절">거절</a>
+								<a href="#" class="btn btn-primary btn-xs btn-accept" data-toggle="tooltip" data-placement="left" title="선택한 회원의 가입을 승인하기">승인</a>
+								<a href="#" class="btn btn-danger btn-xs btn-reject" data-toggle="tooltip" data-placement="left" title="선택한 회원의 가입신청을 거절">거절</a>
 							</th>
 						</tr>	
 					</thead>
 					<tbody>
+					
+						<c:forEach var="user" items="${applicantList}">
+						<tr>
+							<td><input type="checkbox" class="joincheck"/></td>
+							<td>
+								<div>
+									<!-- 나중에 이미지 넣기 -->
+								</div>
+								<div>
+									<strong>${user.applicant.nickname }</strong><br>
+									<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${user.regDate }" pattern="hh:mm a yy/MM/dd"/></small>
+								</div>
+							</td>
+							<td>
+								<input type="hidden" value="${user.applicant.id }">
+								<a href="#" class="btn btn-primary btn-xs btn-accept" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
+								<a href="#" class="btn btn-danger btn-xs btn-reject" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
+							</td>
+						</tr>	
+						
+						</c:forEach>
+						<!--
 						<tr>
 							<td><input type="checkbox" class="joincheck"/></td>
 							<td>홍길동</td>
 							<td>
-								<a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
-								<a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
+								<a href="#" class="btn btn-primary btn-xs btn-accept" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
+								<a href="#" class="btn btn-danger btn-xs btn-reject" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
 							</td>
 						</tr>				
 						<tr>
 							<td><input type="checkbox" class="joincheck"/></td>
 							<td>강감찬</td>
 							<td>
-								<a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
-								<a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
+								<a href="#" class="btn btn-primary btn-xs btn-accept" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
+								<a href="#" class="btn btn-danger btn-xs btn-reject" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
 							</td>
 						</tr>				
 						<tr>
 							<td><input type="checkbox" class="joincheck"/></td>
 							<td>김유신</td>
 							<td>
-								<a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
-								<a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
+								<a href="#" class="btn btn-primary btn-xs btn-accept" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
+								<a href="#" class="btn btn-danger btn-xs btn-reject" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
 							</td>
-						</tr>				
-						<tr>
-							<td><input type="checkbox" class="joincheck"/></td>
-							<td>홍길동</td>
-							<td>
-								<a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="left" title="가입을 승인하기">승인</a>
-								<a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="left" title="가입신청을 거절">거절</a>
-							</td>
-						</tr>				
-				
-			
+						</tr>	 
+						-->			
 					</tbody>				
 				</table>
 			</div>
@@ -116,9 +129,103 @@ td strong {
 	
 <script type="text/javascript">
 $(function() {
+	
+	var studyno = ${param.studyno};
+	
 	$('[data-toggle="tooltip"]').tooltip();
+	
+	function emptytable() {
+		
+		var empty_msg = "<tr>	<td colspan='3' class='text-center'>메시지가 없습니다. </td></tr>";
+		$("tbody").filter(function(index) {
+			//console.log($(this).text().trim());
+			return $(this).text().trim() == "";
+		}).append(empty_msg);
+	}
+	emptytable();
+	
+	$("tbody tr").on("click", function() {
+		var target = $(this).find(":checkbox");
+		//console.log(target);
+		var status = target.prop("checked");
+		target.prop("checked", !status);
+	});
+	
+	$("tbody .joincheck").on("click", function() {
+		event.stopPropagation();
+	});
+	
+	$("tbody .btn-accept").on("click", function(event) {
+		event.stopPropagation();
+		var userid = $(this).parent().find("input[type=hidden]").val();
+		var $row = $(this).parent().parent();
+		
+ 		$.ajax({
+			url:"accept-member.do",
+			data:{
+				userid:userid,
+				studyno:studyno	
+			},
+			success:function(result) {
+				
+				if (result == "success") {
+					console.log("true");
+					$row.remove();
+					emptytable();
+				}
+			}
+			
+		}); 
+		$(this).blur();	// btn에 focus를 지워주려고 썻음;
+	});
 
+	$("tbody .btn-reject").on("click", function(event) {
+		event.stopPropagation();
+//		console.log(this);
+		var userid = $(this).parent().find("input[type=hidden]").val();
+		var $row = $(this).parent().parent();
+		
+ 		$.ajax({
+			url:"reject-member.do",
+			data:{
+				userid:userid,
+				studyno:studyno	
+			},
+			dataType:"text",
+			success:function(result) {
+				//console.log("result : [" + result + "]")	
+				if (result == "success") {
+					console.log("true");
+					$row.remove();
+					emptytable();
+				}
+			}
+			
+		});
+		$(this).blur();
+	});
+	
+	
+	$("thead #allcheck").on("click", function() {
+		var status = $(this).prop("checked");
+		//console.log(status);
+		$("tbody .joincheck").prop("checked", status);
+	});
 
+	$("thead .btn-accept").on("click", function(event) {
+		//event.preventDefault();
+		// 선택한 회원들의 가입을 승인
+		$("tbody :checkbox:checked").parent().parent().find(".btn-accept").click();
+		
+		$(this).blur();
+	});
+	
+	$("thead .btn-reject").on("click", function() {
+		// 선택한 회원들의 가입을 거절
+		$("tbody :checkbox:checked").parent().parent().find(".btn-reject").click();
+		
+		$(this).blur();
+	});
 });
 </script>	
 	

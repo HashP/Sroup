@@ -20,6 +20,10 @@ public class LoginServiceImpl implements LoginService{
 		UserInfoVO searchuser = userDao.getUserById(user.getId());
 		String encryptPwd = DigestUtils.sha256Hex(user.getPwd());
 		
+		if(searchuser == null) {
+			return false;
+		}
+		
 		if(searchuser.getPwd().equals(encryptPwd)) {
 			return true;
 		} else {

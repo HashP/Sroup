@@ -10,6 +10,8 @@ public interface M_boardService {
 	M_boardVO getBoardDetail(int b_no);
 	List<M_boardVO> getAllBoard();	
 	void delBoard(int b_no);
+	void reBoard(M_boardVO m_board);
+	int nowAdd_no(String b_writer);
 	// 덧글 부분
 	List<M_boardReplyVO> getBoardReply(int b_no);
 	void addBoardReply(M_boardReplyVO b_reply);

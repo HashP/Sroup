@@ -24,29 +24,41 @@
 	height: 100%;
 	position: fixed;
 }
+
+.nav-sidebar li{
+height:40px;
+display:block; /* a태그의 display속성을 block으로 설정 */	
+	margin-bottom:1px; /* 하단에 외부여백 1px */	
+	background-color:#292929; /* 바탕색 */	
+	color:#BBB; /* 글자색 */	
+	font:12px Verdana; /* 폰트 속성 순서대로 크기 글꼴 */
+	text-transform:uppercase; /* 폰트를 대문자로 바꿔준다. */
+}
+.nav-sidebar li:hover{
+	padding-left:10px; /* 왼쪽 여백을 기존 15px에서 10px으로 줄여준다. */
+	border-left:5px solid #b6e24c; /* 줄어든 여백만큼 border로 5px을 지정해 준다. */
+	color:#FFF; /* 폰트 색상 */
+}
 </style> 
 <div id="side_nav">
 	<nav id="left_nav" class="col-md-2 sidebar, nav nav-pills nav-stacked">
-	<div style="width: 130px; height: 130px;">
+	<div style="width: 130px; height: 140px;">
 		<img alt="프로필" src="resources/images/프로필.png"
 			style="width: 130px; height: 130px; margin-bottom: 5px; margin-top: 5px;">
 	</div>
-	<ul class="nav nav-sidebar">
-		<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-		<li><a href="/sroup/m_main.do">공지사항</a></li>
-		<li><a href="#">출석부</a></li>
-		<li><a href="/sroup/m_calendar.do">캘린더</a></li>
-		<li><a href="/sroup/m_album.do">갤러리</a></li>
-		<li><a href="/sroup/m_comment.do">회원한마디</a></li>
-		<li><a href="/sroup/m_border.do">게시판</a></li>
+	<ul class="nav nav-sidebar">		
+		<li><a href="/sroup/m_main.do" style="padding: 12.5px 15px;">공지사항</a></li>
+		<li><a href="#" style="padding: 12.5px 15px;">출석부</a></li>
+		<li><a href="/sroup/m_calendar.do" style="padding: 12.5px 15px;">캘린더</a></li>
+		<li><a href="/sroup/m_album.do" style="padding: 12.5px 15px;">갤러리</a></li>
+		<li><a href="/sroup/m_comment.do" style="padding: 12.5px 15px;">회원한마디</a></li>
+		<li><a href="/sroup/m_border.do" style="padding: 12.5px 15px;">게시판</a></li>
 	</ul>
 	</nav>
 	<nav id="left-nav2" class="sidebar, nav nav-pills nav-stacked">
-	<ul class="nav nav-sidebar">
-		<li><a href="#">공지사항</a></li>
-		<li><a href="#">공지사항2</a></li>
-		<li>내 정보 표시 구간</li>
-		<li>카페 정보 표시 구간</li>
+	<ul class="nav nav-sidebar">		
+		내 정보 표시 구간
+		카페 정보 표시 구간
 	</ul>
 	</nav>
 </div>
