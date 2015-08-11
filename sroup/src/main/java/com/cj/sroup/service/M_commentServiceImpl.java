@@ -23,6 +23,12 @@ public class M_commentServiceImpl implements M_commentService{
 	public List<M_commentVO> getAllComment() {		
 		return m_commentdao.getAllComment();
 	}
+
+	@Override
+	public void delComment(int c_no) {		
+		m_commentdao.delComment(c_no);
+		
+	}
 	
 
 }

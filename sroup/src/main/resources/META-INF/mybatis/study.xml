@@ -13,4 +13,26 @@
 		from
   			study
    </select>
+   <insert id="addCheck" parameterType="CheckVO">
+   		insert into phone_check (user_id, check_code)
+   						values(
+   						#{user_id}, 
+   						#{check_code}
+   						)
+   </insert>
+   <select id="userCheck" parameterType="string" resultType="CheckVO">
+   		select 
+   			user_id, check_code, check_y_or_n
+   		from
+   			phone_check
+   		where
+   			user_id = #{user_id}
+   </select>
+   <update id="modifyCheck" parameterType="CheckVO">
+   		update phone_check
+   			set user_id = #{user_id},
+   				check_code = #{check_code},
+   				check_y_or_n = #{check_y_or_n}
+   			where user_id = #{user_id}
+   </update>
 </mapper>

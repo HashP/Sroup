@@ -1674,6 +1674,7 @@ h4.subTitle .star {
     color: #ef3129;
 }
 .content .input input#title {
+	color: #000000;
     margin-left: 10px;
     width: 523px;
     height: 30px;
@@ -1901,9 +1902,11 @@ input.radio, input.checkbox {
     width: 108px;
     color: #666;
     height: 21px;
-    text-indent: 14px;
-    line-height: 22px;
     margin-top: 5px;
+}
+#attachToContent:hover {
+	color: #4195f5;
+	text-decoration: underline;
 }
 .dues {
 	width: 100px;
@@ -2113,10 +2116,10 @@ input.text.outfocus, textarea.text.outfocus {
 	margin-left: 10px;
     height: 30px;
     border: 1px solid #d8d8d8;
-    font-weight: bold;
     color: #666;
     background-color: #e7e7e7;
     border-radius: 3px;
+    font-size : 11px;
 }
 #sendCode:hover, #codeCheck:hover {
 	z-index: 1;

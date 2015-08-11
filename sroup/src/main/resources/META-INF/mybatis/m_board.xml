@@ -14,8 +14,19 @@
    			B_TITLE		as b_title, 
    			B_CONTENT	as b_content,
    			B_HIT		as b_hit
-	from s_board
-          
+	from s_board          
+   </select>
+   
+   <select id="getBoardDetail" parameterType="int" resultType="m_board">
+   select 	B_NO		as b_no, 
+   			B_WRITE_DAY	as b_write_day, 
+   			B_WRITER	as b_writer,
+   			B_TITLE		as b_title, 
+   			B_CONTENT	as b_content,
+   			B_HIT		as b_hit
+   from s_board
+   where B_NO = #{value}
+   	
    </select>
 
    <insert id="addBoard" parameterType="m_board">
@@ -41,9 +52,41 @@
    <delete id="delBoard" parameterType="int">
    		delete from s_board
    		where
-   		B_NO=#{value};
+   		B_NO=#{value}
    </delete>
 
+   <select id="getBoardReply" resultType="m_boardReply" parameterType="int">
+   	select	B_NO			as b_no, 
+   			RE_NO			as re_no,
+   			RE_WRITER		as re_writer, 
+   			RE_WRITER_NO	as re_writer_no, 
+   			RE_WRITER_DAY	as re_writer_day,
+   			RE_CONTENT		as re_content 
+   	from 	S_BOARD_REPLY
+    where	B_NO = #{value}
+   </select>
+   
+   <insert id="addBoardReply" parameterType="m_boardReply">
+   	insert into S_BOARD_REPLY(B_NO,
+   							RE_NO,			 
+   							RE_WRITER,		 
+   							RE_WRITER_NO,	 
+   							RE_WRITER_DAY,	
+   							RE_CONTENT)
+   					values (#{b_no},
+   							3,
+   							'cj',
+   							2,
+   							sysdate,
+   							#{re_content}
+   							)	
+   		
+   	
+   </insert>
+   
+   <delete id="delBoardReply" parameterType="int">
+   	delete from S_BOARD_REPLY where RE_NO = #{value}
+   </delete>
    
    
 </mapper>

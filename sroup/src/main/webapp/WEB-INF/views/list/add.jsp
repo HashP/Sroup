@@ -8,24 +8,24 @@
 <script type="text/javascript" src="resources/se2/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+	src="/sroup/resources/uploadify/jquery.uploadify.js"></script>
 <script type="text/javascript"
-	src="resources/uploadify/jquery.uploadify.js"></script>
+	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<link rel="stylesheet"
+	href="/sroup/resources/uploadify/uploadify.css">
 <link rel="stylesheet"
 	href="/sroup/resources/bootstrap/jquery-ui.css">
-<script type="text/javascript">
-	try {
-		document.execCommand('BackgroundImageCache', false, true);
-	} catch (e) {
-	}
-</script>
-<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=3a22f3e4a016459e5a21808b4e5c46d3"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
 <script type="text/javascript">
+
 	var oEditors = [];
 	$(function() {
+		$(".content .core .input").mouseover(function(){$(this).next().addClass("focus")})
+		$(".content .core .input").mouseout(function(){$(this).next().removeClass("focus")})
+		
+		
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : oEditors,
 			elPlaceHolder : "content", //textarea에서 지정한 id와 일치해야 합니다. 
@@ -39,7 +39,7 @@
 				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 				bUseModeChanger : true,
 				fOnBeforeUnload : function() {
-
+					
 				}
 			},
 			fOnAppLoad : function() {
@@ -126,7 +126,11 @@
 	});
 	
 	$(function(){
+		var phone;
+		var user_id;
+		var sendCode = false;
 		$("#sendCode").on("click", function() {
+			
 			var head = $("#ownerPhone").val();
 			var body = $("#ownerPhoneBody").val();
 			var tail = $("#ownerPhoneTail").val();
@@ -145,11 +149,14 @@
 				return;
 			}
 			
-			var phone = head + body + tail;
+			sendCode = true;
+			
+			phone = head + body + tail;
+			user_id = "kang";
 			console.log("phone : " +phone);
 			$.ajax({
 				url:"sms.do",
-				data: {phone : phone},
+				data: {phone : phone, user_id: user_id},
 				dataType: "text",
 				success : function(data) {
 					alert("메시지가 발송되었습니다.")
@@ -158,7 +165,55 @@
 		})
 		
 		$("#codeCheck").on("click", function() {
-			alert("인증이 완료되었습니다");
+			
+			var head = $("#ownerPhone").val();
+			var body = $("#ownerPhoneBody").val();
+			var tail = $("#ownerPhoneTail").val();
+			
+			if(head.trim() === "") {
+				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			} else if(body.trim() === "") {
+				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			} else if(tail.trim() === "") {
+				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			}
+			
+			if(!sendCode) {
+				alert("인증번호 발송 버튼을 먼저 클릭하세요.");
+				return;
+			}
+			
+			var code = $("#secretCode").val();
+			
+			if(code.trim() === "") {
+				alert("휴대폰에 전송된 인증번호를 입력하세요.")
+				return;
+			} else if(code.trim().length != 6) {
+				alert("인증번호는 6자리 입니다. 다시 입력 바랍니다.")
+				return;
+			} 
+
+			
+			
+			$.ajax({
+				url:"check.do",
+				data: {code : code, phone : phone, user_id : user_id},
+				dataType: "text",
+				success : function(result) {
+					if(result === "Y") {
+						alert("인증 되었습니다.")
+					} else {
+						alert("인증번호가 일치하지 않습니다. 다시 입력 바랍니다.")
+					}
+				}
+			})
+			
 		})
 	})
 
@@ -273,11 +328,14 @@
 							});
 					oMarker.setPoint(oPoint);
 					oMap.addOverlay(oMarker);
-					console.log(oMarker.getPoint());
-
+					
+					$("#lat").val(oPoint.getLat());
+					$("#lng").val(oPoint.getLng());
+					
 				});
 				
-				console.log(oMarker.getPoint());
+				$("#lat").val(SearchPoint.getLat());
+				$("#lng").val(SearchPoint.getLng());
 			})
 			
 		});
@@ -285,14 +343,68 @@
 			$("#resultList").attr("style", "display: none;")
 		})
 	});
+	
+	function secondStep() {
+		$("#secondStep").click();
+	}
+	function firstStep() {
+		$("#firstStep").click();
+	}
+	function lastStep() {
+		$("#lastStep").click();
+	}
+	
+	function check() {
+		var category = $("#category").val();
+		var title = $("#title").val();
+		var summary = $("#abstract").val();
+		
+		var textEditor = oEditors.getById["content"].getIR();
+		
+		var checkRule = $(".radio:checked").val();
+		var maxPerson = $(".Access").val();
+		
+		var dues = $(".dues").val();
+		
+		var startDate = $("#startEventDate").val();
+		var startDateTime = $("select[name=eventStartDateTime_time]").val();
+		var appPeriodDate = $("#endAcceptDate").val();
+		var appPeriodDateTime = $("select[name=recruitEndDateTime_time]").val();
+		
+		var location = $("#location").val();
+		
+		var lat = $("#lat").val();
+		var lng = $("#lng").val();
+		
+		var phoneHead = $("#ownerPhone").val();
+		var phoneBody = $("#ownerPhoneBody").val();
+		var phoneTail = $("#ownerPhoneTail").val();
+		
+		var secretCode = $("#secretCode").val();
+		
+		
+	}
+	
+	$(function() {
+	       $("#attachToContent").uploadify({
+	              'swf'      : '/sroup/resources/uploadify/uploadify.swf',
+	              'uploader' : '/sroup/resources/uploadify/uploadify.php',  // 파일업로드를 실제로 처리할 php 파일입니다        
+	              'queueID'  : 'content',  //  div id="some_file_queue" 에 파일 업로드정보를 보여주는곳입니다.
+	              'buttonImage' : '/img/btn/finding_file.gif',   // 파일찾기 이미지를 지정하는곳입니다.
+	              'height'   : 19,  // 버튼이미지 사용시 이미지 세로값지정
+	              'width'   : 73,   // 버튼이미지 사용시 이미지 가로값지정
+	              'onUploadSuccess' : function(file, data, response) {  //업로드 성공시 세팅하는곳
+	              		
+	               }
+	       });
+	 });
 </script>
 </head>
 </head>
 <body>
 	<div class="content">
-		<form action="/event/add" method="post" encType="multipart/form-data"
-			class="innerBorder " name="writeForm" data-hpp-max="300000"
-			data-hpp-alert="그룹의 금액이 &lt;strong&gt;30만원 이상의 경우&lt;/strong&gt;에는 휴대전화 결제 설정이&lt;br /&gt;불가하여 휴대전화 결제 설정 배제 처리 됩니다.&lt;br /&gt;자세한 사항은 &lt;a href=&quot;/cs/faq/?fs=%ED%9C%B4%EB%8C%80%ED%8F%B0&quot; target=&quot;_blank&quot;&gt;FAQ&lt;/a&gt;를 확인해 주세요">
+		<form action="/sroup/list.do" method="post" encType="multipart/form-data"
+			class="innerBorder " name="writeForm" onsubmit="check()" >
 			<input type="hidden" name="proc" value="createBaseEvent" /> <input
 				type="hidden" name="eventIdx" value="0" /> <input type="hidden"
 				name="banner" value="" /> <input type="hidden"
@@ -323,7 +435,7 @@
 							<h4 class="subTitle">
 								카테고리 / 제목 입력 <span class="star">*</span>
 							</h4>
-							<select class="category" name="category"
+							<select class="category" name="category" id="category"
 								style="height: 30px; width: 110px;">
 								<option value="">카테고리 선택</option>
 								<option value="15">번개/소모임</option>
@@ -340,13 +452,13 @@
 								<option value="26">패션</option>
 								<option value="27">뷰티</option>
 								<option value="28">엔터테인먼트</option>
-							</select><input id="title" type="text" name="title" value="모임제목 입력"
+							</select><input id="title" type="text" name="title" placeholder="모임 제목을 입력해주세요."
 								title="모임제목 입력" maxlength="64" class="text" />
 
 							<div class="lengthMsg">&nbsp;</div>
 						</div>
 					</div>
-					<div class="advice focus">
+					<div class="advice">
 						<p class="subAdvice">
 							<strong>카테고리를 선택</strong>하고 <strong>모임제목</strong>을 입력해주세요. <br />
 							<br /> 카테고리에 맞게 설정하시면 개설 후 검색이나<br /> 카테고리별로 보기 편하고 쉽게 찾을 수
@@ -378,49 +490,6 @@
 							</div>
 							<a class="recommend" href="#recommenBox">추천이미지 보기</a>
 
-							<div class="recommendBox none">
-								<p class="closeRecommend">
-									<span class="closeBtn"></span>
-								</p>
-								<ul>
-									<li class="first"><label for="banner-recommend-1"
-										class="innerBanner"> <img
-											src="http://static.onoffmix.com/images2/bannerPreset/thumbnail_01.jpg"
-											border="0" alt="추천이미지1 초대합니다" />
-
-											<div class="bannerBorder">
-												<!-- -->
-											</div> <input id="banner-recommend-1" type="radio"
-											name="bannerSelection"
-											value="http://static.onoffmix.com/images2/bannerPreset/thumbnail_01.jpg" />
-									</label></li>
-									<li class="second"><label for="banner-recommend-2"
-										class="innerBanner"> <img
-											src="http://static.onoffmix.com/images2/bannerPreset/thumbnail_02.jpg"
-											border="0" alt="추천이미지2 우리 만나요~" />
-
-											<div class="bannerBorder">
-												<!-- -->
-											</div> <input id="banner-recommend-2" type="radio"
-											name="bannerSelection"
-											value="http://static.onoffmix.com/images2/bannerPreset/thumbnail_02.jpg" />
-									</label></li>
-									<li class="third"><label for="banner-recommend-3"
-										class="innerBanner"> <img
-											src="http://static.onoffmix.com/images2/bannerPreset/thumbnail_03.jpg"
-											border="0" alt="추천이미지3 함께해요" />
-
-											<div class="bannerBorder">
-												<!-- -->
-											</div> <input id="banner-recommend-3" type="radio"
-											name="bannerSelection"
-											value="http://static.onoffmix.com/images2/bannerPreset/thumbnail_03.jpg" />
-									</label></li>
-								</ul>
-								<span class="imgAdvice">대표 이미지가 없다면 <br />온오프믹스에서<br />제공하는
-									<ins>추천 이미지</ins>를 선택해 주세요.
-								</span>
-							</div>
 						</div>
 						<div class="subCore abstract">
 							<h4 class="subTitle">
@@ -432,10 +501,8 @@
 					</div>
 					<div class="advice">
 						<p class="subAdvice">
-							모임 특성에 맞는 이미지로 업로드 해주시고 <br /> 대표 이미지가 없을 경우 온오프믹스에서 <br />
-							추천하는 이미지를 선택해 사용할 수 있습니다. <br /> <br /> 이미지 등록에 대한 안내는 <a
-								href="/cs/faq/host#167" class="guideSite" target="_blank">FAQ</a>
-							를 참고하세요.
+							모임 특성에 맞는 이미지로 업로드 해주시고 <br /> 대표 이미지가 없을 경우 스룹에서 <br />
+							제공하는 이미지를 사용할 수 있습니다. <br />
 						</p>
 
 						<p class="subAdvice abstract">
@@ -462,9 +529,7 @@
 					<div class="advice">
 						<p class="subAdvice">
 							개설하는 모임의 <strong>상세내용을 입력</strong>하고 편집기를<br /> 이용해 다양한 형태의 내용을
-							입력해 주세요.<br /> <br /> 사진/파일 첨부에 대한 안내는 <a
-								href="/cs/faq/host#168" class="guideSite" target="_blank">FAQ</a>
-							를 참고하세요.
+							입력해 주세요.<br />
 						</p>
 					</div>
 				</div>
@@ -479,10 +544,10 @@
 									class="Access" type="text" name="isDues" /><label for="dues">명</label>
 								<br>
 							</div>
-							<label for="free" id="checkRule">승인 방식</label> <input id="check"
-								class="radio" type="radio" name="rule" value="1" /><label
-								for="check" style="margin-right: 20px">검토 후 승인</label> <input
-								id="auto" class="radio" type="radio" name="rule" value="0" /><label
+							<label for="rule" id="checkRule">승인 방식</label> <input
+								class="radio" type="radio" name="rule" value="check" /><label
+								for="rule" style="margin-right: 20px">검토 후 승인</label> <input
+								class="radio" type="radio" name="rule" value="auto" /><label
 								for="auto">자동 승인</label> <span class="tip">승인 방식은 <strong>검토
 									후 승인을 권장</strong>합니다. 승인을 받지 못하면 간단한 스터디 정보만 공개되고, 자동 승인 방식을 선택하면 스터디
 								정보가 모두 공개됩니다.
@@ -491,11 +556,11 @@
 					</div>
 					<div class="advice">
 						<p class="subAdvice">
-							개설하려는 모임의 <strong>참여자 등록 방법</strong>을 선택해<br /> 주세요.<br /> <br />
-							개설은 하지만 참여 등록을 온오프믹스가 아닌<br /> 외부페이지나 별도의 다른 등록 방법을 원하시면<br />
-							외부 참여 등록을 선택해 주시고 사이트 주소가<br /> 있으시면 입력창에 입력하세요.<br /> <br />
-							영문형식(한글 도메인 불가)의 사이트 주소만<br /> 가능하며, 개설 이후에는 주소를 변경하실 수<br />
-							없습니다.
+							<br /> 스터디의 최대 인원을 입력해 주세요.<br />
+							<br />
+							
+							개설하려는 모임의 <strong>신청자 승인 방법</strong>을 선택해<br /> 주세요.<br /> <br />
+							승인 방식 여부에 따라 공개되는 정보가 다릅니다.
 						</p>
 					</div>
 				</div>
@@ -524,7 +589,7 @@
 					</div>
 					<div class="lastCore">
 						<div class="action">
-							<a href="#secondStep" class="next button">다음단계</a><a
+							<a href="#secondStep" class="next button" onclick="secondStep()">다음단계</a><a
 								class="temp button" href="#temp"><span>임시저장</span></a>
 						</div>
 					</div>
@@ -550,10 +615,10 @@
 					<div class="input">
 						<div class="subCore startEvent singleDay">
 							<h4 class="subTitle">
-								모임기간 설정 <span class="star">*</span><label class="days"
+								모임날짜 설정 <span class="star">*</span><!--<label class="days"
 									for="eventEndCheck"><input id="eventEndCheck"
 									type="checkbox" class="checkbox" name="eventMultiDay" value="y" />모임기간이
-									하루이상일경우</label>
+									하루이상일경우</label>-->
 							</h4>
 
 							<div class="dateConfig" style="width: 625px">
@@ -565,61 +630,7 @@
 									id="startEventDate" class="text datepicker" type="text"
 									name="eventStartDateTime_date" value="2015-08-01" /> <select
 									class="date-select" name="eventStartDateTime_time">
-									<option value='00:00'>오전 0시 00분 (자정)</option>
-									<option value='00:30'>오전 0시 30분</option>
-									<option value='01:00'>오전 1시 00분</option>
-									<option value='01:30'>오전 1시 30분</option>
-									<option value='02:00'>오전 2시 00분</option>
-									<option value='02:30'>오전 2시 30분</option>
-									<option value='03:00'>오전 3시 00분</option>
-									<option value='03:30'>오전 3시 30분</option>
-									<option value='04:00'>오전 4시 00분</option>
-									<option value='04:30'>오전 4시 30분</option>
-									<option value='05:00'>오전 5시 00분</option>
-									<option value='05:30'>오전 5시 30분</option>
-									<option value='06:00'>오전 6시 00분</option>
-									<option value='06:30'>오전 6시 30분</option>
-									<option value='07:00'>오전 7시 00분</option>
-									<option value='07:30'>오전 7시 30분</option>
-									<option value='08:00'>오전 8시 00분</option>
-									<option value='08:30'>오전 8시 30분</option>
-									<option value='09:00'>오전 9시 00분</option>
-									<option value='09:30'>오전 9시 30분</option>
-									<option value='10:00'>오전 10시 00분</option>
-									<option value='10:30'>오전 10시 30분</option>
-									<option value='11:00'>오전 11시 00분</option>
-									<option value='11:30'>오전 11시 30분</option>
-									<option value='12:00'>오후 0시 00분 (정오)</option>
-									<option value='12:30'>오후 0시 30분</option>
-									<option value='13:00'>오후 1시 00분</option>
-									<option value='13:30'>오후 1시 30분</option>
-									<option value='14:00'>오후 2시 00분</option>
-									<option value='14:30'>오후 2시 30분</option>
-									<option value='15:00'>오후 3시 00분</option>
-									<option value='15:30'>오후 3시 30분</option>
-									<option value='16:00'>오후 4시 00분</option>
-									<option value='16:30'>오후 4시 30분</option>
-									<option value='17:00'>오후 5시 00분</option>
-									<option value='17:30' selected='selected'>오후 5시 30분</option>
-									<option value='18:00'>오후 6시 00분</option>
-									<option value='18:30'>오후 6시 30분</option>
-									<option value='19:00'>오후 7시 00분</option>
-									<option value='19:30'>오후 7시 30분</option>
-									<option value='20:00'>오후 8시 00분</option>
-									<option value='20:30'>오후 8시 30분</option>
-									<option value='21:00'>오후 9시 00분</option>
-									<option value='21:30'>오후 9시 30분</option>
-									<option value='22:00'>오후 10시 00분</option>
-									<option value='22:30'>오후 10시 30분</option>
-									<option value='23:00'>오후 11시 00분</option>
-									<option value='23:30'>오후 11시 30분</option>
-								</select> <span class="space">부터</span> <label for="endEventDate"
-									class="displayNone">모임종료 날짜설정</label> <input id="endEventDate"
-									class="text datepicker" type="text"
-									name="eventEndDateTime_date" value="2015-08-01"
-									style="display: none" /> <select class="date-select"
-									name="eventEndDateTime_time">
-									<option value='00:00'>오전 0시 00분 (자정)</option>
+									<option value='00:00' selected='selected'>오전 0시 00분 (자정)</option>
 									<option value='00:30'>오전 0시 30분</option>
 									<option value='01:00'>오전 1시 00분</option>
 									<option value='01:30'>오전 1시 30분</option>
@@ -655,7 +666,7 @@
 									<option value='16:30'>오후 4시 30분</option>
 									<option value='17:00'>오후 5시 00분</option>
 									<option value='17:30'>오후 5시 30분</option>
-									<option value='18:00' selected='selected'>오후 6시 00분</option>
+									<option value='18:00'>오후 6시 00분</option>
 									<option value='18:30'>오후 6시 30분</option>
 									<option value='19:00'>오후 7시 00분</option>
 									<option value='19:30'>오후 7시 30분</option>
@@ -667,7 +678,7 @@
 									<option value='22:30'>오후 10시 30분</option>
 									<option value='23:00'>오후 11시 00분</option>
 									<option value='23:30'>오후 11시 30분</option>
-								</select> 까지
+								</select>
 							</div>
 						</div>
 						<div class="subCore setupTime" style="width: 648px">
@@ -682,9 +693,9 @@
 									name="recruitEndDateTime" value="2015-08-01 17:00" /> <label
 									for="startAcceptDate" class="displayNone">모임등록시작 날짜설정</label> <input
 									id="startAcceptDate" class="text datepicker" type="text"
-									name="recruitStartDateTime_date" value="2015-07-31" /> <select
-									class="date-select" name="recruitStartDateTime_time">
-									<option value='00:00'>오전 0시 00분 (자정)</option>
+									name="recruitStartDateTime_date" value="2015-07-31" disabled="true" style="cursor: no-drop" /> <select
+									class="date-select" name="recruitStartDateTime_time" disabled="true" style="cursor: no-drop">
+									<option value='00:00' selected='selected'>오전 0시 00분 (자정)</option>
 									<option value='00:30'>오전 0시 30분</option>
 									<option value='01:00'>오전 1시 00분</option>
 									<option value='01:30'>오전 1시 30분</option>
@@ -719,7 +730,7 @@
 									<option value='16:00'>오후 4시 00분</option>
 									<option value='16:30'>오후 4시 30분</option>
 									<option value='17:00'>오후 5시 00분</option>
-									<option value='17:30' selected='selected'>오후 5시 30분</option>
+									<option value='17:30'>오후 5시 30분</option>
 									<option value='18:00'>오후 6시 00분</option>
 									<option value='18:30'>오후 6시 30분</option>
 									<option value='19:00'>오후 7시 00분</option>
@@ -791,12 +802,13 @@
 					</div>
 					<div class="advice">
 						<p class="subAdvice startEvent">
-							개설하려는 모임의 <strong>기간</strong>을 설정해 주세요.<br /> <br /> 모임기간이 하루
-							이상일 경우 체크박스를 선택하면<br /> 모임 시작일과 종료일 설정이 가능합니다.
+							개설하려는 모임의 <strong>날짜</strong>를 설정해 주세요.<br /> <br /> 스터디
+							시작일이 모임 날짜입니다.
 						</p>
 
 						<p class="subAdvice setupTime">
 							모임에 참여하려는 참여자의 <strong>참여 신청기간</strong>을<br /> 설정합니다.<br />
+							신청기간은 게시 당일부터 시작됩니다.<br />
 							(참여자는 신청기간이 끝나면 해당 모임에 등록을<br /> 할 수 없습니다.)
 						</p>
 					</div>
@@ -903,10 +915,15 @@
 											});
 									oMarker.setPoint(oPoint);
 									oMap.addOverlay(oMarker);
-									console.log(oMarker.getPoint());
-
+									
+									$("#lat").val(oPoint.getLat());
+									$("#lng").val(oPoint.getLng());
 								});
-								console.log(oMarker.getPoint());
+								
+								
+								$("#lat").val(oSeoulCityPoint.getLat());
+								$("#lng").val(oSeoulCityPoint.getLng());
+								
 							</script>
 							<!-- .map.holder end -->
 						</div>
@@ -929,8 +946,8 @@
 				<div class="lastCore">
 					<div class="saveMsg"></div>
 					<div class="action">
-						<a href="#firstStep" class="prev button">이전</a><a href="#lastStep"
-							class="next button">다음단계</a><a class="temp button" href="#temp"><span>임시저장</span></a>
+						<a href="#firstStep" class="prev button" onclick="firstStep()">이전</a><a href="#lastStep"
+							class="next button" onclick="lastStep()">다음단계</a><a class="temp button" href="#temp"><span>임시저장</span></a>
 					</div>
 				</div>
 			</div>
@@ -984,22 +1001,16 @@
 					</div>
 					<div class="advice">
 						<p class="subAdvice public">
-							온오프믹스에 모임을 노출할 것인지 여부를 <br /> 선택해 주시고 <strong>노출 안함을
-								선택하면<br /> 온오프믹스내에 모임이 표시되지 않습니다.
-							</strong> <br /> <br /> 모임을 <strong>비공개</strong>로 설정 할 경우 <strong>비밀번호</strong>를<br />
-							입력 하시고 모임페이지에 비밀번호를 입력해야<br /> 모임에 접근이 가능합니다.
-						</p>
-						<p class="subAdvice admin">
-							연락처는 개설자의 전화번호, 이메일을 정확히<br /> 입력해 주셔야 하며 모임에 대한 문의나 정보를<br />
-							공유할 수 있습니다.<br /> <br /> 개설자의 SNS정보를 선택하여 모임개설의 여부를<br /> 개설과
-							동시에 바로 SNS로 알릴 수 있습니다.
+							개설자의 개인 인증이 이루어지지 않는다면 <br /> <strong>개설이 불가합니다.<br /> </strong>
+							정확한 번호를 입력하여 인증 부탁드립니다.<br /><br /> 인증이 완료되면 최종확인을 통하여 <br />
+							게시글을 등록 바랍니다.
 						</p>
 					</div>
 				</div>
 				<div class="lastCore">
 					<div class="saveMsg"></div>
 					<div class="action">
-						<a href="#secondStep" class="prev button">이전</a><input
+						<a href="#secondStep" class="prev button" onclick="secondStep()">이전</a><input
 							type="submit" class="confirm button" value="최종확인" /><a
 							class="temp button" href="#temp"><span>임시저장</span></a>
 					</div>
