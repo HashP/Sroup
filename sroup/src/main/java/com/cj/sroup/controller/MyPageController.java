@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cj.sroup.service.MyPageService;
+import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
+import com.cj.sroup.vo.StudyVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Controller
@@ -247,10 +249,69 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/join-manage.do")
-	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo) {
+	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo, HttpSession session, Model model) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+
+		if(loginId == null) {
+			return "redirect:/login/login.do";
+		}
 		
+		List<JoinVO> applicationList = service.getApplicantsByStudyNo(studyNo);
+		model.addAttribute("applicantList", applicationList);
+		//System.out.println(applicationList);
 		
 		return "mypage/join-manage";
 	}
 	
+	@RequestMapping("/accept-member.do")
+	@ResponseBody
+	public String acceptMember(HttpSession session, 
+							@RequestParam("userid")String userId,
+							@RequestParam("studyno")int studyNo) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		if(loginId == null) {
+			return "redirect:/login/login.do";
+		}
+		
+		System.out.println("accept : " + userId);
+		UserInfoVO user = new UserInfoVO();
+		user.setId(userId);
+		
+		StudyVO study = new StudyVO();
+		study.setStudy_no(studyNo);
+		
+		JoinVO join = new JoinVO();
+		join.setApplicant(user);
+		join.setStudy(study);
+		
+		service.acceptUser(join, loginId);
+		
+		return "success";
+	}
+	
+	@RequestMapping("/reject-member.do")
+	@ResponseBody
+	public String rejectMember(HttpSession session, 
+							@RequestParam("userid")String userId,
+							@RequestParam("studyno")int studyNo) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		if(loginId == null) {
+			return "redirect:/login/login.do";
+		}
+		
+		System.out.println("reject : " + userId);
+		UserInfoVO user = new UserInfoVO();
+		user.setId(userId);
+		
+		StudyVO study = new StudyVO();
+		study.setStudy_no(studyNo);
+		
+		JoinVO join = new JoinVO();
+		join.setApplicant(user);
+		join.setStudy(study);
+		
+		service.rejectUser(join, loginId);
+		
+		return "success";
+	}
 }

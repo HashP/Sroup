@@ -35,4 +35,9 @@
 			message_no = #{value}
 	
 	</delete>
+	
+	<insert id="sendMessage" parameterType="MessageVO">
+		INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, STUDY_NO, MESSAGE_TYPE)
+		VALUES (MESSAGE_SEQ.nextval, #{sender.id}, #{receiver}, #{study.study_no}, #{type})
+	</insert>
 </mapper>

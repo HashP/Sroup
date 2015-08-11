@@ -6,9 +6,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cj.sroup.dao.JoinDao;
 import com.cj.sroup.dao.MessageDao;
 import com.cj.sroup.dao.StudyManagementDao;
 import com.cj.sroup.dao.UserInfoDao;
+import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
@@ -22,7 +24,11 @@ public class MyPageServiceImpl implements MyPageService {
 	private StudyManagementDao studyManagementDao;
 	@Autowired
 	private MessageDao messageDao;
+	@Autowired
+	private JoinDao joinDao;
 	
+	/****회원정보수정******************************************/
+	/****회원정보수정******************************************/
 	@Override
 	public UserInfoVO getUserInfoById(String id) {
 		// TODO Auto-generated method stub
@@ -36,6 +42,7 @@ public class MyPageServiceImpl implements MyPageService {
 		userDao.updateUserInfo(user);
 	}
 
+	/****비밀번호변경******************************************/
 	@Override
 	public boolean updatePassword(String id, String oldpwd, String newpwd) {
 		
@@ -57,6 +64,7 @@ public class MyPageServiceImpl implements MyPageService {
 		return true;
 	}
 
+	/****스터디 관리******************************************/
 	@Override
 	public List<StudyManagementVO> getCreateStudiesById(String id) {
 		// TODO Auto-generated method stub
@@ -81,6 +89,7 @@ public class MyPageServiceImpl implements MyPageService {
 		return studyManagementDao.getFinishedAttendStudiesById(id);
 	}
 
+	/****메시지함******************************************/
 	@Override
 	public List<MessageVO> getMessageByUserId(String id) {
 		// TODO Auto-generated method stub
@@ -91,4 +100,48 @@ public class MyPageServiceImpl implements MyPageService {
 		messageDao.removeMessage(no);
 	}
 
+	/****스터디 신청 관리******************************************/
+	@Override
+	public List<JoinVO> getApplicantsByStudyNo(int studyNo) {
+		// TODO Auto-generated method stub
+		return joinDao.getApplicantsByStudyNo(studyNo);
+	}
+
+	public void acceptUser(JoinVO join, String loginId) {
+		
+		// 스터디에 가입시킴
+		StudyManagementVO studyManagementVO = new StudyManagementVO();
+		studyManagementVO.setStudy(join.getStudy());
+		studyManagementVO.setUser(join.getApplicant());
+		studyManagementVO.setGrade("NORMAL");
+		studyManagementDao.addNewMember(studyManagementVO);
+		
+		//Join table에서 해당 행 삭제
+		joinDao.deleteRequest(join);
+		
+		//승인 메시지 보내기
+		UserInfoVO sender = new UserInfoVO();
+		sender.setId(loginId);
+		MessageVO message = new MessageVO();
+		message.setType("ACCEPT");
+		message.setReceiver(join.getApplicant().getId());
+		message.setSender(sender);
+		message.setStudy(join.getStudy());
+		messageDao.sendMessage(message);
+	}
+	
+	public void rejectUser(JoinVO join, String loginId) {
+		//Join table에서 해당 행 삭제
+		joinDao.deleteRequest(join);
+			
+		//거절 메시지 보내기
+		UserInfoVO sender = new UserInfoVO();
+		sender.setId(loginId);
+		MessageVO message = new MessageVO();
+		message.setType("REJECT");
+		message.setReceiver(join.getApplicant().getId());
+		message.setSender(sender);
+		message.setStudy(join.getStudy());
+		messageDao.sendMessage(message);
+	}
 }

@@ -5,5 +5,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cj.sroup.dao.JoinDao">
 
+	<select id="getApplicantsByStudyNo" parameterType="int" resultType="JoinVO">
+	
+		SELECT 
+			 j.STUDY_NO						as "study.study_no", 
+			 j.APPLICANT					as "applicant.id", 
+			 j.REG_DATE						as regDate, 
+			 j.S_ADMIT						as admit,
+			 applicant.USER_NICKNAME		as "applicant.nickname",	 
+			 applicant.USER_PROFILEPHOTO	as "applicant.profilephoto"
+		
+		FROM 
+			JOIN j, STUDY study, USER_INFO applicant
+		where 
+			study.STUDY_NO = j.STUDY_NO
+			and
+			applicant.USER_ID = j.APPLICANT
+			and
+			j.STUDY_NO = #{value}
+		ORDER BY
+			j.REG_DATE asc
+	</select>
+	
+	<delete id="deleteRequest" parameterType="JoinVO">
+		DELETE FROM 
+			JOIN
+		WHERE
+			STUDY_NO = #{study.study_no}
+			and
+			APPLICANT = #{applicant.id}
+	</delete>
 	
 </mapper>

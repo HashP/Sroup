@@ -92,4 +92,10 @@
 		  and
 		  m.USER_GRADE = 'NORMAL'
 	</select>
+	
+	<insert id="addNewMember" parameterType="StudyManagementVO">
+		INSERT INTO STUDY_MANAGEMENT (STUDY_NO, USER_ID, USER_GRADE)
+		VALUES (#{study.study_no}, #{user.id}, 'NORMAL')
+	</insert>
+	
 </mapper>

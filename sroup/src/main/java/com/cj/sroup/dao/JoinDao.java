@@ -7,4 +7,5 @@ import com.cj.sroup.vo.JoinVO;
 public interface JoinDao {
 
 	public List<JoinVO> getApplicantsByStudyNo(int studyNo); 
+	public void deleteRequest(JoinVO join);
 }
