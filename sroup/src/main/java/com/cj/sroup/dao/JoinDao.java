@@ -1,5 +1,10 @@
 package com.cj.sroup.dao;
 
-public class JoinDao {
+import java.util.List;
 
+import com.cj.sroup.vo.JoinVO;
+
+public interface JoinDao {
+
+	public List<JoinVO> getApplicantsByStudyNo(int studyNo); 
 }
