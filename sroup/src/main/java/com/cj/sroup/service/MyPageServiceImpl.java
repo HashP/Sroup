@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cj.sroup.dao.JoinDao;
 import com.cj.sroup.dao.MessageDao;
@@ -16,6 +17,7 @@ import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Service
+@Transactional
 public class MyPageServiceImpl implements MyPageService {
 
 	@Autowired

@@ -44,6 +44,20 @@ public class LoginController {
 		if(loginId != null) {
 			return "redirect:/mypage/profileupdate.do";
 		}
+		
+		String loginResult = (String) session.getAttribute("loginResult");
+		session.removeAttribute("loginResult");
+		
+		String signResult = (String) session.getAttribute("signResult");
+		session.removeAttribute("signResult");
+		
+		String needLogin = (String) session.getAttribute("needLogin");
+		session.removeAttribute("needLogin");
+		
+		model.addAttribute("loginResult", loginResult);
+		model.addAttribute("signResult", signResult);
+		model.addAttribute("needLogin", needLogin);
+		
 		model.addAttribute("pagetitle", "로그인");
 		return "login/login";
 	}
@@ -59,7 +73,7 @@ public class LoginController {
 			
 			return "redirect:/mypage/profileupdate.do";
 		} else {
-			
+			session.setAttribute("loginResult", "FAILED");
 			return "redirect:login.do";
 		}
 	}
@@ -97,6 +111,7 @@ public class LoginController {
 		System.out.println("register : " + user);
 		service.register(user);
 		
+		session.setAttribute("signResult", "SUCCESS");
 		return "redirect:login.do";
 	}
 	

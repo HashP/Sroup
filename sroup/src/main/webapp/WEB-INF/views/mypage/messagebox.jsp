@@ -21,7 +21,7 @@
 .message-box {
 	/* border: 1px dotted #DDD; */
 	overflow: auto;
-	margin-top: 20px;
+	margin-top: 10px;
 	display: none;
 }
 
@@ -89,28 +89,47 @@ td strong {
 				</ul>
 				
 				<div class="tab-content">
-					<div class="message-box tab-pane fade" id="all">
+					<div class="message-box" id="all">
 						<table class="table table-hover">
 							<colgroup>
+								<col width="80px">
 								<col width="*">
 								<col width="50px">
 								<col width="50px">
 							</colgroup>
+							<thead>
+								<tr>
+									<th><input type="checkbox" class="msgcheck" id="allcheck"  data-toggle="tooltip" data-placement="left" title="전체선택 / 해제" /></th>
+									<th> 메시지 </th>
+									<th>
+									</th><th>
+										<a href="#" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="선택한 메시지 삭제하기">삭제</a>
+									</th>
+								</tr>	
+							</thead>
 							<tbody>
 								<c:forEach var="message" items="${messageList }">
 									<c:choose>
 										<c:when test="${message.type == 'REQUEST'}">
 											<tr>
+												<td><input type="checkbox" class="msgcheck"/></td>
 												<td>
 													<strong>${message.sender.nickname }</strong> 님께서 <strong>${message.study.study_name }</strong> 참여 신청을 하셨습니다.<br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
 												</td>
-												<td><a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a></td>
+												<td>
+													<form id="moveto_${message.sender.id }${message.study.study_no}" method="post" action="join-manage.do" style="padding: 0; margin: 0;">
+														<input type="hidden" name="studyno" value="${message.study.study_no}">
+														<%-- <a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a> --%>
+														<a onclick="document.getElementById('moveto_${message.sender.id }${message.study.study_no}').submit();" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a>
+													</form>
+												</td>
 												<td><a href="${message.no }" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="이 메시지 삭제하기">삭제</a></td>
 											</tr>				
 										</c:when>
 										<c:when test="${message.type == 'REJECT' }">
 											<tr>
+												<td><input type="checkbox" class="msgcheck"/></td>
 												<td>
 													<strong>${message.study.study_name }</strong> 신청이 거절되었습니다.<br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
@@ -121,6 +140,7 @@ td strong {
 										</c:when>
 										<c:when test="${message.type == 'ACCEPT' }">
 											<tr>
+												<td><input type="checkbox" class="msgcheck"/></td>
 												<td>
 													<strong>${message.study.study_name }</strong> 참여 신청이 승인되었습니다. <br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
@@ -164,23 +184,41 @@ td strong {
 							</tbody>
 						</table>
 					</div>	
-					<div class="message-box tab-pane fade" id="join">
+					<div class="message-box" id="join">
 						<table class="table table-hover">
 							<colgroup>
+								<col width="80px">
 								<col width="*">
 								<col width="50px">
 								<col width="50px">
 							</colgroup>
+							<thead>
+								<tr>
+									<th><input type="checkbox" class="msgcheck" id="allcheck"  data-toggle="tooltip" data-placement="left" title="전체선택 / 해제" /></th>
+									<th> 메시지 </th>
+									<th>
+									</th><th>
+										<a href="#" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="선택한 메시지 삭제하기">삭제</a>
+									</th>
+								</tr>	
+							</thead>
 							<tbody>
 								<c:forEach var="message" items="${messageList }">
 									<c:choose>
 										<c:when test="${message.type == 'REQUEST'}">
 											<tr>
+												<td><input type="checkbox" class="msgcheck"/></td>
 												<td>
 													<strong>${message.sender.nickname }</strong> 님께서 <strong>${message.study.study_name }</strong> 참여 신청을 하셨습니다.<br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
 												</td>
-												<td><a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a></td>
+												<td>
+													<form id="moveto_${message.sender.id }${message.study.study_no}" method="post" action="join-manage.do" style="padding: 0; margin: 0;">
+														<input type="hidden" name="studyno" value="${message.study.study_no}">
+														<%-- <a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a> --%>
+														<a onclick="document.getElementById('moveto_${message.sender.id }${message.study.study_no}').submit();" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a>
+													</form>
+												</td>
 												<td><a href="${message.no }" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="이 메시지 삭제하기">삭제</a></td>
 											</tr>				
 										</c:when>
@@ -189,18 +227,30 @@ td strong {
 							</tbody>
 						</table>
 					</div>
-					<div class="message-box tab-pane fade" id="result">
+					<div class="message-box" id="result">
 						<table class="table table-hover">
 							<colgroup>
+								<col width="80px">
 								<col width="*">
 								<col width="50px">
 								<col width="50px">
 							</colgroup>
+							<thead>
+								<tr>
+									<th><input type="checkbox" class="msgcheck" id="allcheck"  data-toggle="tooltip" data-placement="left" title="전체선택 / 해제" /></th>
+									<th> 메시지 </th>
+									<th>
+									</th><th>
+										<a href="#" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="선택한 메시지 삭제하기">삭제</a>
+									</th>
+								</tr>	
+							</thead>
 							<tbody>
 								<c:forEach var="message" items="${messageList }">
 									<c:choose>
 										<c:when test="${message.type == 'REJECT' }">
 											<tr>
+												<td><input type="checkbox" class="msgcheck"/></td>
 												<td>
 													<strong>${message.study.study_name }</strong> 신청이 거절되었습니다.<br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
@@ -211,6 +261,7 @@ td strong {
 										</c:when>
 										<c:when test="${message.type == 'ACCEPT' }">
 											<tr>
+												<td><input type="checkbox" class="msgcheck"/></td>
 												<td>
 													<strong>${message.study.study_name }</strong> 참여 신청이 승인되었습니다. <br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
@@ -235,12 +286,20 @@ $(function() {
 	$('[data-toggle="tooltip"]').tooltip();
 	$(".messagenav li a").on("click", function(event) {
 		event.preventDefault();
+		$(".messagenav li").removeClass("active");
+		$(this).parent().addClass("active");
+		//스터디 목록 숨기고 클릭된 것 보여주기
+		$(".message-box").hide();
+		//클릭된 것 href
+		$clicked = $(this).attr("href");
+		$($clicked).fadeIn(500);
+		//$(this).tab("show");
 		
-		$(this).tab("show");
+		$(window).resize();
 	});
 	
 	$(".messagenav li:first() a").click();
-
+	
 	function emptytable() {
 		
 		var empty_msg = "<tr>	<td colspan='2' class='text-center'>메시지가 없습니다. </td></tr>";
@@ -251,22 +310,52 @@ $(function() {
 	}
 	emptytable();
 	
-	$(".del-btn").on("click", function(event) {
+	$("tbody tr").on("click", function() {
+		var target = $(this).find(":checkbox");
+		//console.log(target);
+		var status = target.prop("checked");
+		target.prop("checked", !status);
+	});
+	
+	$("tbody .msgcheck").on("click", function() {
+		event.stopPropagation();
+	});
+	
+	$("thead #allcheck").on("click", function() {
+		var status = $(this).prop("checked");
+		//console.log(status);
+		$(this).parent().parent().parent().parent().		
+		find("tbody .msgcheck").prop("checked", status);
+	});
+	
+	
+	$("tbody .del-btn").on("click", function(event) {
 		event.preventDefault();
 		var msgNo = $(this).attr("href");		
 		//console.log(msgNo);
 		
 		$.ajax({
-			url:"remove-message.do",
+			url:"ajax/remove-message.do",
 			data:{msgNo:msgNo},
 			success: function() {
 				$("a[href="+msgNo+"]").parent().parent().remove();
 				emptytable();
+				$(window).resize();
 			}
 		})
 		
-		
 	});
+	
+	$("thead .del-btn").on("click", function(event) {
+		//event.preventDefault();
+		// 선택한 회원들의 가입을 승인
+		var $currentTable = $(this).parent().parent().parent().parent();
 		
+	//	console.log($currentTable);
+		$currentTable.find("tbody :checkbox:checked").parent().parent().find(".del-btn").click();
+		
+		$(this).blur();
+	});
+	
 });
 </script>

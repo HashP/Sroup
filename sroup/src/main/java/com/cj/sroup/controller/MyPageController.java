@@ -44,10 +44,6 @@ public class MyPageController {
 	public String profileupdate(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
 		
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
-		
 		model.addAttribute("current_page", "profileupdate");
 		model.addAttribute("userinfo", service.getUserInfoById(loginId));
 		
@@ -70,10 +66,6 @@ public class MyPageController {
 							,@RequestParam(value="photofile", required=false) MultipartFile photofile
 							, HttpSession session) throws IOException {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
-		
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		
 		user.setId(loginId);
 		if(!photofile.isEmpty()) {		// 첨부파일이 없어도 null이 아님. 그래서 isEmpty로 파일 유무를 검사해준다. 
@@ -104,11 +96,7 @@ public class MyPageController {
 	 */
 	@RequestMapping("/pwdupdate.do")
 	public String pwdupdate(Model model, HttpSession session) {
-		String loginId = (String) session.getAttribute("LOGIN_ID");
 
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		Boolean updateResult = (Boolean) session.getAttribute("updateResult");
 		session.removeAttribute("updateResult");
 		
@@ -130,9 +118,6 @@ public class MyPageController {
 							, @RequestParam("newpwd")String newpwd
 							, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		
 		boolean updateResult = service.updatePassword(loginId, oldpwd, newpwd);
 		session.setAttribute("updateResult", updateResult);
@@ -151,10 +136,6 @@ public class MyPageController {
 	public String mystudy(@RequestParam(value="cate", defaultValue="create", required=false)String cate
 						, Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
-		
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		
 		List<StudyManagementVO> createStudy = service.getCreateStudiesById(loginId);
 		List<StudyManagementVO> attendStudy = service.getAttendStudiesById(loginId);
@@ -178,11 +159,6 @@ public class MyPageController {
 	 */
 	@RequestMapping("/calendar.do")
 	public String calendar(Model model, HttpSession session) {
-		String loginId = (String) session.getAttribute("LOGIN_ID");
-
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		model.addAttribute("current_page", "studycalendar");
 		return "mypage/calendar";
 	}
@@ -196,10 +172,6 @@ public class MyPageController {
 	@RequestMapping("/finished-study.do")
 	public String finished(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
-
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		
 		List<StudyManagementVO> createStudy = service.getFinishedCreateStudiesById(loginId);
 		List<StudyManagementVO> attendStudy = service.getFinishedAttendStudiesById(loginId);
@@ -221,10 +193,6 @@ public class MyPageController {
 	public String messagebox(Model model, HttpSession session) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
 		
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
-		
 		List<MessageVO> messageList = service.getMessageByUserId(loginId);
 		model.addAttribute("messageList", messageList);
 		
@@ -239,7 +207,7 @@ public class MyPageController {
 	 * @param no  message no
 	 * @return
 	 */
-	@RequestMapping("/remove-message.do")
+	@RequestMapping("/ajax/remove-message.do")
 	@ResponseBody
 	public String removeMessage(@RequestParam("msgNo")int no) {
 		//System.out.println(no);
@@ -250,11 +218,6 @@ public class MyPageController {
 	
 	@RequestMapping("/join-manage.do")
 	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo, HttpSession session, Model model) {
-		String loginId = (String) session.getAttribute("LOGIN_ID");
-
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		
 		List<JoinVO> applicationList = service.getApplicantsByStudyNo(studyNo);
 		model.addAttribute("applicantList", applicationList);
@@ -263,15 +226,12 @@ public class MyPageController {
 		return "mypage/join-manage";
 	}
 	
-	@RequestMapping("/accept-member.do")
+	@RequestMapping("/ajax/accept-member.do")
 	@ResponseBody
 	public String acceptMember(HttpSession session, 
 							@RequestParam("userid")String userId,
 							@RequestParam("studyno")int studyNo) {
 		String loginId = (String) session.getAttribute("LOGIN_ID");
-		if(loginId == null) {
-			return "redirect:/login/login.do";
-		}
 		
 		System.out.println("accept : " + userId);
 		UserInfoVO user = new UserInfoVO();
@@ -289,7 +249,7 @@ public class MyPageController {
 		return "success";
 	}
 	
-	@RequestMapping("/reject-member.do")
+	@RequestMapping("/ajax/reject-member.do")
 	@ResponseBody
 	public String rejectMember(HttpSession session, 
 							@RequestParam("userid")String userId,

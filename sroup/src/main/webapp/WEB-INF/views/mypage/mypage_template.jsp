@@ -81,12 +81,12 @@ $(function() {
 		var w_height = $("#content").outerHeight(true);
 		var footer = $(".footer").outerHeight(true);
 		var html_height = (nah_height + w_height + footer);
-/* 		console.log("window: " + window_height );
+ 	/* 	console.log("window: " + window_height );
 		console.log("html: " + html_height);
 		console.log("	nah_height: " + nah_height);
 		console.log("	w_height: " + w_height);
-		console.log("	footer: " + footer);
- */		
+		console.log("	footer: " + footer); */
+		
 		if(window_height > html_height) {
 			$(".footer").addClass("navbar-fixed-bottom");	
 		} else {

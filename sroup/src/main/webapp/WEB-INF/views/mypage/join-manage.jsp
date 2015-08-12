@@ -161,7 +161,7 @@ $(function() {
 		var $row = $(this).parent().parent();
 		
  		$.ajax({
-			url:"accept-member.do",
+			url:"ajax/accept-member.do",
 			data:{
 				userid:userid,
 				studyno:studyno	
@@ -186,7 +186,7 @@ $(function() {
 		var $row = $(this).parent().parent();
 		
  		$.ajax({
-			url:"reject-member.do",
+			url:"ajax/reject-member.do",
 			data:{
 				userid:userid,
 				studyno:studyno	
