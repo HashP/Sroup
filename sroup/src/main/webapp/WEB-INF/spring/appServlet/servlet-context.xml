@@ -9,6 +9,18 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
+	
+	<!-- interceptor 설정 : mypage에서 사용합니당 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/mypage/*"/>
+			<mvc:exclude-mapping path="/mypage/ajax/*"/>
+			<bean class="com.cj.sroup.interceptor.MypageInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	
 	<!--  Controller 객체들 빈으로 등록하기 -->
 	<context:component-scan base-package="com.cj.sroup.controller"></context:component-scan>
 	<context:property-placeholder location="classpath:/META-INF/properties/*.properties"/>

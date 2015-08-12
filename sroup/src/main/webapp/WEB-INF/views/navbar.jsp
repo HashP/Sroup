@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="/sroup/resources/css/navbar.css" />
 <style type="text/css">
 .navbar {
@@ -34,13 +36,17 @@ border-left: 1px solid #666;
 
 .message-dropdown {
 	width: 300px;
-	height: 200px;
+	max-height: 200px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
 
 li.message-preview {
     border-bottom: 1px solid #EEE;
+}
+
+li.message-preview .media p {
+	white-space: normal;
 }
 
 </style>
@@ -58,6 +64,47 @@ li.message-preview {
 	        <li class="dropdown">
         	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell"></span> 알림 <span class="caret"></span></a>
 			<ul class="dropdown-menu message-dropdown">
+				<c:forEach var="message" items="${navmsgList }">
+					<li class="message-preview"><a href="#">
+						<div class="media">
+							<h5 class="media-heading">
+								<strong>${message.study.study_name }</strong>
+							</h5>
+							
+							<c:choose>
+								<c:when test="${message.type == 'REQUEST'}">
+									<p class="small text-muted">
+										<span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/>
+									</p>
+									<p>${message.sender.nickname } 님께서 스터디 참여 신청을 하셨습니다.</p>
+								</c:when>
+								
+								<c:when test="${message.type == 'REJECT'}">
+									<p class="small text-muted">
+										<span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/>
+									</p>
+									<p>스터디 신청이 거절되었습니다.</p>
+								</c:when>
+								
+								<c:when test="${message.type == 'ACCEPT'}">
+									<p class="small text-muted">
+										<span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/>
+									</p>
+									<p>스터디 참여 신청이 승인되었습니다.</p>
+								</c:when>
+								
+							</c:choose>
+						</div>
+					</a></li>
+				</c:forEach>
+				<c:if test="${fn:length(navmsgList) == 0 }">
+					<li class="message-preview">
+						<div class="media" style="margin-top: 10px">
+							<p class="text-center">메시지가 없습니다. </p>
+						<div class="media">
+					</li>
+				</c:if>
+				<!-- 
 				<li class="message-preview"><a href="#">
 					<div class="media">
 						<h5 class="media-heading">
@@ -91,6 +138,7 @@ li.message-preview {
 						<p>모임신청이 거절 당하였습니다.</p>
 					</div>
 				</a></li>
+				-->
 				<li class="message-footer"><a href="/sroup/mypage/messagebox.do">Read All New
 						Messages</a></li>
 				</ul></li>

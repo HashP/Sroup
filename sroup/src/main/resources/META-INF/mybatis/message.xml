@@ -26,6 +26,8 @@
 		  sender.USER_ID = m.MESSAGE_SENDER
 		  and
 		  m.MESSAGE_RECEIVER = #{value}
+		ORDER BY  
+			m.WRITE_DATE desc
 	</select>
 	
 	<delete id="removeMessage" parameterType="int">
@@ -40,4 +42,34 @@
 		INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, STUDY_NO, MESSAGE_TYPE)
 		VALUES (MESSAGE_SEQ.nextval, #{sender.id}, #{receiver}, #{study.study_no}, #{type})
 	</insert>
+	
+	<select id="getMessageForNav" parameterType="String" resultType="MessageVO">
+		SELECT  MESSAGE_NO 				as no,
+				MESSAGE_RECEIVER		as receiver,
+				MESSAGE_TYPE			as type,
+				WRITE_DATE				as writeDate,
+				sender					as "sender.id",
+				USER_NICKNAME			as "sender.nickname",
+				STUDY_NO				as "study.study_no",
+				STUDY_NAME				as "study.study_name",
+				P_ADDRESS				as "study.p_address"
+		FROM 
+			(SELECT 
+				ROW_NUMBER() OVER (ORDER BY  m.WRITE_DATE desc) rn,
+				m.MESSAGE_NO, 
+				m.MESSAGE_RECEIVER, m.MESSAGE_TYPE, m.WRITE_DATE,
+				sender.USER_ID sender, sender.USER_NICKNAME,
+				study.STUDY_NO, study.STUDY_NAME, study.P_ADDRESS
+			FROM 
+				MESSAGE m, USER_INFO sender, STUDY study
+			WHERE 
+				study.STUDY_NO = m.STUDY_NO
+				and
+				sender.USER_ID = m.MESSAGE_SENDER
+				and
+				m.MESSAGE_RECEIVER = #{value}
+		)
+		WHERE 
+			rn BETWEEN 1 and 3
+	</select>
 </mapper>

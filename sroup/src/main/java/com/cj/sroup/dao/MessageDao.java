@@ -9,4 +9,6 @@ public interface MessageDao {
 	public List<MessageVO> getMessageByReceiver (String userid) ;
 	public void removeMessage(int no);
 	public void sendMessage(MessageVO message);
+	
+	public List<MessageVO> getMessageForNav(String userid);
 }

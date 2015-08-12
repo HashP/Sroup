@@ -11,4 +11,10 @@ public class TestController{
 	public String test() {
 		return "template";
 	}
+	
+	@RequestMapping("/testrollbook.do")
+	public String testRollBook() {
+		
+		return "test/testrollbook.jsp";
+	}
 }
