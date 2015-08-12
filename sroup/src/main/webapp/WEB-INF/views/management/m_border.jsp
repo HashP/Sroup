@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <style>
-	.b_title:link,.b_title:visited,.b_title:active,.b_title:hover {color:black;}
-	table{
-		width: 1100px;
-	}
+	.b_title:link,.b_title:visited,.b_title:active,.b_title:hover {color:black;}	
 </style>
-<div class="container">
+<div class="container" style="width: 1130px;">
 	<!-- ì°¨í h2 ìì´ë ê°(bordname)ì¼ë¡ ê²ìí ì´ë¦ì ë³ê²½íë¤. -->
 	<h1 id="bordname">게시판</h1>
 	<br>
+	<div>
 	<table class="table table-hover" style="width: 1100px">
 		<thead>
 			<tr style="background-color: #E5E5E5">
@@ -45,6 +44,7 @@
 				<li><a href="#">5</a></li>
 				<li><a href="#">&raquo;</a></li>
 			</ul>
+			<tags:paginate total="50" page="1" max="20" cssClass="pagination"/>
 		</div>
 	</div>
 	
@@ -72,5 +72,6 @@
 		<!-- /input-group -->
 	</div>
 	<!-- /.col-lg-6 -->
+	</div>
 	</div>
 	</div>

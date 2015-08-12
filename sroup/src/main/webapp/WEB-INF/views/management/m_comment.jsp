@@ -79,8 +79,8 @@
 			+"</div>"
 			+"<br>"
 		+"</form>"					
-			+"<HR>"
 			+"	</div>"			
+			+"<HR>"
 			$("#comment_content_"+id).append(html);
 			
 			
@@ -115,9 +115,9 @@
 	
 </script>
 <!-- content 부분 -->
-	<div class="container">
+	<div class="container" style="padding-left:50px;">
 		<h1 id="bordname">회원 한마디</h1>
-		<div class="well" style="height: 200px;">
+		<div class="well" style="height: 200px; width:1105px">
 			<form class="form-horizontal" role="form" action="/sroup/comment_add.do">
 				<h4>What's your think</h4>
 				<div class="form-group" style="padding: 14px 14px 0px 14px;" >
@@ -132,7 +132,7 @@
 		</div>
 		<!--/well-->
 		<!-- 내용 입력한거 보는 곳 -->
-		<div class="speak_contents" style="padding-top: 20px;">
+		<div class="speak_contents" style="padding-top: 20px; width:1105px">
 		<c:forEach var="comment" items="${commentList}">
 		<div class="comment_content" id="comment_content_${comment.c_no}" style="margin-left: -40px;">
 		<div class="c_hiddenBtn">
@@ -152,8 +152,8 @@
 					class="img-circle"></a>						
 				
 			</div>
-	<HR>
 		</div>
+	<HR>
 	</c:forEach>
 	
 	</div>

@@ -22,7 +22,7 @@
 }
 #side_nav{
 	height: 100%;
-	position: fixed;
+	
 }
 
 .nav-sidebar li{
@@ -41,6 +41,8 @@ display:block; /* a태그의 display속성을 block으로 설정 */
 }
 </style> 
 <div id="side_nav">
+	
+	<nav id="left-nav2" class="sidebar, nav nav-pills nav-stacked">
 	<nav id="left_nav" class="col-md-2 sidebar, nav nav-pills nav-stacked">
 	<div style="width: 130px; height: 140px;">
 		<img alt="프로필" src="resources/images/프로필.png"
@@ -55,11 +57,11 @@ display:block; /* a태그의 display속성을 block으로 설정 */
 		<li><a href="/sroup/m_border.do" style="padding: 12.5px 15px;">게시판</a></li>
 	</ul>
 	</nav>
-	<nav id="left-nav2" class="sidebar, nav nav-pills nav-stacked">
-	<ul class="nav nav-sidebar">		
-		내 정보 표시 구간
-		카페 정보 표시 구간
-	</ul>
+		
+		<p>내 정보 표시 구간</p>		
+		<p>카페 정보 표시 구간</p>
+	
+	<button type="button" class="btn btn-default btn-xs">관리</button>
 	</nav>
 </div>
 

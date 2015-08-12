@@ -1,5 +1,6 @@
 package com.cj.sroup.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,10 @@ public class M_boardServiceImpl implements M_boardService{
 	@Autowired
 	M_boardDao m_boarddao;
 	
-	public List<M_boardVO> getAllBoard(){		
-		return m_boarddao.getAllBoard();
-	}	
+	
 
 	public M_boardVO getBoardDetail(int b_no) {
+		m_boarddao.board_hitPlus(b_no);	
 		return m_boarddao.getBoardDetail(b_no);
 		
 	}
@@ -63,6 +63,16 @@ public class M_boardServiceImpl implements M_boardService{
 	public int nowAdd_no(String b_writer) {
 		return m_boarddao.nowAdd_no(b_writer);
 	}
+
+	@Override
+	public int getAllBoardNo() {		
+		return m_boarddao.getAllBoardNo();
+	}
+
+	@Override
+	public List<M_boardVO> getBoard_list(HashMap<String, Integer> num) {		
+		return m_boarddao.getBoard_list(num);				
+	}	
 	
 	
 }

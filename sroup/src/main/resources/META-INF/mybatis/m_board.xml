@@ -5,8 +5,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.M_boardDao">   
  
-   <select id="getAllBoard" resultType="m_board">
-   select	STUDY_NO	as study_no,
+   <select id="getAllBoardNo" resultType="int">
+    select	count(B_NO)	as b_no   			
+	from s_board       
+   </select>
+   
+   <select id="getBoard_list" parameterType="hashmap" resultType="m_board">
+   select	rn, 
+   			STUDY_NO	as study_no,
    			LIST_NAME	as list_name,
    			B_NO		as b_no, 
    			B_WRITE_DAY	as b_write_day, 
@@ -14,8 +20,19 @@
    			B_TITLE		as b_title, 
    			B_CONTENT	as b_content,
    			B_HIT		as b_hit
-	from s_board   
-	order by B_NO asc        
+   			from  			   			
+   			(select ROW_NUMBER() OVER (order by study_no asc) rn,	
+   					STUDY_NO	,
+   					LIST_NAME	,
+   					B_NO		, 
+   					B_WRITE_DAY	, 
+   					B_WRITER	,
+   					B_TITLE		, 
+   					B_CONTENT	,
+   					B_HIT		
+			from s_board     
+			order by B_NO asc )
+  where rn&lt;#{start} and rn >#{end}     
    </select>
    
    <select id="getBoardDetail" parameterType="int" resultType="m_board">
@@ -49,6 +66,7 @@
 				#{b_content}, 
 				3)
    </insert>
+   
    <select id="nowAdd_no" parameterType="string">
    		select max(B_NO) from s_board 
    		where B_WRITER = #{value}  		
@@ -62,6 +80,12 @@
 			B_TITLE=#{b_title},
 			B_WRITE_DAY=sysdate
 		WHERE B_NO = #{b_no}
+	 </update>
+	 
+    <update id="board_hitPlus" parameterType="int">
+ 		UPDATE s_board
+		SET	B_HIT = B_HIT + 1
+		WHERE B_NO = #{value}
 	 </update>
  
    <delete id="delBoard" parameterType="int">   		

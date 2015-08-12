@@ -16,8 +16,22 @@
             G_IMGNAME   as imageName,
             G_LIKE		as g_like,
             G_HIT		as g_hit
+	from s_gallery          
+   </select>
+   
+   <select id="detail_Gallery" resultType="m_gallery" parameterType="int">
+   	select	STUDY_NO	as study_no,
+            LIST_NAME 	as list_name,
+            G_NO		as g_no,
+            G_WRITER	as g_writer,
+            G_WRITE_DAY	as g_write_day,
+            G_TITLE		as g_title,
+            G_CONTENT	as g_content,
+            G_IMGNAME   as imageName,
+            G_LIKE		as g_like,
+            G_HIT		as g_hit
 	from s_gallery
-          
+	where G_NO = #{value}          
    </select>
    
    <insert id="addGallery" parameterType="m_gallery">
@@ -43,6 +57,12 @@
                     0            
             )
    </insert>
+   
+   <select id="getPrevNext" parameterType="int" resultType="hashmap">
+   select (select max(G_NO) from s_gallery
+        where G_NO&lt;#{value})as prev, (select min(G_NO) from s_gallery
+        where G_NO>#{value}) as next from dual
+   </select>
    
    
 </mapper>

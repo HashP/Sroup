@@ -2,6 +2,7 @@ package com.cj.sroup.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,15 @@ public class ManagementController {
 		return mav;
 	} 
 	@RequestMapping("/m_border.do")
-	public ModelAndView border(){
+	public ModelAndView border(@RequestParam("cPage") int cPage){
 		ModelAndView mav = new ModelAndView();
-		List<M_boardVO> boardList =	m_boardservice.getAllBoard();
+		int boardallno = m_boardservice.getAllBoardNo();
+		int start = (cPage - 1) * 20 + 1;	
+		int end = cPage * 20;	
+		HashMap<String, Integer> num = new HashMap<String, Integer>();
+		num.put("start", start);
+		num.put("end", end);
+		List<M_boardVO> boardList =	m_boardservice.getBoard_list(num);
 		mav.addObject("boardList",boardList);
 		mav.setViewName("management/m_border");
 
@@ -136,6 +143,20 @@ public class ManagementController {
 		m_galleryservice.addGallery(m_gallery);
 		return "redirect:m_album.do";
 	}
+	
+	@RequestMapping("/detail_album.do")
+	@ResponseBody
+	public M_galleryVO detail_album(@RequestParam("g_no") int g_no){
+		return m_galleryservice.detail_Gallery(g_no);
+	}
+	
+	// 앨범 모달 클릭시 앞 뒤 번호 가져올 값들
+	@RequestMapping("/getPrevNext.do")
+	@ResponseBody
+	public HashMap<String, Integer> getPrevNext(@RequestParam("g_no") int g_no){
+		return m_galleryservice.getPrevNext(g_no);
+	}
+	
 	@RequestMapping("/board_writesave.do")
 	public String board_writesave(@RequestParam("title")String title,
 			@RequestParam("content")String content){
@@ -258,7 +279,6 @@ public class ManagementController {
 		SimpleDateFormat sd = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm");
 
-
 		M_calendarVO m_calendar = new M_calendarVO();
 		m_calendar.setEvent_start(sd.parse(event_start));
 		m_calendar.setEvent_end(sd.parse(event_end));
@@ -266,8 +286,7 @@ public class ManagementController {
 		m_calendar.setEvent_content(event_content);
 		m_calendar.setEvent_color(event_color);
 
-		m_calendarservice.addCalEvent(m_calendar);
-			
+		m_calendarservice.addCalEvent(m_calendar);			
 
 	}
 

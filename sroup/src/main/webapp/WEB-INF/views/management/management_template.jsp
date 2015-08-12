@@ -14,8 +14,7 @@
 		background-color: #f5f5f5;
 	}
 	html, body {
-	height: 100%;
-	padding-bottom: 50px;
+	height: 100%;	
 }
 	.wrapper {
 		width: 1140px;
@@ -45,20 +44,18 @@
 <script type="text/javascript" src="resources/jquery/jquery-1.11.3.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
-<tiles:insertAttribute name="nav"/>
-<body>
-<div class="container-fluid">
-
-<div class="col-md-12" id="content">
-<tiles:insertAttribute name="content"/>
-</div>
-</div>
-<tiles:insertAttribute name="header"/>
 
 
 
+<TABLE width="100%" height="100%">
+<tr height="100%-50px;">
+<TD width="278"><tiles:insertAttribute name="nav"/></TD>
+<TD><tiles:insertAttribute name="content"/></TD>
+</TR>
+<TR>
+<TD colspan="2" style="height: 50px;"><tiles:insertAttribute name="footer" /></TD>
+</TR>
+</TABLE>
 
-<tiles:insertAttribute name="footer"/>
 
-</body>
 </html>

@@ -2,6 +2,7 @@ package com.cj.sroup.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,16 @@ public class M_galleryServiceImpl implements M_galleryService{
 					return filename;
 				}
 				return null;
+	}
+
+	@Override
+	public HashMap<String, Integer> getPrevNext(int g_no) {			
+		return m_gallerydao.getPrevNext(g_no);
+	}
+
+	@Override
+	public M_galleryVO detail_Gallery(int g_no) {	
+		return m_gallerydao.detail_Gallery(g_no);
 	}	
 	
 	
