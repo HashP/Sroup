@@ -213,10 +213,10 @@ $(document).ready(function()
           $("#ModalAdd").dialog(
           {
               title: "일정등록",
-              width: 650,
+              width: 660,
               modal: true,
               buttons: {
-                  "Add": function () {
+                  "확인": function () {
                       var event = new Object(), eventToSave = new Object(); ;
                       eventToSave.EventID = event.id = Math.floor(200 * Math.random());
                       event.start = new Date($("#StartDt").val());
@@ -335,9 +335,8 @@ $(document).ready(function()
 </div>
 
 <div id="ModalAdd" style="display: none; width: 600px;">
-	<div id="AddEvent" style="width: 600px;">
+	<div id="AddEvent" style="width: 620px; text-align: center;">
 	<div class="inline_div addEvent_div"><strong>제목</strong> <input id="e_title" type="text"  style="width: 564px; height: 30px;"></div>
-	</div>
 	<div class="addEvent_div">
 	<div class='input-group date inline_div' id='datetimepicker1'>
 	<strong style="float: left; padding-right : 5px; margin: 6px 0;">시작</strong>
@@ -347,8 +346,8 @@ $(document).ready(function()
                     </span>
     </div>
 	<div class='input-group date inline_div ' id='datetimepicker2'>
-	<strong style="float: left; padding-right: 5px;
-    margin: 6px 0;">&nbsp&nbsp종료</strong> 
+	<strong style="float: left; padding-left:10px; padding-right: 5px;
+    margin: 6px 0;">종료</strong> 
                     <input id="end_d" type='text' class="form-control" />
                     <span class="input-group-addon" style="float: left; width: 39px;">
                         <span class="glyphicon glyphicon-calendar"></span>
@@ -373,8 +372,9 @@ $(document).ready(function()
 </select>
 </div>
 	<div class="addEvent_div">
-		<strong>메모</strong> <textarea id="e_memo" style="width :564px; height: 100px;"></textarea>
+		<strong>메모</strong> <textarea id="e_memo" style="width :564px; height: 240px;"></textarea>
 	</div>	
+	</div>
 	
 	<br />
 
