@@ -62,7 +62,7 @@ public class ManagementController {
 	@RequestMapping("/m_border.do")
 	public ModelAndView border(@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
 		ModelAndView mav = new ModelAndView();
-		int boardallno = m_boardservice.getAllBoardNo();
+		
 		int start = (cPage - 1) * 20 + 1;	
 		int end = cPage * 20;	
 		HashMap<String, Integer> num = new HashMap<String, Integer>();
@@ -72,7 +72,7 @@ public class ManagementController {
 		int b_tot = m_boardservice.getAllBoardNo();
 		mav.addObject("boardList",boardList);
 		mav.addObject("b_tot", b_tot);
-		
+		mav.addObject("cPage",cPage);
 		mav.setViewName("management/m_border");
 
 		return mav;
@@ -87,10 +87,19 @@ public class ManagementController {
 		return mav;		
 	}
 	@RequestMapping(value="/m_album.do", method=RequestMethod.GET)	
-	public ModelAndView albumList(){
-		ModelAndView mav = new ModelAndView();
-		List<M_galleryVO> galleryList = m_galleryservice.getAllGallery();
-		mav.addObject("galleryList",galleryList);		
+	public ModelAndView albumList(@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
+		ModelAndView mav = new ModelAndView();		
+		
+		int start = (cPage - 1) * 9 + 1;	
+		int end = cPage * 9;	
+		HashMap<String, Integer> num = new HashMap<String, Integer>();
+		num.put("start", start);
+		num.put("end", end);
+		List<M_galleryVO> galleryList =	m_galleryservice.getGallery_list(num);
+		int g_tot =m_galleryservice.getAllGalleryNo();
+		mav.addObject("galleryList",galleryList);
+		mav.addObject("g_tot", g_tot);			
+		mav.addObject("cPage",cPage);
 		mav.setViewName("management/m_album");
 		return mav;
 	}

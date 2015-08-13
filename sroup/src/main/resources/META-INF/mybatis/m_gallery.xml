@@ -5,22 +5,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.M_galleryDao">   
   
-   <select id="getAllGallery" resultType="m_gallery">
-   	select	STUDY_NO	as study_no,
-            LIST_NAME 	as list_name,
-            G_NO		as g_no,
-            G_WRITER	as g_writer,
-            G_WRITE_DAY	as g_write_day,
-            G_TITLE		as g_title,
-            G_CONTENT	as g_content,
-            G_IMGNAME   as imageName,
-            G_LIKE		as g_like,
-            G_HIT		as g_hit
-	from s_gallery          
+   <select id="getAllGalleryNo" resultType="int">
+   	select	count(G_NO)
+    from s_gallery             
    </select>
    
-   <select id="detail_Gallery" resultType="m_gallery" parameterType="int">
-   	select	STUDY_NO	as study_no,
+   
+   <select id="detail_Gallery" resultType="m_gallery" parameterType="int">   		 
+	         select	STUDY_NO	as study_no,
             LIST_NAME 	as list_name,
             G_NO		as g_no,
             G_WRITER	as g_writer,
@@ -31,9 +23,37 @@
             G_LIKE		as g_like,
             G_HIT		as g_hit
 	from s_gallery
-	where G_NO = #{value}          
+	where G_NO = #{value} 
    </select>
    
+<select id="getGallery_list" parameterType="hashmap" resultType="m_gallery">  
+   select	STUDY_NO	as study_no,
+            LIST_NAME 	as list_name,
+            G_NO		as g_no,
+            G_WRITER	as g_writer,
+            G_WRITE_DAY	as g_write_day,
+            G_TITLE		as g_title,
+            G_CONTENT	as g_content,
+            G_IMGNAME   as imageName,
+            G_LIKE		as g_like,
+            G_HIT		as g_hit
+	from	
+		(select ROW_NUMBER() OVER (order by study_no asc)rn,
+				STUDY_NO	,
+            	LIST_NAME 	,
+            	G_NO		,
+            	G_WRITER	,
+            	G_WRITE_DAY	,
+            	G_TITLE		,
+            	G_CONTENT	,
+            	G_IMGNAME   ,
+           		G_LIKE		,
+            	G_HIT
+         from	s_gallery
+         order by G_NO asc	
+		) 
+	where rn&lt;=#{end} and rn>=#{start}
+	</select>
    <insert id="addGallery" parameterType="m_gallery">
    	insert into s_gallery(STUDY_NO,
                       LIST_NAME,

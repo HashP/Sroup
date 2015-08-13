@@ -37,19 +37,22 @@
 .fc-sun {
 	color: red;
 }
-input[type='text']{
+#start_d{
 	height: 30px;
 	width: 218px;
 }
-.input-append .add-on{
+#end_d{
+	height: 30px;
+	width: 218px;
+}
+.input-group .input-group-addon{
 	width: 28px;	
 	height: 30px;
 }
 label[for="start_d"]{
 	display: inline-block;
 	padding-right : 10px;
-	margin: 6px 0;	
-	
+	margin: 6px 0;		
 }
 label[for="end_d"]{
 	display: inline-block;
@@ -62,9 +65,11 @@ label[for="end_d"]{
 textarea{
 		resize: none
 	}
+	
 </style>
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
-<script src="resources/fullcalendar/lib/moment.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
 	
@@ -72,7 +77,7 @@ textarea{
     <script type="text/javascript"
      src="resources/datetimepicker/js/bootstrap-datetimepicker.min.js">
     </script>
-    
+   
     
 
 <script src="resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
@@ -118,23 +123,18 @@ $(document).ready(function()
 	 $('select[name="colorpicker-picker-delay"]').simplecolorpicker({picker: true, theme: 'glyphicons', pickerDelay: 1000});
 	
 	 $('#datetimepicker1').datetimepicker({
-	      language: 'en',
-	      format: 'yyyy-MM-dd hh:mm PP',
-	      pick12HourFormat: true,
-	      
-	    });
-	 $('#datetimepicker2').datetimepicker({
-	      language: 'en',
-	      format: 'yyyy-MM-dd hh:mm PP',
-	      pick12HourFormat: true
-	    });
-	 $("#datetimepicker1").on("changeDate", function (e) {	
-		 console.log(e.date);
-         $('#datetimepicker2').data("DateTimePicker").minViewMode(e.date);
-     });      
-	  $("#datetimepicker2").on("changeDate", function (e) {
-          $('#datetimepicker1').data("DateTimePicker").minViewMode(e.date);
-      });	
+		 locale: 'ko'
+	 });
+     $('#datetimepicker2').datetimepicker({
+    	 locale: 'ko',
+         useCurrent: false //Important! See issue #1075
+     });
+	  $("#datetimepicker1").on("dp.change", function (e) {
+          $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+      });
+      $("#datetimepicker2").on("dp.change", function (e) {
+          $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+      });
 
     $('#chkRec').click(function () {
 	        if ($(this).is(':checked')) {
@@ -342,21 +342,26 @@ $(document).ready(function()
 
 <div id="ModalAdd" style="display: none; width: 600px;">
 	<div id="AddEvent" style="width: 600px;">
-	<div class="inline_div addEvent_div"><strong>제목</strong> <input id="e_title" type="text"  style="width: 550px;;"></div>
-	
+	<div class="inline_div addEvent_div"><strong>제목</strong> <input id="e_title" type="text"  style="width: 564px; height: 30px;"></div>
+	</div>
 	<div class="addEvent_div">
-	<div id="datetimepicker1" class="input-append inline_div">
-		<label for="start_d"><strong>시작</strong> </label> <input id="start_d" data-format="yyyy/MM/dd HH:mm:ss PP" type="text"></input> <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i></span>
-		</div>
-	<div id="datetimepicker2" class="input-append inline_div">
-	<label for="end_d">&nbsp&nbsp&nbsp<strong>종료</strong> </label>
-		<input id="end_d" data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input> <span
-			class="add-on"> <i data-time-icon="icon-time"
-			data-date-icon="icon-calendar"> </i>
-		</span>
-	</div>
-	</div>
-	<div  class="addEvent_div">
+	<div class='input-group date inline_div' id='datetimepicker1'>
+	<strong style="float: left; padding-right : 5px; margin: 6px 0;">시작</strong>
+                    <input id="start_d"  type='text' class="form-control" />
+                    <span class="input-group-addon" style="float: left; width: 39px;">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+    </div>
+	<div class='input-group date inline_div ' id='datetimepicker2'>
+	<strong style="float: left; padding-right: 5px;
+    margin: 6px 0;">&nbsp&nbsp종료</strong> 
+                    <input id="end_d" type='text' class="form-control" />
+                    <span class="input-group-addon" style="float: left; width: 39px;">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+	</div> 
+	<div  class="addEvent_div" style="height: 34px;  padding-top: 2px;">
 	<strong>색상</strong>
 <select name="colorpicker-picker-delay" id="e_color">
   <option value="#7bd148">Green</option>
@@ -374,9 +379,9 @@ $(document).ready(function()
 </select>
 </div>
 	<div class="addEvent_div">
-		<strong>메모</strong> <textarea id="e_memo" style="width :551px; height: 100px;"></textarea>
+		<strong>메모</strong> <textarea id="e_memo" style="width :564px; height: 100px;"></textarea>
 	</div>	
-	</div>
+	
 	<br />
 
 

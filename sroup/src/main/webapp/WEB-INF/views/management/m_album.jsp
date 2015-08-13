@@ -3,12 +3,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <link rel="shortcut icon" href="images/favicon.png">
 
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500">
 <link rel="stylesheet" href="css/screen.css">
 <link rel="stylesheet" href="css/lightbox.css">
+
 <script src="js/lightbox-plus-jquery.min.js"></script>
 
 <style>
@@ -377,7 +379,7 @@ display: table;
 	<!-- Pagination -->
 	<div class="row text-center">
 		<div class="col-lg-12">
-			<ul class="pagination">
+			<!-- <ul class="pagination">
 				<li><a href="#">&laquo;</a></li>
 				<li class="active"><a href="#">1</a></li>
 				<li><a href="#">2</a></li>
@@ -385,7 +387,8 @@ display: table;
 				<li><a href="#">4</a></li>
 				<li><a href="#">5</a></li>
 				<li><a href="#">&raquo;</a></li>
-			</ul>
+			</ul>-->			
+			<tags:paginate total="${g_tot }" page="${cPage }" max="9" cssClass="pagination"/>
 		</div>
 	</div>
 	<!-- /.row -->

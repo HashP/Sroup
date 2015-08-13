@@ -44,7 +44,7 @@
 				<li><a href="#">5</a></li>
 				<li><a href="#">&raquo;</a></li>
 			</ul> -->
-			<tags:paginate total="${b_tot }" page="1" max="20" cssClass="pagination"/>
+			<tags:paginate total="${b_tot }" page="${cPage }" max="20" cssClass="pagination"/>
 		</div>
 	</div>
 	

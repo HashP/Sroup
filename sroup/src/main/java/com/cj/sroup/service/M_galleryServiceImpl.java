@@ -27,12 +27,7 @@ public class M_galleryServiceImpl implements M_galleryService{
 		m_gallerydao.addGallery(m_gallery);
 		
 	}
-
-	@Override
-	public List<M_galleryVO> getAllGallery() {
-		// TODO Auto-generated method stub		
-		return m_gallerydao.getAllGallery();
-	}
+	
 
 	@Override
 	public String m_albumImageUpload(MultipartFile photofile) {		
@@ -69,7 +64,23 @@ public class M_galleryServiceImpl implements M_galleryService{
 	@Override
 	public M_galleryVO detail_Gallery(int g_no) {	
 		return m_gallerydao.detail_Gallery(g_no);
-	}	
+	}
+
+
+	@Override
+	public int getAllGalleryNo() {		
+		return m_gallerydao.getAllGalleryNo();
+	}
+
+
+	@Override
+	public List<M_galleryVO> getGallery_list(HashMap<String, Integer> num) {		
+		return m_gallerydao.getGallery_list(num);
+	}
+
+
+
+
 	
 	
 }
