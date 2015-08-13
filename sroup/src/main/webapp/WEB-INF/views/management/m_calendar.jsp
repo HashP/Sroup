@@ -10,7 +10,7 @@
 	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+     href="resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
 <link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker.css">
@@ -67,11 +67,10 @@ textarea{
 <script src="resources/fullcalendar/lib/moment.min.js"></script>
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
-<script type="text/javascript"
-	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-<script type="text/javascript"
-	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+	
+
+    <script type="text/javascript"
+     src="resources/datetimepicker/js/bootstrap-datetimepicker.min.js">
     </script>
     
     
@@ -121,18 +120,20 @@ $(document).ready(function()
 	 $('#datetimepicker1').datetimepicker({
 	      language: 'en',
 	      format: 'yyyy-MM-dd hh:mm PP',
-	      pick12HourFormat: true
+	      pick12HourFormat: true,
+	      
 	    });
 	 $('#datetimepicker2').datetimepicker({
 	      language: 'en',
 	      format: 'yyyy-MM-dd hh:mm PP',
 	      pick12HourFormat: true
 	    });
-	 $("#datetimepicker1").on("changeDate", function (e) {		
+	 $("#datetimepicker1").on("changeDate", function (e) {	
+		 console.log(e.date);
          $('#datetimepicker2').data("DateTimePicker").minViewMode(e.date);
      });      
 	  $("#datetimepicker2").on("changeDate", function (e) {
-          $('#datetimepicker1').data("DateTimePicker").maxViewMode(e.date);
+          $('#datetimepicker1').data("DateTimePicker").minViewMode(e.date);
       });	
 
     $('#chkRec').click(function () {
@@ -197,6 +198,8 @@ $(document).ready(function()
       */
       select: function(start, end, allDay)
       {
+    	  $("#ModalAdd input").val("");
+   		$("#ModalAdd textarea").val("");
     	  var startdate = new Date(start);
     	  var enddate = new Date(end);
     	  var startval = startdate.getFullYear()+"/"+startdate.getMonth()+"/"+startdate.getDate()+" "+startdate.toTimeString();
@@ -252,8 +255,7 @@ $(document).ready(function()
                                       });                                  	 
                               		$('div[id*=calendar]').fullCalendar('refetchEvents');                             		
                              		$("#ModalAdd").dialog("close");                        
-                             		//$("#ModalAdd input").val("");
-                             		//$("#ModalAdd textarea").val("");
+                             		
                                   }                  
                           
                         	  });
