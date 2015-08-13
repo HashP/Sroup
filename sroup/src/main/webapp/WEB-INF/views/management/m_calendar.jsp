@@ -223,13 +223,7 @@ $(document).ready(function()
                       eventToSave.StartDate = $("#StartDt").val();
                       eventToSave.EndDate = $("#EndDt").val();
                       eventToSave.EventName = event.title = eventToSave.title = $("#Name").val();
-                      if ($('#chkRec').is(':checked')) {
-                          eventToSave.title += " (Recurring)";
-                          eventToSave.IsRecurring = true;
-                          eventToSave.Freq = "Daily";
-                          eventToSave.Count = $("#txtCount").val();
-                          eventToSave.Interval = $("#txtInterval").val();
-                      }
+                     
                       var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":$("#e_title").val(),"event_content":$("#e_memo").val(),"event_color":$("#e_color").select().val()}
                       $.ajax({              
                           url: "calEventAdd.do",
@@ -273,8 +267,8 @@ $(document).ready(function()
           //element.attr('href', 'javascript:void(0);');
           element.click(function() {
               $("#eventContent").dialog({ modal: true, title: event.title, width:330});
-              $("#startTime").html(moment(event.start).format('YYYY년MM월DD일   HH:mm A'));
-              $("#endTime").html(moment(event.end).format('YYYY년MM월DD일\t\tHH:mm A'));
+              $("#startTime").html(moment(event.start).format('YYYY년MM월DD일   h:mm A'));
+              $("#endTime").html(moment(event.end).format('YYYY년MM월DD일\t\th:mm A'));
               $("#s_content").html(event.content);
               $("#eventInfo").html(event.description);
               //$("#eventLink").attr('href', event.url);

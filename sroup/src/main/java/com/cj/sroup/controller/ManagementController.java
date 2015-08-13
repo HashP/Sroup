@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -287,10 +288,12 @@ public class ManagementController {
 			@RequestParam("event_end") String event_end,
 			@RequestParam("event_title") String event_title,
 			@RequestParam("event_content") String event_content, 
-			@RequestParam("event_color") String event_color)throws ParseException{
+			@RequestParam("event_color") String event_color)throws ParseException{		
 		SimpleDateFormat sd = new SimpleDateFormat(
-				"yyyy-MM-dd hh:mm");
-
+				"yyyy.MM.dd aa hh시 mm분");
+		System.out.println(event_start +"전");
+		
+		System.out.println(sd.parse(event_start) +"후");
 		M_calendarVO m_calendar = new M_calendarVO();
 		m_calendar.setEvent_start(sd.parse(event_start));
 		m_calendar.setEvent_end(sd.parse(event_end));
