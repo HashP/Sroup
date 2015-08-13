@@ -5,13 +5,15 @@ import java.util.Date;
 public class StudyVO {
 	int study_no;
 	String study_name;
-	String user_id;
+	String user_id;//
 	String c_area;
 	String c_subject;
 	String p_address;
 	Date end_date;
 	Date start_date;
-	String join_able;
+	String start_date_time;
+	String end_date_time;
+	String join_able;//
 	String s_summary;
 	String s_detail;
 	String s_image;
@@ -19,9 +21,12 @@ public class StudyVO {
 	int s_max_person;
 	String s_area;
 	Date s_application_period;
+	String s_application_period_time;
 	String s_admit_method;
-	Date write_day;
-	int s_hit;
+	Date write_day;//
+	int s_hit;//
+	String map_lat;
+	String map_lng;
 	
 	public int getStudy_no() {
 		return study_no;
@@ -137,7 +142,35 @@ public class StudyVO {
 	public void setS_hit(int s_hit) {
 		this.s_hit = s_hit;
 	}
-	
-	
+	public String getMap_lat() {
+		return map_lat;
+	}
+	public void setMap_lat(String map_lat) {
+		this.map_lat = map_lat;
+	}
+	public String getMap_lng() {
+		return map_lng;
+	}
+	public void setMap_lng(String map_lng) {
+		this.map_lng = map_lng;
+	}
+	public String getStart_date_time() {
+		return start_date_time;
+	}
+	public void setStart_date_time(String start_date_time) {
+		this.start_date_time = start_date_time;
+	}
+	public String getEnd_date_time() {
+		return end_date_time;
+	}
+	public void setEnd_date_time(String end_date_time) {
+		this.end_date_time = end_date_time;
+	}
+	public String getS_application_period_time() {
+		return s_application_period_time;
+	}
+	public void setS_application_period_time(String s_application_period_time) {
+		this.s_application_period_time = s_application_period_time;
+	}
 	
 }

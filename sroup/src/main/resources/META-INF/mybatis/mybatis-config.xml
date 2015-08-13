@@ -14,6 +14,7 @@
    		<typeAlias type="com.cj.sroup.vo.UserInfoVO" alias="UserInfo"/>   	
    		<typeAlias type="com.cj.sroup.vo.StudyVO" alias="Study"/>   		
    		<typeAlias type="com.cj.sroup.vo.ListVO" alias="Lists"/>
+   		<typeAlias type="com.cj.sroup.vo.CategoryVO" alias="Category"/>
    		<typeAlias type="com.cj.sroup.vo.CheckVO" alias="CheckVO"/>
    		<typeAlias type="com.cj.sroup.vo.StudyManagementVO" alias="StudyManagementVO"/>
    		<typeAlias type="com.cj.sroup.vo.MessageVO" alias="MessageVO"/>

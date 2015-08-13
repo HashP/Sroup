@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +15,8 @@
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
-
+	var checkAddr = "";
+	var selfCheck = "N";
 	var oEditors = [];
 	$(function() {
 		$(".content .core .input").mouseover(function(){$(this).next().addClass("focus")})
@@ -64,7 +66,35 @@
             	
             	oEditors.getById["content"].exec("PASTE_HTML", [html]);
              }
-     });
+     	});
+		
+		var uploadButton = $(".banner .change");
+		uploadButton.uploadify({
+			  swf: '/sroup/resources/uploadify/uploadify.swf',
+		      uploader: '/sroup/upload.do',
+		      fileObjName: 'Filedata',
+		      fileTypeExts: '*.jpg;*.jpeg;*.gif;*.png',
+		      fileTypeDesc: 'Image Files (.JPG, .GIF, .PNG)',
+		      fileSizeLimit: '2MB',
+		      buttonText: $('.banner .change').text(),
+		      width: 70,
+		      height: 26,
+		      auto: true,
+		      multi: false,
+		      removeCompleted: true,
+		      removeTimeout: 1,
+		      queueSizeLimit: 1,
+		      onUploadSuccess : function(file, data, response) {
+		    	  var data = data.split("|");
+	              var imgUrl = data[0];
+	              var html = "";
+	              
+	              $('.banner>.innerBanner img').attr('src', "/sroup"+imgUrl);
+	              
+		      }
+		      
+		    
+		})
 
 		//저장버튼 클릭시 form 전송
 		$("#save").click(function() {
@@ -95,15 +125,28 @@
 		}
 
 		$("#startEventDate").val(year + "-" + month + "-" + day);
+		$("#endEventDate").val(year + "-" + month + "-" + day);
 		$("#startAcceptDate").val(year + "-" + month + "-" + day);
 		$("#endAcceptDate").val(year + "-" + month + "-" + day);
-
-	})
-
-	$(function() {
+		
 		$("#startEventDate").datepicker(
 				{
 					dateFormat : "yy-mm-dd",
+					minDate : 'year + "-" + month + "-" + day',
+					prevText : '이전 달',
+					nextText : '다음 달',
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+							'7월', '8월', '9월', '10월', '11월', '12월' ],
+					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
+				});
+		$("#endEventDate").datepicker(
+				{
+					dateFormat : "yy-mm-dd",
+					minDate : 'year + "-" + month + "-" + day',
 					prevText : '이전 달',
 					nextText : '다음 달',
 					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
@@ -130,6 +173,7 @@
 		$("#endAcceptDate").datepicker(
 				{
 					dateFormat : "yy-mm-dd",
+					minDate : 'year + "-" + month + "-" + day',
 					prevText : '이전 달',
 					nextText : '다음 달',
 					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
@@ -140,7 +184,8 @@
 					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ]
 				});
-	});
+
+	})
 	
 	$(function(){
 		var phone;
@@ -225,8 +270,37 @@
 				success : function(result) {
 					if(result === "Y") {
 						alert("인증 되었습니다.")
+						selfCheck = "Y";
 					} else {
 						alert("인증번호가 일치하지 않습니다. 다시 입력 바랍니다.")
+					}
+				}
+			})
+			
+		})
+		
+		$("#pAddrCheck").on("click", function() {
+			
+			var pAddr = $("#inputAddr").val();
+			
+			
+			if(pAddr.trim() === "") {
+				alert("페이지 주소를 입력하세요.")
+				
+				return;
+			}
+			
+			$.ajax({
+				url:"pAddrCheck.do",
+				data: {pAddr : pAddr},
+				dataType: "text",
+				success : function(result) {
+					if(result === "Y") {
+						alert("사용하셔도 좋은 주소입니다.")
+						checkAddr = "Y";
+					} else {
+						alert("존재하는 주소입니다. 다른 주소를 입력해 주시기 바랍니다.")
+						checkAddr = "N";
 					}
 				}
 			})
@@ -375,6 +449,9 @@
 		var category = $("#category").val();
 		var title = $("#title").val();
 		var summary = $("#abstract").val();
+		var imgStr = $('.banner>.innerBanner img').attr('src');
+		var s_image = imgStr.substring(22);
+		var c_area; 
 		
 		var textEditor = oEditors.getById["content"].getIR();
 		
@@ -385,6 +462,8 @@
 		
 		var startDate = $("#startEventDate").val();
 		var startDateTime = $("select[name=eventStartDateTime_time]").val();
+		var endDate = $("#endEventDate").val();
+		var endDateTime = $("select[name=eventEndDateTime_time]").val();
 		var appPeriodDate = $("#endAcceptDate").val();
 		var appPeriodDateTime = $("select[name=recruitEndDateTime_time]").val();
 		
@@ -398,20 +477,128 @@
 		var phoneTail = $("#ownerPhoneTail").val();
 		
 		var secretCode = $("#secretCode").val();
+		var pAddr = $("#inputAddr").val();
+		
+		$.ajax({
+			url:"map2.do",
+			data: {
+				lat : lat,
+				lng : lng,
+			},
+			dataType: "json",
+			success : function(data) {
+				c_area = data.result.items[0].addrdetail.sido;
+			}
+		})
+		
+		
+		$.ajax({
+			url:"studyAdd.do",
+			data: {
+				//user_id : user_id,
+				category : category,
+				title : title,
+				summary : summary,
+				s_image : s_image,
+				c_area : c_area,
+				textEditor : textEditor,
+				checkRule : checkRule,
+				maxPerson : maxPerson,
+				dues : dues,
+				startDate : startDate,
+				startDateTime : startDateTime,
+				endDate : endDate,
+				endDateTime : endDateTime,
+				appPeriodDate : appPeriodDate,
+				appPeriodDateTime : appPeriodDateTime,
+				location : location,
+				lat : lat,
+				lng : lng,
+				pAddr : pAddr
+			},
+			dataType: "text",
+			success : function(data) {
+				
+			}
+		});
+		
+		
+		if(category.trim() === "") {
+			alert("카테고리를 선택해 주세요.");
+			return false;
+		}
+		if(title.trim() === "") {
+			alert("스터디명을 입력해 주세요.");
+			return false;
+		}
+		if(summary.trim() === "") {
+			alert("요약내용을 입력해 주세요.");
+			return false;
+		}
+		if(textEditor.trim() === "<p><br></p>") {
+			alert("상세내용을 입력해 주세요.");
+			
+			return false;
+		}
+		if(maxPerson.trim() === "") {
+			alert("최대 인원을 입력해 주세요.");
+			return false;
+		}
+		if(dues.trim() === "") {
+			alert("회비를 입력해 주세요.");
+			return false;
+		}
+		if(location.trim() === "") {
+			alert("장소명을 입력해 주세요.");
+			return false;
+		}
+		if(phoneHead.trim() === "") {
+			alert("핸드폰 번호를 입력해 주세요.");
+			return false;
+		}
+		if(phoneBody.trim() === "") {
+			alert("핸드폰 번호를 입력해 주세요.");
+			return false;
+		}
+		if(phoneTail.trim() === "") {
+			alert("핸드폰 번호를 입력해 주세요.");
+			return false;
+		}
+		if(secretCode.trim() === "") {
+			alert("인증번호를 입력해 주세요.");
+			return false;
+		}
+		
+		if(pAddr.trim() === "") {
+			alert("페이지 주소를 입력해 주세요.");
+			return false;
+		} else if(checkAddr.trim() === "") {
+			alert("페이지 중복을 확인해 주세요. ");
+			return false;
+		} else if(checkAddr.trim() === "N") {
+			alert("다른 주소를 입력하고 다시 중복을 확인해 주세요.");
+			return false;
+		}
+		
+		if(selfCheck === "N") {
+			alert("핸드폰으로 본인 인증을 반드시 해야합니다.");
+			return false;
+		}
+		
+		
+		
+		return true;
 		
 		
 	}
-	
-	$(function() {
-	       
-	 });
+
 </script>
 </head>
 </head>
 <body>
 	<div class="content">
 		<form action="/sroup/list.do" method="post" encType="multipart/form-data"
-			class="innerBorder " name="writeForm" onsubmit="check()" >
+			class="innerBorder " name="writeForm" onsubmit="return check();" >
 			<input type="hidden" name="proc" value="createBaseEvent" /> <input
 				type="hidden" name="eventIdx" value="0" /> <input type="hidden"
 				name="banner" value="" /> <input type="hidden"
@@ -445,20 +632,9 @@
 							<select class="category" name="category" id="category"
 								style="height: 30px; width: 110px;">
 								<option value="">카테고리 선택</option>
-								<option value="15">번개/소모임</option>
-								<option value="16">교육/세미나</option>
-								<option value="17">컨퍼런스</option>
-								<option value="18">동문회/친목행사</option>
-								<option value="19">문화행사</option>
-								<option value="20">이벤트/파티</option>
-								<option value="21">공동구매</option>
-								<option value="22">취미활동</option>
-								<option value="23">후원금 모금</option>
-								<option value="24">개인경조사</option>
-								<option value="25">기타</option>
-								<option value="26">패션</option>
-								<option value="27">뷰티</option>
-								<option value="28">엔터테인먼트</option>
+								<c:forEach var="c" items="${categories }">
+								<option value="${c.sub_value }">${c.subject }</option>
+								</c:forEach>
 							</select><input id="title" type="text" name="title" placeholder="모임 제목을 입력해주세요."
 								title="모임제목 입력" maxlength="64" class="text" />
 
@@ -489,13 +665,12 @@
 								<div class="bannerBorder">
 									<div class="changeBox">
 										<span> <a class="change" id="changeUserPhoto"
-											href="#changeUserPhoto">사진변경</a> <a class="delete"
-											href="#deleteUserPhoto">삭제하기</a>
+											href="#changeUserPhoto">사진변경</a>
 										</span> &nbsp;
 									</div>
 								</div>
 							</div>
-							<a class="recommend" href="#recommenBox">추천이미지 보기</a>
+							
 
 						</div>
 						<div class="subCore abstract">
@@ -552,7 +727,7 @@
 								<br>
 							</div>
 							<label for="rule" id="checkRule">승인 방식</label> <input
-								class="radio" type="radio" name="rule" value="check" /><label
+								class="radio" type="radio" name="rule" value="check" checked="checked" /><label
 								for="rule" style="margin-right: 20px">검토 후 승인</label> <input
 								class="radio" type="radio" name="rule" value="auto" /><label
 								for="auto">자동 승인</label> <span class="tip">승인 방식은 <strong>검토
@@ -686,6 +861,60 @@
 									<option value='23:00'>오후 11시 00분</option>
 									<option value='23:30'>오후 11시 30분</option>
 								</select>
+								<span class="space">부터</span> <label for="endEventDate"
+									class="displayNone">모임등록시작 날짜설정</label> <input
+									id="endEventDate" class="text datepicker" type="text"
+									name="recruitEndDateTime_date" value="2015-08-01" /> <select
+									class="date-select" name="eventEndDateTime_time">
+									<option value='00:00'>오전 0시 00분 (자정)</option>
+									<option value='00:30'>오전 0시 30분</option>
+									<option value='01:00'>오전 1시 00분</option>
+									<option value='01:30'>오전 1시 30분</option>
+									<option value='02:00'>오전 2시 00분</option>
+									<option value='02:30'>오전 2시 30분</option>
+									<option value='03:00'>오전 3시 00분</option>
+									<option value='03:30'>오전 3시 30분</option>
+									<option value='04:00'>오전 4시 00분</option>
+									<option value='04:30'>오전 4시 30분</option>
+									<option value='05:00'>오전 5시 00분</option>
+									<option value='05:30'>오전 5시 30분</option>
+									<option value='06:00'>오전 6시 00분</option>
+									<option value='06:30'>오전 6시 30분</option>
+									<option value='07:00'>오전 7시 00분</option>
+									<option value='07:30'>오전 7시 30분</option>
+									<option value='08:00'>오전 8시 00분</option>
+									<option value='08:30'>오전 8시 30분</option>
+									<option value='09:00'>오전 9시 00분</option>
+									<option value='09:30'>오전 9시 30분</option>
+									<option value='10:00'>오전 10시 00분</option>
+									<option value='10:30'>오전 10시 30분</option>
+									<option value='11:00'>오전 11시 00분</option>
+									<option value='11:30'>오전 11시 30분</option>
+									<option value='12:00'>오후 0시 00분 (정오)</option>
+									<option value='12:30'>오후 0시 30분</option>
+									<option value='13:00'>오후 1시 00분</option>
+									<option value='13:30'>오후 1시 30분</option>
+									<option value='14:00'>오후 2시 00분</option>
+									<option value='14:30'>오후 2시 30분</option>
+									<option value='15:00'>오후 3시 00분</option>
+									<option value='15:30'>오후 3시 30분</option>
+									<option value='16:00'>오후 4시 00분</option>
+									<option value='16:30'>오후 4시 30분</option>
+									<option value='17:00' selected='selected'>오후 5시 00분</option>
+									<option value='17:30'>오후 5시 30분</option>
+									<option value='18:00'>오후 6시 00분</option>
+									<option value='18:30'>오후 6시 30분</option>
+									<option value='19:00'>오후 7시 00분</option>
+									<option value='19:30'>오후 7시 30분</option>
+									<option value='20:00'>오후 8시 00분</option>
+									<option value='20:30'>오후 8시 30분</option>
+									<option value='21:00'>오후 9시 00분</option>
+									<option value='21:30'>오후 9시 30분</option>
+									<option value='22:00'>오후 10시 00분</option>
+									<option value='22:30'>오후 10시 30분</option>
+									<option value='23:00'>오후 11시 00분</option>
+									<option value='23:30'>오후 11시 30분</option>
+								</select> 까지
 							</div>
 						</div>
 						<div class="subCore setupTime" style="width: 648px">
@@ -980,7 +1209,7 @@
 							<h4 class="subTitle">
 								개설자 인증 서비스 <span class="star">*</span>
 							</h4>
-							<table width="100%">
+							<table width="100%" style="margin-left: 80px;">
 								<tr class="admin_num">
 									<th>개설자 전화번호 입력</th>
 									<td><label for="ownerPhone" class="displayNone">전화번호
@@ -1014,6 +1243,25 @@
 						</p>
 					</div>
 				</div>
+				<div class="core registration">
+					<div class="input">
+						<div class="subCore">
+							<h4 class="subTitle">
+								스터디 페이지 주소 설정 <span class="star">*</span>
+							</h4>
+							<div class="pAddr">
+								<label for="free" id="pAddr">스터디 페이지 주소</label><input id="inputAddr"
+									class="text" type="text" name="pAddr" style="width: 167px" /><button type="button" id="pAddrCheck">중복 확인</button>
+								<br>
+							</div>
+						</div>
+					</div>
+					<div class="advice">
+						<p class="subAdvice">
+							<br /> 개설되는 스터디 페이지 주소를 입력해 주세요.<br />
+						</p>
+					</div>
+				</div>
 				<div class="lastCore">
 					<div class="saveMsg"></div>
 					<div class="action">
@@ -1021,51 +1269,6 @@
 							type="submit" class="confirm button" value="최종확인" /><a
 							class="temp button" href="#temp"><span>임시저장</span></a>
 					</div>
-					<script class="template confirm" type="text/x-jquery-tmpl">
-					<div class="layer">
-						<h4 class="layerTitle">${title}</h3>
-						<div class="layerContent">
-							{{html $item.event()}}
-							<div class="isFree">
-								<dd>본 모임은 <strong>${isFree}</strong>모임입니다.
-							</div>
-							{{if wayOfRegistration != ''}}
-							<div class="outUrl" ${style}>
-								<dl>
-									<dt>외부 참여 URL</dt>
-									<dd><a href="${wayOfRegistration}" class="outLink" target="_blank">${wayOfRegistration}</a></dd>
-								</dl>
-							</div>
-							{{else}}
-							<div class="group">
-								<dl>
-									<dt>그룹</dt>
-									<dd>{{html $item.group()}}</dd>
-								</dl>
-							</div>
-							{{/if}}
-							<div class="admin">
-								<dl>
-									<dt>개설자 전화번호</dt>
-									<dd>${number}</dd>
-									<br />
-									<dt>개설자 이메일</dt>
-									<dd>${email}</dd>
-								</dl>
-							</div>
-						</div>
-						<div class="guide">
-							설정한 정보가 모두 맞으면 <strong>개설완료</strong>를 눌러주시고<br />
-							내용 수정을 원하시면 <strong>다시 돌아가기</strong>를 눌러주세요
-						</div>
-						<div class="box">
-							<a class="close button" href="#close">다시 돌아가기</a><input class="button confirm" value="개설완료" type="submit" /><input type="submit" class="preview button" value="미리보기" />
-						</div>
-						<p class="serviceBanner">
-  <a href="http://onoffmix.com/place" target="_blank"><img src="http://cfile1.onoffmix.com/attach/s6PDIyENBhEN8NQTFrDi4iJJ6K9NLLun" alt="플레이스 소개" /></a>
-</p>
-					</div>
-					</script>
 				</div>
 			</div>
 			<!--lastStep end-->

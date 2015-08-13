@@ -2093,7 +2093,7 @@ input.text.outfocus, textarea.text.outfocus {
     background: #4195f5;
     color: #fff;
 }
-#sendCode, #codeCheck {
+#sendCode, #codeCheck, #pAddrCheck {
 	margin-left: 10px;
     height: 30px;
     border: 1px solid #d8d8d8;
@@ -2102,7 +2102,10 @@ input.text.outfocus, textarea.text.outfocus {
     border-radius: 3px;
     font-size : 11px;
 }
-#sendCode:hover, #codeCheck:hover {
+#codeCheck {
+	margin-left: 28px;
+}
+#sendCode:hover, #codeCheck:hover, #pAddrCheck:hover {
 	z-index: 1;
     border-color: #3085e6;
     background-color: #4195f5;
@@ -2155,4 +2158,77 @@ button.attach:hover,
 	display: block;
 	background: #4195f5;
 	height: 21px;
+}
+.pAddr {
+	margin-left: 80px;
+}
+#pAddr {
+	font-weight: bold;
+    margin-right: 100px;
+}
+#pAddrCheck {
+	width: 83px;
+}
+#changeUserPhoto .uploadify-button {
+    text-align: left;
+    text-indent: 11px;
+    background: url("http://static.onoffmix.com/images3/misc/image_adminWrite.png") no-repeat 0 0;
+}
+.innerBanner:hover .bannerBorder {
+	border-color: rgba(51, 51, 51, 0.8);
+	filter: alpha(opacity=80); /* IE8 and under */
+}
+.innerBanner .bannerBorder {
+	width: 108px;
+	height: 108px;
+	position: absolute;
+	border: 1px solid #333333;
+	border-color: rgba(51, 51, 51, 0.4);
+	filter: alpha(opacity=40); /* IE8 and under */
+	left: 0;
+	top: 0;
+	text-align: center;
+}
+.content .banner .innerBanner:hover #changeUserPhoto.uploadify {
+	visibility: visible;
+}
+.innerBanner .bannerBorder .changeBox span {
+    display: inline-block;
+    /* line-height: 18px; */
+    vertical-align: middle;
+}
+#changeUserPhoto .uploadify-button-text {
+    line-height: 26px;
+    font-size: 11px;
+    letter-spacing: -1px;
+    color: #ffffff;
+}
+#changeUserPhoto.uploadify {
+    display: inline-block;
+    visibility: hidden;
+    line-height: 26px;
+    text-align: left;
+}
+.content .banner .innerBanner #changeUserPhoto {
+    margin-left: 0px;
+}
+.content .banner.noBanner .innerBanner #changeUserPhoto {
+    margin-left: 12px;
+}
+.content .banner .innerBanner a.delete {
+    background: url("http://static.onoffmix.com/images3/misc/image_adminWrite.png") no-repeat 12px -66px #fff;
+    display: inline-block;
+    margin-top: 3px;
+    height: 21px;
+    line-height: 22px;
+    color: #666;
+    font-size: 11px;
+    letter-spacing: -1px;
+    border: 1px solid #b8b8b8;
+    text-indent: 22px;
+    width: 68px;
+    vertical-align: middle;
+}
+#changeUserPhoto-queue {
+	display: none;
 }

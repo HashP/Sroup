@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,25 +29,95 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cj.sroup.service.StudyService;
+import com.cj.sroup.vo.CategoryVO;
 import com.cj.sroup.vo.CheckVO;
 import com.cj.sroup.vo.ListVO;
+import com.cj.sroup.vo.StudyVO;
 
 @Controller
 public class ListController {
-	@Value("${profile.image.path}")
-	private String filepath;
-	
+
 	@Autowired
 	StudyService service;
-	
-	@RequestMapping("/list.do")
-	public ModelAndView list() {
+
+	@RequestMapping("/map2.do")
+	public void map2(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+		resp.setContentType("text/plain;charset=utf-8;");
+
+		String lat = req.getParameter("lat");
+		String lng = req.getParameter("lng");
+		String latlng = lng+","+lat;
+		System.out.println(latlng);
+		URL urlMy=new URL("http://openapi.map.naver.com/api/reversegeocode?key=5c2814aa90dac61ea095ac66fe8cda82&encoding=utf-8&coord=latlng&output=json&query="+ latlng);
+		URLConnection tc = urlMy.openConnection();
+		BufferedReader in = new BufferedReader(new InputStreamReader(tc.getInputStream()));
+		String line = "";
+		String str;
+		while((str = in.readLine()) != null) {
+			line += str;
+		}
+
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.getWriter().print(line);
+	}
+
+	@RequestMapping("/studyAdd.do")
+	public String studyAdd(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date endDate = transFormat.parse(req.getParameter("endDate"));
+		Date startDate = transFormat.parse(req.getParameter("startDate"));
+		Date periodDate = transFormat.parse(req.getParameter("appPeriodDate"));
+
+		String lat = req.getParameter("lat");
+		String lng = req.getParameter("lng");
+
+		StudyVO study = new StudyVO();
+
+		String subject = service.getSubject(req.getParameter("category"));
+		int study_no = service.getStudyNo();
 		
+		study.setStudy_no(study_no);
+		study.setC_subject(subject);
+		study.setStudy_name(req.getParameter("title"));
+		study.setS_summary(req.getParameter("summary"));
+		study.setC_area("서울");
+		study.setS_image(req.getParameter("s_image"));
+		study.setS_detail(req.getParameter("textEditor"));
+		study.setS_admit_method(req.getParameter("checkRule"));
+		study.setS_max_person(Integer.parseInt(req.getParameter("maxPerson")));
+		study.setS_dues(req.getParameter("dues"));
+		study.setStart_date(startDate);
+		study.setStart_date_time(req.getParameter("startDateTime"));
+		study.setEnd_date(endDate);
+		study.setEnd_date_time(req.getParameter("endDateTime"));
+		study.setS_application_period(periodDate);
+		study.setS_application_period_time(req.getParameter("appPeriodDateTime"));
+		study.setS_area(req.getParameter("location"));
+		study.setMap_lat(lat);
+		study.setMap_lng(lng);
+		study.setP_address(req.getParameter("pAddr"));
+
+		service.addStudy(study);
+
+		return "redirect:list2.do";
+	}
+	
+	@RequestMapping("/list2.do")
+	public String list2() {
+		return "redirect:list.do";
+	}
+
+	@RequestMapping("/list.do")
+	public ModelAndView list(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
 		ModelAndView mav = new ModelAndView();
 		List<ListVO> lists = service.getAllStudies();
 		mav.addObject("lists", lists);
 		mav.setViewName("list/list");
-		
+
 		return mav;
 	}
 	@RequestMapping("/detail.do")
@@ -54,64 +125,70 @@ public class ListController {
 		return "list/detail";
 	}
 	@RequestMapping("/add.do")
-	public String add() {
-		return "list/add";
+	public ModelAndView add() {
+
+		ModelAndView mav = new ModelAndView();
+		List<CategoryVO> categories = service.getCategories();
+		mav.addObject("categories", categories);
+		mav.setViewName("list/add");
+
+		return mav;
 	}
 	@RequestMapping(value=("/upload.do"), method = RequestMethod.POST)  
 	@ResponseBody
 	public String upload(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws Exception {
-		
-		 String responseStr = "";
-	        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) req;
-	        // 获取前台传值
-	        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-	        // String ctxPath =
-	        // request.getSession().getServletContext().getRealPath("/")+ "\\" +
-	        // "images\\";
-	        String configPath = File.separator + "upload" + File.separator;
-	        String ctxPath = req.getSession().getServletContext().getRealPath("/");
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-	        String year = sdf.format(new Date());
-	        configPath += year + File.separator;
-	        sdf = new SimpleDateFormat("MM");
-	        String month = sdf.format(new Date());
-	        configPath += month + File.separator;
-	        
-	        ctxPath += configPath;
-	        // 创建文件夹
-	        File file = new File(ctxPath);
-	        if (!file.exists()) {
-	            file.mkdirs();
-	        }
-	        String fileName = null;
-	        for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-	            // 上传文件名
-	            // System.out.println("key: " + entity.getKey());
-	            MultipartFile mf = entity.getValue();
-	            fileName = mf.getOriginalFilename();
-	            
-	            String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
 
-	            SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-	            String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
-	            responseStr = configPath + newFileName + "|" + fileName;
-	            File uploadFile = new File(ctxPath + newFileName);
-	            try {
-	                FileCopyUtils.copy(mf.getBytes(), uploadFile);
-	            } catch (IOException e) {
-	                responseStr = "上传失败";
-	                e.printStackTrace();
-	            }
-	            
-	        }
-	        resp.setHeader("Content-type", "text/html;charset=UTF-8");  
-	        //这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859  
-	        resp.setCharacterEncoding("UTF-8");
-	        resp.getWriter().write(responseStr); 
-	        System.out.println(ctxPath);
-	        return null;
-	    }
-	
+		String responseStr = "";
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) req;
+		// 获取前台传值
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		// String ctxPath =
+		// request.getSession().getServletContext().getRealPath("/")+ "\\" +
+		// "images\\";
+		String configPath = File.separator + "upload" + File.separator;
+		String ctxPath = req.getSession().getServletContext().getRealPath("/");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String year = sdf.format(new Date());
+		configPath += year + File.separator;
+		sdf = new SimpleDateFormat("MM");
+		String month = sdf.format(new Date());
+		configPath += month + File.separator;
+
+		ctxPath += configPath;
+		// 创建文件夹
+		File file = new File(ctxPath);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		String fileName = null;
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			// 上传文件名
+			// System.out.println("key: " + entity.getKey());
+			MultipartFile mf = entity.getValue();
+			fileName = mf.getOriginalFilename();
+
+			String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+			responseStr = configPath + newFileName + "|" + fileName;
+			File uploadFile = new File(ctxPath + newFileName);
+			try {
+				FileCopyUtils.copy(mf.getBytes(), uploadFile);
+			} catch (IOException e) {
+				responseStr = "上传失败";
+				e.printStackTrace();
+			}
+
+		}
+		resp.setHeader("Content-type", "text/html;charset=UTF-8");  
+		//这句话的意思，是告诉servlet用UTF-8转码，而不是用默认的ISO8859  
+		resp.setCharacterEncoding("UTF-8");
+		resp.getWriter().write(responseStr); 
+		System.out.println(ctxPath);
+		return null;
+	}
+
 
 	@RequestMapping("/uploadify.do")
 	public String uploadify() {
@@ -120,116 +197,134 @@ public class ListController {
 	@RequestMapping("/map.do")
 	public void map(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		resp.setContentType("text/plain;charset=utf-8;");
-		
+
 		String addr = req.getParameter("addr");
 		URL urlMy=new URL("http://maps.google.kr/maps/api/geocode/json?address="+ addr);
-	       URLConnection tc = urlMy.openConnection();
-	       BufferedReader in = new BufferedReader(new InputStreamReader(
-	               tc.getInputStream()));
-	      String line = "";
-	      String str;
-	       while((str = in.readLine()) != null) {
-	          line += str;
-	       }
-	       
-	       System.out.println(line);
-	       resp.setContentType("text/html; charset=UTF-8");
-	       resp.setCharacterEncoding("UTF-8");
-	       resp.getWriter().print(line);
+		URLConnection tc = urlMy.openConnection();
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				tc.getInputStream()));
+		String line = "";
+		String str;
+		while((str = in.readLine()) != null) {
+			line += str;
+		}
+
+		System.out.println(line);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		resp.getWriter().print(line);
 	}
-	
+
 	@RequestMapping("/sms.do")
 	public void SendSMS(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-        SMS sms = new SMS();
-        
-        sms.appversion("TEST/1.0");
-        sms.charset("utf8");
-        //sms.setuser("1234", "zxcv1234");				// coolsms 계정 입력해주시면되요
+		SMS sms = new SMS();
 
-        String phone = req.getParameter("phone");
-        String user_id = req.getParameter("user_id");
-        
-        
-        System.out.println("phone : " +phone);
-        System.out.println("user_id : " + user_id);
-        String number[] = new String[1];                                  // 받을 사람 폰번호
-        number[0] = phone;
-        	
-        Random r = new Random();
-        int ran = 100000+r.nextInt(900000);
-        System.out.println("중복 전 : " + ran);
-        CheckVO checkUser = service.userCheck(user_id);
-        	
-        if(checkUser == null) {
-        	CheckVO check = new CheckVO();
-        	check.setUser_id(user_id);
-        	check.setCheck_code(Integer.toString(ran));
-        	System.out.println("스트링으로 변환 : "+Integer.toString(ran));
-        		
-       		service.addCheck(check);
-       	} else if(checkUser != null) {
-       		ran = 100000+r.nextInt(900000);
-       		CheckVO reCheck = new CheckVO();
-       		reCheck.setUser_id(user_id);
-       		reCheck.setCheck_code(Integer.toString(ran));
-       		reCheck.setCheck_y_or_n("N");
-       		System.out.println("중복 후 : " + ran);
-        		
-       		service.modifyCheck(reCheck);
-       	}
-        	
-       	for( int i = 0 ; i < number.length ; i ++ ) {
-       		SmsMessagePdu pdu = new SmsMessagePdu();
-       		pdu.type = "SMS";
-       		pdu.destinationAddress = number[i];
-        	pdu.scAddress = phone;                   // 발신자 번호          
-       		pdu.text = "[SROUP] 본인 확인 서비스입니다. 인증 번호는 " + ran + " 입니다.";					    // 보낼 메세지 내용
-       		sms.add(pdu);
-       		System.out.println("그냥 : " + ran);
-        	//try {
-        	//sms.connect();
-        	// sms.send();
-        	//sms.disconnect();
-        	
-        	//} catch (IOException e) {
-        	//     System.out.println(e.toString());
-        	// }
-        	sms.printr();
-        	sms.emptyall();
-        }
-        	
-    }
-	
+		sms.appversion("TEST/1.0");
+		sms.charset("utf8");
+		//sms.setuser("1234", "zxcv1234");				// coolsms 계정 입력해주시면되요
+
+		String phone = req.getParameter("phone");
+		String user_id = req.getParameter("user_id");
+
+
+		System.out.println("phone : " +phone);
+		System.out.println("user_id : " + user_id);
+		String number[] = new String[1];                                  // 받을 사람 폰번호
+		number[0] = phone;
+
+		Random r = new Random();
+		int ran = 100000+r.nextInt(900000);
+		System.out.println("중복 전 : " + ran);
+		CheckVO checkUser = service.userCheck(user_id);
+
+		if(checkUser == null) {
+			CheckVO check = new CheckVO();
+			check.setUser_id(user_id);
+			check.setCheck_code(Integer.toString(ran));
+			System.out.println("스트링으로 변환 : "+Integer.toString(ran));
+
+			service.addCheck(check);
+		} else if(checkUser != null) {
+			ran = 100000+r.nextInt(900000);
+			CheckVO reCheck = new CheckVO();
+			reCheck.setUser_id(user_id);
+			reCheck.setCheck_code(Integer.toString(ran));
+			reCheck.setCheck_y_or_n("N");
+			System.out.println("중복 후 : " + ran);
+
+			service.modifyCheck(reCheck);
+		}
+
+		for( int i = 0 ; i < number.length ; i ++ ) {
+			SmsMessagePdu pdu = new SmsMessagePdu();
+			pdu.type = "SMS";
+			pdu.destinationAddress = number[i];
+			pdu.scAddress = phone;                   // 발신자 번호          
+			pdu.text = "[SROUP] 본인 확인 서비스입니다. 인증 번호는 " + ran + " 입니다.";					    // 보낼 메세지 내용
+			sms.add(pdu);
+			System.out.println("그냥 : " + ran);
+			//try {
+			//sms.connect();
+			// sms.send();
+			//sms.disconnect();
+
+			//} catch (IOException e) {
+			//     System.out.println(e.toString());
+			// }
+			sms.printr();
+			sms.emptyall();
+		}
+
+	}
+
 	@RequestMapping("/check.do")
 	public void checkCode(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		
+
 		String phone = req.getParameter("phone");
-        String user_id = req.getParameter("user_id");
-		
+		String user_id = req.getParameter("user_id");
+
 		CheckVO user = service.userCheck(user_id);
-        String check_code = req.getParameter("code");
-        String returnValue = "";
-        
-        if(user.getCheck_code().equals(check_code)) {
-        	CheckVO checkCode = new CheckVO();
-        	checkCode.setUser_id(user_id);
-        	checkCode.setCheck_code(user.getCheck_code());
-        	checkCode.setCheck_y_or_n("Y");
-        	
-        	service.modifyCheck(checkCode);
-        	
-        	returnValue = "Y";
-        	resp.getWriter().write(returnValue);
-        	
-        	return;
-        	
-        } else if(user.getCheck_code() != check_code) {
-        	returnValue = "N";
-        	resp.getWriter().write(returnValue);
-        	
-        	return;
-        }
+		String check_code = req.getParameter("code");
+		String returnValue = "";
+
+		if(user.getCheck_code().equals(check_code)) {
+			CheckVO checkCode = new CheckVO();
+			checkCode.setUser_id(user_id);
+			checkCode.setCheck_code(user.getCheck_code());
+			checkCode.setCheck_y_or_n("Y");
+
+			service.modifyCheck(checkCode);
+
+			returnValue = "Y";
+			resp.getWriter().write(returnValue);
+
+			return;
+
+		} else if(user.getCheck_code() != check_code) {
+			returnValue = "N";
+			resp.getWriter().write(returnValue);
+
+			return;
+		}
 	}
-	
-	
+
+	@RequestMapping("/pAddrCheck.do")
+	public void pAddrCheck(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String pAddr = req.getParameter("pAddr");
+		service.pAddrCheck(pAddr);
+		String returnValue = "";
+
+		if(service.pAddrCheck(pAddr) == null) {
+			returnValue = "Y";
+			resp.getWriter().write(returnValue);
+
+			return;
+		} else {
+			returnValue = "N";
+			resp.getWriter().write(returnValue);
+
+			return;
+		}
+	}
+
 }

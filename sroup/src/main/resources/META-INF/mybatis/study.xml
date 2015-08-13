@@ -35,4 +35,44 @@
    				check_y_or_n = #{check_y_or_n}
    			where user_id = #{user_id}
    </update>
+   <select id="pAddrCheck" parameterType="string" resultType="Study">
+   		select 
+   			p_address
+   		from
+   			study
+   		where
+   			p_address = #{p_address}		
+   </select>
+   <select id="getCategories" resultType="Category">
+   		select 
+   			subject, sub_value
+   		from
+   			c_subject
+   </select>
+   <insert id="addStudy" parameterType="Study">
+   		insert into study(
+   						study_no, study_name, user_id, c_area, c_subject, p_address, end_date, start_date,
+   						join_able, s_summary, s_detail, s_image, s_dues, s_max_person, s_area, s_application_period, s_admit_method,
+   						write_day, s_hit, map_lat, map_lng, start_date_time, end_date_time, s_application_period_time
+   						)
+   					values(
+   						#{study_no}, #{study_name}, 'admin123', #{c_area}, #{c_subject}, #{p_address}, #{end_date}, #{start_date},
+   						'y', #{s_summary}, #{s_detail}, #{s_image}, #{s_dues}, #{s_max_person}, #{s_area}, #{s_application_period},
+   						#{s_admit_method}, sysdate, 0, #{map_lat}, #{map_lng}, #{start_date_time}, #{end_date_time}, #{s_application_period_time}
+   					)
+   </insert>
+   <select id="getSubject" parameterType="string" resultType="string">
+   		select
+   			subject
+   		from
+   			c_subject
+   		where
+   			sub_value = #{sub_value}
+   </select>
+   <select id="getStudyNo" resultType="integer">
+   		select
+   			study_seq.nextval
+   		from
+   			dual
+   </select>
 </mapper>

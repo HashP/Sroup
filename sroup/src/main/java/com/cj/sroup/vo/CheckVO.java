@@ -25,5 +25,4 @@ public class CheckVO {
 		this.check_y_or_n = check_y_or_n;
 	}
 	
-	
 }
