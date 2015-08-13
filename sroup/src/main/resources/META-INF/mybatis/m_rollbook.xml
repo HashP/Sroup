@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cj.sroup.dao.M_rollbookDao">
+	
+	<select id="getSchedulesByStudyno" parameterType="int" resultType="String">
+		SELECT 
+			TO_CHAR(EVENT_START, 'yyyy-mm-dd')
+		FROM 
+			S_CALENDAR
+		WHERE 
+			STUDY_NO = 3
+			and
+			EVENT_START &lt; sysdate
+	</select>
+	
+</mapper>

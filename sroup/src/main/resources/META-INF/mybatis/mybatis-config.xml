@@ -32,5 +32,6 @@
     <mapper resource="META-INF/mybatis/study-management.xml"/>
     <mapper resource="META-INF/mybatis/message.xml"/>
     <mapper resource="META-INF/mybatis/join.xml"/>
+    <mapper resource="META-INF/mybatis/m_rollbook.xml"/>
   </mappers>
 </configuration>
