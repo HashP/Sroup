@@ -106,7 +106,7 @@ function removeClick(calEvent_id){
           url: "calEventDel.do",
           data:{"calEvent_id":calEvent_id},             
           success: function (data) {        	  
-        	  
+        	  $('#calendar').fullCalendar('removeEvents', calEvent_id);
           }                  
   
 	  });
@@ -209,7 +209,7 @@ $(document).ready(function()
 
           $("#ModalAdd").dialog(
           {
-              title: "Add event",
+              title: "일정등록",
               width: 650,
               modal: true,
               buttons: {
@@ -240,7 +240,7 @@ $(document).ready(function()
                                 	  var events = new Array();
                                 	  $.each(data.eventList, function (i, item) {
                                           var event = new Object();
-                                          event.id =  Math.floor(200 * Math.random());
+                                          event.id =  item.event_id;
                                           event.start = new Date(item.event_start);
                                           event.end = new Date(item.event_end);
                                           event.title = item.event_title;
@@ -250,8 +250,10 @@ $(document).ready(function()
                                           events.push(event);
                                           
                                       });                                  	 
-                              		$('div[id*=calendar]').fullCalendar('addEventSource', events);
-                             		$("#ModalAdd").dialog("close");
+                              		$('div[id*=calendar]').fullCalendar('refetchEvents');                             		
+                             		$("#ModalAdd").dialog("close");                        
+                             		//$("#ModalAdd input").val("");
+                             		//$("#ModalAdd textarea").val("");
                                   }                  
                           
                         	  });
@@ -275,14 +277,14 @@ $(document).ready(function()
               $("#eventInfo").html(event.description);
               //$("#eventLink").attr('href', event.url);
           });
-          element.hover(function(){
-        	  
+          element.hover(function(){        	  
         	  $(this).children().append("<span class='glyphicon glyphicon-remove' id="+event.id+" onclick='removeClick("+event.id+");' style='float:right;'></span>");        	  
           },function(){
         	  
         	 $(".glyphicon-remove").remove();        	  
           });
       },
+      
       
       //removeEvents : function()
       

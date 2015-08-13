@@ -34,7 +34,7 @@
 	</table>
 	<a href="/sroup/board_write.do"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a>
 	<div class="row text-center">
-		<div class="col-lg-12">
+		<!-- <div class="col-lg-12">
 			<ul class="pagination">
 				<li><a href="#">&laquo;</a></li>
 				<li class="active"><a href="#">1</a></li>
@@ -43,8 +43,8 @@
 				<li><a href="#">4</a></li>
 				<li><a href="#">5</a></li>
 				<li><a href="#">&raquo;</a></li>
-			</ul>
-			<tags:paginate total="50" page="1" max="20" cssClass="pagination"/>
+			</ul> -->
+			<tags:paginate total="${b_tot }" page="1" max="20" cssClass="pagination"/>
 		</div>
 	</div>
 	

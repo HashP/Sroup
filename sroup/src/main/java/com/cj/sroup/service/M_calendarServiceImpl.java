@@ -26,5 +26,10 @@ public class M_calendarServiceImpl implements M_calendarService{
 		m_calendardao.addCalEvent(m_calendar);
 		
 	}
+
+	@Override
+	public void delCalEvent(int event_id) {
+		m_calendardao.delCalEvent(event_id);
+	}
 	
 }

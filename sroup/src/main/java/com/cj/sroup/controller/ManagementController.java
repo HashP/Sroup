@@ -60,7 +60,7 @@ public class ManagementController {
 		return mav;
 	} 
 	@RequestMapping("/m_border.do")
-	public ModelAndView border(@RequestParam("cPage") int cPage){
+	public ModelAndView border(@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
 		ModelAndView mav = new ModelAndView();
 		int boardallno = m_boardservice.getAllBoardNo();
 		int start = (cPage - 1) * 20 + 1;	
@@ -69,7 +69,10 @@ public class ManagementController {
 		num.put("start", start);
 		num.put("end", end);
 		List<M_boardVO> boardList =	m_boardservice.getBoard_list(num);
+		int b_tot = m_boardservice.getAllBoardNo();
 		mav.addObject("boardList",boardList);
+		mav.addObject("b_tot", b_tot);
+		
 		mav.setViewName("management/m_border");
 
 		return mav;
@@ -288,6 +291,14 @@ public class ManagementController {
 
 		m_calendarservice.addCalEvent(m_calendar);			
 
+	}
+	
+	// 캘린더 이벤트 삭제하는 곳
+	@RequestMapping("/calEventDel.do")
+	@ResponseBody
+	public void calEventDel(@RequestParam("calEvent_id") int event_id){				
+		m_calendarservice.delCalEvent(event_id);			
+		
 	}
 
 }

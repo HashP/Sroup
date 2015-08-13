@@ -11,13 +11,15 @@
    			EVENT_TITLE		as event_title,
    			EVENT_CONTENT	as event_content,
    			EVENT_WRITER 	as event_writer,
-   			EVENT_COLOR		as event_color
+   			EVENT_COLOR		as event_color,
+   			EVENT_ID		as event_id
 	from s_calendar            
    </select>
    
    <insert id="addCalEvent" parameterType="m_calendar">
   		insert into S_CALENDAR (STUDY_NO,
                         CAL_NO,
+                        EVENT_ID,
                         EVENT_START,
                         EVENT_END,
                         EVENT_WRITER,
@@ -26,6 +28,7 @@
                         EVENT_COLOR)
         values (20,
                 1,
+                CALEVENT_SEQ.NEXTVAL,
                 #{event_start},
                 #{event_end},
                 'cj',
@@ -34,5 +37,10 @@
                 #{event_color}
                 )
    </insert>  
+   
+   <delete id="delCalEvent" parameterType="int">
+   	delete from s_CALENDAR
+	where EVENT_ID = #{value}
+   </delete>
    
 </mapper>
