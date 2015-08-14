@@ -145,22 +145,23 @@ $(function() {
 		if(id == null) {
 			//console.log($(this).parent().siblings(".member-name").attr("id"));
 			id = $(this).parent().siblings(".member-name").attr("id").split("-")[1];
+			add_rollbook(id);
 		} else {
-			save_rollbook(id);
+			save_rollbook(id.split("-")[1]);
 		}
-		
 	});
 	
 	
 	// 저장 or 신규등록 하는 메소드 만들기 
-    
 	function save_rollbook(rb_id) {
-		
+		console.log("save : " + rb_id);
+		//ajax요청으로 rb_no로 찾아서 저장
 		
 	}
 	
 	function add_rollbook(user_id) {
-		
+		console.log("add : " + user_id);
+		// ajax요청으로 studyno, user_id, 날짜 등등 보내서 저장한 후 rb_no받아서 <tr> 에  id값으로 주기
 		
 	}
 	
