@@ -1,10 +1,111 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sroup</title>
+<script type="text/javascript">
+$(function() {
+	var a = "${studyInfo.start_date_time }";
+	var b = "${studyInfo.s_application_period_time }"
+	$("span:eq(6)").text(a[0]+a[1]);
+	$("span:eq(7)").text(a[3]+a[4]);
+	
+	$("span:eq(16)").text(b[0]+b[1]);
+	$("span:eq(17)").text(b[3]+b[4]);
+	
+	function makeMAP(lng,lat, show, apiKey, elementId) {
+		  var mapObj, marker, latlng, movePointOnClick;
+		  if (typeof elementId == 'undefined') elementId = 'mapzone';
+		
+		  function onClick(eventObj) {
+		    var mapObj = eventObj.currentTarget;
+		    latlng = eventObj.point;
+		    mapObj.setCenter(latlng,{useEffect:true});
+		    if (movePointOnClick) {
+		      setPoint();
+		    }
+		  }
+		
+		  function setLatLng(lat, lng, zoomLevel) {
+		    latlng.set(lng, lat);
+		    if (typeof zoomLevel == 'undefined') {
+		      mapObj.setCenter(latlng, {useEffect: true});
+		    } else {
+		      mapObj.setCenterAndLevel(latlng, zoomLevel, {useEffect: true});
+		    }
+		  }
+		
+		  function setPoint() {
+		    marker.setPoint(latlng);
+		    $('input[name="mapX"]').val(latlng.getX()).change();
+		    $('input[name="mapY"]').val(latlng.getY()).change();
+		  }
+		
+		  function mapLoaded() {
+		    latlng = new nhn.api.map.LatLng(lat,lng);
+		
+		    mapObj = new nhn.api.map.Map(elementId);
+		    mapObj.enableWheelZoom();
+		    mapObj.setCenterAndLevel(latlng,10);
+		
+		    // 줌컨트롤러
+		    var zoom = new nhn.api.map.ZoomControl({
+		      position: {left: 10, top: 45}
+		    });
+		    mapObj.addControl(zoom);
+		}
+	}
+	
+	$('.issueInfo .map>a').fancybox({
+		padding: 5
+		, width: 760
+		, height: 570
+		, hideOnContentClick: false
+		, hideOnOverlayClick: false
+		, centerOnScroll: true
+		, cyclic: true
+		, titleShow: false
+		, transitionIn: 'elastic'
+		, transitionOut: 'elastic'
+		, orig: '.issueInfo .map>a>img' // a 까지만 하면 높이가 낮게 검출됨
+		, autoScale: true
+		, autoDimensions: false
+		, onComplete: function (a, b, c, d, e) {
+			$('#mapzone').show().triggerHandler('show.ofm');
+		}
+		, onCleanup: function (a, b, c) {
+			$('#mapzone').hide().appendTo('div.mapWrapper');
+		}
+	});
+	$('.issueDetail .menu .map a').fancybox({
+		padding: 5
+		, width: 760
+		, height: 570
+		, hideOnContentClick: false
+		, hideOnOverlayClick: false
+		, centerOnScroll: true
+		, cyclic: true
+		, titleShow: false
+		, transitionIn: 'elastic'
+		, transitionOut: 'elastic'
+		, orig: '.issueDetail .menu .map a'
+		, autoScale: true
+		, autoDimensions: false
+		, onComplete: function () {
+			$('#mapzone').show();
+		}
+		, onCleanup: function (a, b, c) {
+			$('#mapzone').hide().appendTo('div.mapWrapper');
+		}
+	});
+});
+
+</script>
 </head>
 <body class="sroup">
 	<div class="skinCustom"
@@ -15,8 +116,7 @@
 		<div class="content guest loggedOnlyComment">
 			<div class="issueInfo roundBox">
 				<div class="title">
-					<h3 class="title" title="[8월7일 무료특강] 복잡한 생각을 스마트하게 정리하는 방법 (DMC5기)">[8월7일
-						무료특강] 복잡한 생각을 스마트하게 정리하는 방법 (DMC5기)</h3>
+					<h3 class="title" title="${studyInfo.study_name }">${studyInfo.study_name }</h3>
 				</div>
 				<div class="info free">
 					<div class="issue">
@@ -27,27 +127,25 @@
 						<ul class="event-summary event-mode-view " _idx="44943">
 							<li class="event-banner"><a class="event-link"
 								href="http://onoffmix.com/event/44943" target="_blank"> <img
-									src="http://onoffmix.com/images/event/44943/s"
-									alt="[8월7일 무료특강] 복잡한 생각을 스마트하게 정리하는 방법 (DMC5기)" />
+									src="/sroup/upload/2015/08/${studyInfo.s_image }"
+									alt="${studyInfo.study_name }" />
 									<div class="event-banner-border"></div> <span
 									class="event-flag-hot"></span>
 							</a></li>
-							<li class="event-schedule">모임기간 : <span
-								title=" 8월 7일 (금) 20시 00분 ~     22시 00분"> <span
-									class="number">8</span>월 <span class="number">7</span>일 (금) <span
-									class="number">20</span>시 <span class="number">00</span>분 ~ <span
-									class="number">22</span>시 <span class="number">00</span>분
+							<li class="event-schedule">모임일 : <span
+								title=""> <span
+									class="number">${studyInfo.write_day.month + 1 }</span>월 <span class="number">${studyInfo.start_date.date }</span>일 (<fmt:formatDate value="${studyInfo.start_date }" pattern="E"/>) <span
+									class="number"></span>시 <span class="number"></span>분
 							</span></li>
 							<li class="event-schedule">참여신청 <span class="colon">:</span>
-								<span title=" 7월 3일 (금) 15시 00분 ~  8월 7일 (금) 18시 30분"> <span
-									class="number">7</span>월 <span class="number">3</span>일 (금) <span
-									class="number">15</span>시 <span class="number">00</span>분 ~ <span
-									class="number">8</span>월 <span class="number">7</span>일 (금) <span
-									class="number">18</span>시 <span class="number">30</span>분
+								<span title=""> <span
+									class="number">${studyInfo.write_day.month + 1 }</span>월 <span class="number">${studyInfo.write_day.date }</span>일 (<fmt:formatDate value="${studyInfo.write_day }" pattern="E"/>) <span
+									class="number">00</span>시 <span class="number">00</span>분 ~ <span
+									class="number">${studyInfo.s_application_period.month + 1 }</span>월 <span class="number">${studyInfo.s_application_period.date }</span>일 (<fmt:formatDate value="${studyInfo.write_day }" pattern="E"/>) <span
+									class="number"></span>시 <span class="number"></span>분
 							</span></li>
 							<li class="event-location">모임장소 <span class="colon">:</span>
-								<span title="서울특별시 DMC산학협력센터 2층 대회의실">서울특별시 DMC산학협력센터 2층
-									대회의실</span></li>
+								<span title="">${studyInfo.s_area }</span></li>
 							<li class="event-graph"><div class="event-graph-bar">
 									<div class="event-capacity-standby" style="width: 100%">
 										<span>대기자현황</span>
@@ -59,14 +157,12 @@
 								</div>
 								<div class="event-graph-text event-mode-full">
 									* 총 모집인원 <span class="colon">:</span> <span
-										class="number event-capacity-total">10</span>명 <span
+										class="number event-capacity-total">${studyInfo.s_max_person }</span>명 <span
 										class="bar">|</span> 현재참여자 <span
-										class="number event-capacity-attend">0</span>명 <span
-										class="bar">|</span> 대기 <span
-										class="number event-capacity-standby">174</span>명
+										class="number event-capacity-attend">${studyInfo.s_max_person - available.available }</span>명 
 								</div>
 								<div class="event-graph-text event-mode-mini">
-									* 현재 <span class="number">10</span>명 참여 가능
+									* 현재 <span class="number">${available.available }</span>명 참여 가능
 								</div></li>
 						</ul>
 						<div class="action">
@@ -82,18 +178,17 @@
 						</p>
 					</div>
 					<div class="groups free">
-						본 모임은 <strong>무료</strong>모임입니다.
+						본 모임은 <strong>${studyInfo.c_subject }</strong>모임입니다.
 						<ul class="group">
-							<li><span class="dot2x2">▪</span><span class="group">기본그룹
-									: <span class="capacity count">10</span>명
+							<li><span class="dot2x2">▪</span><span class="group" style="margin: 10px; font-weight: bold; font-size: 14px;">회비
+									: <span class="capacity count">${studyInfo.s_dues }</span>원
 							</span><span class="closed">마감</span></li>
 						</ul>
 						<!-- .group end -->
 					</div>
 					<!-- .groups end -->
 					<div class="abstractMoreClose more">
-						<div class="abstract">세미나 참석 신청 후 SMS(010-8437-1440)로 아래의
-							양식을 보내주시고 참석번호를 받으시기 바랍니다. 이름, 성별, 나이, 직업, 사는곳, 핸드폰, 신청하는 이유</div>
+						<div class="abstract">${studyInfo.s_summary }</div>
 					</div>
 				</div>
 				<div class="mapBox">

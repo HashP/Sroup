@@ -24,7 +24,7 @@
 						<ul class="todayEvent  ">
 							<li class="eventThumbnail"><a
 								href="http://onoffmix.com/event/49320" target="_blank"><img
-									src="/sroup/resources/images/${l.s_image }"
+									src="/sroup/upload/2015/08/${l.s_image }"
 									alt="${l.study_name }" width="220" height="220"
 									class="thumb" /></a></li>
 							<li class="eventTitle"><a
@@ -35,7 +35,7 @@
 									<li class="eventPin"><a href="#pin"><span
 											class="heart">찜</span></a>
 									<li class="eventPersonnel"><a href="/rsvp/attend/49320"
-										class="eventButton" target="_blank"> <span><strong>${l.s_max_person }</strong>명
+										class="eventButton" target="_blank"> <span><strong>${l.available }</strong>명
 												참여가능</span> <span class="entered">참여하기</span>
 									</a></li>
 								</ul>
@@ -84,134 +84,28 @@
 							</dl>
 							<dl class="comSearch category">
 								<dt>카테고리</dt>
-
-								<dd>
-									<a href="#" title="번개/소모임"> <input type="checkbox"
-										name="category[]" value="15" /> 번개/소모임
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="교육/세미나"> <input type="checkbox"
-										name="category[]" value="16" /> 교육/세미나
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="컨퍼런스"> <input type="checkbox"
-										name="category[]" value="17" /> 컨퍼런스
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="동문회/친목행사"> <input type="checkbox"
-										name="category[]" value="18" /> 동문회/친목행사
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="문화행사"> <input type="checkbox"
-										name="category[]" value="19" /> 문화행사
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="이벤트/파티"> <input type="checkbox"
-										name="category[]" value="20" /> 이벤트/파티
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="공동구매"> <input type="checkbox"
-										name="category[]" value="21" /> 공동구매
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="취미활동"> <input type="checkbox"
-										name="category[]" value="22" /> 취미활동
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="후원금 모금"> <input type="checkbox"
-										name="category[]" value="23" /> 후원금 모금
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="개인경조사"> <input type="checkbox"
-										name="category[]" value="24" /> 개인경조사
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="기타"> <input type="checkbox"
-										name="category[]" value="25" /> 기타
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="패션"> <input type="checkbox"
-										name="category[]" value="26" /> 패션
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="뷰티"> <input type="checkbox"
-										name="category[]" value="27" /> 뷰티
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="엔터테인먼트"> <input type="checkbox"
-										name="category[]" value="28" /> 엔터테인먼트
-									</a>
-								</dd>
-								<dd class="btnMore">
-									<a href="#">더보기</a>
-								</dd>
+								<c:forEach var="c" items="${categories }">
+									<dd>
+										<a href="#" title="${c.subject }"> <input type="checkbox"
+											name="category[]" value="${c.sub_value }" /> ${c.subject }
+										</a>
+									</dd>
+								</c:forEach>
+									<dd>
+										<a href="#" title="" > <input type="checkbox"
+											name="category[]" value="" />
+										</a>
+									</dd>
 							</dl>
 							<dl class="comSearch category location">
 								<dt>지역</dt>
-								<dd>
-									<a href="#" title="서울"> <input type="checkbox"
-										name="region[]" value="02" /> 서울
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="부산/울산/경남"> <input type="checkbox"
-										name="region[]" value="051,052,054" /> 부산/울산/경남
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="인천/경기"> <input type="checkbox"
-										name="region[]" value="032,031" /> 인천/경기
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="대전/충청"> <input type="checkbox"
-										name="region[]" value="042,043,041" /> 대전/충청
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="광주/전라"> <input type="checkbox"
-										name="region[]" value="062,063,061" /> 광주/전라
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="강원"> <input type="checkbox"
-										name="region[]" value="033" /> 강원
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="대구/경북"> <input type="checkbox"
-										name="region[]" value="053,055" /> 대구/경북
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="제주"> <input type="checkbox"
-										name="region[]" value="064" /> 제주
-									</a>
-								</dd>
-								<dd class="hide">
-									<a href="#" title="기타지역"> <input type="checkbox"
-										name="region[]" value="00" /> 기타지역
-									</a>
-								</dd>
-								<dd class="blank hide">
-									<a href="#"> </a>
-								</dd>
-								<dd class="btnMore">
-									<a href="#">더보기</a>
-								</dd>
+								<c:forEach var="a" items="${area }">
+									<dd>
+										<a href="#" title="${a.area }"> <input type="checkbox"
+											name="region[]" value="${a.area_value }" /> ${a.area }
+										</a>
+									</dd>
+								</c:forEach>
 							</dl>
 							<dl class="comSearch category week">
 								<dt>요일/시간</dt>
@@ -284,9 +178,6 @@
 									</p>
 								</dd>
 							</dl>
-							<p class="dataReset">
-								<input type="reset" class="btnReset" value="초기화" />
-							</p>
 						</fieldset>
 					</form>
 					<!-- name=searchBoxForm -->

@@ -427,6 +427,8 @@
 				
 				$("#lat").val(SearchPoint.getLat());
 				$("#lng").val(SearchPoint.getLng());
+				console.log(lng+","+lat);
+				
 			})
 			
 		});
@@ -451,7 +453,6 @@
 		var summary = $("#abstract").val();
 		var imgStr = $('.banner>.innerBanner img').attr('src');
 		var s_image = imgStr.substring(22);
-		var c_area; 
 		
 		var textEditor = oEditors.getById["content"].getIR();
 		
@@ -479,49 +480,7 @@
 		var secretCode = $("#secretCode").val();
 		var pAddr = $("#inputAddr").val();
 		
-		$.ajax({
-			url:"map2.do",
-			data: {
-				lat : lat,
-				lng : lng,
-			},
-			dataType: "json",
-			success : function(data) {
-				c_area = data.result.items[0].addrdetail.sido;
-			}
-		})
-		
-		
-		$.ajax({
-			url:"studyAdd.do",
-			data: {
-				//user_id : user_id,
-				category : category,
-				title : title,
-				summary : summary,
-				s_image : s_image,
-				c_area : c_area,
-				textEditor : textEditor,
-				checkRule : checkRule,
-				maxPerson : maxPerson,
-				dues : dues,
-				startDate : startDate,
-				startDateTime : startDateTime,
-				endDate : endDate,
-				endDateTime : endDateTime,
-				appPeriodDate : appPeriodDate,
-				appPeriodDateTime : appPeriodDateTime,
-				location : location,
-				lat : lat,
-				lng : lng,
-				pAddr : pAddr
-			},
-			dataType: "text",
-			success : function(data) {
-				
-			}
-		});
-		
+		console.log("map2.do before........................");
 		
 		if(category.trim() === "") {
 			alert("카테고리를 선택해 주세요.");
@@ -585,6 +544,53 @@
 			return false;
 		}
 		
+		$.ajax({
+			url:"map2.do",
+			async : false,
+			data: {
+				lat : lat,
+				lng : lng,
+			},
+			dataType: "json",
+			success : function(data) {
+				console.log("map2.do success........................");
+				var c_area = data.result.items[0].addrdetail.sido;
+				console.log("c_area: "+ c_area);
+				
+				console.log("studyAdd.do before........................");
+				$.ajax({
+					url:"studyAdd.do",
+					async : false,
+					data: {
+						//user_id : user_id,
+						category : category,
+						title : title,
+						summary : summary,
+						s_image : s_image,
+						c_area : c_area,
+						textEditor : textEditor,
+						checkRule : checkRule,
+						maxPerson : maxPerson,
+						dues : dues,
+						startDate : startDate,
+						startDateTime : startDateTime,
+						endDate : endDate,
+						endDateTime : endDateTime,
+						appPeriodDate : appPeriodDate,
+						appPeriodDateTime : appPeriodDateTime,
+						location : location,
+						lat : lat,
+						lng : lng,
+						pAddr : pAddr
+					},
+					dataType: "text",
+					success : function(data) {
+						
+					}
+				});
+			}
+		})
+		
 		
 		
 		return true;
@@ -597,7 +603,7 @@
 </head>
 <body>
 	<div class="content">
-		<form action="/sroup/list.do" method="post" encType="multipart/form-data"
+		<form action="/sroup/list2.do"
 			class="innerBorder " name="writeForm" onsubmit="return check();" >
 			<input type="hidden" name="proc" value="createBaseEvent" /> <input
 				type="hidden" name="eventIdx" value="0" /> <input type="hidden"
@@ -612,7 +618,7 @@
 				style="display: block;">
 				<div class="firstCore">
 					<div class="title">
-						<h3 class="title">step.1 모임 기본 정보입력</h3>
+						<h3 class="title2">step.1 모임 기본 정보입력</h3>
 
 						<div class="menu">
 							<div class="step">
@@ -782,7 +788,7 @@
 				style="display: none;">
 				<div class="firstCore">
 					<div class="title">
-						<h3 class="title">step.2 일정 / 장소 정보 입력</h3>
+						<h3 class="title2">step.2 일정 / 장소 정보 입력</h3>
 
 						<div class="menu">
 							<div class="step">
@@ -1192,7 +1198,7 @@
 				style="display: none;">
 				<div class="firstCore">
 					<div class="title">
-						<h3 class="title">step.3 부가 정보 입력</h3>
+						<h3 class="title2">step.3 부가 정보 입력</h3>
 
 						<div class="menu">
 							<div class="step">

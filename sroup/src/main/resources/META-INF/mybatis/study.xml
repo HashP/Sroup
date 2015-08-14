@@ -9,9 +9,13 @@
 			study_no,
   			study_name, 
   			s_image, 
-  			s_max_person
-		from
-  			study
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
    </select>
    <insert id="addCheck" parameterType="CheckVO">
    		insert into phone_check (user_id, check_code)
@@ -49,6 +53,12 @@
    		from
    			c_subject
    </select>
+   <select id="getArea" resultType="Category">
+   		select 
+   			area, area_value
+   		from
+   			c_area
+   </select>
    <insert id="addStudy" parameterType="Study">
    		insert into study(
    						study_no, study_name, user_id, c_area, c_subject, p_address, end_date, start_date,
@@ -56,12 +66,12 @@
    						write_day, s_hit, map_lat, map_lng, start_date_time, end_date_time, s_application_period_time
    						)
    					values(
-   						#{study_no}, #{study_name}, 'admin123', #{c_area}, #{c_subject}, #{p_address}, #{end_date}, #{start_date},
-   						'y', #{s_summary}, #{s_detail}, #{s_image}, #{s_dues}, #{s_max_person}, #{s_area}, #{s_application_period},
+   						#{study_no}, #{study_name}, #{user_id}, #{c_area}, #{c_subject}, #{p_address}, #{end_date}, #{start_date},
+   						#{join_able}, #{s_summary}, #{s_detail}, #{s_image}, #{s_dues}, #{s_max_person}, #{s_area}, #{s_application_period},
    						#{s_admit_method}, sysdate, 0, #{map_lat}, #{map_lng}, #{start_date_time}, #{end_date_time}, #{s_application_period_time}
    					)
    </insert>
-   <select id="getSubject" parameterType="string" resultType="string">
+   <select id="getSubjectByNo" parameterType="string" resultType="string">
    		select
    			subject
    		from
@@ -74,5 +84,36 @@
    			study_seq.nextval
    		from
    			dual
+   </select>
+	<insert id="addJoin" parameterType="JoinVO">
+   		insert into join(
+   							study_no, applicant, reg_date, s_admit
+   						)
+   					values(
+   						#{study.study_no}, #{applicant.id}, sysdate, 'WAITING'
+   					)
+   		
+   </insert>
+   <insert id="addStudyManagement" parameterType="StudyManagementVO">
+   		insert into study_management(study_no, user_id, user_grade)
+   							values (#{study.study_no}, #{user.id}, #{grade})
+   </insert>
+   <select id="getAvailable" resultType="Study" parameterType="integer">
+   		select
+   			study_no,  s_max_person - (
+   													select count(*)
+   													from study_management
+   													where study_no = study.STUDY_NO
+   													) as available
+   		from study
+   		where study_no = #{study_no}
+   </select>
+   <select id="getStudyInfoByNo" parameterType="integer" resultType="Study">
+   		select
+   			*
+   		from
+   			study
+   		where
+   			study_no = #{study_no}
    </select>
 </mapper>

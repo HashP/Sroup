@@ -31,8 +31,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cj.sroup.service.StudyService;
 import com.cj.sroup.vo.CategoryVO;
 import com.cj.sroup.vo.CheckVO;
+import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.ListVO;
+import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.StudyVO;
+import com.cj.sroup.vo.UserInfoVO;
 
 @Controller
 public class ListController {
@@ -70,24 +73,53 @@ public class ListController {
 		Date endDate = transFormat.parse(req.getParameter("endDate"));
 		Date startDate = transFormat.parse(req.getParameter("startDate"));
 		Date periodDate = transFormat.parse(req.getParameter("appPeriodDate"));
-
+		String checkRule = req.getParameter("checkRule");
+		
 		String lat = req.getParameter("lat");
 		String lng = req.getParameter("lng");
+		String c_area = req.getParameter("c_area");
+		String maxPerson = req.getParameter("maxPerson");
+		System.out.println("c_area: " + c_area);
+		
+		if(c_area.length() == 4) {
+			String a = c_area.substring(0, 1);
+			String b = c_area.substring(2, 3);
+			c_area = a+b;
+		} else {
+			c_area = c_area.substring(0, 2);
+		}
+		String user_id = "admin123";
 
 		StudyVO study = new StudyVO();
-
-		String subject = service.getSubject(req.getParameter("category"));
+		
+		String subject = service.getSubjectByNo(req.getParameter("category"));
+		
 		int study_no = service.getStudyNo();
 		
+		StudyManagementVO studyManagement = new StudyManagementVO();
+		UserInfoVO user = new UserInfoVO();
+		user.setId(user_id);
+		studyManagement.setStudy(study);
+		studyManagement.setUser(user);
+		studyManagement.setGrade("ADMIN");
+		
+		String join_able = "y";
+		if((Integer.parseInt(maxPerson)-1) < 1) {
+			join_able = "n";
+		}
+		
+		
+		study.setJoin_able(join_able);
+		study.setUser_id(user_id);
 		study.setStudy_no(study_no);
 		study.setC_subject(subject);
 		study.setStudy_name(req.getParameter("title"));
 		study.setS_summary(req.getParameter("summary"));
-		study.setC_area("서울");
+		study.setC_area(c_area);
 		study.setS_image(req.getParameter("s_image"));
 		study.setS_detail(req.getParameter("textEditor"));
-		study.setS_admit_method(req.getParameter("checkRule"));
-		study.setS_max_person(Integer.parseInt(req.getParameter("maxPerson")));
+		study.setS_admit_method(checkRule);
+		study.setS_max_person(Integer.parseInt(maxPerson));
 		study.setS_dues(req.getParameter("dues"));
 		study.setStart_date(startDate);
 		study.setStart_date_time(req.getParameter("startDateTime"));
@@ -101,6 +133,7 @@ public class ListController {
 		study.setP_address(req.getParameter("pAddr"));
 
 		service.addStudy(study);
+		service.addStudyManagement(studyManagement);
 
 		return "redirect:list2.do";
 	}
@@ -115,14 +148,27 @@ public class ListController {
 
 		ModelAndView mav = new ModelAndView();
 		List<ListVO> lists = service.getAllStudies();
+		List<CategoryVO> categories = service.getCategories();
+		List<CategoryVO> area = service.getArea();
+		
 		mav.addObject("lists", lists);
+		mav.addObject("categories", categories);
+		mav.addObject("area", area);
 		mav.setViewName("list/list");
 
 		return mav;
 	}
 	@RequestMapping("/detail.do")
-	public String detail() {
-		return "list/detail";
+	public ModelAndView detail() {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("list/detail");
+		StudyVO studyInfo = service.getStudyInfoByNo(43);
+		StudyVO available = service.getAvailable(43);
+		mav.addObject("studyInfo", studyInfo);
+		mav.addObject("available", available);
+		
+		return mav;
 	}
 	@RequestMapping("/add.do")
 	public ModelAndView add() {

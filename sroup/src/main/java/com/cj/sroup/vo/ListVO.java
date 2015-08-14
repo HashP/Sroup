@@ -6,6 +6,7 @@ public class ListVO {
 	String study_name;
 	String s_image;
 	int s_max_person;
+	int available;
 	
 	public int getStudy_no() {
 		return study_no;
@@ -31,8 +32,10 @@ public class ListVO {
 	public void setS_max_person(int s_max_person) {
 		this.s_max_person = s_max_person;
 	}
-	
-	
-	
-	
+	public int getAvailable() {
+		return available;
+	}
+	public void setAvailable(int available) {
+		this.available = available;
+	}
 }

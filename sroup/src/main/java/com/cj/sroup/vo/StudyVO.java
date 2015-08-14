@@ -27,6 +27,7 @@ public class StudyVO {
 	int s_hit;//
 	String map_lat;
 	String map_lng;
+	int available;
 	
 	public int getStudy_no() {
 		return study_no;
@@ -171,6 +172,12 @@ public class StudyVO {
 	}
 	public void setS_application_period_time(String s_application_period_time) {
 		this.s_application_period_time = s_application_period_time;
+	}
+	public int getAvailable() {
+		return available;
+	}
+	public void setAvailable(int available) {
+		this.available = available;
 	}
 	
 }

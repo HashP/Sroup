@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sun.print.resources.serviceui;
+
 import com.cj.sroup.dao.listDao;
 import com.cj.sroup.vo.CategoryVO;
 import com.cj.sroup.vo.CheckVO;
+import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.ListVO;
+import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.StudyVO;
 
 @Service
@@ -52,7 +56,7 @@ public class StudyImpl implements StudyService {
 		return categories;
 	}
 	@Override
-	public String getSubject(String sub_value) {
+	public String getSubjectByNo(String sub_value) {
 		String subject = listdao.getSubject(sub_value);
 		return subject;
 	}
@@ -61,5 +65,33 @@ public class StudyImpl implements StudyService {
 	public int getStudyNo() {
 		int studyNo = listdao.getStudyNo();
 		return studyNo;
+	}
+	
+	@Override
+	public void addJoin(JoinVO join) {
+		listdao.addJoin(join);
+		
+	}
+	
+	@Override
+	public void addStudyManagement(StudyManagementVO studyManagement) {
+		listdao.addStudyManagement(studyManagement);
+		
+	}
+	@Override
+	public List<CategoryVO> getArea() {
+		List<CategoryVO> area = listdao.getArea();
+		return area;
+	}
+	
+	@Override
+	public StudyVO getStudyInfoByNo(int study_no) {
+		StudyVO studyInfo = listdao.getStudyInfoByNo(study_no);
+		return studyInfo;
+	}
+	@Override
+	public StudyVO getAvailable(int study_no) {
+		StudyVO available = listdao.getAvailable(study_no);
+		return available;
 	}
 }
