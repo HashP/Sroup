@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="/sroup/resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <style type="text/css">
 	body {
-		background-color: #EBF5FF;
+		background-color: #F5F5F5;
 		font-size: 12px;
 	}
 	
 	.content {
 		padding: 20px;
-		width: 980px;
+		width: 950px;
 		margin: 40px auto 0 auto;
 	}
 	
@@ -91,10 +91,13 @@
 //var array = [moment("2015-08-14"), moment("2015-08-15"),moment("2015-08-26")];
 
 $(function() {
-	
+		var studyNo = ${studyNo};
+		var scheduleCount = 0;
 //****************************************************************
 //					출석부 수정작업 method;
 //****************************************************************
+	
+	//수정모드 가기
 	$(".rollbook td:nth-child(2)").on("dblclick", function() {
 		if($(this).find(".input-roll").css("display") != "none") {
 			return;
@@ -118,14 +121,17 @@ $(function() {
 		$(this).find("input[type=text]").val(value);
 	});
 	
+	//수정완료
 	$(".rollbook td:nth-child(2) select").on("change", function() {
 		$(this).parent().find(".input-roll").hide();
 		$(this).parent().find(".view-roll").show();
 		
 		var value = $(this).parent().find("select option:selected").val();
-		console.log(value);
-		$(this).siblings("img").attr("src", "/sroup/resources/images/test/" + value + ".png");
+		//console.log(value);
+		$(this).siblings("img").attr("src", "/sroup/resources/images/rollbook/" + value + ".png");
 		$(this).siblings("img").attr("alt", value);
+			
+	
 	});
 	
 	$(".rollbook td:nth-child(3) button").on("click", function() {
@@ -134,19 +140,73 @@ $(function() {
 		
 		var value = $(this).siblings("input").val();
 		$(this).siblings("p").text(value);
+		
+		var id = $(this).parent().parent().attr("id");
+		if(id == null) {
+			//console.log($(this).parent().siblings(".member-name").attr("id"));
+			id = $(this).parent().siblings(".member-name").attr("id").split("-")[1];
+		} else {
+			save_rollbook(id);
+		}
+		
 	});
-
+	
+	
+	// 저장 or 신규등록 하는 메소드 만들기 
+    
+	function save_rollbook(rb_id) {
+		
+		
+	}
+	
+	function add_rollbook(user_id) {
+		
+		
+	}
 	
 //*********************************************************************
 //			datepicker 설정과 날짜변경 event 등
 //*********************************************************************
 	function fillRollbook(date) {
 	//ajax요청으로 해당 날짜의 출석부의 내용을 채움 
-		
+		//console.log(date);
+		$.getJSON("getRollbookByDate.do"
+				,{studyNo:studyNo,date:date}
+				, function(result) {
+			//console.log(result.rollbook)
+					
+			$(".rollbook tbody tr").each(function(index, element) {
+				var id = $(element).children(".member-name").attr("id");
+				id = id.split("-")[1];
+				
+				var attend = result.rollbook[id];
+				//console.log(attend);
+				
+				if( attend == null ) {
+					$(element).find(".member-attend img").attr("src", "/sroup/resources/images/rollbook/noinfo.png");
+					$(element).find(".member-attend img").attr("alt", "");
+					$(element).find(".member-note p").text("")
+					
+				} else {
+					$(element).attr("id", "rollbook-" + attend.no);
+					$(element).find(".member-attend img").attr("src", "/sroup/resources/images/rollbook/" + attend["attend"] + ".png");
+					$(element).find(".member-attend img").attr("alt", attend["attend"]);
+					if(attend.note == null) {
+						attend.note = "";
+					}
+					$(element).find(".member-note p").text(attend.note)
+				}
+				
+//				$(element).children(".member-rate").text(rate + "%");
+			})
+			
+		})
 	
 	}
 
-	$.getJSON("getSchedules.do", function(result) {
+	$.getJSON("getSchedules.do?studyNo="+studyNo, function(result) {
+		scheduleCount = result.scheduleList.length;
+		//console.log("schedulecount : " + scheduleCount);
 		
 		$("#datepicker").datetimepicker({
 			locale: 'ko',
@@ -155,16 +215,35 @@ $(function() {
 			enabledDates: result.scheduleList,
 			defaultDate: result.scheduleList[0]
 		});
-		fillRollbook(array[0]);	
 		
+		if(scheduleCount == 0) {
+			return;
+		}
+		//출석횟수를 가져와서 출석률에 채움
+		$.getJSON("getAttendCounts.do?studyNo="+studyNo, function(result) {
+			//console.log(result.attendCounts);
+			
+			$(".rollbook tbody tr").each(function(index, element) {
+				var id = $(element).children(".member-name").attr("id");
+				id = id.split("-")[1];
+
+				var count = result.attendCounts[id]["VALUE"] * 1.0;
+				var rate = parseInt((count / scheduleCount) * 100);
+				//console.log(id + ":" + rate);
+				
+				$(element).children(".member-rate").text(rate + "%");
+			})
+			
+		})
+		//fillRollbook(result.scheduleList[0]);	
 	});
 	
-
 	$("#datepicker").on("dp.change", function(e) {
-		//console.log(e.date);
 		$("#rolldate").text(e.date.format('YYYY년 MM월 DD일'));
-		
-		fillRollbook(e.date)		
+		//console.log(e.date.format('YYYY-MM-DD'));
+		fillRollbook(e.date.format('YYYY-MM-DD'));
+		$(this).parent().find(".input-roll").hide();
+		$(this).parent().find(".view-roll").show();
 	});
 	
 });
@@ -177,7 +256,6 @@ $(function() {
 		<h1><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Study 출석부</h1>
 		
 		<div class="rollbook-box">
-			
 			<h3 id="rolldate"><fmt:formatDate value="${now }" pattern="yyyy년 MM월 dd일"/></h3>
 			<div>
 				<div id="datepicker"></div>
@@ -197,7 +275,27 @@ $(function() {
 						</tr>
 					</thead>		
 					<tbody>
-						<tr>
+						<c:forEach var="member" items="${memberList }">
+							<tr>
+								<td id="member-${member.id }" class="member-name">
+									<p>${member.name }</p>
+								</td>
+								<td class="member-attend">
+									<img class="view-roll" src="/sroup/resources/images/rollbook/noinfo.png" alt="noinfo"/>
+									<select class="input-roll">
+										<option value="attend">출석</option>
+										<option value="absence">결석</option>
+									</select>
+								</td>
+								<td class="member-note">
+									<p class="view-roll"></p>
+									<input type="text" class="input-roll" />
+									<button class="btn btn-default input-roll">완료</button>
+								</td>
+								<td class="member-rate"></td>
+							</tr>
+						</c:forEach>
+						<!-- <tr>
 							<td>
 								<p>최창진</p>
 							</td>
@@ -246,8 +344,7 @@ $(function() {
 								<button class="btn btn-default input-roll">완료</button>
 							</td>
 							<td>100 %</td>
-						</tr>
-						
+						</tr> -->
 					</tbody>
 				</table>
 			</div>

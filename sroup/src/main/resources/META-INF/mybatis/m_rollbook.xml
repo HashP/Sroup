@@ -11,9 +11,21 @@
 		FROM 
 			S_CALENDAR
 		WHERE 
-			STUDY_NO = 3
+			STUDY_NO = #{value}
 			and
 			EVENT_START &lt; sysdate
+		ORDER BY EVENT_START desc
+	</select>
+	
+	<select id="getMembersByStudyno" parameterType="int" resultType="UserInfo">
+		SELECT 
+			USER_ID as id, 
+			(select user_name 
+			 from user_info 
+			 where user_id = STUDY_MANAGEMENT.user_id) as name
+		FROM STUDY_MANAGEMENT
+		WHERE STUDY_NO = #{value}
+		order by name asc
 	</select>
 	
 </mapper>
