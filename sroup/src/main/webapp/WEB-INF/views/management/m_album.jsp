@@ -111,9 +111,13 @@ display: table;
 			var title = $("#myModal #detail_title").text();
 			var content = $("#myModal #detail_content").text();
 			var src = $("#myModal img").attr("src");
+			var srcspl = src.split('/');
+			var g_no = $("#myModal").attr('name');
+			var photoname = srcspl[src.split('/').length-1]
 			$("input[name='re_title']").val(title);
 			$("textarea[name='re_contents']").val(content);
 			$("#blah2").attr("src",src);
+			$("#form2").attr("action","/sroup/album_rewrite.do?photoname="+photoname+"&g_no="+g_no);
 			
 		})
 		
@@ -127,7 +131,7 @@ display: table;
 			
 			$("#detail_title").text(g_title);
 			$("#detail_content").text(g_content);
-			$("#img-detail").attr('src', img);
+			$("#img-detail").attr('src', img);			
 			$("#myModal").attr('name', g_no);
 			
 			// 현재 사진의 앞사진과 뒷사진 번호 가지고옴
@@ -558,7 +562,7 @@ display: table;
 
 					<div class="col-md-4">
 
-						<form id="form2" action="/sroup/m_album.do" method="post"
+						<form id="form2" action="/sroup/album_rewrite.do" method="post"
 							enctype="multipart/form-data">
 
 							<input type='file' onclick="readURL(this)"
@@ -571,9 +575,9 @@ display: table;
 										name="re_title">
 								</div>
 							</div>
-
 							<textarea rows="15" class="form-control" placeholder="내용"
 								name="re_contents"></textarea>
+							
 							<button style="float: right;">수정</button>
 						</form>
 

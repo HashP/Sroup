@@ -32,7 +32,8 @@
 		</c:forEach>			
 		</tbody>
 	</table>
-	<a href="/sroup/board_write.do"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a>
+	<div>
+	<a href="/sroup/board_write.do"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a></div>
 	<div class="row text-center">
 		<!-- <div class="col-lg-12">
 			<ul class="pagination">
@@ -65,8 +66,7 @@
 			<!-- /btn-group -->
 			<input type="text" class="form-control" placeholder="Search for...">
 			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" style="padding-bottom: 9px; padding-top: 9px;"><i class="glyphicon glyphicon-search" style="height: 100%"></i></button>
-				
+				<button class="btn btn-default" type="button" style="padding-bottom: 9px; padding-top: 9px;"><i class="glyphicon glyphicon-search" style="height: 100%"></i></button>				
 			</span>
 		</div>
 		<!-- /input-group -->

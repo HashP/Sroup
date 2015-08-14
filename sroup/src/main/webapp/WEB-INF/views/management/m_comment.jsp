@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
+<link rel=stylesheet href="resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
+	
 <style>
 	textarea{
 		resize: none
@@ -27,11 +31,18 @@
 		
 		color: white;
 	}
-	
+	.calElement{
+		width:100px;
+	}
 </style>
-<link href="resources/jquery-ui/jquery-ui.css" rel="stylesheet">
-<script src="resources/jquery-ui/external/jquery/jquery.js"></script>
-<script src="resources/jquery-ui/jquery-ui.js"></script>
+<link rel=stylesheet href="resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+ <!-- <script type="text/javascript" src="resources/jquery-ui/external/jquery/jquery.js"></script>-->
+<script type="text/javascript" src="resources/calendarPicker/jquery.calendarPicker.js"></script>
+<script type="text/javascript" src="resources/calendarPicker/test/jquery.mousewheel.js"></script>
 <script type="text/javascript">
 	function commentCheck(){		
 		if($("textarea[name='content']").val().trim() == ""){
@@ -48,19 +59,19 @@
 			$(".glyphicon").hide();
 		})
 		
-		$(".c_remove").on("click",function(){
+		$(".c_remove").click(function(){
 			var id = $(this).attr("id");
 			 $.ajax({              
 	             url: "comment_del.do",
 	             data :  {"c_no":id},                         
 	             success: function (data) {	            	 
-	           	  	$("#comment_content_"+id).hide("blind","slow");
+	           	  	$("#comment_content_"+id).hide(3000);
 	           	 	$("#comment_content_"+id).remove();
 	             }                  	     
 	   	  });
 			//location.replace('boardreply_del.do?re_no='+re_no+'&b_no='+b_no);	
 		})
-		$(".c_rewrite").on("click",function(){
+		$(".c_rewrite").click(function(){
 			$(".comment_content").children().show();
 			$(".recomment").remove();
 			var id = $(this).attr("id");
@@ -107,11 +118,10 @@
 	function rewirte_cencle(id){	
 		$("#comment_content_"+id).css({"margin-left": "-40px"})
 		$(".recomment").remove();
-		$("#comment_content_"+id).find(".c_content_p").val(data.c_content);
-		$("#comment_content_"+id).find(".c_write_day").val(data.c_write_day);
-		$("#comment_content_"+id).find(".c_writer").val(data.c_writer);
+		
 		$("#comment_content_"+id).children().show();
 	}
+	
 	
 </script>
 <!-- content 부분 -->
@@ -131,6 +141,10 @@
 			</form>
 		</div>
 		<!--/well-->
+		<!-- 달력 -->
+		<div id="dsel2" style="width:1105px"></div>
+		<br>
+		<!-- /달력 -->
 		<!-- 내용 입력한거 보는 곳 -->
 		<div class="speak_contents" style="padding-top: 20px; width:1105px">
 		<c:forEach var="comment" items="${commentList}">
@@ -152,8 +166,8 @@
 					class="img-circle"></a>						
 				
 			</div>
-		</div>
 	<HR>
+		</div>
 	</c:forEach>
 	
 	</div>
@@ -172,3 +186,17 @@
 			</div>
 		</div>
 	</div>
+<script>
+var calendarPicker = $("#dsel2").calendarPicker({
+    monthNames:["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    dayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    useWheel:true,
+    //callbackDelay:500,
+    years:1,
+    months:5,
+    days:10,
+    showDayArrows:false,
+    callback:function(cal) {
+      
+    }});
+</script>

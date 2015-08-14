@@ -104,11 +104,34 @@ public class ManagementController {
 		mav.setViewName("management/m_album");
 		return mav;
 	}
-	@RequestMapping(value="/album_del.do" )
-	
+	@RequestMapping(value="/album_del.do" )	
 	public String delalbum(@RequestParam ("g_no") int g_no,
 				@RequestParam (value="cPage", defaultValue= "1")int cPage){
 		m_galleryservice.delGallery(g_no);
+		
+		return "redirect:m_album.do?cPage"+cPage;
+	}
+	@RequestMapping(value="/album_rewrite.do" )	
+	public String re_album(@RequestParam (value="cPage", defaultValue= "1")int cPage,
+						@RequestParam ("g_no") int g_no,
+						@RequestParam("re_title")String title,
+						@RequestParam("re_contents")String contents,
+						@RequestParam(value="albumphoto2", required = false)MultipartFile photofile,
+						@RequestParam(value="photoname", required = false)String now_photoname
+						){
+		String photoname;		
+		photoname = m_galleryservice.m_albumImageUpload(photofile);
+		if(photoname==null){			
+			photoname=now_photoname;
+		}
+		M_galleryVO m_gallery = new M_galleryVO();		
+		System.out.println(photoname);
+		m_gallery.setG_no(g_no);
+		m_gallery.setG_title(title);
+		m_gallery.setG_content(contents);
+		m_gallery.setImageName(photoname);		
+		
+		m_galleryservice.reGallery(m_gallery);
 		
 		return "redirect:m_album.do?cPage"+cPage;
 	}
@@ -322,4 +345,8 @@ public class ManagementController {
 		
 	}
 
+	@RequestMapping("/importcalendar.do")
+	public String importcalendar(){
+		return "management/m_importcalendar";
+	}
 }
