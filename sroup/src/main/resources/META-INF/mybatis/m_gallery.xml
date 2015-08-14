@@ -50,7 +50,7 @@
            		G_LIKE		,
             	G_HIT
          from	s_gallery
-         order by G_NO asc	
+         order by G_NO desc	
 		) 
 	where rn&lt;=#{end} and rn>=#{start}
 	</select>
@@ -67,7 +67,7 @@
                       G_HIT	)
    			values (3,
                     '갤러리',
-                    '10',
+                    GALLERY_SEQ.NEXTVAL,
                     '창진',                    
                     sysdate,
                     #{g_title},
@@ -77,6 +77,19 @@
                     0            
             )
    </insert>
+   
+   <delete id="delGallery" parameterType="int">   		
+   		delete from s_gallery where G_NO = #{value}
+   </delete>
+   
+   <update id="reGallery" parameterType="m_gallery">
+ 		UPDATE s_gallery
+		SET G_CONTENT= #{g_content},
+			G_TITLE=#{g_title},
+			G_IMGNAME = #{imageName},
+			G_WRITE_DAY=sysdate
+		WHERE G_NO = #{g_no}
+	 </update>
    
    <select id="getPrevNext" parameterType="int" resultType="hashmap">
    select (select max(G_NO) from s_gallery

@@ -11,5 +11,7 @@ public interface M_galleryDao {
 	int getAllGalleryNo();
 	List<M_galleryVO> getGallery_list(HashMap<String, Integer> num);
 	M_galleryVO detail_Gallery(int g_no);
+	void delGallery(int g_no);
+	void reGallery(M_galleryVO m_board);
 	HashMap<String, Integer> getPrevNext(int g_no);
 }

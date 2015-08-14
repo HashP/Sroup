@@ -45,7 +45,7 @@ public class M_galleryServiceImpl implements M_galleryService{
 					byte[] filedate;
 					try {
 						filedate = photofile.getBytes();
-						File file = new File("C:/Users/jhta/git/Sroup2/sroup/src/main/webapp/resources/upload/album_photo",filename);
+						File file = new File("C:/Users/jhta/git/Sroup/sroup/src/main/webapp/resources/upload/album_photo",filename);
 						FileCopyUtils.copy(filedate, file);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -76,6 +76,19 @@ public class M_galleryServiceImpl implements M_galleryService{
 	@Override
 	public List<M_galleryVO> getGallery_list(HashMap<String, Integer> num) {		
 		return m_gallerydao.getGallery_list(num);
+	}
+
+
+	@Override
+	public void delGallery(int g_no) {
+		m_gallerydao.delGallery(g_no);
+		
+	}
+
+
+	@Override
+	public void reGallery(M_galleryVO m_board) {
+		m_gallerydao.reGallery(m_board);		
 	}
 
 

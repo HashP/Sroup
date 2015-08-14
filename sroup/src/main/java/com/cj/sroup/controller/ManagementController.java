@@ -104,6 +104,15 @@ public class ManagementController {
 		mav.setViewName("management/m_album");
 		return mav;
 	}
+	@RequestMapping(value="/album_del.do" )
+	
+	public String delalbum(@RequestParam ("g_no") int g_no,
+				@RequestParam (value="cPage", defaultValue= "1")int cPage){
+		m_galleryservice.delGallery(g_no);
+		
+		return "redirect:m_album.do?cPage"+cPage;
+	}
+	
 	@RequestMapping("/m_rollbook.do")
 	public String rollbook(){
 		return "management/m_rollbook";
@@ -152,7 +161,7 @@ public class ManagementController {
 		m_gallery.setG_title(title);
 		m_gallery.setG_content(contents);
 		m_gallery.setImageName(photoname);
-
+		
 		m_galleryservice.addGallery(m_gallery);
 		return "redirect:m_album.do";
 	}

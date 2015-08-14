@@ -97,20 +97,38 @@ display: table;
 	}
 
 	function imageClick() {
-		alert($("img", this));
+		alert($("img", this)); 
 		$('#img-detail').attr('src', $(this).find("img").attr('src'));
 	}
 	$(document).ready(function() {
+		$(".album_del").on("click",function(){
+		var cPage = $(".pagination .active a").attr("data-no");
+       	  	var g_no = $("#myModal").attr('name');
+		 location.replace('album_del.do?g_no='+g_no+"&cPage="+cPage);	
+		
+		})
+		$(".album_rewrite").on("click",function(){
+			var title = $("#myModal #detail_title").text();
+			var content = $("#myModal #detail_content").text();
+			var src = $("#myModal img").attr("src");
+			$("input[name='re_title']").val(title);
+			$("textarea[name='re_contents']").val(content);
+			$("#blah2").attr("src",src);
+			
+		})
+		
 		// 사진 상세 보기시 현제 저장된 값 보여주는 기능
 		$(".photo_a").click(function() {
 			var img = $("img", this).attr('src');	
-			var g_no = $("img",this).attr('name');
+			var g_no = $("img",this).attr('name');				
 			var g_title = $("#gallery_"+g_no).find(".g_title").text();
 			var g_content = $("#gallery_"+g_no).find(".g_content").text();
+			
 			
 			$("#detail_title").text(g_title);
 			$("#detail_content").text(g_content);
 			$("#img-detail").attr('src', img);
+			$("#myModal").attr('name', g_no);
 			
 			// 현재 사진의 앞사진과 뒷사진 번호 가지고옴
 			$.ajax({              
@@ -321,6 +339,7 @@ display: table;
 						<a href="#" class="photo_a" data-toggle="modal"
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
+							name="${galleryList.g_no}"
 							src="resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
@@ -418,7 +437,7 @@ display: table;
 							src="http://placehold.it/750x500" alt="">
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-4" style="z-index: 100;">
 
 						<h3 id="detail_title">사진 제목</h3>
 						<p id="detail_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -427,6 +446,7 @@ display: table;
 							Mauris ultricies, justo eu convallis placerat, felis enim.</p>
 						<br><br>
 						<footer>
+							<div style="margin-bottom: 3px; "><button class="btn btn-default btn-xs album_rewrite"  data-toggle="modal" data-target="#rewriteModal">수정</button><button class="btn btn-default btn-xs album_del" data-dismiss="modal">삭제</button></div>
 							<small class="text-muted">stive</small> <small class="text-muted">10:33</small>
 							<a href="#" class="pull-right"><img
 								src="http://api.randomuser.me/portraits/thumb/men/86.jpg"
@@ -508,3 +528,63 @@ display: table;
 	</div>
 	
 </div>
+
+<!-- 사진 수정 Modal -->
+<div class="modal fade" id="rewriteModal" role="dialog">
+<div class="modal_outer">
+<div class="modal_inner">
+	<div class="modal-dialog  modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h1 class="page-header">
+							사진 수정 <small>스터디 멤버들과의 추억을 공유하세요</small>
+						</h1>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<!-- Portfolio Item Row -->
+				<div class="row" style="margin-bottom: 10px;">
+
+					<div class="col-md-8" align="center">
+
+						<img id="blah2" src="http://placehold.it/750x500" alt=""
+							class="img-responsive" style="max-height: 400px;" />
+					</div>
+
+					<div class="col-md-4">
+
+						<form id="form2" action="/sroup/m_album.do" method="post"
+							enctype="multipart/form-data">
+
+							<input type='file' onclick="readURL(this)"
+								onchange="readURL(this);" accept="image/*" name="albumphoto2"
+								placeholder="앨범 사진" />
+							<div class="form-group">
+
+								<div class="col-sm-12" style="padding: 0px;">
+									<input type="text" class="form-control" placeholder="제목"
+										name="re_title">
+								</div>
+							</div>
+
+							<textarea rows="15" class="form-control" placeholder="내용"
+								name="re_contents"></textarea>
+							<button style="float: right;">수정</button>
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	
+</div>
+

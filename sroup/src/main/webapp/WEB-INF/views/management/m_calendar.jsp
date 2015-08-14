@@ -37,35 +37,46 @@
 .fc-sun {
 	color: red;
 }
-#start_d{
+
+#start_d {
 	height: 30px;
 	width: 218px;
 }
-#end_d{
+
+#end_d {
 	height: 30px;
 	width: 218px;
 }
-.input-group .input-group-addon{
-	width: 28px;	
+
+.input-group .input-group-addon {
+	width: 28px;
 	height: 30px;
 }
-label[for="start_d"]{
+
+label[for="start_d"] {
 	display: inline-block;
-	padding-right : 10px;
-	margin: 6px 0;		
-}
-label[for="end_d"]{
-	display: inline-block;
-	padding-right : 10px;
+	padding-right: 10px;
 	margin: 6px 0;
 }
+
+label[for="end_d"] {
+	display: inline-block;
+	padding-right: 10px;
+	margin: 6px 0;
+}
+
 .inline_div {
 	display: inline-block;
 }
-textarea{
-		resize: none
-	}
-	
+
+textarea {
+	resize: none
+}
+
+#calendarblock {
+	width: 910px;
+	height: 785px;
+}
 </style>
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
@@ -83,6 +94,7 @@ textarea{
 <script src="resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <div class="container">
 	<h1 id="bordname" class="bordname1" onclick='removeClick();'>스터디 일정</h1>
+	<hr>
 	
 	<div id="calendarblock" class="panel panel-default">
 		<div class="panel-body">
