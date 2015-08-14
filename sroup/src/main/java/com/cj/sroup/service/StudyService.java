@@ -25,4 +25,7 @@ public interface StudyService {
 	public List<CategoryVO> getArea();
 	public StudyVO getStudyInfoByNo(int study_no);
 	public StudyVO getAvailable(int study_no);
+	public StudyManagementVO getStudyManagementInfo(StudyManagementVO studyManage);
+	public JoinVO getJoinInfo(JoinVO join);
+	public void deleteJoin(JoinVO join);
 }

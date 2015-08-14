@@ -5,6 +5,7 @@
 	<meta http-equiv="imagetoolbar" content="no" />
 	<title>FancyBox 1.3.4 | Demonstration</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 	<script>
 		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
 	</script>
@@ -18,6 +19,8 @@
 			*   Examples - images
 			*/
 
+			$("div#mapzone").fancybox();
+			
 			$("a#example1").fancybox();
 
 			$("a#example2").fancybox({
@@ -94,6 +97,50 @@
 	</script>
 </head>
 <body>
+<div class="mapWrapper">
+			<div id="mapzone"></div>
+</div>
+	<script type="text/javascript">
+		var Lat = 37.5675451;
+		var Lng = 126.9773356;
+
+		var oSeoulCityPoint = new nhn.api.map.LatLng(Lat, Lng);
+		var defaultLevel = 9;
+		var oMap = new nhn.api.map.Map(document.getElementById('mapzone'), {
+			point : oSeoulCityPoint,
+			zoom : defaultLevel,
+			enableWheelZoom : false,
+			enableDragPan : false,
+			enableDblClickZoom : false,
+			mapMode : 0,
+			activateTrafficMap : false,
+			activateBicycleMap : false,
+			minMaxLevel : [ 1, 14 ],
+			size : new nhn.api.map.Size(271, 271)
+		});
+
+		var oSize = new nhn.api.map.Size(28, 37);
+		var oOffset = new nhn.api.map.Size(14, 37);
+		var oIcon = new nhn.api.map.Icon('/sroup/resources/images/map_pin.png',
+				oSize, oOffset);
+
+		var oInfoWnd = new nhn.api.map.InfoWindow();
+		oInfoWnd.setVisible(false);
+
+		var oMarker = new nhn.api.map.Marker(oIcon, {
+			title : '마커 : ' + oSeoulCityPoint.toString()
+		});
+		oMarker.setPoint(oSeoulCityPoint);
+		oMap.addOverlay(oMarker);
+	</script>
+	<div class="mapBox">
+					<div class="map">
+						<a href="#mapzone" id="mapzone2"><img
+							src="http://onoffmix.com/event/44943/staticmap" alt="지도"
+							width="271" height="271" />
+							<div class="mapBorder"></div> </a>
+					</div>
+				</div>
 <div id="content">
 	<h1>fancybox <span>v1.3.4</span></h1>
 

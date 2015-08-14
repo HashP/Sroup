@@ -90,7 +90,7 @@
    							study_no, applicant, reg_date, s_admit
    						)
    					values(
-   						#{study.study_no}, #{applicant.id}, sysdate, 'WAITING'
+   						#{study.study_no}, #{applicant.id}, sysdate, #{admit}
    					)
    		
    </insert>
@@ -98,6 +98,16 @@
    		insert into study_management(study_no, user_id, user_grade)
    							values (#{study.study_no}, #{user.id}, #{grade})
    </insert>
+   <select id="getStudyManagementInfo" parameterType="StudyManagementVO" resultType="StudyManagementVO">
+   		select
+   			study_no as "study.study_no",
+   			user_id as "user.id",
+   			user_grade as grade
+   		from
+   			study_management
+   		where
+   			study_no = #{study.study_no} and user_id = #{user.id} and user_grade = #{grade}
+   </select>
    <select id="getAvailable" resultType="Study" parameterType="integer">
    		select
    			study_no,  s_max_person - (
@@ -116,4 +126,19 @@
    		where
    			study_no = #{study_no}
    </select>
+   <select id="getJoinInfo" parameterType="JoinVO" resultType="JoinVO">
+   		select
+   			study_no as "study.study_no",
+   			applicant as "applicant.id",
+   			reg_date as regDate,
+   			s_admit as admit
+   		from
+   			join
+   		where
+   			study_no = #{study.study_no} and applicant = #{applicant.id}
+   </select>
+   <delete id="deleteJoin" parameterType="JoinVO">
+   		delete from join
+   		where study_no = #{study.study_no} and applicant = #{applicant.id}
+   </delete>
 </mapper>

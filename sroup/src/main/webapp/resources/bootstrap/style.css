@@ -912,11 +912,11 @@ a.attend {
 }
 div.issueInfo .issue div.action span.modify {
 	line-height: 13px;
-	background: url("http://static.onoffmix.com/images3/button/button_view_attendModify.gif") no-repeat 0 -72px;
+	background: url("http://static.onoffmix.com/images3/button/button_view_attendModify.gif") no-repeat 0 -36px;
 	text-align: center;
 	display: inline-block;
 	overflow: hidden;
-	width: 177px;
+	width: 206px;
 	height: 25px;
 	color: #ccc;
 	margin-left: 4px;
@@ -1048,7 +1048,6 @@ div.issueInfo .mapBox {
     margin-left: 11px;
 }
 div.issueInfo .mapBox .map {
-	margin-top: 30px;
 	margin-left: 23px;
     width: 271px;
     position: relative;
@@ -1063,7 +1062,7 @@ div.issueInfo .mapBox .map .mapBorder {
     left: 0;
     right: 0;
     top: 0;
-    height: 269px;
+    height: 299px;
     width: 269px;
     position: absolute;
     border: 1px solid #333333;
@@ -1405,7 +1404,7 @@ div.issueDetail .description .title h3 {
     margin-bottom: 2px;
 }
 div.issueDetail center.attend {
-    margin-top: -60px;
+    margin-top: -40px;
     margin-bottom: 50px;
 }
 div.barBanner {
@@ -2232,3 +2231,20 @@ button.attach:hover,
 #changeUserPhoto-queue {
 	display: none;
 }
+.attendMsg {
+	font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.attend {
+	cursor: pointer;
+}
+
+
+
+
+
+
+

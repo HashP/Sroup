@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cj.sroup.service.MyPageService;
 import com.cj.sroup.service.StudyService;
 import com.cj.sroup.vo.CategoryVO;
 import com.cj.sroup.vo.CheckVO;
@@ -43,6 +44,8 @@ public class ListController {
 	@Autowired
 	StudyService service;
 
+	@Autowired
+	MyPageService myService;
 	@RequestMapping("/map2.do")
 	public void map2(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -85,8 +88,12 @@ public class ListController {
 			String a = c_area.substring(0, 1);
 			String b = c_area.substring(2, 3);
 			c_area = a+b;
-		} else {
+		} else if(c_area.length() > 4){
 			c_area = c_area.substring(0, 2);
+		} else if(1 < c_area.length() && c_area.length() < 4) {
+			c_area = c_area.substring(0, 2);
+		} else {
+			c_area = "서울";
 		}
 		String user_id = "admin123";
 
@@ -159,17 +166,113 @@ public class ListController {
 		return mav;
 	}
 	@RequestMapping("/detail.do")
-	public ModelAndView detail() {
+	public ModelAndView detail(HttpServletRequest req) {
+		
+		int study_no = Integer.parseInt(req.getParameter("no"));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("list/detail");
-		StudyVO studyInfo = service.getStudyInfoByNo(43);
-		StudyVO available = service.getAvailable(43);
+		StudyVO studyInfo = service.getStudyInfoByNo(study_no);
+		StudyVO available = service.getAvailable(study_no);
+		UserInfoVO userInfo = myService.getUserInfoById(studyInfo.getUser_id());
 		mav.addObject("studyInfo", studyInfo);
 		mav.addObject("available", available);
+		mav.addObject("userInfo", userInfo);
 		
 		return mav;
 	}
+	@RequestMapping("/joinCancel.do")
+	public void joinCancel(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		int study_no = Integer.parseInt(req.getParameter("study_no"));
+		String user_id = req.getParameter("user_id");
+		String returnValue = "";
+		
+		StudyVO study = new StudyVO();
+		study.setStudy_no(study_no);
+		
+		UserInfoVO user = new UserInfoVO();
+		user.setId(user_id);
+		
+		JoinVO join = new JoinVO();
+		join.setStudy(study);
+		join.setApplicant(user);
+		JoinVO joinCheck = service.getJoinInfo(join);
+		if(joinCheck != null) {
+			service.deleteJoin(join);
+			returnValue = "Y";
+			resp.getWriter().write(returnValue);
+		} else {
+			returnValue = "N";
+			resp.getWriter().write(returnValue);
+		}
+		
+		
+	}
+	
+	@RequestMapping("/join.do")
+	public void join(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		String returnValue = "";
+		int study_no = Integer.parseInt(req.getParameter("study_no"));
+		String user_id = req.getParameter("user_id");
+		String admit = req.getParameter("admit");
+		
+		StudyVO study = new StudyVO();
+		study.setStudy_no(study_no);
+		
+		UserInfoVO user = new UserInfoVO();
+		user.setId(user_id);
+		String grade = "";
+		
+		JoinVO join2 = new JoinVO();
+		join2.setStudy(study);
+		join2.setApplicant(user);
+		
+		
+		StudyManagementVO studyManage = new StudyManagementVO();
+		StudyManagementVO studyManage2 = new StudyManagementVO();
+		
+		studyManage.setStudy(study);
+		studyManage.setUser(user);
+		studyManage2.setStudy(study);
+		studyManage2.setUser(user);
+		grade = "ADMIN";
+		studyManage.setGrade(grade);
+		grade = "NORMAL";
+		studyManage2.setGrade(grade);
+		
+		StudyManagementVO studyJoin = service.getStudyManagementInfo(studyManage);
+		StudyManagementVO studyJoin2 = service.getStudyManagementInfo(studyManage2);
+		
+		JoinVO join3 = service.getJoinInfo(join2);
+		
+		if(studyJoin != null) {
+			returnValue = "SELF";
+			resp.getWriter().write(returnValue);
+		} else if (studyJoin2 != null || join3 != null) {
+			returnValue = "N";
+			resp.getWriter().write(returnValue);
+		}else {
+			returnValue = "Y";
+			resp.getWriter().write(returnValue);
+		}
+		
+		if(returnValue.equals("Y")) {
+			JoinVO join = new JoinVO();
+			join.setStudy(study);
+			join.setApplicant(user);
+			StudyManagementVO autoJoin = new StudyManagementVO();
+			autoJoin.setUser(user);
+			autoJoin.setStudy(study);
+			autoJoin.setGrade("NORMAL");
+			if(admit.equals("check")) {
+				join.setAdmit("WAITING");
+				service.addJoin(join);
+			} else if (admit.equals("auto")) {
+				service.addStudyManagement(autoJoin);
+			}
+		}
+	}
+	
 	@RequestMapping("/add.do")
 	public ModelAndView add() {
 

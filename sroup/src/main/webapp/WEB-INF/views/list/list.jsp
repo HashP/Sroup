@@ -23,7 +23,7 @@
 					<c:forEach var="l" items="${lists }">
 						<ul class="todayEvent  ">
 							<li class="eventThumbnail"><a
-								href="http://onoffmix.com/event/49320" target="_blank"><img
+								href="detail.do?no=${l.study_no }" target="_blank"><img
 									src="/sroup/upload/2015/08/${l.s_image }"
 									alt="${l.study_name }" width="220" height="220"
 									class="thumb" /></a></li>

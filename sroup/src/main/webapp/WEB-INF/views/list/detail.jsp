@@ -5,7 +5,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.js"></script>
+<script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sroup</title>
 <script type="text/javascript">
@@ -18,93 +23,77 @@ $(function() {
 	$("span:eq(16)").text(b[0]+b[1]);
 	$("span:eq(17)").text(b[3]+b[4]);
 	
-	function makeMAP(lng,lat, show, apiKey, elementId) {
-		  var mapObj, marker, latlng, movePointOnClick;
-		  if (typeof elementId == 'undefined') elementId = 'mapzone';
-		
-		  function onClick(eventObj) {
-		    var mapObj = eventObj.currentTarget;
-		    latlng = eventObj.point;
-		    mapObj.setCenter(latlng,{useEffect:true});
-		    if (movePointOnClick) {
-		      setPoint();
-		    }
-		  }
-		
-		  function setLatLng(lat, lng, zoomLevel) {
-		    latlng.set(lng, lat);
-		    if (typeof zoomLevel == 'undefined') {
-		      mapObj.setCenter(latlng, {useEffect: true});
-		    } else {
-		      mapObj.setCenterAndLevel(latlng, zoomLevel, {useEffect: true});
-		    }
-		  }
-		
-		  function setPoint() {
-		    marker.setPoint(latlng);
-		    $('input[name="mapX"]').val(latlng.getX()).change();
-		    $('input[name="mapY"]').val(latlng.getY()).change();
-		  }
-		
-		  function mapLoaded() {
-		    latlng = new nhn.api.map.LatLng(lat,lng);
-		
-		    mapObj = new nhn.api.map.Map(elementId);
-		    mapObj.enableWheelZoom();
-		    mapObj.setCenterAndLevel(latlng,10);
-		
-		    // 줌컨트롤러
-		    var zoom = new nhn.api.map.ZoomControl({
-		      position: {left: 10, top: 45}
-		    });
-		    mapObj.addControl(zoom);
-		}
-	}
-	
 	$('.issueInfo .map>a').fancybox({
-		padding: 5
-		, width: 760
-		, height: 570
-		, hideOnContentClick: false
-		, hideOnOverlayClick: false
-		, centerOnScroll: true
-		, cyclic: true
-		, titleShow: false
-		, transitionIn: 'elastic'
-		, transitionOut: 'elastic'
-		, orig: '.issueInfo .map>a>img' // a 까지만 하면 높이가 낮게 검출됨
-		, autoScale: true
-		, autoDimensions: false
-		, onComplete: function (a, b, c, d, e) {
-			$('#mapzone').show().triggerHandler('show.ofm');
-		}
-		, onCleanup: function (a, b, c) {
-			$('#mapzone').hide().appendTo('div.mapWrapper');
-		}
-	});
-	$('.issueDetail .menu .map a').fancybox({
-		padding: 5
-		, width: 760
-		, height: 570
-		, hideOnContentClick: false
-		, hideOnOverlayClick: false
-		, centerOnScroll: true
-		, cyclic: true
-		, titleShow: false
-		, transitionIn: 'elastic'
-		, transitionOut: 'elastic'
-		, orig: '.issueDetail .menu .map a'
-		, autoScale: true
-		, autoDimensions: false
-		, onComplete: function () {
-			$('#mapzone').show();
-		}
-		, onCleanup: function (a, b, c) {
-			$('#mapzone').hide().appendTo('div.mapWrapper');
+			padding : 5,
+			width : 760,
+			height : 570,
+			hideOnContentClick : false,
+			hideOnOverlayClick : false,
+			centerOnScroll : true,
+			cyclic : true,
+			titleShow : false,
+			transitionIn : 'elastic',
+			transitionOut : 'elastic',
+			orig : '.issueInfo .map>a>img' // a 까지만 하면 높이가 낮게 검출됨
+			,
+			autoScale : true,
+			autoDimensions : false,
+			onComplete : function(a, b, c, d, e) {
+				$('#mapzone').show().triggerHandler('show.ofm');
+			},
+			onCleanup : function(a, b, c) {
+				$('#mapzone').hide().appendTo('div.mapWrapper');
+			}
+		});
+	
+		var available = "${available.available }";
+		if(available === "0") {
+			$(".attendMsg").removeAttr("style", "display");
+			$("div.action .attend").attr("style", "display: none");
+			$("div.action .modify").attr("style", "display: none");
+			$("center.attend .attend").attr("style", "display:none");
 		}
 	});
-});
-
+		function join() {
+			var study_no = ${studyInfo.study_no }
+			var user_id = "adadcc";
+			var admit = "${studyInfo.s_admit_method }";
+			$.ajax({
+				url:"join.do",
+				data: {study_no : study_no, user_id : user_id, admit : admit},
+				dataType: "text",
+				success : function(data) {
+					if(data === "Y") {
+						alert("참여신청이 완료 되었습니다. 개설자 승인 후 서비스 이용 바랍니다.")
+					} else if (data === "N") {
+						alert("이미 신청되었습니다.")
+					} else if (data === "SELF") {
+						alert("개설자 본인은 본인 그룹에 자동으로 속하므로 신청할 수 없습니다.")
+					}
+				}
+			})
+		}
+		
+		function joinCancle() {
+			var study_no = ${studyInfo.study_no }
+			var user_id = "adadcc";
+			var admit = "${studyInfo.s_admit_method }";
+			$.ajax({
+				url:"joinCancel.do",
+				data: {study_no : study_no, user_id : user_id},
+				dataType: "text",
+				
+				success : function(data) {
+					if(data === "Y") {
+						alert("참여신청이 취소되었습니다.");
+					} else if(data === "N") {
+						alert("참여신청이 되어있지 않습니다.");
+					}
+				}
+			})
+		}
+	
+	
 </script>
 </head>
 <body class="sroup">
@@ -166,16 +155,13 @@ $(function() {
 								</div></li>
 						</ul>
 						<div class="action">
-							<a class="attend" href="/rsvp/attend/44943" title="참여하기">참여하기</a><span
-								class="modify"><a class="modify disabled"
-								href="/rsvp/edit/44943" title="참여신청수정">참여신청수정</a> | <a
-								class="cancel" href="/rsvp/cancel/44943" title="참여취소">참여취소</a></span>
+						<div class="attendMsg" style="display: none">
+							* 본 스터디 인원모집이 마감되었습니다.
 						</div>
-						<!-- .action end -->
-						<p class="eventTips">
-							<a href="/service/guide/eventAttend/" target="_blank"><span
-								class="rect"></span> <span>모임참여 도움말</span></a>
-						</p>
+							<a class="attend" title="참여하기" onclick="join()">참여신청하기</a><span
+								class="modify" style="cursor: pointer;" onclick="joinCancle()"><a
+								class="cancel" title="참여취소">참여취소</a></span>
+						</div>
 					</div>
 					<div class="groups free">
 						본 모임은 <strong>${studyInfo.c_subject }</strong>모임입니다.
@@ -193,12 +179,46 @@ $(function() {
 				</div>
 				<div class="mapBox">
 					<div class="map">
-						<a href="#mapzone"><img
-							src="http://onoffmix.com/event/44943/staticmap" alt="지도"
-							width="271" height="271" />
-							<div class="mapBorder"></div> </a>
+						<a href="#mapzone" id="mapzone2">
+							<div class="mapBorder" style="z-index: 1"></div> </a>
 					</div>
 				</div>
+				<script type="text/javascript">
+				var Lat = "${studyInfo.map_lat }";
+				var Lng = "${studyInfo.map_lng }";
+
+					var oSeoulCityPoint = new nhn.api.map.LatLng(Lat, Lng);
+					var defaultLevel = 8;
+					var oMap = new nhn.api.map.Map(document
+							.getElementById('mapzone2'), {
+						point : oSeoulCityPoint,
+						zoom : defaultLevel,
+						enableWheelZoom : false,
+						enableDragPan : false,
+						enableDblClickZoom : false,
+						mapMode : 0,
+						activateTrafficMap : false,
+						activateBicycleMap : false,
+						minMaxLevel : [ 1, 14 ],
+						size : new nhn.api.map.Size(271, 301)
+					});
+
+					var oSize = new nhn.api.map.Size(28, 37);
+					var oOffset = new nhn.api.map.Size(14, 37);
+					var oIcon = new nhn.api.map.Icon(
+							'/sroup/resources/images/map_pin.png', oSize,
+							oOffset);
+
+					var oInfoWnd = new nhn.api.map.InfoWindow();
+					oInfoWnd.setVisible(false);
+
+					var oMarker = new nhn.api.map.Marker(oIcon, {
+						title : '마커 : ' + oSeoulCityPoint.toString()
+					});
+					oMarker.setPoint(oSeoulCityPoint);
+					oMap.addOverlay(oMarker);
+					$(".nmap_logo_map").remove();
+				</script>
 			</div>
 			<div class="issueDetail roundBox">
 				<div class="host ">
@@ -209,7 +229,7 @@ $(function() {
 						</span>
 					</div>
 					<div class="profile  ">
-						<a class="photo" href="#"> <img src="" width="50" height="50"
+						<a class="photo" href="#"> <img src="/sroup/resources/images/profile/${userInfo.profilephoto }" width="50" height="50"
 							alt="개설자 프로필사진" />
 
 							<div class="photoBorder"></div>
@@ -217,30 +237,25 @@ $(function() {
 
 						<div class="body ">
 							<div class="innerBody">
-								<span class="name">홍길동</span> <br /> <span class="info">SP교육컨설팅<span
-									class="separator">|</span></span><span class="tel">010-1234-5678<span
-									class="separator">|</span></span> <span class="email">hong@gmail.com</span>
+								<span class="name">${userInfo.name }</span> <br /> <span class="info">${userInfo.nickname }<span
+									class="separator">|</span></span><span class="tel">${userInfo.phone }<span
+									class="separator">|</span></span> <span class="email">${userInfo.email }</span>
 							</div>
 						</div>
 					</div>
 				</div>
-				<table class="menu" cellspacing="0" cellpadding="0">
-					<td><a class="participant" href="#attendList">참여현황 보기</a></td>
-					<td class="map"><a href="#mapzone">지도보기</a></td>
-					<td class="mix"><a class="mix"
-						href="http://onoffmix.com/talkmix/44943" target="_blank">토크믹스</a></td>
-					<td><a class="reply" href="#comment">댓글보기</a></td>
-				</table>
-
 				<div class="description">
 					<div class="title">
 						<h3>모임 세부설명</h3>
 					</div>
-					<div class="innerDescription html4style"></div>
+					<div class="innerDescription html4style">${studyInfo.s_detail }</div>
 				</div>
 
 				<center class="attend">
-					<a class="attend" href="/rsvp/attend/44943" title="참여하기">참여하기</a>
+					<a class="attend" title="참여하기" onclick="join()">참여하기</a>
+					<div class="attendMsg" style="display: none">
+								* 본 스터디 인원모집이 마감되었습니다.
+					</div>
 				</center>
 				<div class="barBanner">
 					<a href="http://www.onoffmix.com/service/partner/sarammajung/"
@@ -249,7 +264,7 @@ $(function() {
 						alt="" width="664" /></a>
 				</div>
 
-				<div id="comment" class="comment" style="position: relative;">
+				<div id="comment" class="comment" style="position: relative; display: none;">
 					<div class="title">
 						<h3>온오프믹스 댓글</h3>
 						<span class="status"> (<span class="count">108</span>건)
@@ -283,23 +298,18 @@ $(function() {
 					</div>
 					<dl>
 						<dd>
-							* 온오프믹스를 통해 참여신청을 받는 유 / 무료 모임의 경우 취소 마감시간은 각 모임에 게시된 참여신청 마감시간과
-							동일 합니다. <br />참여신청 마감시간 이후에는 취소 / 변경 / 환불은 불가능 합니다 (<a
-								href="/legal/cancelAndRefund" target="_blank">취소 / 환불약관</a> 참조 )
+							* 스룹은 스터디를 희망하는 분들을 위한 플랫폼을 제공할 뿐 만나서 스터디를 하는 동안 발생하는 법적인 책임은
+							지지 않습니다.
 						</dd>
-						<dd>* 참여신청 시 입력한 e 메일 주소는 외부에 공개되지 않으며 이름, 소속, 블로그 등의 정보는 개설자
-							설정에 의해 공개됩니다.</dd>
+						<dd>* 참여신청 마감시간 이후에는 참여가 불가능 합니다.</dd>
+						<dd>* 참여신청 후 모임의 개설자가 승인을 하면 스터디 페이지로 접근이 가능합니다.</dd>
 						<dd>
-							* 참여할 수 있는 인원에는 제한이 있으며, 인원이 모두 채워진 후 참여신청 하신 분들은 자동으로 대기자 상태로
-							신청되며 <br />앞선 신청자가 참여 취소할 경우, 대기 우선순위에 의해 자동 상승하니 대기자로 신청하는 것을
-							추천합니다. <br />(참여자 중 일부가 모임일 직전까지 참여취소를 하게 되면 빠른 순번의 대기자 분들이 참여할
-							수 있는 확률이 높습니다)
+							* 참여할 수 있는 인원에는 제한이 있으며, 인원이 모두 채워진 후에는 참여신청을 할 수 없습니다.  <br />
+							앞선 참여자가 중도 하차하거나, 개설자가 충원이 필요하다고 느낄 시 다시 참여가 가능합니다.
 						</dd>
-						<dd>* 대기자 분들은 반드시 본인의 참여 가능 여부를 확인해주세요.</dd>
 					</dl>
 				</div>
-				<span class="controller"><a class="gotoHome" href="/">온오프믹스
-						홈으로</a> | <a class="gotoTop" href="#">맨 위로</a></span>
+				<span class="controller"><a class="gotoTop" href="#">맨 위로</a></span>
 			</div>
 			<div class="sidebarWrapper">
 				<div class="innerBorder roundBox">
@@ -605,6 +615,60 @@ $(function() {
 			</div>
 		</div>
 	</div>
+	<div class="mapWrapper" style="display: none;">
+			<div id="mapzone"></div>
 	</div>
+	<script type="text/javascript">
+								var Lat = "${studyInfo.map_lat }";
+								var Lng = "${studyInfo.map_lng }";
+								
+								var oSeoulCityPoint = new nhn.api.map.LatLng(
+										Lat, Lng);
+								var defaultLevel = 11;
+								var oMap = new nhn.api.map.Map(document
+										.getElementById('mapzone'), {
+									point : oSeoulCityPoint,
+									zoom : defaultLevel,
+									enableWheelZoom : true,
+									enableDragPan : true,
+									enableDblClickZoom : false,
+									mapMode : 0,
+									activateTrafficMap : false,
+									activateBicycleMap : false,
+									minMaxLevel : [ 1, 14 ],
+									size : new nhn.api.map.Size(760, 570)
+								});
+								var oSlider = new nhn.api.map.ZoomControl();
+								oMap.addControl(oSlider);
+								oSlider.setPosition({
+									top : 40,
+									left : 10
+								});
+
+								var oMapTypeBtn = new nhn.api.map.MapTypeBtn();
+								oMap.addControl(oMapTypeBtn);
+								oMapTypeBtn.setPosition({
+									top : 10,
+									left : 10
+								});
+
+								var oSize = new nhn.api.map.Size(28, 37);
+								var oOffset = new nhn.api.map.Size(14, 37);
+								var oIcon = new nhn.api.map.Icon(
+										'/sroup/resources/images/map_pin.png',
+										oSize, oOffset);
+
+								var oInfoWnd = new nhn.api.map.InfoWindow();
+								oInfoWnd.setVisible(false);
+								
+								var oMarker = new nhn.api.map.Marker(oIcon,
+										{
+											title : '마커 : '
+													+ oSeoulCityPoint.toString()
+										});
+								oMarker.setPoint(oSeoulCityPoint);
+								oMap.addOverlay(oMarker);
+								
+							</script>
 </body>
 </html>

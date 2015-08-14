@@ -57,7 +57,7 @@ public class StudyImpl implements StudyService {
 	}
 	@Override
 	public String getSubjectByNo(String sub_value) {
-		String subject = listdao.getSubject(sub_value);
+		String subject = listdao.getSubjectByNo(sub_value);
 		return subject;
 	}
 	
@@ -93,5 +93,21 @@ public class StudyImpl implements StudyService {
 	public StudyVO getAvailable(int study_no) {
 		StudyVO available = listdao.getAvailable(study_no);
 		return available;
+	}
+	
+	@Override
+	public StudyManagementVO getStudyManagementInfo(
+			StudyManagementVO studyManage) {
+		StudyManagementVO study = listdao.getStudyManagementInfo(studyManage);
+		return study;
+	}
+	@Override
+	public JoinVO getJoinInfo(JoinVO join) {
+		JoinVO joinInfo = listdao.getJoinInfo(join);
+		return joinInfo;
+	}
+	@Override
+	public void deleteJoin(JoinVO join) {
+		listdao.deleteJoin(join);
 	}
 }
