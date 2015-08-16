@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import com.cj.sroup.service.MyPageService;
 import com.cj.sroup.service.StudyService;
@@ -44,6 +47,9 @@ public class ListController {
 	@Autowired
 	StudyService service;
 
+	@Autowired
+	private MappingJackson2JsonView jsonView;
+	
 	@Autowired
 	MyPageService myService;
 	@RequestMapping("/map2.do")
@@ -153,8 +159,11 @@ public class ListController {
 	@RequestMapping("/list.do")
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-		ModelAndView mav = new ModelAndView();
 		List<ListVO> lists = service.getAllStudies();
+		
+		
+		ModelAndView mav = new ModelAndView();
+		
 		List<CategoryVO> categories = service.getCategories();
 		List<CategoryVO> area = service.getArea();
 		
@@ -165,6 +174,49 @@ public class ListController {
 
 		return mav;
 	}
+	@RequestMapping("/list3.do") 
+		public ModelAndView list3(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+			ModelAndView mav = new ModelAndView();
+			List<ListVO> lists = null;
+			String attr = req.getParameter("attr");
+			String[] selectCat = req.getParameterValues("selectCat");
+			String[] selectReg = req.getParameterValues("selectReg");
+			List<String> cat = new ArrayList<String>();
+			
+			if(selectCat != null) {
+				for(int i=0; i<selectCat.length; i++) {
+					cat.add(selectCat[i]);
+				}
+
+				System.out.println(selectCat);
+				System.out.println(cat);
+				
+				System.out.println(attr);
+				if(attr.equals("popularity")) {
+					lists = service.getAllStudiesCat(cat);
+				} else if (attr.equals("latest")) {
+					lists = service.getAllStudiesByLatestCat(cat);
+				} else if (attr.equals("soon")) {
+					lists = service.getAllStudiesBySoonCat(cat);
+				}
+					
+				
+			} else {
+				if(attr.equals("popularity")) {
+					lists = service.getAllStudies();
+				} else if (attr.equals("latest")) {
+					lists = service.getAllStudiesByLatest();
+				} else if (attr.equals("soon")) {
+					lists = service.getAllStudiesBySoon();
+				}
+			}
+			
+			mav.addObject("lists", lists);
+			mav.setView(jsonView);
+			
+			return mav;
+		}
+	
 	@RequestMapping("/detail.do")
 	public ModelAndView detail(HttpServletRequest req) {
 		
@@ -172,6 +224,7 @@ public class ListController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("list/detail");
+		service.studyHit(study_no);
 		StudyVO studyInfo = service.getStudyInfoByNo(study_no);
 		StudyVO available = service.getAvailable(study_no);
 		UserInfoVO userInfo = myService.getUserInfoById(studyInfo.getUser_id());

@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=3a22f3e4a016459e5a21808b4e5c46d3"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sroup</title>
 <script type="text/javascript">
@@ -115,7 +115,7 @@ $(function() {
 						</span>
 						<ul class="event-summary event-mode-view " _idx="44943">
 							<li class="event-banner"><a class="event-link"
-								href="http://onoffmix.com/event/44943" target="_blank"> <img
+								href="/sroup/detail.do?no=${studyInfo.study_no } " target="_blank"> <img
 									src="/sroup/upload/2015/08/${studyInfo.s_image }"
 									alt="${studyInfo.study_name }" />
 									<div class="event-banner-border"></div> <span

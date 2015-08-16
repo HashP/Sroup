@@ -16,6 +16,95 @@
    							where study_no = study.STUDY_NO
    						   ) as available
    		from study
+   		order by s_hit desc
+   </select>
+   <select id="getAllStudiesCat" parameterType="string" resultType="Lists">
+		select
+			study_no,
+  			study_name, 
+  			s_image, 
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
+   		<where>
+        c_subject in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </where>
+   		order by s_hit desc
+   </select>
+   <select id="getAllStudiesByLatest" resultType="Lists">
+		select
+			study_no,
+  			study_name, 
+  			s_image, 
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
+   		order by study_no desc
+   </select>
+   <select id="getAllStudiesBySoon" resultType="Lists">
+		select
+			study_no,
+  			study_name, 
+  			s_image, 
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
+   		order by s_application_period asc
+   </select>
+   <select id="getAllStudiesByLatestCat" parameterType="string" resultType="Lists">
+		select
+			study_no,
+  			study_name, 
+  			s_image, 
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
+   		<where>
+        c_subject in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </where>
+   		order by study_no desc
+   </select>
+   <select id="getAllStudiesBySoonCat" parameterType="string" resultType="Lists">
+		select
+			study_no,
+  			study_name, 
+  			s_image, 
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
+   		<where>
+        c_subject in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </where>
+   		order by s_application_period asc
    </select>
    <insert id="addCheck" parameterType="CheckVO">
    		insert into phone_check (user_id, check_code)
@@ -141,4 +230,11 @@
    		delete from join
    		where study_no = #{study.study_no} and applicant = #{applicant.id}
    </delete>
+   <update id="studyHit" parameterType="integer">
+   		update study
+   		set s_hit = s_hit + 1
+   		where study_no = #{value}
+   </update>
+   
+   
 </mapper>

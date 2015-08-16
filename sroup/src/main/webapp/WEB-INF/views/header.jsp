@@ -42,7 +42,7 @@
 <div class="header">
 	<div class="logoSearchArea">
 		<h1>
-			<a href="list.do"> <img src="/sroup/resources/images/logoOnoffmix.gif">
+			<a href="list.do"> <img src="/sroup/resources/images/sroup2.jpg">
 			</a>
 		</h1>
 		<div class="fieldset">

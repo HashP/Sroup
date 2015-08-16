@@ -12,6 +12,11 @@ import com.cj.sroup.vo.StudyVO;
 public interface StudyService {
 	
 	public List<ListVO> getAllStudies();
+	public List<ListVO> getAllStudiesCat(List<String> cat);
+	public List<ListVO> getAllStudiesByLatest();
+	public List<ListVO> getAllStudiesByLatestCat(List<String> cat);
+	public List<ListVO> getAllStudiesBySoonCat(List<String> cat);
+	public List<ListVO> getAllStudiesBySoon();
 	public void addStudy(StudyVO study);
 	public void addCheck(CheckVO check);
 	public CheckVO userCheck(String user_id);
@@ -28,4 +33,5 @@ public interface StudyService {
 	public StudyManagementVO getStudyManagementInfo(StudyManagementVO studyManage);
 	public JoinVO getJoinInfo(JoinVO join);
 	public void deleteJoin(JoinVO join);
+	public void studyHit(int study_no);
 }

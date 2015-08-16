@@ -6,6 +6,146 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sroup</title>
+<script type="text/javascript">
+$(function() {
+	
+	$(".sortbar li a").click(function() {
+		var attr = $(this).attr("href").substring(1);
+		$(".comSearch a").removeClass();
+		if(attr === "popularity") {
+			$(".popularity").addClass("select");
+			$(".latest").removeClass("select");
+			$(".soon").removeClass("select");
+			$.ajax({
+				url: "list3.do",
+				data : {attr : attr},
+				dataType : "json",
+				success : function(data) {
+					var studies = data.lists;
+					var content = "";
+					
+					for(var i=0; i<studies.length; i++) {
+						content += "<ul class=\"todayEvent\" >" +
+											"<li class=\"eventThumbnail\"><a href=\"detail.do?no="+studies[i].study_no+"\"> " +
+											"<img src=\"/sroup/upload/2015/08/"+studies[i].s_image+"\" width=\"220\" height=\"220\" class=\"thumb\" /></a></li> " +
+											"<li class=\"eventTitle\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventLink\" "+
+											">"+studies[i].study_name+"</a></li><li class=\"eventBottomArea\"><ul><li class=\"eventPin\"><a href=\"#pin\"><span class=\"heart\">"+
+											"찜</span></a><li class=\"eventPersonnel\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventButton\"><span><strong>"+studies[i].available+"</strong>명 " +
+											"참여가능</span><span class=\"entered\">참여하기</span></a></li></ul></li></ul>";
+						
+					}
+					
+							
+					
+					$(".contentBox").html(content)
+				}
+			})
+			
+		} else if(attr === "latest") {
+			$(".popularity").removeClass("select");
+			$(".latest").addClass("select");
+			$(".soon").removeClass("select");
+			$.ajax({
+				url: "list3.do",
+				data : {attr : attr},
+				dataType : "json",
+				success : function(data) {
+					var studies = data.lists;
+					var content = "";
+					
+					for(var i=0; i<studies.length; i++) {
+						content += "<ul class=\"todayEvent\" >" +
+											"<li class=\"eventThumbnail\"><a href=\"detail.do?no="+studies[i].study_no+"\"> " +
+											"<img src=\"/sroup/upload/2015/08/"+studies[i].s_image+"\" width=\"220\" height=\"220\" class=\"thumb\" /></a></li> " +
+											"<li class=\"eventTitle\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventLink\" "+
+											">"+studies[i].study_name+"</a></li><li class=\"eventBottomArea\"><ul><li class=\"eventPin\"><a href=\"#pin\"><span class=\"heart\">"+
+											"찜</span></a><li class=\"eventPersonnel\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventButton\"><span><strong>"+studies[i].available+"</strong>명 " +
+											"참여가능</span><span class=\"entered\">참여하기</span></a></li></ul></li></ul>";
+						
+					}
+					
+							
+					
+					$(".contentBox").html(content)
+				}
+			})
+		} else if(attr === "soon") {
+			$(".popularity").removeClass("select");
+			$(".latest").removeClass("select");
+			$(".soon").addClass("select");
+			$.ajax({	
+				url: "list3.do",
+				data : {attr : attr},
+				dataType : "json",
+				success : function(data) {
+					var studies = data.lists;
+					var content = "";
+					
+					for(var i=0; i<studies.length; i++) {
+						content += "<ul class=\"todayEvent\" >" +
+											"<li class=\"eventThumbnail\"><a href=\"detail.do?no="+studies[i].study_no+"\"> " +
+											"<img src=\"/sroup/upload/2015/08/"+studies[i].s_image+"\" width=\"220\" height=\"220\" class=\"thumb\" /></a></li> " +
+											"<li class=\"eventTitle\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventLink\" "+
+											">"+studies[i].study_name+"</a></li><li class=\"eventBottomArea\"><ul><li class=\"eventPin\"><a href=\"#pin\"><span class=\"heart\">"+
+											"찜</span></a><li class=\"eventPersonnel\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventButton\"><span><strong>"+studies[i].available+"</strong>명 " +
+											"참여가능</span><span class=\"entered\">참여하기</span></a></li></ul></li></ul>";
+					}
+					$(".contentBox").html(content);
+				}
+			})
+		}
+	})
+	
+	$(".comSearch dd a").click(function () {
+		var attr = $(".sortbar a.select").attr("href").substring(1);
+		var select = $(this).attr("class");
+		console.log(select);
+		if(select === undefined || select === "") {
+			$(this).addClass("select");
+		} else {
+			$(this).removeClass();
+		}
+		
+		var length = $(".comSearch dd a.select input").length;
+		var selectCat = [];
+		var selectReg = [];
+		var content = "";
+		if(length >= 0) {
+			for(var i=0; i<length; i++) {
+				if($(".comSearch dd a.select input")[i].name === "category") {
+					selectCat[i] = $(".comSearch dd a.select input")[i].value;
+				} else if($(".comSearch dd a.select input")[i].name === "region") {
+					selectReg[i] = $(".comSearch dd a.select input")[i].value;
+				}
+			}
+			
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({	
+				url: "list3.do",
+				data : {selectCat : selectCat, attr : attr, selectReg : selectReg},
+				dataType : "json",
+				success : function(data) {
+					var studies = data.lists;
+					var content = "";
+					
+					for(var i=0; i<studies.length; i++) {
+						content += "<ul class=\"todayEvent\" >" +
+											"<li class=\"eventThumbnail\"><a href=\"detail.do?no="+studies[i].study_no+"\"> " +
+											"<img src=\"/sroup/upload/2015/08/"+studies[i].s_image+"\" width=\"220\" height=\"220\" class=\"thumb\" /></a></li> " +
+											"<li class=\"eventTitle\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventLink\" "+
+											">"+studies[i].study_name+"</a></li><li class=\"eventBottomArea\"><ul><li class=\"eventPin\"><a href=\"#pin\"><span class=\"heart\">"+
+											"찜</span></a><li class=\"eventPersonnel\"><a href=\"detail.do?no="+studies[i].study_no+"\" class=\"eventButton\"><span><strong>"+studies[i].available+"</strong>명 " +
+											"참여가능</span><span class=\"entered\">참여하기</span></a></li></ul></li></ul>";
+					}
+					$(".contentBox").html(content);
+				}
+			})
+		} else {
+			
+		}
+	})
+})
+</script>
 </head>
 <body class="sroup">
 	<div class="content">
@@ -28,13 +168,13 @@
 									alt="${l.study_name }" width="220" height="220"
 									class="thumb" /></a></li>
 							<li class="eventTitle"><a
-								href="http://onoffmix.com/event/49320" class="eventLink"
+								href="detail.do?no=${l.study_no }" class="eventLink"
 								title="${l.study_name }" target="_blank">${l.study_name }</a></li>
 							<li class="eventBottomArea">
 								<ul>
 									<li class="eventPin"><a href="#pin"><span
 											class="heart">찜</span></a>
-									<li class="eventPersonnel"><a href="/rsvp/attend/49320"
+									<li class="eventPersonnel"><a href="detail.do?no=${l.study_no }"
 										class="eventButton" target="_blank"> <span><strong>${l.available }</strong>명
 												참여가능</span> <span class="entered">참여하기</span>
 									</a></li>
@@ -48,52 +188,25 @@
 			<div class="sideRight">
 				<div class="eventSearch">
 					<form name="searchBoxEventForm" action="/event" action="GET">
-						<input type="hidden" name="pageRows" value="12" _default="12"
-							_search="12" /> <input type="hidden" name="page" value="1" /> <input
-							type="hidden" id="sort-popularity"
-							value="if(recruitEndDateTime-NOW()>0# 1# 0)|DESC,FIND_IN_SET('advance'#wayOfRegistration)|DESC,popularity|DESC,idx|DESC" />
-						<input type="hidden" id="sort-latest"
-							value="if(recruitEndDateTime-NOW()>0# 1# 0)|DESC,FIND_IN_SET('advance'#wayOfRegistration)|DESC,idx|DESC" />
-						<input type="hidden" id="sort-soon"
-							value="if(recruitEndDateTime-NOW()>0# 1# 0)|DESC,FIND_IN_SET('advance'#wayOfRegistration)|DESC,abs(recruitEndDateTime-NOW())|ASC" />
-						<input type="hidden" id="sort-category" value="categoryIdx|ASC" />
-						<input type="hidden" name="sort"
-							value="if(recruitEndDateTime-NOW()>0# 1# 0)|DESC,FIND_IN_SET('advance'#wayOfRegistration)|DESC,popularity|DESC,idx|DESC" />
-
-						<input type="hidden" name="searchAll" value="" /> <input
-							type="hidden" name="exclude" value="" /> <input type="hidden"
-							name="numLT" value="" _value="7" />
-						<!-- 6개까지 출력하고, 7개째가 있으면 더보기 판단 -->
-						<input type="hidden" name="getPinCount" value="true" /> <input
-							type="hidden" name="getAttendCount" value="true" /> <input
-							type="hidden" name="deabuse" value="true" />
 						<fieldset>
-							<legend>모임제목 / 본문</legend>
-							<dl>
+							<dl style="margin-bottom: 7px;">
 								<dt>
-									<span>모임제목 / 본문</span> <span class="chkEvent"><input
-										type="checkbox" id="closedEvent" name="searchClosedEvents"
-										value="1" /><label for="closedEvent">종료된 모임만</label></span>
+									<span>모임개설</span> 
 								</dt>
-								<dd>
-									<input type="text" name="s" placeholder="키워드로 모임을 검색하세요"
-										value="" title="키워드로 모임을 검색하세요" /> <input type="image"
-										src="http://static.onoffmix.com/images3/main/btnEventSearch.gif"
-										class="btnEventSearch" alt="검색" />
-								</dd>
 							</dl>
+							<a class="createStudy" href="add.do">모임 개설하기</a>
 							<dl class="comSearch category">
 								<dt>카테고리</dt>
 								<c:forEach var="c" items="${categories }">
 									<dd>
-										<a href="#" title="${c.subject }"> <input type="checkbox"
-											name="category[]" value="${c.sub_value }" /> ${c.subject }
+										<a href="#" title="${c.subject }" value="${c.subject }"> <input type="checkbox"
+											name="category" value="${c.subject }" /> ${c.subject }
 										</a>
 									</dd>
 								</c:forEach>
 									<dd>
 										<a href="#" title="" > <input type="checkbox"
-											name="category[]" value="" />
+											name="category" value="" />
 										</a>
 									</dd>
 							</dl>
@@ -102,43 +215,10 @@
 								<c:forEach var="a" items="${area }">
 									<dd>
 										<a href="#" title="${a.area }"> <input type="checkbox"
-											name="region[]" value="${a.area_value }" /> ${a.area }
+											name="region" value="${a.area}" /> ${a.area }
 										</a>
 									</dd>
 								</c:forEach>
-							</dl>
-							<dl class="comSearch category week">
-								<dt>요일/시간</dt>
-								<dd>
-									<a href="#" title="주중"> <input type="checkbox"
-										name="eventStartWeekday[]" value="0,1,2,3,4" /> 주중
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="주말"> <input type="checkbox"
-										name="eventStartWeekday[]" value="5,6" /> 주말
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="오전"> <input type="checkbox"
-										name="eventStartTimeSpan[]" value="6-11" /> 오전
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="오후"> <input type="checkbox"
-										name="eventStartTimeSpan[]" value="12-17" /> 오후
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="저녁"> <input type="checkbox"
-										name="eventStartTimeSpan[]" value="18-23" /> 저녁
-									</a>
-								</dd>
-								<dd>
-									<a href="#" title="새벽"> <input type="checkbox"
-										name="eventStartTimeSpan[]" value="0-5" /> 새벽
-									</a>
-								</dd>
 							</dl>
 							<dl class="comSearch price">
 								<dt>참여비용</dt>
@@ -161,21 +241,6 @@
 								<dd data-range="5">
 									<a href="">99,000원
 										~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-								</dd>
-							</dl>
-							<dl class="comSearch date">
-								<dt>모임시작일</dt>
-								<dd>
-									<p class="positionArea">
-										<span class="bulCalendar1"><img
-											src="http://static.onoffmix.com/images3/main/bulCalendar.png"
-											alt="calendar" /></span><input id="startEventDate"
-											class="datepicker" type="text" name="eventStartDate" /> ~ <span
-											class="bulCalendar2"><img
-											src="http://static.onoffmix.com/images3/main/bulCalendar.png"
-											alt="calendar" /></span><input id="endEventDate" class="datepicker"
-											type="text" name="eventEndDate" />
-									</p>
 								</dd>
 							</dl>
 						</fieldset>

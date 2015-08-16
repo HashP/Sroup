@@ -30,7 +30,31 @@ public class StudyImpl implements StudyService {
 		List<ListVO> list = listdao.getAllStudies();
 		return list;
 	}
-	
+	@Override
+	public List<ListVO> getAllStudiesBySoon() {
+		List<ListVO> list = listdao.getAllStudiesBySoon();
+		return list;
+	}
+	@Override
+	public List<ListVO> getAllStudiesByLatest() {
+		List<ListVO> list = listdao.getAllStudiesByLatest();
+		return list;
+	}
+	@Override
+	public List<ListVO> getAllStudiesCat(List<String> cat) {
+		List<ListVO> list = listdao.getAllStudiesCat(cat);
+		return list;
+	}
+	@Override
+	public List<ListVO> getAllStudiesByLatestCat(List<String> cat) {
+		List<ListVO> list = listdao.getAllStudiesByLatestCat(cat);
+		return list;
+	}
+	@Override
+	public List<ListVO> getAllStudiesBySoonCat(List<String> cat) {
+		List<ListVO> list = listdao.getAllStudiesBySoonCat(cat);
+		return list;
+	}
 	@Override
 	public void addCheck(CheckVO check) {
 		listdao.addCheck(check);
@@ -110,4 +134,9 @@ public class StudyImpl implements StudyService {
 	public void deleteJoin(JoinVO join) {
 		listdao.deleteJoin(join);
 	}
+	@Override
+	public void studyHit(int study_no) {
+		listdao.studyHit(study_no);
+	}
+	
 }

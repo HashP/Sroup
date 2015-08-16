@@ -33,10 +33,10 @@
 	width: 206px; 
 	height: 28px;
 	float: left;
-	margin: 25px 0 0 10px;
+	margin: 17px 0 0 10px;
 }
 .fieldset {
-	width: 470px;
+	width: 440px;
 	height: 80px;
 	display:block;
 	float:left;
@@ -2241,7 +2241,25 @@ button.attach:hover,
 .attend {
 	cursor: pointer;
 }
-
+.createStudy {
+	margin-left: 4px;
+    display: block;
+    width: 179px;
+    background: #f2f2f2;
+    height: 10px;
+    padding: 8px 8px 14px 8px;
+    color: #000;
+    border: 1px solid #d8d8d8;
+    border-radius: 1px;
+    text-align: center;
+}
+.createStudy:hover {
+	position: relative;
+	background: #214464;
+	border: 1px solid #264f73;
+	color: #fff;
+	text-decoration: none;
+}
 
 
 
