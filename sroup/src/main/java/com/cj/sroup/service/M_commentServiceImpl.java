@@ -1,5 +1,6 @@
 package com.cj.sroup.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,16 @@ public class M_commentServiceImpl implements M_commentService{
 	public M_commentVO rewriteComment(M_commentVO m_comment) {
 		m_commentdao.reComment(m_comment);
 		return m_commentdao.reComment_get(m_comment.getC_no());
+	}
+
+	@Override
+	public List<M_commentVO> getdateComment(String selectDate) {		
+		
+		if(m_commentdao.getdateComment(selectDate).isEmpty()==true){
+			
+			return null;
+		}
+		return m_commentdao.getdateComment(selectDate);
 	}
 	
 

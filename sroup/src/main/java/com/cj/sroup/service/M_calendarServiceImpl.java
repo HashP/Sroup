@@ -31,5 +31,11 @@ public class M_calendarServiceImpl implements M_calendarService{
 	public void delCalEvent(int event_id) {
 		m_calendardao.delCalEvent(event_id);
 	}
+
+	@Override
+	public void chagneCalEvent(M_calEventVO m_calendar) {
+		m_calendardao.chagneCalEvent(m_calendar);
+		
+	}
 	
 }

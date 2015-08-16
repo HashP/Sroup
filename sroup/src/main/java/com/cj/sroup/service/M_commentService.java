@@ -8,6 +8,7 @@ import com.cj.sroup.vo.M_commentVO;
 public interface M_commentService {
 	void addComment(M_commentVO m_comment);
 	List<M_commentVO> getAllComment();
+	List<M_commentVO> getdateComment(String selectDate);
 	void delComment(int c_no);
 	M_commentVO rewriteComment(M_commentVO m_comment);
 }

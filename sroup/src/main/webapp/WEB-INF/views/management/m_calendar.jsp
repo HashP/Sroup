@@ -292,6 +292,19 @@ $(document).ready(function()
         	 $(".glyphicon-remove").remove();        	  
           });
       },
+      eventDrop:function(event, delta, revertFunc){
+    	var start=event.start._i
+    	var end = event.end._i
+    	 $.ajax({      
+    		 type: "POST",
+             url: "changeCalEvent.do",
+             data :  {"calEvent_id":event.id,"event_start":start,"event_end":end},                         
+             success: function (data) {	            	 
+            	 
+           	  	alert("성공")
+             }     
+	})
+      },
       
       
       //removeEvents : function()

@@ -7,8 +7,8 @@
 </style>
 <div class="container" style="width: 1130px;">
 	<!-- ì°¨í h2 ìì´ë ê°(bordname)ì¼ë¡ ê²ìí ì´ë¦ì ë³ê²½íë¤. -->
-	<h1 id="bordname">게시판</h1>
-	<br>
+	<h1 id="bordname">게시판</h1><hr>
+	
 	<div>
 	<table class="table table-hover" style="width: 1100px">
 		<thead>

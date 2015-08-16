@@ -2,6 +2,7 @@ package com.cj.sroup.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -86,6 +87,23 @@ public class ManagementController {
 		mav.setViewName("management/m_comment");
 
 		return mav;		
+	}
+	
+	@RequestMapping("/comment_selectday.do")
+	@ResponseBody
+	public HashMap<String,List<M_commentVO>> memberspeak_selectDay(@RequestParam("selectDate") Date day){
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		String selectDate=sd.format(day);		
+		HashMap<String,List<M_commentVO>> map = new HashMap<String,List<M_commentVO>>();
+		if(m_commentservice.getdateComment(selectDate)==null){
+			return null;
+		}		
+		List<M_commentVO> commentList = m_commentservice.getdateComment(selectDate);
+		
+		map.put("commentList", commentList);
+		
+
+		return map;		
 	}
 	@RequestMapping(value="/m_album.do", method=RequestMethod.GET)	
 	public ModelAndView albumList(@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
@@ -234,7 +252,7 @@ public class ManagementController {
 	}
 	
 	// 덧글 등록 삭제 기능 
-	@RequestMapping("/boardreply_add.do")	
+	@RequestMapping(value="/boardreply_add.do" ,method=RequestMethod.POST)	
 	public String boardreply_save(@RequestParam("b_no")int b_no,
 			@RequestParam("content")String content){
 		M_boardReplyVO m_boardreply = new M_boardReplyVO();
@@ -269,7 +287,10 @@ public class ManagementController {
 	@RequestMapping("/comment_add.do")
 	// 차후 작성자 아이디 도 가져와야함 writer
 	public String comment_writesave(@RequestParam("content")String content){		
-		M_commentVO m_comment = new M_commentVO();			
+		M_commentVO m_comment = new M_commentVO();
+		
+		content = content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		System.out.println(content);
 		m_comment.setC_content(content);
 
 		m_commentservice.addComment(m_comment);
@@ -286,7 +307,7 @@ public class ManagementController {
 	@ResponseBody
 	public M_commentVO comment_rewrite(@RequestParam("c_no")int c_no,
 						@RequestParam("c_content") String c_content){
-		
+		c_content = c_content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_commentVO m_comment = new M_commentVO();
 		m_comment.setC_content(c_content);
 		m_comment.setC_no(c_no);
@@ -323,9 +344,9 @@ public class ManagementController {
 			@RequestParam("event_color") String event_color)throws ParseException{		
 		SimpleDateFormat sd = new SimpleDateFormat(
 				"yyyy.MM.dd aa hh시 mm분");
-		System.out.println(event_start +"전");
-		
-		System.out.println(sd.parse(event_start) +"후");
+//		System.out.println(event_start +"전");
+//		
+//		System.out.println(sd.parse(event_start) +"후");
 		M_calendarVO m_calendar = new M_calendarVO();
 		m_calendar.setEvent_start(sd.parse(event_start));
 		m_calendar.setEvent_end(sd.parse(event_end));
@@ -336,6 +357,22 @@ public class ManagementController {
 		m_calendarservice.addCalEvent(m_calendar);			
 
 	}
+	
+	// 캘린더 이벤트 수정하는 곳
+		@RequestMapping(value="/changeCalEvent.do" ,method=RequestMethod.POST)
+		@ResponseBody
+		public void calEventChange(@RequestParam("calEvent_id") int event_id,
+				@RequestParam("event_start") String event_start,
+				@RequestParam("event_end") String event_end) throws ParseException{	
+			SimpleDateFormat sd = new SimpleDateFormat(
+					"yyyy.MM.dd aa hh시 mm분");
+			M_calEventVO m_calEvent = new M_calEventVO();
+			m_calEvent.setEvent_start(sd.parse(event_start));
+			m_calEvent.setEvent_end(sd.parse(event_end));
+			m_calEvent.setEvent_id(event_id);
+			m_calendarservice.chagneCalEvent(m_calEvent);			
+			
+		}
 	
 	// 캘린더 이벤트 삭제하는 곳
 	@RequestMapping("/calEventDel.do")

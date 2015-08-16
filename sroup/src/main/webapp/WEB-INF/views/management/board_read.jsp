@@ -33,6 +33,14 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
     padding: 0;
     font-size: 12px;
 }
+.re_content{
+margin-left: 70px;
+}
+pre{
+margin: 0px;
+border: none;
+padding: 0px; 
+}
 </style>
 <div class="col-md-8 col-md-offset-1">
 
@@ -105,13 +113,13 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 					<p style="display: inline-block;"><b>${b_reply.re_writer}</b></p>
 					<p style="display: inline-block; padding-left: 5px;"><small style="color: gray;">${b_reply.re_writer_day }</small></p>			
 					<a class="glyphicon glyphicon-remove" id="${b_reply.re_no }" ></a>
-					<div>${b_reply.re_content }</div>
+					<div class="re_content"><pre>${b_reply.re_content }</pre></div>
 				</div>
 			</div>					
 		</c:forEach>
 			<div style="padding: 20px 5px; width: 100%">
 				<table style="width: 100%">
-					<td class="i1"><textarea id="b_reply" style="overflow: hidden; line-height: 14px; height: 61px; width: 100%;"></textarea></td>
+					<td class="i1"><textarea wrap="hard" id="b_reply" style="overflow: hidden; line-height: 14px; height: 61px; width: 100%;"></textarea></td>
 					<td class="i2"><input type="image" name="" src="resources/images/ok_btn.gif" alt="확인"></td>
 				</table>
 			</div>			
@@ -128,8 +136,24 @@ glyphicon:active,.glyphicon:hover {color:black;  text-decoration:none}
 	$(function() {
 		$("input[type='image']").on("click", function() {
 			var b_no = ${b_detail.b_no };
-			var content = $("#b_reply").val();
-			 location.replace('boardreply_add.do?b_no='+b_no+"&content="+content);			
+			var content = $("#b_reply").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
+			var form = document.createElement('form');
+			var objs;
+			objs = document.createElement('input');
+			objs.setAttribute('type', 'hidden');
+			objs.setAttribute('name', 'b_no');
+			objs.setAttribute('value', b_no);
+			objs2 = document.createElement('input');
+			objs2.setAttribute('type', 'hidden');
+			objs2.setAttribute('name', 'content');
+			objs2.setAttribute('value', content);
+			form.appendChild(objs);
+			form.appendChild(objs2);
+			form.setAttribute('method', 'post');
+			form.setAttribute('action', "boardreply_add.do");
+			document.body.appendChild(form);
+			form.submit();
+				
 		});
 		$(".glyphicon").hide();
 		

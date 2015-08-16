@@ -16,6 +16,20 @@
 	from s_comment
     order by C_NO desc      
    </select>
+   
+    <select id="getdateComment" resultType="m_comment" parameterType="string">
+   <!-- 차후 사진 가져오기 위해 회원 테이블과 c_writer를 가지고 조인후 프로필사진을 가져와야함 -->
+   select	STUDY_NO	as study_no,
+   			LIST_NAME	as list_name,
+   			C_NO		as c_no, 
+   			C_WRITE_DAY	as c_write_day, 
+   			C_WRITER	as c_writer,   			 
+   			C_CONTENT	as c_content   			
+	from s_comment
+	where C_WRITE_DAY >= to_date(#{value},'YYYY-MM-DD')
+	and C_WRITE_DAY &lt;= to_date(#{value},'YYYY-MM-DD')+1
+    order by C_NO desc      
+   </select>
 
    <insert id="addComment" parameterType="m_comment">
    		insert into S_COMMENT (STUDY_NO,
@@ -43,8 +57,7 @@
  
  <update id="reComment" parameterType="m_comment">
  	UPDATE S_COMMENT
-	SET C_CONTENT= #{c_content},
-		C_WRITE_DAY=sysdate
+	SET C_CONTENT= #{c_content}		
 	WHERE C_NO = #{c_no}
  </update>
  
