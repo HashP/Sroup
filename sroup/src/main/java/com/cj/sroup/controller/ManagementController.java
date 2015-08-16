@@ -344,9 +344,9 @@ public class ManagementController {
 			@RequestParam("event_color") String event_color)throws ParseException{		
 		SimpleDateFormat sd = new SimpleDateFormat(
 				"yyyy.MM.dd aa hh시 mm분");
-//		System.out.println(event_start +"전");
+		System.out.println(event_start +"전");
 //		
-//		System.out.println(sd.parse(event_start) +"후");
+		System.out.println(sd.parse(event_start) +"후");
 		M_calendarVO m_calendar = new M_calendarVO();
 		m_calendar.setEvent_start(sd.parse(event_start));
 		m_calendar.setEvent_end(sd.parse(event_end));
@@ -358,14 +358,13 @@ public class ManagementController {
 
 	}
 	
-	// 캘린더 이벤트 수정하는 곳
+	// 캘린더 이벤트 수정하는 곳(드래그시&resize 시)
 		@RequestMapping(value="/changeCalEvent.do" ,method=RequestMethod.POST)
 		@ResponseBody
 		public void calEventChange(@RequestParam("calEvent_id") int event_id,
 				@RequestParam("event_start") String event_start,
 				@RequestParam("event_end") String event_end) throws ParseException{	
-			SimpleDateFormat sd = new SimpleDateFormat(
-					"yyyy.MM.dd aa hh시 mm분");
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			M_calEventVO m_calEvent = new M_calEventVO();
 			m_calEvent.setEvent_start(sd.parse(event_start));
 			m_calEvent.setEvent_end(sd.parse(event_end));

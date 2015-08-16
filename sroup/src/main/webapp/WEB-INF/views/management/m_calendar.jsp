@@ -10,13 +10,19 @@
 	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-     href="resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
-<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker.css">
-<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker-regularfont.css">
-<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker-glyphicons.css">
-<link rel="stylesheet" href="resources/simplecolorpicker/jquery.simplecolorpicker-fontawesome.css">
+	href="resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+<link rel="stylesheet"
+	href="resources/simplecolorpicker/jquery.simplecolorpicker.css">
+<link rel="stylesheet"
+	href="resources/simplecolorpicker/jquery.simplecolorpicker-regularfont.css">
+<link rel="stylesheet"
+	href="resources/simplecolorpicker/jquery.simplecolorpicker-glyphicons.css">
+<link rel="stylesheet"
+	href="resources/simplecolorpicker/jquery.simplecolorpicker-fontawesome.css">
 <style type="text/css">
 #title {
 	padding-left: 10px;
@@ -79,23 +85,25 @@ textarea {
 }
 </style>
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
 
 <script type="text/javascript"
 	src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
-	
 
-    <script type="text/javascript"
-     src="resources/datetimepicker/js/bootstrap-datetimepicker.min.js">
+
+<script type="text/javascript"
+	src="resources/datetimepicker/js/bootstrap-datetimepicker.min.js">
     </script>
-   
-    
+
+
 
 <script src="resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <div class="container">
-	<h1 id="bordname" class="bordname1" onclick='removeClick();'>스터디 일정</h1>
+	<h1 id="bordname" class="bordname1" onclick='removeClick();'>스터디
+		일정</h1>
 	<hr>
-	
+
 	<div id="calendarblock" class="panel panel-default">
 		<div class="panel-body">
 
@@ -235,9 +243,10 @@ $(document).ready(function()
                       eventToSave.StartDate = $("#StartDt").val();
                       eventToSave.EndDate = $("#EndDt").val();
                       eventToSave.EventName = event.title = eventToSave.title = $("#Name").val();
-                     
-                      var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":$("#e_title").val(),"event_content":$("#e_memo").val(),"event_color":$("#e_color").select().val()}
-                      $.ajax({              
+                      var e_memo = $("#e_memo").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
+                      var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":$("#e_title").val(),"event_content":e_memo,"event_color":$("#e_color").select().val()}
+                      $.ajax({        
+                    	  type:"POST",
                           url: "calEventAdd.do",
                           data : allData,                                       
                           success: function (data) {
@@ -291,20 +300,43 @@ $(document).ready(function()
         	  
         	 $(".glyphicon-remove").remove();        	  
           });
+          
       },
       eventDrop:function(event, delta, revertFunc){
-    	var start=event.start._i
-    	var end = event.end._i
+    	var start=event.start.format()
+    	var end = event.end.format()
+    	if (!confirm("기간을 변경하시겠습니까?")) {
+            revertFunc();
+        }else{
     	 $.ajax({      
     		 type: "POST",
              url: "changeCalEvent.do",
              data :  {"calEvent_id":event.id,"event_start":start,"event_end":end},                         
              success: function (data) {	            	 
-            	 
-           	  	alert("성공")
+            	
              }     
 	})
+      }
       },
+      eventResize: function(event, delta, revertFunc) {          
+
+          var start=event.start.format()
+      	var end = event.end.format()
+      	 if (!confirm("기간을 변경하시겠습니까?")) {
+            revertFunc();
+        }else{
+      	 $.ajax({      
+      		 type: "POST",
+               url: "changeCalEvent.do",
+               data :  {"calEvent_id":event.id,"event_start":start,"event_end":end},                         
+               success: function (data) {	            	 
+              	 
+               }     
+  	})
+        }
+
+      },
+  
       
       
       //removeEvents : function()
@@ -351,7 +383,7 @@ $(document).ready(function()
 <div id="eventContent" title="Event Details" style="display: none;">
 	시작 : <span id="startTime"></span><br> 종료 : <span id="endTime"></span><br>
 	<hr>
-	 <textarea id="s_content" style="width: 291px;" disabled="disabled" ></textarea>	
+	<textarea wrap="hard" id="s_content" style="width: 291px;" disabled="disabled"></textarea>
 	<br> <br>
 	<p id="eventInfo"></p>
 
@@ -361,46 +393,50 @@ $(document).ready(function()
 
 <div id="ModalAdd" style="display: none; width: 600px;">
 	<div id="AddEvent" style="width: 620px; text-align: center;">
-	<div class="inline_div addEvent_div"><strong>제목</strong> <input id="e_title" type="text"  style="width: 564px; height: 30px;"></div>
-	<div class="addEvent_div">
-	<div class='input-group date inline_div' id='datetimepicker1'>
-	<strong style="float: left; padding-right : 5px; margin: 6px 0;">시작</strong>
-                    <input id="start_d"  type='text' class="form-control" />
-                    <span class="input-group-addon" style="float: left; width: 39px;">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-    </div>
-	<div class='input-group date inline_div ' id='datetimepicker2'>
-	<strong style="float: left; padding-left:10px; padding-right: 5px;
-    margin: 6px 0;">종료</strong> 
-                    <input id="end_d" type='text' class="form-control" />
-                    <span class="input-group-addon" style="float: left; width: 39px;">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-	</div> 
-	<div  class="addEvent_div" style="height: 34px;  padding-top: 2px;">
-	<strong>색상</strong>
-<select name="colorpicker-picker-delay" id="e_color">
-  <option value="#7bd148">Green</option>
-  <option value="#5484ed">Bold blue</option>
-  <option value="#a4bdfc">Blue</option>
-  <option value="#46d6db">Turquoise</option>
-  <option value="#7ae7bf">Light green</option>
-  <option value="#51b749">Bold green</option>
-  <option value="#fbd75b">Yellow</option>
-  <option value="#ffb878">Orange</option>
-  <option value="#ff887c">Red</option>
-  <option value="#dc2127">Bold red</option>
-  <option value="#dbadff">Purple</option>
-  <option value="#e1e1e1">Gray</option>
-</select>
-</div>
-	<div class="addEvent_div">
-		<strong>메모</strong> <textarea id="e_memo" style="width :564px; height: 240px;"></textarea>
-	</div>	
+		<div class="inline_div addEvent_div">
+			<strong>제목</strong> <input id="e_title" type="text"
+				style="width: 564px; height: 30px;">
+		</div>
+		<div class="addEvent_div">
+			<div class='input-group date inline_div' id='datetimepicker1'>
+				<strong style="float: left; padding-right: 5px; margin: 6px 0;">시작</strong>
+				<input id="start_d" type='text' class="form-control" /> <span
+					class="input-group-addon" style="float: left; width: 39px;">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+			<div class='input-group date inline_div ' id='datetimepicker2'>
+				<strong
+					style="float: left; padding-left: 10px; padding-right: 5px; margin: 6px 0;">종료</strong>
+				<input id="end_d" type='text' class="form-control" /> <span
+					class="input-group-addon" style="float: left; width: 39px;">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>
+		<div class="addEvent_div" style="height: 34px; padding-top: 2px;">
+			<strong>색상</strong><select name="colorpicker-picker-delay"
+				id="e_color">
+				<option value="#7bd148">Green</option>
+				<option value="#5484ed">Bold blue</option>
+				<option value="#a4bdfc">Blue</option>
+				<option value="#46d6db">Turquoise</option>
+				<option value="#7ae7bf">Light green</option>
+				<option value="#51b749">Bold green</option>
+				<option value="#fbd75b">Yellow</option>
+				<option value="#ffb878">Orange</option>
+				<option value="#ff887c">Red</option>
+				<option value="#dc2127">Bold red</option>
+				<option value="#dbadff">Purple</option>
+				<option value="#e1e1e1">Gray</option>
+			</select>
+		</div>
+		<div class="addEvent_div">
+			<strong>메모</strong>
+			<textarea wrap="hard" id="e_memo" style="width: 564px; height: 240px;"></textarea>
+		</div>
 	</div>
-	
+
 	<br />
 
 
