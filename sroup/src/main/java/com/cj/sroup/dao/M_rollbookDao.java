@@ -14,7 +14,7 @@ public interface M_rollbookDao {
 	public List<String> getSchedulesByStudyno(int studyNo);
 	public List<UserInfoVO> getMembersByStudyno(int studyNo);
 	
-	@Select("select USER_ID, (select count(*) from S_ROLLBOOK where study_no = STUDY_MANAGEMENT.STUDY_NO and RB_name = STUDY_MANAGEMENT.USER_ID and RB_ATTEND = 'attend') value from STUDY_MANAGEMENT where study_no = #{value}")
+	@Select("select USER_ID, (select count(*) from S_ROLLBOOK where study_no = STUDY_MANAGEMENT.STUDY_NO and RB_name = STUDY_MANAGEMENT.USER_ID and RB_ATTEND = 'attend' and S_ROLLBOOK.RB_ATTEND_DAY <= sysdate) value from STUDY_MANAGEMENT where study_no = #{value}")
 	@MapKey("USER_ID")
 	public HashMap<String, HashMap<String, Object>> getAttendCountByStudyno(int studyNo);
 	
@@ -30,4 +30,9 @@ public interface M_rollbookDao {
 			+ " WHERE study_no = #{study_no} and TO_CHAR(RB_ATTEND_DAY, 'yyyy-mm-dd') = #{date}")
 	@MapKey("name")
 	public HashMap<String, M_RollbookVO> getAttendByDay(HashMap<String, Object> searchOption);
+	
+	public int getNewRbNo();
+	public void addNewRollbook(M_RollbookVO rollbook);
+	public void updateRollbook(M_RollbookVO rollbook);
+	public int getAttendCountByUserid(M_RollbookVO rollbook);
 }

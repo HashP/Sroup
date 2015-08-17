@@ -1,8 +1,11 @@
 package com.cj.sroup.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,32 @@ public class TestController{
 		HashMap<String, M_RollbookVO> rollbook = rollbookService.getAttendByDay(studyNo, date);	//date must be pattern 'yyyy-mm-dd';
 		model.addAttribute("rollbook", rollbook);
 		logger.info("rollbook: " + rollbook);
+		return jsonView;
+	}
+	
+	@RequestMapping("/saveRollbookByRbno.do")
+	public View saveRollbookByRbno(Model model, M_RollbookVO rollbook) {
+		logger.info(rollbook);
+		
+		int attendCount = rollbookService.saveRollbookByRbno(rollbook);
+		model.addAttribute("attendCount", attendCount);
+		
+		return jsonView;
+	}
+	
+	@RequestMapping("/addRollbookByRbno.do")
+	public View addRollbookByRbno(HttpSession session, Model model, M_RollbookVO rollbook, @RequestParam("date")String date) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		rollbook.setAttendDay(sdf.parse(date));
+		rollbook.setWriter((String)session.getAttribute("LOGIN_ID"));
+		
+		logger.info(date);
+		logger.info(rollbook);
+
+		HashMap<String, Integer> resultMap =  rollbookService.addRollbookByRbno(rollbook);
+		model.addAttribute("rbNo", resultMap.get("rbNo"));
+		model.addAttribute("attendCount", resultMap.get("attendCount"));
+		
 		return jsonView;
 	}
 	

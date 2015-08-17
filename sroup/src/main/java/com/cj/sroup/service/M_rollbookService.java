@@ -13,4 +13,7 @@ public interface M_rollbookService {
 	
 	public HashMap<String, HashMap<String, Object>> getAttendCountByStudyno(int studyNo);
 	public HashMap<String, M_RollbookVO> getAttendByDay(int studyNo, String date);
+	
+	public int saveRollbookByRbno(M_RollbookVO rollbook);
+	public HashMap<String, Integer> addRollbookByRbno(M_RollbookVO rollbook);
 }
