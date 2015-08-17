@@ -19,6 +19,7 @@
    		<typeAlias type="com.cj.sroup.vo.StudyManagementVO" alias="StudyManagementVO"/>
    		<typeAlias type="com.cj.sroup.vo.MessageVO" alias="MessageVO"/>
    		<typeAlias type="com.cj.sroup.vo.JoinVO" alias="JoinVO"/>
+   		<typeAlias type="com.cj.sroup.vo.M_RollbookVO" alias="m_rollbook"/>
    </typeAliases>
   <!-- SQL이 정의된 mapper파일을 등록한다. -->
   <mappers>

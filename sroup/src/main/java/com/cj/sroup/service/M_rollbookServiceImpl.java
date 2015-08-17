@@ -38,4 +38,25 @@ public class M_rollbookServiceImpl implements M_rollbookService {
 		searchOption.put("date", date);
 		return rollbookDao.getAttendByDay(searchOption);		
 	}
+	
+	public int saveRollbookByRbno(M_RollbookVO rollbook) {
+		//db에 정보를 update하고 
+		rollbookDao.updateRollbook(rollbook);		
+		//오늘까지의 총 출석일수를 가져와 반환 	
+		return rollbookDao.getAttendCountByUserid(rollbook);
+	}
+	
+	public HashMap<String, Integer> addRollbookByRbno(M_RollbookVO rollbook) {
+		int rbNo = rollbookDao.getNewRbNo();
+		rollbook.setNo(rbNo);
+		
+		rollbookDao.addNewRollbook(rollbook);
+		int attendCount = rollbookDao.getAttendCountByUserid(rollbook);
+		
+		HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("rbNo", rbNo);
+		resultMap.put("attendCount", attendCount);
+		
+		return resultMap;
+	}
 }
