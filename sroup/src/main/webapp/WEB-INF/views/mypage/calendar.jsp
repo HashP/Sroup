@@ -20,7 +20,11 @@
 .fc-sun {color:red;} */
 
 </style>
-<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
+<script type="text/javascript">
+var bootstrapTooltip = $.fn.tooltip.noConflict();
+$.fn.bstooltip = bootstrapTooltip;
+</script>
+
 <script src="../resources/fullcalendar/lib/moment.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
 
@@ -48,89 +52,75 @@ $(function(){
     var m = date.getMonth(); 
     var y = date.getFullYear(); 
 
-    var calendar = $('#calendar').fullCalendar({ 
-        header: { 
-            left: 'prev,next,today', 
-            center: 'title', 
-            right: 'month,agendaWeek' 
-        }, 
-        editable: false, 
-        dayClick: function(date, allDay, jsEvent, view) 
-        { 
-            
-        }, 
-        eventAfterAllRender: function(view) { 
-        	$(window).resize();
-        	coloring(); 
-			$(".fc-toolbar h2").css("font-size", "20px");
-        },
-       
-        events: [ 
-             
-            { 
-                id: 999, 
-                title: '취업 스터디', 
-                start: new Date(y, m, 2, 16, 0), 
+    $.getJSON("getCalendarEvent.do", function(result) {
+    	
+    	result.events;
+    	var events = [];
+    	
+    	$.each(result.events, function(index, element) {
+	    	
+    		events.push({
+                title: element.study.study_name, 
+                start: element.eventStart,
+                end: element.eventEnd, 
                 allDay: false,
                 url: '../m_main.do',
-                className:'study999'
-            }, 
-            { 
-                id: 999, 
-                title: '취업 스터디', 
-                start: new Date(y, m, 14, 16, 0), 
-                allDay: false,
-                url: '../m_main.do',
-                className:'study999'
-            }, 
-            { 
-            	id:133,
-                title: '토익 스터디', 
-                start: new Date(y, m, d, 10, 30), 
-                end: new Date(y, m, d, 12, 0), 
-                allDay: false,
-                url: '../m_main.do',
-                className:'study133'
-            }, 
-            { 
-            	id:133,
-                title: '토익 스터디', 
-                start: new Date(y, m, d-7, 12, 0), 
-                end: new Date(y, m, d-7, 14, 0), 
-                allDay: false,
-                url: '../m_main.do',
-                className:'study133'
-            }, 
-            { 
-            	id:450,
-                title: 'JAVA', 
-                start: new Date(y, m, 10, 19, 0), 
-                end: new Date(y, m, 10, 22, 30), 
-                allDay: false,
-                url: '../m_main.do',
-                className:'study450'
-            }, 
-            { 
-            	id:450,
-                title: 'JAVA', 
-                start: new Date(y, m, 28, 15, 0), 
-                start: new Date(y, m, 28, 17, 0), 
-                url: '../m_main.do',
-                className:'study450'
-                
-            } 
-        ] 
+                tooltip:element.eventTitle,
+                className:'study'+element.study.study_no		
+	    	});
+    		
+    	});
+    	
+    	//console.log(events);
+    	
+	    var calendar = $('#calendar').fullCalendar({ 
+	        header: { 
+	            left: 'prev,next,today', 
+	            center: 'title', 
+	            right: 'month,agendaWeek' 
+	        }, 
+	        editable: false, 
+	        dayClick: function(date, allDay, jsEvent, view) 
+	        { 
+	            
+	        }, 
+	        eventAfterAllRender: function(view) { 
+	        	$(window).resize();
+	        	coloring(result.studyNoList); 
+				$(".fc-toolbar h2").css("font-size", "20px");
+	        },
+	        eventRender: function (event, element) {
+	        	var tooltip = event.tooltip;
+	        	/* $(element).attr("title", tooltip);
+	        	$(element).attr("data-placement", "top");
+	        	$(element).attr("data-toggle", "tooltip"); */
+	        	console.log(tooltip);
+	        	$(element).bstooltip({title: tooltip});  
+	        }	       
+	        ,events: events
+	    });
+    	
+    	
     });
+    
 	    
     
     
     
     
-	function coloring() {
+	function coloring(list) {
 	    //for문으로 처리 , 색깔은 색깔코드 미리 저장해서 몇개 배열로 넣어놓자
-	   	$(".study999").css({"border":"1px solid #f0ad4e","background-color":"#f0ad4e"});
+	    
+	    $.each(list, function(index, element) {
+		//	console.log(element);
+			var colori = index % color.length;
+			
+			$(".study"+element).css({"border":"1px solid " + color[colori],"background-color": color[colori]});
+	    });
+	    
+	   /* 	$(".study999").css({"border":"1px solid #f0ad4e","background-color":"#f0ad4e"});
 	   	$(".study133").css({"border":"1px solid #3a87ad","background-color":"#3a87ad"});
-	   	$(".study450").css({"border":"1px solid #ed4e7d","background-color":"#ed4e7d"});
+	   	$(".study450").css({"border":"1px solid #ed4e7d","background-color":"#ed4e7d"}); */
 	}
 
 });

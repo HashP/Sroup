@@ -20,6 +20,7 @@
    		<typeAlias type="com.cj.sroup.vo.MessageVO" alias="MessageVO"/>
    		<typeAlias type="com.cj.sroup.vo.JoinVO" alias="JoinVO"/>
    		<typeAlias type="com.cj.sroup.vo.M_RollbookVO" alias="m_rollbook"/>
+   		<typeAlias type="com.cj.sroup.vo.CalendarVO" alias="calendar"/>
    </typeAliases>
   <!-- SQL이 정의된 mapper파일을 등록한다. -->
   <mappers>
@@ -34,5 +35,6 @@
     <mapper resource="META-INF/mybatis/message.xml"/>
     <mapper resource="META-INF/mybatis/join.xml"/>
     <mapper resource="META-INF/mybatis/m_rollbook.xml"/>
+    <mapper resource="META-INF/mybatis/calendar.xml"/>
   </mappers>
 </configuration>

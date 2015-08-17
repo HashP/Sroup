@@ -25,6 +25,8 @@
 		  s.END_DATE >= sysdate
 		  and
 		  m.USER_GRADE = 'ADMIN'
+		 ORDER BY
+		 	s.STUDY_NAME asc
 	</select>
 
 	<select id="getAttendStudiesById" parameterType="String" resultType="StudyManagementVO">
@@ -47,6 +49,8 @@
 		  s.END_DATE >= sysdate
 		  and
 		  m.USER_GRADE = 'NORMAL'
+		  ORDER BY
+		 	s.STUDY_NAME asc
 	</select>
 
 	<select id="getFinishedCreateStudiesById" parameterType="String" resultType="StudyManagementVO">
@@ -69,6 +73,8 @@
 		  s.END_DATE &lt; sysdate
 		  and
 		  m.USER_GRADE = 'ADMIN'
+		  ORDER BY
+		 	s.STUDY_NAME asc
 	</select>
 
 	<select id="getFinishedAttendStudiesById" parameterType="String" resultType="StudyManagementVO">
@@ -91,6 +97,8 @@
 		  s.END_DATE &lt; sysdate
 		  and
 		  m.USER_GRADE = 'NORMAL'
+		  ORDER BY
+		 	s.STUDY_NAME asc
 	</select>
 	
 	<insert id="addNewMember" parameterType="StudyManagementVO">

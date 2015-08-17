@@ -52,7 +52,7 @@ td strong {
 
 	<div class="panel panel-default" id="join-manage">
 		<div class="panel-body">
-			<h5>[스터디제목] 의 스터디 신청 관리 페이지 입니다.</h5>
+			<h5>${study.study_name } 의 스터디 신청 관리 페이지 입니다.</h5>
 		
 			<div id="list-box">
 				<table class="table table-hover" id="application-list">

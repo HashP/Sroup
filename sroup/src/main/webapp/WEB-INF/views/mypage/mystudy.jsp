@@ -88,6 +88,7 @@
 								<col width="*">
 								<col width="50px">
 								<col width="50px">
+								<col width="50px">
 							</colgroup>
 							<tbody>
 								
@@ -103,6 +104,17 @@
 				.							</c:otherwise>
 										</c:choose>
 										</td>
+										
+										<td>
+										<c:if test="${!(study.study.s_application_period lt now)}">
+											<form id="moveto_${study.study.study_no}" method="post" action="join-manage.do" style="padding: 0; margin: 0;">
+												<input type="hidden" name="studyno" value="${study.study.study_no}">
+												<%-- <a href="join-manage.do?studyno=${message.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">이동</a> --%>
+												<a onclick="document.getElementById('moveto_${study.study.study_no}').submit();" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="신청 관리 페이지로 이동">join</a>
+											</form>
+										</c:if>
+										</td>
+										
 										<td>
 											<c:if test="${!(study.study.s_application_period lt now)}">
 												<a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a>

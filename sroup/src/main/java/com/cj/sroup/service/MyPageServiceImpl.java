@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cj.sroup.dao.CalendarDao;
 import com.cj.sroup.dao.JoinDao;
 import com.cj.sroup.dao.MessageDao;
 import com.cj.sroup.dao.StudyManagementDao;
 import com.cj.sroup.dao.UserInfoDao;
+import com.cj.sroup.dao.listDao;
+import com.cj.sroup.vo.CalendarVO;
 import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
+import com.cj.sroup.vo.StudyVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Service
@@ -28,6 +32,10 @@ public class MyPageServiceImpl implements MyPageService {
 	private MessageDao messageDao;
 	@Autowired
 	private JoinDao joinDao;
+	@Autowired
+	private CalendarDao calendarDao;
+	@Autowired
+	private listDao listDao;
 	
 	/****회원정보수정******************************************/
 	/****회원정보수정******************************************/
@@ -145,5 +153,17 @@ public class MyPageServiceImpl implements MyPageService {
 		message.setSender(sender);
 		message.setStudy(join.getStudy());
 		messageDao.sendMessage(message);
+	}
+	
+	public List<CalendarVO> getCalendarEvents(String userid) {
+		return calendarDao.getCalendarEvents(userid);
+	}
+	
+	public List<Integer> getStudyNoList(String userid) {
+		return calendarDao.getStudyNoList(userid);
+	}
+	
+	public StudyVO getStudyByStudyno(int studyNo) {
+		return listDao.getStudyInfoByNo(studyNo);
 	}
 }

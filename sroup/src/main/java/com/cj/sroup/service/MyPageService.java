@@ -2,9 +2,11 @@ package com.cj.sroup.service;
 
 import java.util.List;
 
+import com.cj.sroup.vo.CalendarVO;
 import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
+import com.cj.sroup.vo.StudyVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 public interface MyPageService {
@@ -26,4 +28,9 @@ public interface MyPageService {
 	
 	public void acceptUser(JoinVO join, String loginId);
 	public void rejectUser(JoinVO join, String loginId);
+	
+	public List<CalendarVO> getCalendarEvents(String userid);
+	public List<Integer> getStudyNoList(String userid);
+	
+	public StudyVO getStudyByStudyno(int studyNo);
 }

@@ -11,13 +11,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.cj.sroup.service.MyPageService;
+import com.cj.sroup.vo.CalendarVO;
 import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
@@ -33,6 +37,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageService service;
+	@Autowired
+	private MappingJackson2JsonView jsonView;
+	
 	
 	/**
 	 * 회원정보 수정 폼으로 이동
@@ -163,6 +170,21 @@ public class MyPageController {
 		return "mypage/calendar";
 	}
 	
+	@RequestMapping("/getCalendarEvent.do")
+	public View getCalendarEvent(Model model, HttpSession session) {
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		
+		List<CalendarVO> events = service.getCalendarEvents(loginId);
+		List<Integer> studyNoList = service.getStudyNoList(loginId);
+		
+		model.addAttribute("events", events);
+		model.addAttribute("studyNoList", studyNoList);
+		System.out.println(events);
+		
+		return jsonView; 
+	}
+	
+	
 	/**
 	 * 이미 종료된 스터디 정보를 받아 목록페이지로 이동
 	 * @param model
@@ -216,11 +238,19 @@ public class MyPageController {
 		return "success";
 	}
 	
+	/**
+	 * 스터디 신청관리 페이지
+	 * @param studyNo
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/join-manage.do")
 	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo, HttpSession session, Model model) {
 		
 		List<JoinVO> applicationList = service.getApplicantsByStudyNo(studyNo);
 		model.addAttribute("applicantList", applicationList);
+		model.addAttribute("study", service.getStudyByStudyno(studyNo));
 		//System.out.println(applicationList);
 		
 		return "mypage/join-manage";
