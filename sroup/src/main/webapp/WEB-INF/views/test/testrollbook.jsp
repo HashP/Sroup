@@ -225,6 +225,7 @@ $(function() {
 				//console.log(attend);
 				
 				if( attend == null ) {
+					$(element).removeAttr("id");
 					$(element).find(".member-attend img").attr("src", "/sroup/resources/images/rollbook/noinfo.png");
 					$(element).find(".member-attend img").attr("alt", "");
 					$(element).find(".member-note p").text("")
