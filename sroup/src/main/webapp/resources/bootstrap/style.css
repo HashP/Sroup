@@ -59,7 +59,7 @@
 	padding: 0;
 }
 #searchInput{
-	background: url("http://static.onoffmix.com/images3/global/searchSlogan.png") no-repeat 50% 65%;
+	text-align : center;
     background-position-x: 50%;
     background-position-y: 65%;
     background-size: initial;
@@ -68,14 +68,13 @@
     background-attachment: initial;
     background-origin: initial;
     background-clip: initial;
-    background-color: rgb(247, 247, 247);
+    background : rgb(247, 247, 247);
 	display:block;
 	width:318px;
 	padding:0 0 0 7px;
 	border:1px solid #c6c6c6;
 	border-radius: 4px;
 	font-size:12px;
-	font-weight:bold;
 	line-height:28px;
 	color:#333;
 	vertical-align:top;

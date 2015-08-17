@@ -48,7 +48,7 @@
 		<div class="fieldset">
 			<div class="searchArea">
 				<div class="area1">
-					<input id="searchInput" type="text"> <input type="submit"
+					<input id="searchInput" type="text" placeholder="키워드를 입력해 주세요"> <input type="submit"
 						class="searchBtn" value="검색">
 				</div>
 				<div class="area2">

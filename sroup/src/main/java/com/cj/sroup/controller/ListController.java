@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -148,74 +149,106 @@ public class ListController {
 		service.addStudy(study);
 		service.addStudyManagement(studyManagement);
 
-		return "redirect:list2.do";
-	}
-	
-	@RequestMapping("/list2.do")
-	public String list2() {
 		return "redirect:list.do";
 	}
-
+	
 	@RequestMapping("/list.do")
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-		List<ListVO> lists = service.getAllStudies();
-		
-		
 		ModelAndView mav = new ModelAndView();
 		
 		List<CategoryVO> categories = service.getCategories();
 		List<CategoryVO> area = service.getArea();
+		List<ListVO> lists = new ArrayList<ListVO>();
+		lists = service.getAllStudiesDefault();
 		
 		mav.addObject("lists", lists);
 		mav.addObject("categories", categories);
 		mav.addObject("area", area);
 		mav.setViewName("list/list");
-
+		
 		return mav;
 	}
-	@RequestMapping("/list3.do") 
-		public ModelAndView list3(HttpServletRequest req, HttpServletResponse resp) throws Exception{
-			ModelAndView mav = new ModelAndView();
-			List<ListVO> lists = null;
-			String attr = req.getParameter("attr");
-			String[] selectCat = req.getParameterValues("selectCat");
-			String[] selectReg = req.getParameterValues("selectReg");
-			List<String> cat = new ArrayList<String>();
-			
-			if(selectCat != null) {
-				for(int i=0; i<selectCat.length; i++) {
-					cat.add(selectCat[i]);
-				}
+	
+	@RequestMapping("/list2.do")
+	public ModelAndView list2(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-				System.out.println(selectCat);
-				System.out.println(cat);
-				
-				System.out.println(attr);
-				if(attr.equals("popularity")) {
-					lists = service.getAllStudiesCat(cat);
-				} else if (attr.equals("latest")) {
-					lists = service.getAllStudiesByLatestCat(cat);
-				} else if (attr.equals("soon")) {
-					lists = service.getAllStudiesBySoonCat(cat);
-				}
-					
-				
-			} else {
-				if(attr.equals("popularity")) {
-					lists = service.getAllStudies();
-				} else if (attr.equals("latest")) {
-					lists = service.getAllStudiesByLatest();
-				} else if (attr.equals("soon")) {
-					lists = service.getAllStudiesBySoon();
-				}
+		ModelAndView mav = new ModelAndView();
+		String keyword = req.getParameter("keyword");
+		System.out.println(keyword);
+		
+		String orderby = req.getParameter("orderby");
+		String[] category = req.getParameterValues("category");
+		String[] region = req.getParameterValues("region");
+		String[] cost = req.getParameterValues("cost");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		System.out.println("orderby : " + orderby);
+		System.out.println("category : " + category);
+		System.out.println("region : " + region);
+		System.out.println("cost : " + cost);
+		
+		if(category != null) {
+			param.put("item1", category);
+		}
+		
+		if(region != null) {
+			param.put("item2", region);
+		}
+		if(cost != null) {
+			param.put("min", Integer.parseInt(cost[0]));
+			
+			if(cost[0].equals("0")) {
+				param.put("max", 10000);
+			} else if(cost[0].equals("10000")) {
+				param.put("max", 25000);
+			} else if(cost[0].equals("25000")) {
+				param.put("max", 40000);
+			} else if(cost[0].equals("40000")) {
+				param.put("max", 1000000);
 			}
 			
-			mav.addObject("lists", lists);
-			mav.setView(jsonView);
 			
-			return mav;
 		}
+		String sort = "desc";
+		
+		if(orderby.equals("s_application_period")) {
+			sort = "asc";
+		}
+		
+		param.put("orderby", orderby);
+		param.put("sort", sort);
+		
+		List<ListVO> lists = service.getAllStudies(param);
+		
+		if(keyword != null) {
+			lists = service.getAllStudiesBySearch(keyword);
+		}
+		
+		mav.addObject("lists", lists);
+		mav.setView(jsonView);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/search.do")
+	public ModelAndView search(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+		String keyword = req.getParameter("keyword");
+		List<ListVO> lists = new ArrayList<ListVO>();
+		System.out.println(keyword);
+		
+		if(keyword != null) {
+			lists = service.getAllStudiesBySearch(keyword);
+		}
+		
+		mav.addObject("lists", lists);
+		mav.setView(jsonView);
+		
+		return mav;
+	}
 	
 	@RequestMapping("/detail.do")
 	public ModelAndView detail(HttpServletRequest req) {
@@ -228,9 +261,11 @@ public class ListController {
 		StudyVO studyInfo = service.getStudyInfoByNo(study_no);
 		StudyVO available = service.getAvailable(study_no);
 		UserInfoVO userInfo = myService.getUserInfoById(studyInfo.getUser_id());
+		List<ListVO> lists = service.getAllStudiesDefault();
 		mav.addObject("studyInfo", studyInfo);
 		mav.addObject("available", available);
 		mav.addObject("userInfo", userInfo);
+		mav.addObject("lists", lists);
 		
 		return mav;
 	}

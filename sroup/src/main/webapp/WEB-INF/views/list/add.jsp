@@ -12,7 +12,7 @@
 	src="/sroup/resources/uploadify/jquery.uploadify.js"></script>
 <link rel="stylesheet"
 	href="/sroup/resources/bootstrap/jquery-ui.css">
-<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=3a22f3e4a016459e5a21808b4e5c46d3"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 	var checkAddr = "";

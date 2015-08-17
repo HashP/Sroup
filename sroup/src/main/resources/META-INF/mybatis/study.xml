@@ -4,7 +4,40 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.listDao">   
-   <select id="getAllStudies" resultType="Lists">
+   
+   <select id="getAllStudies" parameterType="map" resultType="Lists">
+		select
+			study_no,
+  			study_name, 
+  			s_image, 
+  			s_max_person,
+  			s_max_person - (
+   							select count(*)
+   							from study_management
+   							where study_no = study.STUDY_NO
+   						   ) as available
+   		from study
+   		<where>
+	   		<if test="item1 != null">
+		        c_subject in
+		        <foreach collection="item1" item="item" index="index1" separator="," open="(" close=")">
+		            #{item}
+		        </foreach>
+	   		</if>
+	   		<if test="item2 != null">
+		        and c_area in
+		        <foreach collection="item2" item="item" index="index2" separator="," open="(" close=")">
+		            #{item}
+		        </foreach>
+	   		</if>
+	   		<if test="max != null">
+	   			and #{max} >= s_dues and s_dues > #{min} 
+	   		</if>
+   		</where>
+   		order by ${orderby} ${sort}
+   </select>
+   
+   <select id="getAllStudiesDefault" resultType="Lists">
 		select
 			study_no,
   			study_name, 
@@ -18,7 +51,7 @@
    		from study
    		order by s_hit desc
    </select>
-   <select id="getAllStudiesCat" parameterType="string" resultType="Lists">
+   <select id="getAllStudiesBySearch" parameterType="string" resultType="Lists">
 		select
 			study_no,
   			study_name, 
@@ -30,82 +63,10 @@
    							where study_no = study.STUDY_NO
    						   ) as available
    		from study
-   		<where>
-        c_subject in
-        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-            #{item}
-        </foreach>
-    </where>
+   		where study_name like '%'||#{value}||'%' or c_subject like '%'||#{value}||'%'
    		order by s_hit desc
    </select>
-   <select id="getAllStudiesByLatest" resultType="Lists">
-		select
-			study_no,
-  			study_name, 
-  			s_image, 
-  			s_max_person,
-  			s_max_person - (
-   							select count(*)
-   							from study_management
-   							where study_no = study.STUDY_NO
-   						   ) as available
-   		from study
-   		order by study_no desc
-   </select>
-   <select id="getAllStudiesBySoon" resultType="Lists">
-		select
-			study_no,
-  			study_name, 
-  			s_image, 
-  			s_max_person,
-  			s_max_person - (
-   							select count(*)
-   							from study_management
-   							where study_no = study.STUDY_NO
-   						   ) as available
-   		from study
-   		order by s_application_period asc
-   </select>
-   <select id="getAllStudiesByLatestCat" parameterType="string" resultType="Lists">
-		select
-			study_no,
-  			study_name, 
-  			s_image, 
-  			s_max_person,
-  			s_max_person - (
-   							select count(*)
-   							from study_management
-   							where study_no = study.STUDY_NO
-   						   ) as available
-   		from study
-   		<where>
-        c_subject in
-        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-            #{item}
-        </foreach>
-    </where>
-   		order by study_no desc
-   </select>
-   <select id="getAllStudiesBySoonCat" parameterType="string" resultType="Lists">
-		select
-			study_no,
-  			study_name, 
-  			s_image, 
-  			s_max_person,
-  			s_max_person - (
-   							select count(*)
-   							from study_management
-   							where study_no = study.STUDY_NO
-   						   ) as available
-   		from study
-   		<where>
-        c_subject in
-        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-            #{item}
-        </foreach>
-    </where>
-   		order by s_application_period asc
-   </select>
+   
    <insert id="addCheck" parameterType="CheckVO">
    		insert into phone_check (user_id, check_code)
    						values(

@@ -1,6 +1,7 @@
 package com.cj.sroup.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,38 +24,26 @@ public class StudyImpl implements StudyService {
 	@Autowired
 	private listDao listdao;
 	
+	@Override
+	public List<ListVO> getAllStudiesDefault() {
+		List<ListVO> list = listdao.getAllStudiesDefault();
+		return list;
+	}
+	
 	public void addStudy(StudyVO study) {
 		listdao.addStudy(study);
 	}
-	public List<ListVO> getAllStudies() {
-		List<ListVO> list = listdao.getAllStudies();
+	public List<ListVO> getAllStudies(Map<String, Object> param) {
+		List<ListVO> list = listdao.getAllStudies(param);
 		return list;
 	}
+	
 	@Override
-	public List<ListVO> getAllStudiesBySoon() {
-		List<ListVO> list = listdao.getAllStudiesBySoon();
+	public List<ListVO> getAllStudiesBySearch(String keyword) {
+		List<ListVO> list = listdao.getAllStudiesBySearch(keyword);
 		return list;
 	}
-	@Override
-	public List<ListVO> getAllStudiesByLatest() {
-		List<ListVO> list = listdao.getAllStudiesByLatest();
-		return list;
-	}
-	@Override
-	public List<ListVO> getAllStudiesCat(List<String> cat) {
-		List<ListVO> list = listdao.getAllStudiesCat(cat);
-		return list;
-	}
-	@Override
-	public List<ListVO> getAllStudiesByLatestCat(List<String> cat) {
-		List<ListVO> list = listdao.getAllStudiesByLatestCat(cat);
-		return list;
-	}
-	@Override
-	public List<ListVO> getAllStudiesBySoonCat(List<String> cat) {
-		List<ListVO> list = listdao.getAllStudiesBySoonCat(cat);
-		return list;
-	}
+	
 	@Override
 	public void addCheck(CheckVO check) {
 		listdao.addCheck(check);

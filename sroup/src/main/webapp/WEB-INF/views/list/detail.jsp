@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=3a22f3e4a016459e5a21808b4e5c46d3"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sroup</title>
 <script type="text/javascript">
@@ -53,6 +53,14 @@ $(function() {
 			$("div.action .modify").attr("style", "display: none");
 			$("center.attend .attend").attr("style", "display:none");
 		}
+		
+		$(".today .issue").mouseover(function() {
+			$(".today .issue").removeClass("hovering");
+			$(this).addClass("hovering");
+		});
+		
+		$(".today .issue:eq(0)").addClass("hovering");
+		
 	});
 		function join() {
 			var study_no = ${studyInfo.study_no }
@@ -313,305 +321,42 @@ $(function() {
 			</div>
 			<div class="sidebarWrapper">
 				<div class="innerBorder roundBox">
-					<div class="other">
-						<h3 class="title">개설자의 다른모임</h3>
-						<dl class="issue first hovering">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50366"> <img
-									src="http://onoffmix.com/images/event/50366/s"
-									alt="[8월6일 무료특강] 한 장으로 정리하는 독서의 기술 (강남1기) 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="[8월6일 무료특강] 한 장으로 정리하는 독서의 기술 (강남1기)"
-									href="http://onoffmix.com/event/50366"><span class="dot2x2">▪</span>[8월6일
-									무료특강] 한 장으로 정리하는 독서의 기술 (강남1기)</a>
-							</dd>
-							<dd class="description">
-								<span class="number">8</span>월 <span class="number">6</span>일
-								(목) <span class="number">2</span><span class="number">0</span>시
-								<span class="number">0</span><span class="number">0</span>분 ~ <span
-									class="number">2</span><span class="number">2</span>시 <span
-									class="number">0</span><span class="number">0</span>분
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/44810"> <img
-									src="http://onoffmix.com/images/event/44810/s"
-									alt="[5월 마감임박] 복잡한 생각을 스마트하게 정리하는 방법 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="[5월 마감임박] 복잡한 생각을 스마트하게 정리하는 방법"
-									href="http://onoffmix.com/event/44810"><span class="dot2x2">▪</span>[5월
-									마감임박] 복잡한 생각을 스마트하게 정리하는 방법</a>
-							</dd>
-							<dd class="description">
-								<span class="number">5</span>월 <span class="number">8</span>일
-								(금) <span class="number">1</span><span class="number">9</span>시
-								<span class="number">0</span><span class="number">0</span>분 ~ <span
-									class="number">2</span><span class="number">1</span>시 <span
-									class="number">0</span><span class="number">0</span>분
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/44872"> <img
-									src="http://onoffmix.com/images/event/44872/s"
-									alt="자녀교육에 관심이 많은 학부모님 선생님 무료 초대합니다. 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="자녀교육에 관심이 많은 학부모님 선생님 무료 초대합니다."
-									href="http://onoffmix.com/event/44872"><span class="dot2x2">▪</span>자녀교육에
-									관심이 많은 학부모님 선생님 무료 초대합니다.</a>
-							</dd>
-							<dd class="description">
-								<span class="number">5</span>월 <span class="number">9</span>일
-								(토) <span class="number">1</span><span class="number">9</span>시
-								<span class="number">0</span><span class="number">0</span>분 ~ <span
-									class="number">2</span><span class="number">1</span>시 <span
-									class="number">0</span><span class="number">0</span>분
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/44819"> <img
-									src="http://onoffmix.com/images/event/44819/s"
-									alt="[5월 무료세미나] 복잡한 생각을 스마트하게 정리하는 방법 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="[5월 무료세미나] 복잡한 생각을 스마트하게 정리하는 방법"
-									href="http://onoffmix.com/event/44819"><span class="dot2x2">▪</span>[5월
-									무료세미나] 복잡한 생각을 스마트하게 정리하는 방법</a>
-							</dd>
-							<dd class="description">
-								<span class="number">5</span>월 <span class="number">8</span>일
-								(금) <span class="number">7</span>시 <span class="number">0</span><span
-									class="number">0</span>분 ~ <span class="number">9</span>시 <span
-									class="number">0</span><span class="number">0</span>분
-							</dd>
-						</dl>
-					</div>
-					<!-- .other end -->
 					<div class="popular">
 						<h3 class="title">온오프믹스 인기모임</h3>
-						<dl class="issue first">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50634"> <img
-									src="http://onoffmix.com/images/event/50634/s"
-									alt="[무료초대] 연극 &#039;괴담&#039; 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="[무료초대] 연극 &#039;괴담&#039;"
-									href="http://onoffmix.com/event/50634"><span class="dot2x2">▪</span>[무료초대]
-									연극 '괴담'</a>
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/51101"> <img
-									src="http://onoffmix.com/images/event/51101/s"
-									alt="스타트업의 자금조달방안(정부지원자금&amp;크라우드펀딩) 관련 강연/경험공유 등 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="스타트업의 자금조달방안(정부지원자금&amp;크라우드펀딩) 관련 강연/경험공유 등"
-									href="http://onoffmix.com/event/51101"><span class="dot2x2">▪</span>스타트업의
-									자금조달방안(정부지원자금&크라우드펀딩) 관련 강연/경험공유 등</a>
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50410"> <img
-									src="http://onoffmix.com/images/event/50410/s"
-									alt="[20X20 #청년] 2회 &quot;me치고 싶을 때&quot;, 미치고싶은 당신이라면 놓치지마세요! 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a
-									title="[20X20 #청년] 2회 &quot;me치고 싶을 때&quot;, 미치고싶은 당신이라면 놓치지마세요!"
-									href="http://onoffmix.com/event/50410"><span class="dot2x2">▪</span>[20X20
-									#청년] 2회 "me치고 싶을 때", 미치고싶은 당신이라면 놓치지마세요!</a>
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50411"> <img
-									src="http://onoffmix.com/images/event/50411/s"
-									alt="[무료] 대통령배 e스포츠대회 (KeG) 경기지역 본선 이벤트 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="[무료] 대통령배 e스포츠대회 (KeG) 경기지역 본선 이벤트"
-									href="http://onoffmix.com/event/50411"><span class="dot2x2">▪</span>[무료]
-									대통령배 e스포츠대회 (KeG) 경기지역 본선 이벤트</a>
-							</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50938"> <img
-									src="http://onoffmix.com/images/event/50938/s"
-									alt="Paul Bassett(폴 바셋) 홈 바리스타 커피클래스 대표이미지" />
-
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="Paul Bassett(폴 바셋) 홈 바리스타 커피클래스"
-									href="http://onoffmix.com/event/50938"><span class="dot2x2">▪</span>Paul
-									Bassett(폴 바셋) 홈 바리스타 커피클래스</a>
-							</dd>
-						</dl>
+						<c:forEach var="l" items="${lists }" begin="0" end="4">
+							<dl class="issue first">
+								<dd class="subject">
+									<a title="${l.study_name }"
+										href="detail.do?no=${l.study_no }"><span class="dot2x2">▪</span>${l.study_name }</a>
+								</dd>
+							</dl>
+						</c:forEach>
 					</div>
 					<div class="today">
 						<h3 class="title">오늘의 모임</h3>
-						<dl class="issue first hovering">
+						<c:forEach var="l" items="${lists }" begin="5" end="8">
+						<dl class="issue first">
 							<dt class="banner">
-								<a href="http://onoffmix.com/event/50863"> <img
-									src="http://cfile1.onoffmix.com/attach/vcNj6FQgQ8ujslI4maSFso6SxVM1W77G"
-									alt="포스코 창업기획사 창업팀 대상 모집 대표이미지" />
+								<a href="detail.do?no=${l.study_no }"> <img
+									src="/sroup/upload/2015/08/${l.s_image }"
+									alt="${l.study_name }" />
 									<div class="bannerBorder"></div>
 								</a>
 							</dt>
 							<dd class="subject">
-								<a title="포스코 창업기획사 창업팀 대상 모집"
-									href="http://onoffmix.com/event/50863"><span class="dot2x2">▪</span>포스코
-									창업기획사 창업팀 대상 모집</a>
+								<a title="${l.study_name }"
+									href="detail.do?no=${l.study_no }"><span class="dot2x2">▪</span>${l.study_name }</a>
 							</dd>
-							<dd class="description">8월 20일 (목) 0시 00분 ~ 0시 00분</dd>
+							<dd class="description">* ${l.available }명 참여 가능</dd>
 						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50452"> <img
-									src="http://cfile1.onoffmix.com/attach/OFgkpO3qFM1kMKbMobZROkQQjoq6gzb0"
-									alt="2015 아이디어용광로 4,5,6기 동시 모집! 대표이미지" />
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a title="2015 아이디어용광로 4,5,6기 동시 모집!"
-									href="http://onoffmix.com/event/50452"><span class="dot2x2">▪</span>2015
-									아이디어용광로 4,5,6기 동시 모집!</a>
-							</dd>
-							<dd class="description">8월 18일 (화) 9시 00분 ~ 10월 22일 (목) 17시
-								30분</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50541"> <img
-									src="http://cfile1.onoffmix.com/attach/kuZ403CxF5r6oX4orZuNDrLT5QL1rVZs"
-									alt="한·중·일 패션 웨어러블 메이커톤(Fashion Wearable Make A Thon) 참가자 모집 대표이미지" />
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a
-									title="한·중·일 패션 웨어러블 메이커톤(Fashion Wearable Make A Thon) 참가자 모집"
-									href="http://onoffmix.com/event/50541"><span class="dot2x2">▪</span>한·중·일
-									패션 웨어러블 메이커톤(Fashion Wearable Make A Thon) 참가자 모집</a>
-							</dd>
-							<dd class="description">8월 4일 (화) 9시 00분 ~ 11월 29일 (일) 19시
-								00분</dd>
-						</dl>
-						<dl class="issue ">
-							<dt class="banner">
-								<a href="http://onoffmix.com/event/50298"> <img
-									src="http://onoffmix.com/images/event/50298/s"
-									alt="총 3000만원의 사업화 지원금! 2015 WISET Startup Springboard 창업캠프 대표이미지" />
-									<div class="bannerBorder"></div>
-								</a>
-							</dt>
-							<dd class="subject">
-								<a
-									title="총 3000만원의 사업화 지원금! 2015 WISET Startup Springboard 창업캠프"
-									href="http://onoffmix.com/event/50298"><span class="dot2x2">▪</span>총
-									3000만원의 사업화 지원금! 2015 WISET Startup Springboard 창업캠프</a>
-							</dd>
-							<dd class="description">8월 21일 (금) 1시 00분 ~ 8월 23일 (일) 18시
-								30분</dd>
-						</dl>
-					</div>
-					<div class="adBox">
-						<a class="eventLink"
-							href='http://www.onoffmix.com/service/partner/gifticon/'
-							target=''>
-							<div class="photoBorder">
-								<img
-									src="http://cfile1.onoffmix.com/attach/iJ9yZC2XZDPgPUBz1SyBggfUqrvMV82E"
-									width="234" border="0" alt="온오프믹스의 기프티콘 서비스 안내" />
-							</div>
-						</a>
+						</c:forEach>
 					</div>
 					<div class="hr singleLine"
 						style="margin: 14px -14px -10px; border-color: #e8e8e8">
 						<!-- -->
 					</div>
 
-					<div class="faq">
-						<h3 class="title">자주하는 질문</h3>
-						<a href="/faq/" target="_blank" class="more">더보기</a>
-
-						<div class="list">
-							<dl class="inquiry first">
-								<dd>
-									<a target="_blank" href="/cs/faq/attendee#4">참석자와 대기자는 무엇이
-										다른 건가요?</a>
-								</dd>
-							</dl>
-							<dl class="inquiry">
-								<dd>
-									<a target="_blank" href="/cs/faq/attendee#10">모임 신청
-										확인/수정/취소 방법 알려 주세요</a>
-								</dd>
-							</dl>
-							<dl class="inquiry">
-								<dd>
-									<a target="_blank" href="/cs/faq/attendee#11">대리참석 가능한가요?</a>
-								</dd>
-							</dl>
-							<dl class="inquiry">
-								<dd>
-									<a target="_blank" href="/cs/faq/attendee#12">이름, 이메일은 수정
-										가능한가요?</a>
-								</dd>
-							</dl>
-							<dl class="inquiry">
-								<dd>
-									<a target="_blank" href="/cs/faq/attendee#13">행사 진행 관련 질문은
-										어디서 하나요?</a>
-								</dd>
-							</dl>
-						</div>
-					</div>
 				</div>
-				<a class="eventLink" href='http://onoffmix.com/event/50662'
-					target=''>
-					<div class="photoBorder">
-						<img
-							src="http://cfile1.onoffmix.com/attach/172VtqPw7YYAq2e9lTlt67s6tSu3qvov"
-							width="265" border="0" alt="제7회 대한민국 우수상품전 2015, 9월 코엑스에서 개최!" />
-					</div>
-				</a>
 			</div>
 		</div>
 	</div>

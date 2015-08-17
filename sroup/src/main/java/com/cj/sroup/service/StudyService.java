@@ -1,6 +1,7 @@
 package com.cj.sroup.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cj.sroup.vo.CategoryVO;
 import com.cj.sroup.vo.CheckVO;
@@ -11,12 +12,10 @@ import com.cj.sroup.vo.StudyVO;
 
 public interface StudyService {
 	
-	public List<ListVO> getAllStudies();
-	public List<ListVO> getAllStudiesCat(List<String> cat);
-	public List<ListVO> getAllStudiesByLatest();
-	public List<ListVO> getAllStudiesByLatestCat(List<String> cat);
-	public List<ListVO> getAllStudiesBySoonCat(List<String> cat);
-	public List<ListVO> getAllStudiesBySoon();
+	public List<ListVO> getAllStudies(Map<String, Object> param);
+	public List<ListVO> getAllStudiesDefault();
+	public List<ListVO> getAllStudiesBySearch(String keyword);
+	
 	public void addStudy(StudyVO study);
 	public void addCheck(CheckVO check);
 	public CheckVO userCheck(String user_id);
