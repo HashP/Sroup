@@ -42,6 +42,7 @@ border: none;
 padding: 0px; 
 }
 </style>
+
 <div class="col-md-8 col-md-offset-1">
 
 	<div class="col-md-12">
@@ -80,9 +81,9 @@ padding: 0px;
 										value="${b_detail.b_write_day }" /></td>
 							</tr>
 							<tr>
-								<td align="left" style="padding: 10px 0px 0px 0px"><strong
+								<td align="left" style="padding: 10px 0px 0px 0px"><pre><strong
 									style="font-size: 17px;"><c:out
-											value="${b_detail.b_title }" /></strong></td>
+											value="${b_detail.b_title }" /></strong></pre></td>
 							</tr>
 						</table>
 
@@ -97,7 +98,7 @@ padding: 0px;
 		<div class="row">
 			<div width="100%"
 				style="table-layout: fixed; min-height: 350px; padding: 10px 0px; border-bottom: 1px solid #e1e1e1;">
-				${b_detail.b_content }</div>
+				<pre>${b_detail.b_content }</pre></div>
 		</div>
 		
 		<div class="row">
@@ -134,9 +135,14 @@ padding: 0px;
 </div>
 <script>
 	$(function() {
+		
+		
 		$("input[type='image']").on("click", function() {
 			var b_no = ${b_detail.b_no };
 			var content = $("#b_reply").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
+			if(getByteLength(content)>2000){
+				alert("덧글은 한글기준 최대 1000자 영어기준 2000자 까지 입력가능합니다");
+			}else{
 			var form = document.createElement('form');
 			var objs;
 			objs = document.createElement('input');
@@ -153,7 +159,7 @@ padding: 0px;
 			form.setAttribute('action', "boardreply_add.do");
 			document.body.appendChild(form);
 			form.submit();
-				
+			}	
 		});
 		$(".glyphicon").hide();
 		
@@ -181,5 +187,22 @@ padding: 0px;
 				
 	})
 	
-	
+	function getByteLength(input) {
+	var byteLength = 0;
+	if (input == null)
+		return 0;
+	for (var inx = 0; inx < input.length; inx++) {
+		var oneChar = escape(input.charAt(inx));
+		if (oneChar.length == 1) {
+			byteLength++;
+		} else if (oneChar.indexOf("%u") != -1) {
+			byteLength += 2;
+		} else if (oneChar.indexOf("%") != -1) {
+			byteLength += oneChar.length / 3;
+		}
+	} // enf of for loop
+	return byteLength;
+}
+
+
 </script>

@@ -4,6 +4,11 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <style>
 	.b_title:link,.b_title:visited,.b_title:active,.b_title:hover {color:black;}	
+	pre{
+margin: 0px;
+border: none;
+padding: 0px; 
+}
 </style>
 <div class="container" style="width: 1130px;">
 	<!-- ì°¨í h2 ìì´ë ê°(bordname)ì¼ë¡ ê²ìí ì´ë¦ì ë³ê²½íë¤. -->
@@ -24,7 +29,7 @@
 		<c:forEach var="boardList" items="${boardList }">			
 			<tr>
 				<td>${boardList.b_no }</td>
-				<td><a class="b_title" href="board_read.do?b_no=${boardList.b_no }">${boardList.b_title }</a></td>
+				<td><a class="b_title" href="board_read.do?b_no=${boardList.b_no }"><pre>${boardList.b_title }</pre></a></td>
 				<td>${boardList.b_writer }</td>
 				<td>${boardList.b_write_day }</td>
 				<td>${boardList.b_hit }</td>

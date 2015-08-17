@@ -35,5 +35,15 @@ public class M_noticeServiceImpl implements M_noticeService {
 		m_noticedao.delNotice(n_no);
 	}
 
+	@Override
+	public void reNotice(M_noticeVO m_notice) {
+		m_noticedao.reNotice(m_notice);		
+	}
+
+	@Override
+	public M_noticeVO reNoticeInfo(int n_no) {
+		return m_noticedao.reNoticeInfo(n_no);		
+	}
+
 	
 }

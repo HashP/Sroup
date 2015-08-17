@@ -84,6 +84,9 @@ textarea {
 	height: 785px;
 	
 }
+span.calElement.prev{
+	width: 7px;
+}
 
 </style>
 
@@ -258,9 +261,11 @@ $(document).ready(function()
                      // eventToSave.StartDate = $("#StartDt").val();
                      // eventToSave.EndDate = $("#EndDt").val();
                      // eventToSave.EventName = event.title = eventToSave.title = $("#Name").val();
-                     if($("#e_title").val() == "" || $("#e_title").val().length > 10){
+                     if($("#e_title").val() == ""){
                     	 $("#e_title").attr("placeholder", "제목을 입력해 주세요, 제목은 최대 10글자까지 가능합니다");
                     	 $("#e_title").css("border-color","red");                   	 
+                     }else if($("#e_title").val().length > 10){
+                    	 alert("제목은 최대 10글자까지 가능합니다.");
                      }else if($("#start_d").val()==""){
                     	 $("#start_d").css("border-color","red"); 
                     	 $("#datetimepicker1 .input-group-addon").css("border-color","red");

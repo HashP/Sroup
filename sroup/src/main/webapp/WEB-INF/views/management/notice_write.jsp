@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
@@ -13,7 +13,7 @@
 <table style="width: 802px; margin:0 auto;">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" id="title" name="title" style="width: 100%"/></td>
+			<td><input type="text" id="title" name="title" style="width: 100%" onKeyPress="if(event.keyCode == 13) return false;"/></td>
 		</tr>
 		<tr>		
 		<tr>			
@@ -41,7 +41,7 @@ $(function(){
 						oAppRef: oEditors,
 						elPlaceHolder: "ir1",
 						//SmartEditor2Skin.html 파일이 존재하는 경로
-						sSkinURI: "resources/editor/SmartEditor2Skin.html",	
+						sSkinURI: "../resources/editor/SmartEditor2Skin.html",	
 						htParams : {
 							// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 							bUseToolbar : true,				
@@ -61,9 +61,33 @@ $(function(){
 					});
 });
 
-$("#save").click(function(){
+function getByteLength(input) {
+	var byteLength = 0;
+	if (input == null)
+		return 0;
+	for (var inx = 0; inx < input.length; inx++) {
+		var oneChar = escape(input.charAt(inx));
+		if (oneChar.length == 1) {
+			byteLength++;
+		} else if (oneChar.indexOf("%u") != -1) {
+			byteLength += 2;
+		} else if (oneChar.indexOf("%") != -1) {
+			byteLength += oneChar.length / 3;
+		}
+	} // enf of for loop
+	return byteLength;
+}
+
+$("#save").click(function() {
 	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-	$("#frm").submit();
+	if ($("input[name=title]").val() == "") {
+		alert("제목을 입력하세요.");
+	} else if (getByteLength($("input[name=title]").val().trim())>100){
+		alert("제목은 한글기준 50자 영어기준 100자까지 가능합니다.")
+	}
+	else {
+		$("#frm").submit();
+	}
 })
 </script>
 

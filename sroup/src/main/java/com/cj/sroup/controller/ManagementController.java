@@ -35,6 +35,7 @@ import com.cj.sroup.vo.M_noticeVO;
 
 
 @Controller
+@RequestMapping("/m_study")
 public class ManagementController {
 
 	@Autowired
@@ -195,8 +196,8 @@ public class ManagementController {
 	public String albumAdd(@RequestParam("title")String title,
 			@RequestParam("contents")String contents,
 			@RequestParam("albumphoto")MultipartFile photofile){
-		title=title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
-		contents=contents.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		title=title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		contents=contents.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_galleryVO m_gallery = new M_galleryVO();
 		String photoname = m_galleryservice.m_albumImageUpload(photofile);
 		System.out.println(photoname);
@@ -224,7 +225,7 @@ public class ManagementController {
 	@RequestMapping("/board_writesave.do")
 	public String board_writesave(@RequestParam("title")String title,
 			@RequestParam("content")String content){
-		title = title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_boardVO m_board = new M_boardVO();
 		m_board.setB_title(title);
 		m_board.setB_content(content);
@@ -277,7 +278,7 @@ public class ManagementController {
 	public String notice_writesave(@RequestParam("title")String title,
 			@RequestParam("content")String content){		
 		// 차후 작성글 바로 보기로 페이지 변경
-		title = title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");		
+		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");		
 		System.out.println(title + content + " 1번");
 		M_noticeVO m_notice = new M_noticeVO();
 		m_notice.setN_title(title);
@@ -286,6 +287,29 @@ public class ManagementController {
 		m_noticeservice.addNotice(m_notice);
 
 		return "redirect:m_main.do";
+	}
+	
+	@RequestMapping("/notice_resave.do")
+	public String notice_resave(@RequestParam("title")String title,
+			@RequestParam("content")String content,
+			@RequestParam("n_no") int n_no){
+		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		M_noticeVO m_notice = new M_noticeVO();
+		m_notice.setN_title(title);
+		m_notice.setN_content(content);
+		m_notice.setN_no(n_no);
+		
+		m_noticeservice.reNotice(m_notice);
+		// 차후 작성글 바로 보기로 페이지 변경
+		return "redirect:m_main.do";
+	}
+	@RequestMapping("/notice_rewrite.do")
+	public ModelAndView notice_rewrite(@RequestParam("n_no") int n_no){
+		ModelAndView mav = new ModelAndView();
+		M_noticeVO m_notice =  m_noticeservice.reNoticeInfo(n_no);		
+		mav.addObject("m_notice", m_notice);		
+		mav.setViewName("management/notice_rewrite");
+		return mav;		
 	}
 
 	@RequestMapping("/comment_add.do")
@@ -307,7 +331,7 @@ public class ManagementController {
 		m_commentservice.delComment(c_no);			
 	}
 	
-	@RequestMapping("/comment_rewrite.do")	
+	@RequestMapping("/comment_resave.do")	
 	@ResponseBody
 	public M_commentVO comment_rewrite(@RequestParam("c_no")int c_no,
 						@RequestParam("c_content") String c_content){

@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
     <link rel=stylesheet href="resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-<script type="text/javascript" src="resources/calendarPicker/jquery.calendarPicker.js"></script>
-<script type="text/javascript" src="resources/calendarPicker/test/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="../resources/calendarPicker/jquery.calendarPicker.js"></script>
+<script type="text/javascript" src="../resources/calendarPicker/test/jquery.mousewheel.js"></script>
 <div id="dsel2" style="width:1105px">efefef</div>
 <script>
 var calendarPicker = $("#dsel2").calendarPicker({

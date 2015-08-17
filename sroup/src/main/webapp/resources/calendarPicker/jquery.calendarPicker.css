@@ -44,14 +44,14 @@
 
 .calDay .calElement.prev {
   background: transparent url(images/prev.png) no-repeat 0 18px;
-  width: 6px;
-  height: 35px
+     width: 8px;
+    height: 40px;
 }
 
 .calDay .calElement.next {
   background: transparent url(images/next.png) no-repeat 0 18px;
-  width: 6px;
-  height: 35px;
+      width: 8px;
+    height: 40px;
 }
 
 span.calElement.next:hover, span.calElement.prev:hover {

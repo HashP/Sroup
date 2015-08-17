@@ -42,5 +42,22 @@
    		N_NO=#{value}
    </delete>
 
-   
+   <update id="reNotice" parameterType="m_notice">
+ 		UPDATE s_notice
+		SET N_CONTENT= #{n_content},
+			N_TITLE=#{n_title},
+			N_WRITE_DAY=sysdate
+		WHERE N_NO = #{n_no}
+	</update>
+	
+	<select id="reNoticeInfo" parameterType="int" resultType="m_notice">
+   select 	STUDY_NO	as study_no,   			
+   			N_NO		as n_no, 
+   			N_WRITE_DAY	as n_write_day, 
+   			N_WRITER	as n_writer,
+   			N_TITLE		as n_title, 
+   			N_CONTENT	as n_content
+   from s_notice
+   where N_NO = #{value}   	
+   </select>
 </mapper>

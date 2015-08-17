@@ -220,7 +220,7 @@ display: table;
 		        data:{"g_no":g_no},             
 		        success: function (data) {        
 		        	$("img",this).attr('name',data.g_no);
-					$("#img-detail").attr('src', 'resources/upload/album_photo/'+data.imageName);
+					$("#img-detail").attr('src', '../resources/upload/album_photo/'+data.imageName);
 		        	$("#detail_title").text(data.g_title);
 					$("#detail_content").text(data.g_content);
 					$.ajax({              
@@ -258,6 +258,8 @@ display: table;
 		
 	});
 	});
+	
+
 </script>
 
 
@@ -289,7 +291,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="resources/upload/album_photo/${galleryList.imageName}"
+							src="../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -307,7 +309,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="resources/upload/album_photo/${galleryList.imageName}"
+							src="../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -324,7 +326,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="resources/upload/album_photo/${galleryList.imageName}"
+							src="../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -344,7 +346,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="resources/upload/album_photo/${galleryList.imageName}"
+							src="../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -361,7 +363,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="resources/upload/album_photo/${galleryList.imageName}"
+							src="../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -381,7 +383,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="resources/upload/album_photo/${galleryList.imageName}"
+							src="../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -513,13 +515,13 @@ display: table;
 
 								<div class="col-sm-12" style="padding: 0px;">
 									<input type="text" class="form-control" placeholder="제목"
-										name="title">
+										name="title" onKeyPress="if(event.keyCode == 13) return false;">
 								</div>
 							</div>
 
 							<textarea rows="15" class="form-control" placeholder="내용"
 								name="contents"></textarea>
-							<button style="float: right;">올리기</button>
+							<input type="button" id="save" style="float: right;" value="올리기"/>
 						</form>
 
 					</div>
@@ -578,7 +580,7 @@ display: table;
 							<textarea rows="15" class="form-control" placeholder="내용"
 								name="re_contents"></textarea>
 							
-							<button style="float: right;">수정</button>
+							<input type="button" id="resave" style="float: right;" value="수정"/>
 						</form>
 
 					</div>
@@ -592,3 +594,48 @@ display: table;
 	
 </div>
 
+<script>
+function getByteLength(input) {
+	var byteLength = 0;
+	if (input == null)
+		return 0;
+	for (var inx = 0; inx < input.length; inx++) {
+		var oneChar = escape(input.charAt(inx));
+		if (oneChar.length == 1) {
+			byteLength++;
+		} else if (oneChar.indexOf("%u") != -1) {
+			byteLength += 2;
+		} else if (oneChar.indexOf("%") != -1) {
+			byteLength += oneChar.length / 3;
+		}
+	} // enf of for loop
+	return byteLength;
+}
+
+$("#save").click(function() {
+	
+	if($("input[name=albumphoto]").val()==""){
+		alert("사진을 등록해 주세요")
+	}else if ($("input[name=title]").val() == "") {
+		alert("제목을 입력하세요");
+	} else if (getByteLength($("input[name=title]").val().trim())>20){
+		alert("제목은 한글기준 10자 영어기준 20자까지 가능합니다");
+	} else if (getByteLength($("input[name=contents]").val())>1000){
+		alert("내용은 한글기준 500자 영어기준 1000자까지 가능합니다");
+	} else {
+		$("#form1").submit();
+	}
+})
+$("#resave").click(function() {
+	
+	if ($("input[name=title]").val() == "") {
+		alert("제목을 입력하세요.");
+	} else if (getByteLength($("input[name=title]").val().trim())>20){
+		alert("제목은 한글기준 10자 영어기준 20자까지 가능합니다.");
+	} else if (getByteLength($("input[name=contents]").val())>1000){
+		alert("내용은 한글기준 500자 영어기준 1000자까지 가능합니다.");
+	}else {
+		$("#form2").submit();
+	}
+})
+</script>

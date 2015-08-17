@@ -31,7 +31,7 @@
                     B_CONTENT        ,
                     B_HIT                    
              from s_board    
-             order by B_NO asc )
+             order by B_NO desc )
   where rn&lt;=#{end} and rn >=#{start}  
 
    </select>

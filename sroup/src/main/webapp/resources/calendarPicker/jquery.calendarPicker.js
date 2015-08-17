@@ -76,7 +76,8 @@ jQuery.fn.calendarPicker = function(options) {
       divMonths.empty();
       var oldday = date.getDay();
       var nc = options.months*2+1;
-      var w = parseInt((theDiv.width()-4-(nc)*4)/nc)+"px";
+    //  var w = parseInt((theDiv.width()-4-(nc)*4)/nc)+"px";
+      var w = 97+"px";
       for (var i = -options.months; i <= options.months; i++) {
         var d = new Date(date);
         var oldday = d.getDate();
@@ -101,7 +102,8 @@ jQuery.fn.calendarPicker = function(options) {
       var t = new Date();
       divDays.empty();
       var nc = options.days*2+1;
-      var w = parseInt((theDiv.width()-4-(options.showDayArrows?12:0)-(nc)*4)/(nc-(options.showDayArrows?2:0)))+"px";
+//      var w = parseInt((theDiv.width()-4-(options.showDayArrows?12:0)-(nc)*4)/(nc-(options.showDayArrows?2:0)))+"px";
+      var w = 54+"px";
       for (var i = -options.days; i <= options.days; i++) {
         var d = new Date(date);
         d.setDate(day + i)

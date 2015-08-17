@@ -5,7 +5,7 @@
 
 
 <link href="resources/jquery-ui/jquery-ui.css" rel="stylesheet">
-<link rel=stylesheet href="resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
+<link rel=stylesheet href="../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
 	
 <style>
 	textarea{
@@ -43,15 +43,15 @@ border: none;
 padding: 0px; 
 }
 </style>
-<link rel=stylesheet href="resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
+<link rel=stylesheet href="../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
 
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-<script src="resources/jquery-ui/external/jquery/jquery.js"></script>
-<script src="resources/jquery-ui/jquery-ui.js"></script>
-<script type="text/javascript" src="resources/calendarPicker/jquery.calendarPicker.js"></script>
-<script type="text/javascript" src="resources/calendarPicker/test/jquery.mousewheel.js"></script>
+<script src="../resources/jquery-ui/external/jquery/jquery.js"></script>
+<script src="../resources/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/calendarPicker/jquery.calendarPicker.js"></script>
+<script type="text/javascript" src="../resources/calendarPicker/test/jquery.mousewheel.js"></script>
 <script type="text/javascript">
 	function commentCheck(){		
 		if($("textarea[name='content']").val().trim() == ""){
@@ -175,7 +175,10 @@ padding: 0px;
 					<textarea wrap="soft" class="form-control" name="content" placeholder="한 마디를 남겨주세요"
 						style="height: 60px;"></textarea>
 				</div>
-				<div>				
+				<div>
+							<span class="remaining">
+   	 <span class="count">0</span>/<span class="maxcount">1000</span>byte
+	</span>	
 					<button class="btn btn-success pull-right" type="submit" onclick="commentCheck();">남기기</button>
 				</div>
 				<br>
@@ -274,7 +277,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
 			+""
 			+"<form class=\"form-horizontal\" role=\"form\" action=\"\">"
 			+"<div class=\"form-group\" style=\"padding: 14px 14px 0px 14px;\">"
-			+"<textarea class=\"form-control rewrite_content\" name=\"content\""
+			+"<textarea class=\"form-control rewrite_content\" name=\"recontent\""
 			+"		style=\"height: 60px;\"></textarea>"
 			+"</div>"
 			+"<div>"				
@@ -291,5 +294,54 @@ var calendarPicker = $("#dsel2").calendarPicker({
 			//location.replace('boardreply_del.do?re_no='+re_no+'&b_no='+b_no);	
 		}		
     	
-   
+		 $('.remaining').each(function () {
+	            // count 정보 및 count 정보와 관련된 textarea/input 요소를 찾아내서 변수에 저장한다.
+	            var $maxcount = $('.maxcount', this);
+	            var $count = $('.count', this);
+	            var $input = $("textarea[name=content]");
+	 
+	            // .text()가 문자열을 반환하기에 이 문자를 숫자로 만들기 위해 1을 곱한다.
+	            var maximumByte = $maxcount.text() * 1;
+	            // update 함수는 keyup, paste, input 이벤트에서 호출한다.
+	            var update = function () {
+	                var before = $count.text() * 1;
+	                var str_len = $input.val().length;
+	                var cbyte = 0;
+	                var li_len = 0;
+	                for (i = 0; i < str_len; i++) {
+	                    var ls_one_char = $input.val().charAt(i);
+	                    if (escape(ls_one_char).length > 4) {
+	                        cbyte += 2; //한글이면 2를 더한다
+	                    } else {
+	                        cbyte++; //한글아니면 1을 다한다
+	                    }
+	                    if (cbyte <= maximumByte) {
+	                        li_len = i + 1;
+	                    }
+	                }
+	                // 사용자가 입력한 값이 제한 값을 초과하는지를 검사한다.
+	                if (parseInt(cbyte) > parseInt(maximumByte)) {
+	                    alert('허용된 글자수가 초과되었습니다.\r\n\n초과된 부분은 자동으로 삭제됩니다.');
+	                    var str = $input.val();
+	                    var str2 = $input.val().substr(0, li_len);
+	                    $input.val(str2);
+	                    var cbyte = 0;
+	                    for (i = 0; i < $input.val().length; i++) {
+	                        var ls_one_char = $input.val().charAt(i);
+	                        if (escape(ls_one_char).length > 4) {
+	                            cbyte += 2; //한글이면 2를 더한다
+	                        } else {
+	                            cbyte++; //한글아니면 1을 다한다
+	                        }
+	                    }
+	                }
+	                $count.text(cbyte);
+	            };
+	            // input, keyup, paste 이벤트와 update 함수를 바인드한다
+	            $input.bind('input keyup keydown paste change', function () {
+	                setTimeout(update, 0)
+	            });
+	            update();
+	        });
+	   
 </script>
