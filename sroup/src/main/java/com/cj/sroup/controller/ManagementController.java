@@ -195,7 +195,8 @@ public class ManagementController {
 	public String albumAdd(@RequestParam("title")String title,
 			@RequestParam("contents")String contents,
 			@RequestParam("albumphoto")MultipartFile photofile){
-
+		title=title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		contents=contents.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_galleryVO m_gallery = new M_galleryVO();
 		String photoname = m_galleryservice.m_albumImageUpload(photofile);
 		System.out.println(photoname);
@@ -223,6 +224,7 @@ public class ManagementController {
 	@RequestMapping("/board_writesave.do")
 	public String board_writesave(@RequestParam("title")String title,
 			@RequestParam("content")String content){
+		title = title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_boardVO m_board = new M_boardVO();
 		m_board.setB_title(title);
 		m_board.setB_content(content);
@@ -241,6 +243,7 @@ public class ManagementController {
 	public String board_resave(@RequestParam("title")String title,
 			@RequestParam("content")String content,
 			@RequestParam("b_no") int b_no){
+		title = title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_boardVO m_board = new M_boardVO();
 		m_board.setB_title(title);
 		m_board.setB_content(content);
@@ -274,6 +277,7 @@ public class ManagementController {
 	public String notice_writesave(@RequestParam("title")String title,
 			@RequestParam("content")String content){		
 		// 차후 작성글 바로 보기로 페이지 변경
+		title = title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");		
 		System.out.println(title + content + " 1번");
 		M_noticeVO m_notice = new M_noticeVO();
 		m_notice.setN_title(title);

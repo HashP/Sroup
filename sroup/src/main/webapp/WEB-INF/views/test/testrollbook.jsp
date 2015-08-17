@@ -131,7 +131,14 @@ $(function() {
 		$(this).siblings("img").attr("src", "/sroup/resources/images/rollbook/" + value + ".png");
 		$(this).siblings("img").attr("alt", value);
 			
-	
+		var id = $(this).parent().parent().attr("id");
+		if(id == null) {
+			//console.log($(this).parent().siblings(".member-name").attr("id"));
+			id = $(this).parent().siblings(".member-name").attr("id").split("-")[1];
+			add_rollbook(id);
+		} else {
+			save_rollbook(id.split("-")[1]);
+		}	
 	});
 	
 	$(".rollbook td:nth-child(3) button").on("click", function() {
@@ -154,14 +161,48 @@ $(function() {
 	
 	// 저장 or 신규등록 하는 메소드 만들기 
 	function save_rollbook(rb_id) {
-		console.log("save : " + rb_id);
+		//console.log("save : " + rb_id);
 		//ajax요청으로 rb_no로 찾아서 저장
+		var userid = $("#rollbook-" + rb_id).find(".member-name").attr("id").split("-")[1];
+		var attend = $("#rollbook-" + rb_id).find("img").attr("alt");
+		var note = $("#rollbook-" + rb_id).find(".member-note p").text();
+		
+		$.getJSON("saveRollbookByRbno.do"
+				, {no:rb_id, attend:attend, note:note, name:userid, studyNo:studyNo}
+				, function(result) {
+					console.log(result.attendCount);
+					
+					var count = result.attendCount * 1.0;
+					var rate = parseInt((count / scheduleCount) * 100);
+					
+					$("#rollbook-" + rb_id).children(".member-rate").text(rate + "%");
+				});
 		
 	}
 	
 	function add_rollbook(user_id) {
-		console.log("add : " + user_id);
+		//신규등록
+		//console.log("add : " + user_id);
 		// ajax요청으로 studyno, user_id, 날짜 등등 보내서 저장한 후 rb_no받아서 <tr> 에  id값으로 주기
+		var date = $("#datepicker").data('date');
+		var attend = $("#member-" + user_id).parent().find("img").attr("alt");
+		var note = $("#member-" + user_id).parent().find(".member-note p").text();
+		//console.log(date);
+		
+		$.getJSON("addRollbookByRbno.do"
+				, {attend:attend, note:note, name:user_id, studyNo:studyNo, date:date}
+				, function(result) {
+					console.log(result.rbNo);
+					
+					$("#member-" + user_id).parent().attr("id", "rollbook-" + result.rbNo);
+					
+					var count = result.attendCount * 1.0;
+					var rate = parseInt((count / scheduleCount) * 100);
+					
+					$("#rollbook-" + result.rbNo).children(".member-rate").text(rate + "%");
+				});
+		
+		
 		
 	}
 	
@@ -184,6 +225,7 @@ $(function() {
 				//console.log(attend);
 				
 				if( attend == null ) {
+					$(element).removeAttr("id");
 					$(element).find(".member-attend img").attr("src", "/sroup/resources/images/rollbook/noinfo.png");
 					$(element).find(".member-attend img").attr("alt", "");
 					$(element).find(".member-note p").text("")
@@ -209,17 +251,27 @@ $(function() {
 		scheduleCount = result.scheduleList.length;
 		//console.log("schedulecount : " + scheduleCount);
 		
+		//scheduleCount = 0
+		if(scheduleCount == 0) {
+			$("#datepicker").datetimepicker({
+				locale: 'ko',
+				inline: true,
+				format: 'YYYY-MM-DD',
+				enabledDates: [moment().format()]
+			});
+			$(".rollbook tbody").children().remove();
+			$(".rollbook tbody").append("<tr><td colspan=4 class='text-center'>스케쥴이 존재하지 않습니다.</td></tr>")
+			return;
+		}
+
 		$("#datepicker").datetimepicker({
 			locale: 'ko',
 			inline: true,
-			format: 'MM/dd/YYYY',
+			format: 'YYYY-MM-DD',
 			enabledDates: result.scheduleList,
 			defaultDate: result.scheduleList[0]
 		});
 		
-		if(scheduleCount == 0) {
-			return;
-		}
 		//출석횟수를 가져와서 출석률에 채움
 		$.getJSON("getAttendCounts.do?studyNo="+studyNo, function(result) {
 			//console.log(result.attendCounts);
@@ -242,9 +294,12 @@ $(function() {
 	$("#datepicker").on("dp.change", function(e) {
 		$("#rolldate").text(e.date.format('YYYY년 MM월 DD일'));
 		//console.log(e.date.format('YYYY-MM-DD'));
-		fillRollbook(e.date.format('YYYY-MM-DD'));
-		$(this).parent().find(".input-roll").hide();
-		$(this).parent().find(".view-roll").show();
+		
+		if(scheduleCount != 0) {
+			fillRollbook(e.date.format('YYYY-MM-DD'));
+			$(this).parent().find(".input-roll").hide();
+			$(this).parent().find(".view-roll").show();
+		}
 	});
 	
 });

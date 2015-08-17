@@ -41,9 +41,8 @@
 <script type="text/javascript">
 $(function(){
 	
-	var color = ["#f0ad4e", "#3a87ad", "#ed4e7d"];
+	var color = ["#f0ad4e", "#3a87ad", "#ed4e7d", "#CC00FF", "#009999", "#800000", "#669900"];
 	
-
 	var date = new Date(); 
     var d = date.getDate(); 
     var m = date.getMonth(); 
@@ -58,12 +57,7 @@ $(function(){
         editable: false, 
         dayClick: function(date, allDay, jsEvent, view) 
         { 
-            /* alert( 
-                    " date: " + date 
-                    + "\n allDay: " + allDay 
-                    + "\n jsEvent: " + jsEvent 
-                    + "\n view: " + view 
-            );  */
+            
         }, 
         eventAfterAllRender: function(view) { 
         	$(window).resize();
@@ -126,7 +120,7 @@ $(function(){
                 
             } 
         ] 
-    })
+    });
 	    
     
     

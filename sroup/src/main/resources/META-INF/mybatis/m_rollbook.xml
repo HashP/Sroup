@@ -28,4 +28,38 @@
 		order by name asc
 	</select>
 	
+	<select id="getNewRbNo" resultType="int">
+		select ROLLBOOK_SEQ.nextval
+		from dual
+	</select>
+	
+	<insert id="addNewRollbook" parameterType="m_rollbook">
+		insert into S_ROLLBOOK (RB_NO, STUDY_NO, RB_NAME, RB_ATTEND_DAY, RB_ATTEND, RB_NOTE, RB_WRITE_DAY, RB_WRITER)
+		values (#{no}, #{studyNo}, #{name}, #{attendDay}, #{attend}, #{note}, sysdate, #{writer})
+	
+	</insert>
+	
+	<update id="updateRollbook" parameterType="m_rollbook">
+		update S_ROLLBOOK
+		set
+			RB_ATTEND = #{attend},
+			RB_NOTE = #{note}
+		where
+			RB_NO = #{no}
+	
+	</update>
+	
+	<select id="getAttendCountByUserid" parameterType="m_rollbook" resultType="int">
+		select count(*) count
+		from S_ROLLBOOK 
+		where 
+		  study_no = #{studyNo} 
+		  and
+		  RB_name = #{name} 
+		  and 
+		  RB_ATTEND = 'attend' 
+		  and 
+		  S_ROLLBOOK.RB_ATTEND_DAY &lt; sysdate
+	</select>
+	
 </mapper>

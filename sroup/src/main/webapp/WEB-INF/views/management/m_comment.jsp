@@ -232,8 +232,8 @@ var calendarPicker = $("#dsel2").calendarPicker({
         		+"<button href=\"#\" class=\"btn btn-default glyphicon c_remove\"  id=\""+c_no+"\" onclick=\"c_remove("+c_no+");\" style=\"padding-left: 8px; padding-right: 8px; color: gray\"><span class=\"glyphicon glyphicon-remove \"></span></button><br>"
         		+"<a href=\"#\" class=\"btn btn-default glyphicon c_rewrite\" id=\""+c_no+"\" onclick=\"c_rewrite("+c_no+");\" style=\"padding-left: 8px; padding-right: 8px; color: gray\"><span class=\"glyphicon glyphicon-pencil\"></span></a>"
         		+"</div>"
-        		+"	<div class=\"c_content\" id=\"c_content_"+c_no+"\">			"	
-        		+"		<p class=\"c_content_p\"><pre>"+c_content+"<pre></p>		"		
+        		+"	<div class=\"c_content\" id=\"c_content_"+c_no+"\">"	
+        		+"		<pre>"+c_content+"<pre>"		
         		+"	</div>"
         		+"	<div class=\"c_profile\" id=\"c_profile_"+c_no+"\">"
         		+"	<small class=\"text-muted c_writer\">"+c_writer+"</small>"
@@ -244,8 +244,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
         			+"<HR>"
         			+"</div>";
             	}
-            	 }
-        			
+            	 }        			
         			$(".speak_contents").html(html);
         			//페이지 로드 된 후 실행
         			loadAfter(c_write_day);

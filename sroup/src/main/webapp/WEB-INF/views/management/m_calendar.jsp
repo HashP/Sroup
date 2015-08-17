@@ -82,8 +82,11 @@ textarea {
 #calendarblock {
 	width: 910px;
 	height: 785px;
+	
 }
+
 </style>
+
 <script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
@@ -138,8 +141,20 @@ function removeClick(calEvent_id){
 
 $(document).ready(function()
 {
-	
-	
+	$("#e_title").click(function(){
+		 $("#e_title").attr("placeholder", "");
+    	 $("#e_title").css("border-color","rgb(204, 204, 204)");
+	})
+	$("#datetimepicker1 .input-group-addon").click(function(){
+		 $("#start_d").css("border-color","rgb(204, 204, 204)"); 
+    	 $("#datetimepicker1 .input-group-addon").css("border-color","rgb(204, 204, 204)");
+    	 $("#start_d").attr("placeholder", ""); 
+	})
+	$("#datetimepicker2 .input-group-addon").click(function(){
+		 $("#end_d").css("border-color","rgb(204, 204, 204)"); 
+    	 $("#datetimepicker2 .input-group-addon").css("border-color","rgb(204, 204, 204)");
+    	 $("#end_d").attr("placeholder", ""); 
+	})
 	 $('select[name="colorpicker-picker-delay"]').simplecolorpicker({picker: true, theme: 'glyphicons', pickerDelay: 1000});
 	
 	 $('#datetimepicker1').datetimepicker({
@@ -237,14 +252,28 @@ $(document).ready(function()
               modal: true,
               buttons: {
                   "확인": function () {
-                      var event = new Object(), eventToSave = new Object(); ;
-                      eventToSave.EventID = event.id = Math.floor(200 * Math.random());
-                      event.start = new Date($("#StartDt").val());
-                      eventToSave.StartDate = $("#StartDt").val();
-                      eventToSave.EndDate = $("#EndDt").val();
-                      eventToSave.EventName = event.title = eventToSave.title = $("#Name").val();
+                      //var event = new Object(), eventToSave = new Object(); ;
+                      //eventToSave.EventID = event.id = Math.floor(200 * Math.random());
+                     // event.start = new Date($("#StartDt").val());
+                     // eventToSave.StartDate = $("#StartDt").val();
+                     // eventToSave.EndDate = $("#EndDt").val();
+                     // eventToSave.EventName = event.title = eventToSave.title = $("#Name").val();
+                     if($("#e_title").val() == "" || $("#e_title").val().length > 10){
+                    	 $("#e_title").attr("placeholder", "제목을 입력해 주세요, 제목은 최대 10글자까지 가능합니다");
+                    	 $("#e_title").css("border-color","red");                   	 
+                     }else if($("#start_d").val()==""){
+                    	 $("#start_d").css("border-color","red"); 
+                    	 $("#datetimepicker1 .input-group-addon").css("border-color","red");
+                    	 
+                    	 $("#start_d").attr("placeholder", "시작일을 선택하세요");   
+                     }else if($("#end_d").val()==""){
+                    	 $("#end_d").css("border-color","red"); 
+                    	 $("#datetimepicker2 .input-group-addon").css("border-color","red");
+                    	 $("#end_d").attr("placeholder", "종료일을 선택하세요"); 
+                     }else{
                       var e_memo = $("#e_memo").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
-                      var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":$("#e_title").val(),"event_content":e_memo,"event_color":$("#e_color").select().val()}
+                      var e_title = $("#e_title").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
+                      var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":e_title,"event_content":e_memo,"event_color":$("#e_color").select().val()}
                       $.ajax({        
                     	  type:"POST",
                           url: "calEventAdd.do",
@@ -265,8 +294,7 @@ $(document).ready(function()
                                           event.content = item.event_content;
                                           event.color = item.event_color;
                                           event.allDay = false;
-                                          events.push(event);
-                                          
+                                          events.push(event);                                          
                                       });                                  	 
                               		$('div[id*=calendar]').fullCalendar('refetchEvents');                             		
                              		$("#ModalAdd").dialog("close");                        
@@ -280,6 +308,7 @@ $(document).ready(function()
                           }
                       });
                   }
+                  }
               }
           });
           calendar.fullCalendar('unselect');
@@ -287,7 +316,7 @@ $(document).ready(function()
       eventRender: function (event, element) {         
           //element.attr('href', 'javascript:void(0);');
           element.click(function() {
-              $("#eventContent").dialog({ modal: true, title: event.title, width:330});
+              $("#eventContent").dialog({ modal: true, title: event.title, width:420});
               $("#startTime").html(moment(event.start).format('YYYY년MM월DD일   h:mm A'));
               $("#endTime").html(moment(event.end).format('YYYY년MM월DD일\t\th:mm A'));
               $("#s_content").html(event.content);
@@ -382,9 +411,9 @@ $(document).ready(function()
 </script>
 <div id="eventContent" title="Event Details" style="display: none;">
 	시작 : <span id="startTime"></span><br> 종료 : <span id="endTime"></span><br>
-	<hr>
-	<textarea wrap="hard" id="s_content" style="width: 291px;" disabled="disabled"></textarea>
-	<br> <br>
+	<hr>	
+	<textarea wrap="hard" id="s_content" style="width: 100%; height: 320px;" disabled="disabled"></textarea>
+	<br><br>
 	<p id="eventInfo"></p>
 
 	<!-- 이 부분을 이용해 원하는 곳으 링크 가능 -->
@@ -394,7 +423,7 @@ $(document).ready(function()
 <div id="ModalAdd" style="display: none; width: 600px;">
 	<div id="AddEvent" style="width: 620px; text-align: center;">
 		<div class="inline_div addEvent_div">
-			<strong>제목</strong> <input id="e_title" type="text"
+			<strong>제목</strong> <input id="e_title" type="text" 
 				style="width: 564px; height: 30px;">
 		</div>
 		<div class="addEvent_div">
@@ -414,9 +443,10 @@ $(document).ready(function()
 				</span>
 			</div>
 		</div>
-		<div class="addEvent_div" style="height: 34px; padding-top: 2px;">
-			<strong>색상</strong><select name="colorpicker-picker-delay"
-				id="e_color">
+	</div>
+		<div class="addEvent_div" style="height: 34px; padding-top: 2px; padding-left: 9px">
+			<strong  style="margin-right:6px;">색상</strong><select name="colorpicker-picker-delay"
+				id="e_color" >
 				<option value="#7bd148">Green</option>
 				<option value="#5484ed">Bold blue</option>
 				<option value="#a4bdfc">Blue</option>
@@ -431,12 +461,12 @@ $(document).ready(function()
 				<option value="#e1e1e1">Gray</option>
 			</select>
 		</div>
+		<div style="width: 620px; text-align: center;">
 		<div class="addEvent_div">
 			<strong>메모</strong>
 			<textarea wrap="hard" id="e_memo" style="width: 564px; height: 240px;"></textarea>
 		</div>
-	</div>
-
+		</div>
 	<br />
 
 
