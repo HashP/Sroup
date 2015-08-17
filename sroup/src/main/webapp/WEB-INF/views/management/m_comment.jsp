@@ -4,7 +4,7 @@
 
 
 
-<link href="resources/jquery-ui/jquery-ui.css" rel="stylesheet">
+<link href="../resources/jquery-ui/jquery-ui.css" rel="stylesheet">
 <link rel=stylesheet href="../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
 	
 <style>

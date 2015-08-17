@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<link rel="shortcut icon" href="images/favicon.png">
+<link rel="shortcut icon" href="../images/favicon.png">
 
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500">
