@@ -14,10 +14,10 @@
 	</definition>
 
 	<definition name="listdefault" template="/WEB-INF/views/template2.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/navbar2.jsp"></put-attribute>
+		<put-attribute name="nav" value="/WEB-INF/views/navbar.jsp"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/views/header.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
-		<put-attribute name="footer" value=""></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp"></put-attribute>
 	</definition>
 
 	<definition name="mypagedefault" template="/WEB-INF/views/mypage/mypage_template.jsp">

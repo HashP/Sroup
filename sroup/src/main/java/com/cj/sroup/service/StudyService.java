@@ -22,7 +22,10 @@ public interface StudyService {
 	public void modifyCheck(CheckVO check);
 	public StudyVO pAddrCheck(String p_address);
 	public List<CategoryVO> getCategories();
+	public void studyHidden(int study_no);
 	public String getSubjectByNo(String sub_value);
+	public void studyModify(StudyVO study);
+	public String getSubValueyByCategory(String category);
 	public int getStudyNo();
 	public void addJoin(JoinVO join);
 	public void addStudyManagement(StudyManagementVO studyManagement);
