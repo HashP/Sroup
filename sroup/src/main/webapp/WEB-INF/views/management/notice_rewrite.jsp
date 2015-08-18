@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
@@ -8,7 +8,7 @@
 <h1 id="noticename">공지사항 수정</h1>
 <hr>
 <div style="text-align:center">
-<form id="frm" action="/sroup/m_study/notice_resave.do" method="post" >
+<form id="frm" action="notice_resave.do" method="post" >
 <table style="width: 802px; margin:0 auto;">
 		<tr>
 			<th>제목</th>
@@ -24,7 +24,7 @@
 			<td colspan="2">
 			<input type="hidden" name="n_no" value="${m_notice.n_no}"/>
 				<input type="button" id="save" value="수정"/>
-				<input type="button" value="취소"/>
+				<input type="button" id="cancle" value="취소"/>
 			</td>
 		</tr>
 </table>
@@ -41,7 +41,7 @@ $(function(){
 						oAppRef: oEditors,
 						elPlaceHolder: "ir1",
 						//SmartEditor2Skin.html 파일이 존재하는 경로
-						sSkinURI: "../resources/editor/SmartEditor2Skin.html",	
+						sSkinURI: "../../resources/editor/SmartEditor2Skin.html",	
 						htParams : {
 							// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 							bUseToolbar : true,				
@@ -89,5 +89,9 @@ $("#save").click(function() {
 		$("#frm").submit();
 	}
 })
+
+$("#cancle").click(function(){
+	location.replace("m_main.do");
+});
 </script>
 

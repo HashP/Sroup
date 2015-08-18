@@ -4,18 +4,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class M_commentVO {
-	private int sutdy_no;
+	private int study_no;
 	private String list_name;
 	private int c_no;
 	private Date c_write_day;
 	private String c_writer;
 	private String c_content;
 	
-	public int getSutdy_no() {
-		return sutdy_no;
+	
+	public int getStudy_no() {
+		return study_no;
 	}
-	public void setSutdy_no(int sutdy_no) {
-		this.sutdy_no = sutdy_no;
+	public void setStudy_no(int study_no) {
+		this.study_no = study_no;
 	}
 	public String getList_name() {
 		return list_name;

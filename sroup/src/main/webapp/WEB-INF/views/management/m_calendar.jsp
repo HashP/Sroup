@@ -3,26 +3,26 @@
 
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-<link href='../resources/fullcalendar/fullcalendar.css' rel='stylesheet' />
-<link href='../resources/fullcalendar/fullcalendar.min.css'
+<link href='../../resources/fullcalendar/fullcalendar.css' rel='stylesheet' />
+<link href='../../resources/fullcalendar/fullcalendar.min.css'
 	rel='stylesheet' media='print' />
 <link
 	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-	href="../resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
+	href="../../resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
 <link rel="stylesheet"
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
 <link rel="stylesheet"
-	href="../resources/simplecolorpicker/jquery.simplecolorpicker.css">
+	href="../../resources/simplecolorpicker/jquery.simplecolorpicker.css">
 <link rel="stylesheet"
-	href="../resources/simplecolorpicker/jquery.simplecolorpicker-regularfont.css">
+	href="../../resources/simplecolorpicker/jquery.simplecolorpicker-regularfont.css">
 <link rel="stylesheet"
-	href="../resources/simplecolorpicker/jquery.simplecolorpicker-glyphicons.css">
+	href="../../resources/simplecolorpicker/jquery.simplecolorpicker-glyphicons.css">
 <link rel="stylesheet"
-	href="../resources/simplecolorpicker/jquery.simplecolorpicker-fontawesome.css">
+	href="../../resources/simplecolorpicker/jquery.simplecolorpicker-fontawesome.css">
 <style type="text/css">
 #title {
 	padding-left: 10px;
@@ -99,12 +99,12 @@ span.calElement.prev{
 
 
 <script type="text/javascript"
-	src="../resources/datetimepicker/js/bootstrap-datetimepicker.min.js">
+	src="../../resources/datetimepicker/js/bootstrap-datetimepicker.min.js">
     </script>
 
 
 
-<script src="../resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
+<script src="../../resources/simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <div class="container">
 	<h1 id="bordname" class="bordname1" onclick='removeClick();'>스터디
 		일정</h1>
@@ -395,7 +395,7 @@ $(document).ready(function()
                       event.id =  item.event_id;
                       event.start = new Date(item.event_start);
                       event.end = new Date(item.event_end);
-                      event.title = item.event_title.val().replace(/&amp/g, '&;').replace(/&lt;/g,"<").replace(/&gt;/">");;
+                      event.title = item.event_title.replace(/&amp/g, '&').replace(/&lt;/g,"<").replace(/&gt;/g,">");
                       event.content = item.event_content;
                       event.color = item.event_color;
                       event.allDay = false;

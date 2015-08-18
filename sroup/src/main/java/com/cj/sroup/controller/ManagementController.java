@@ -7,10 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +27,11 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import com.cj.sroup.service.M_boardService;
 import com.cj.sroup.service.M_calendarService;
 import com.cj.sroup.service.M_commentService;
+import com.cj.sroup.service.M_firstService;
 import com.cj.sroup.service.M_galleryService;
 import com.cj.sroup.service.M_noticeService;
+import com.cj.sroup.service.M_rollbookService;
+import com.cj.sroup.vo.M_RollbookVO;
 import com.cj.sroup.vo.M_boardReplyVO;
 import com.cj.sroup.vo.M_boardVO;
 import com.cj.sroup.vo.M_calEventVO;
@@ -32,10 +39,11 @@ import com.cj.sroup.vo.M_calendarVO;
 import com.cj.sroup.vo.M_commentVO;
 import com.cj.sroup.vo.M_galleryVO;
 import com.cj.sroup.vo.M_noticeVO;
+import com.cj.sroup.vo.UserInfoVO;
 
 
 @Controller
-@RequestMapping("/m_study")
+@RequestMapping("/m_study/{study_address}")
 public class ManagementController {
 
 	@Autowired
@@ -48,31 +56,44 @@ public class ManagementController {
 	M_calendarService m_calendarservice;
 	@Autowired
 	M_noticeService m_noticeservice;
-
 	@Autowired
-	private MappingJackson2JsonView jsonView;
-
+	M_firstService m_firstservice;
+	@Autowired
+	private M_rollbookService rollbookService;
+	
+	private Logger logger= Logger.getLogger(TestController.class);
+	@Autowired
+	private MappingJackson2JsonView jsonView;	
+	
 	//  메뉴 페이지 이동 경로
 	@RequestMapping("/m_main.do")
-	public ModelAndView main(){
+	public ModelAndView main(@PathVariable("study_address") String study_address){
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		ModelAndView mav = new ModelAndView();
-		List<M_noticeVO> noticeList =	m_noticeservice.getAllNotice();
+		List<M_noticeVO> noticeList = m_noticeservice.getAllNotice(study_no);
 		mav.addObject("noticeList",noticeList);
 		mav.setViewName("management/m_main");
 
 		return mav;
 	} 
+	
 	@RequestMapping("/m_border.do")
-	public ModelAndView border(@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
+	public ModelAndView border(@PathVariable("study_address") String study_address,
+						@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		int start = (cPage - 1) * 20 + 1;	
 		int end = cPage * 20;	
 		HashMap<String, Integer> num = new HashMap<String, Integer>();
+		num.put("study_no", study_no);
 		num.put("start", start);
 		num.put("end", end);
 		List<M_boardVO> boardList =	m_boardservice.getBoard_list(num);
-		int b_tot = m_boardservice.getAllBoardNo();
+		int b_tot = m_boardservice.getAllBoardNo(study_no);
 		mav.addObject("boardList",boardList);
 		mav.addObject("b_tot", b_tot);
 		mav.addObject("cPage",cPage);
@@ -80,10 +101,15 @@ public class ManagementController {
 
 		return mav;
 	}
+	
 	@RequestMapping("/m_comment.do")
-	public ModelAndView memberspeak(){
+	public ModelAndView memberspeak(@PathVariable("study_address") String study_address){
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		ModelAndView mav = new ModelAndView();
-		List<M_commentVO> commentList = m_commentservice.getAllComment();
+		
+		List<M_commentVO> commentList = m_commentservice.getAllComment(study_no);
 		mav.addObject("commentList",commentList);		
 		mav.setViewName("management/m_comment");
 
@@ -92,14 +118,20 @@ public class ManagementController {
 	
 	@RequestMapping("/comment_selectday.do")
 	@ResponseBody
-	public HashMap<String,List<M_commentVO>> memberspeak_selectDay(@RequestParam("selectDate") Date day){
+	public HashMap<String,List<M_commentVO>> memberspeak_selectDay(@PathVariable("study_address") String study_address, 
+															@RequestParam("selectDate") Date day){
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-		String selectDate=sd.format(day);		
+		String selectDate=sd.format(day);
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("selectDate", selectDate);
+		param.put("study_no", Integer.toString(study_no));
 		HashMap<String,List<M_commentVO>> map = new HashMap<String,List<M_commentVO>>();
-		if(m_commentservice.getdateComment(selectDate)==null){
+		if(m_commentservice.getdateComment(param)==null){
 			return null;
 		}		
-		List<M_commentVO> commentList = m_commentservice.getdateComment(selectDate);
+		List<M_commentVO> commentList = m_commentservice.getdateComment(param);
 		
 		map.put("commentList", commentList);
 		
@@ -107,7 +139,11 @@ public class ManagementController {
 		return map;		
 	}
 	@RequestMapping(value="/m_album.do", method=RequestMethod.GET)	
-	public ModelAndView albumList(@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
+	public ModelAndView albumList(@PathVariable("study_address") String study_address,
+			@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		ModelAndView mav = new ModelAndView();		
 		
 		int start = (cPage - 1) * 9 + 1;	
@@ -115,6 +151,7 @@ public class ManagementController {
 		HashMap<String, Integer> num = new HashMap<String, Integer>();
 		num.put("start", start);
 		num.put("end", end);
+		num.put("study_no", study_no);
 		List<M_galleryVO> galleryList =	m_galleryservice.getGallery_list(num);
 		int g_tot =m_galleryservice.getAllGalleryNo();
 		mav.addObject("galleryList",galleryList);
@@ -130,7 +167,7 @@ public class ManagementController {
 		
 		return "redirect:m_album.do?cPage"+cPage;
 	}
-	@RequestMapping(value="/album_rewrite.do" )	
+	@RequestMapping(value="/album_rewrite.do")	
 	public String re_album(@RequestParam (value="cPage", defaultValue= "1")int cPage,
 						@RequestParam ("g_no") int g_no,
 						@RequestParam("re_title")String title,
@@ -140,6 +177,7 @@ public class ManagementController {
 						){
 		String photoname;		
 		photoname = m_galleryservice.m_albumImageUpload(photofile);
+		contents=contents.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		if(photoname==null){			
 			photoname=now_photoname;
 		}
@@ -160,7 +198,7 @@ public class ManagementController {
 		return "management/m_rollbook";
 	}
 	@RequestMapping("/m_calendar.do")
-	public String calenda(){
+	public String calendar(){
 		return "management/m_calendar";
 	}
 	@RequestMapping("/board_write.do")
@@ -168,9 +206,11 @@ public class ManagementController {
 		return "management/board_write";
 	}
 	@RequestMapping("/board_rewrite.do")
-	public ModelAndView board_rewrite(@RequestParam("b_no") int b_no){
+	public ModelAndView board_rewrite(@PathVariable("study_address") String study_address,
+				@RequestParam("b_no") int b_no){
 		ModelAndView mav = new ModelAndView();
-		M_boardVO b_detail =  m_boardservice.getBoardDetail(b_no);		
+		M_boardVO b_detail =  m_boardservice.getBoardDetail(b_no);
+		
 		mav.addObject("b_detail", b_detail);		
 		mav.setViewName("management/board_rewrite");
 		return mav;		
@@ -181,6 +221,7 @@ public class ManagementController {
 	}	
 	@RequestMapping("/board_read.do")
 	public ModelAndView board_read(@RequestParam("b_no") int b_no){
+		m_boardservice.board_hitPlus(b_no);
 		ModelAndView mav = new ModelAndView();
 		M_boardVO b_detail =  m_boardservice.getBoardDetail(b_no);
 		List<M_boardReplyVO> b_reply =m_boardservice.getBoardReply(b_no);
@@ -193,9 +234,13 @@ public class ManagementController {
 
 	// 게시글 등록시 이동 경로
 	@RequestMapping(value="/m_album.do", method=RequestMethod.POST)	
-	public String albumAdd(@RequestParam("title")String title,
+	public String albumAdd(@PathVariable("study_address") String study_address,
+			@RequestParam("title")String title,
 			@RequestParam("contents")String contents,
 			@RequestParam("albumphoto")MultipartFile photofile){
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		title=title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		contents=contents.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_galleryVO m_gallery = new M_galleryVO();
@@ -204,6 +249,7 @@ public class ManagementController {
 		m_gallery.setG_title(title);
 		m_gallery.setG_content(contents);
 		m_gallery.setImageName(photoname);
+		m_gallery.setStudy_no(study_no);
 		
 		m_galleryservice.addGallery(m_gallery);
 		return "redirect:m_album.do";
@@ -218,15 +264,25 @@ public class ManagementController {
 	// 앨범 모달 클릭시 앞 뒤 번호 가져올 값들
 	@RequestMapping("/getPrevNext.do")
 	@ResponseBody
-	public HashMap<String, Integer> getPrevNext(@RequestParam("g_no") int g_no){
-		return m_galleryservice.getPrevNext(g_no);
+	public HashMap<String, Integer> getPrevNext(@PathVariable("study_address") String study_address,
+												@RequestParam("g_no") int g_no){
+		int study_no = m_firstservice.get_studyNo(study_address);
+		M_galleryVO m_gallery = new M_galleryVO();
+		m_gallery.setStudy_no(study_no);
+		m_gallery.setG_no(g_no);
+		return m_galleryservice.getPrevNext(m_gallery);
 	}
 	
 	@RequestMapping("/board_writesave.do")
-	public String board_writesave(@RequestParam("title")String title,
+	public String board_writesave(@PathVariable("study_address") String study_address,
+			@RequestParam("title")String title,
 			@RequestParam("content")String content){
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_boardVO m_board = new M_boardVO();
+		m_board.setStudy_no(study_no);
 		m_board.setB_title(title);
 		m_board.setB_content(content);
 		
@@ -237,11 +293,12 @@ public class ManagementController {
 	}
 	@RequestMapping("/board_del.do")	
 	public String board_del(@RequestParam("b_no")int b_no){					
-		m_boardservice.delBoard(b_no);	
-		return "m_border.do";
+		m_boardservice.delBoard(b_no);			
+		return "redirect:m_border.do";
 	}
 	@RequestMapping("/board_resave.do")
-	public String board_resave(@RequestParam("title")String title,
+	public String board_resave(@PathVariable("study_address") String study_address,
+			@RequestParam("title")String title,
 			@RequestParam("content")String content,
 			@RequestParam("b_no") int b_no){
 		title = title.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
@@ -255,10 +312,11 @@ public class ManagementController {
 		return "redirect:board_read.do?b_no="+b_no;
 	}
 	
-	// 덧글 등록 삭제 기능 
+	// 덧글 등록 삭제 수정 기능 
 	@RequestMapping(value="/boardreply_add.do" ,method=RequestMethod.POST)	
 	public String boardreply_save(@RequestParam("b_no")int b_no,
 			@RequestParam("content")String content){
+		content = content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_boardReplyVO m_boardreply = new M_boardReplyVO();
 		m_boardreply.setB_no(b_no);
 		m_boardreply.setRe_content(content);
@@ -271,18 +329,33 @@ public class ManagementController {
 		m_boardservice.delBoardReply(re_no);	
 		return "redirect:board_read.do?b_no="+b_no;
 	}
-	// 덧글 등록 삭제 끝 
+	@RequestMapping("/boardreply_rewrite.do")	
+	public String boardreply_rewrite(@RequestParam("re_no")int re_no, 
+						@RequestParam("re_content")String re_content,
+						@RequestParam("b_no")int b_no){
+		re_content = re_content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		M_boardReplyVO b_reply = new M_boardReplyVO();
+		b_reply.setRe_no(re_no);
+		b_reply.setRe_content(re_content);
+		m_boardservice.reBoardReply(b_reply);	
+		return "redirect:board_read.do?b_no="+b_no;
+	}
+	// 덧글 등록 삭제 수정 끝 
 	
 	
 	@RequestMapping("/notice_writesave.do")
-	public String notice_writesave(@RequestParam("title")String title,
+	public String notice_writesave(@PathVariable("study_address") String study_address,
+			@RequestParam("title")String title,
 			@RequestParam("content")String content){		
 		// 차후 작성글 바로 보기로 페이지 변경
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");		
 		System.out.println(title + content + " 1번");
 		M_noticeVO m_notice = new M_noticeVO();
 		m_notice.setN_title(title);
 		m_notice.setN_content(content);
+		m_notice.setStudy_no(study_no);
 
 		m_noticeservice.addNotice(m_notice);
 
@@ -314,13 +387,17 @@ public class ManagementController {
 
 	@RequestMapping("/comment_add.do")
 	// 차후 작성자 아이디 도 가져와야함 writer
-	public String comment_writesave(@RequestParam("content")String content){		
+	public String comment_writesave(@PathVariable("study_address") String study_address,
+					@RequestParam("content")String content){		
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		M_commentVO m_comment = new M_commentVO();
 		
 		content = content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		System.out.println(content);
 		m_comment.setC_content(content);
-
+		m_comment.setStudy_no(study_no);
 		m_commentservice.addComment(m_comment);
 		// 차후 작성글 바로 보기로 페이지 변경
 		return "redirect:m_comment.do";
@@ -354,8 +431,10 @@ public class ManagementController {
 	// 캘린더 이벤트 jsonView로 읽어오는 곳
 	@RequestMapping("/calEvent.do")	
 	@ResponseBody
-	public View calEvent(Model model){		
-		List<M_calEventVO> eventList = m_calendarservice.getAllEvent();
+	public View calEvent(Model model, @PathVariable("study_address") String study_address){	
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
+		List<M_calEventVO> eventList = m_calendarservice.getAllEvent(study_no);
 		System.out.println(eventList.toString());
 		model.addAttribute("eventList",eventList);
 
@@ -365,11 +444,14 @@ public class ManagementController {
 	// 캘린더 이벤트 추가하는 곳
 	@RequestMapping("/calEventAdd.do")
 	@ResponseBody
-	public void calEventAdd(@RequestParam("event_start") String event_start,
+	public void calEventAdd(@PathVariable("study_address") String study_address,
+			@RequestParam("event_start") String event_start,
 			@RequestParam("event_end") String event_end,
 			@RequestParam("event_title") String event_title,
 			@RequestParam("event_content") String event_content, 
-			@RequestParam("event_color") String event_color)throws ParseException{		
+			@RequestParam("event_color") String event_color)throws ParseException{	
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
 		SimpleDateFormat sd = new SimpleDateFormat(
 				"yyyy.MM.dd aa hh시 mm분");
 		System.out.println(event_start +"전");
@@ -381,6 +463,7 @@ public class ManagementController {
 		m_calendar.setEvent_title(event_title);;
 		m_calendar.setEvent_content(event_content);
 		m_calendar.setEvent_color(event_color);
+		m_calendar.setStudy_no(study_no);
 
 		m_calendarservice.addCalEvent(m_calendar);			
 
@@ -408,9 +491,80 @@ public class ManagementController {
 		m_calendarservice.delCalEvent(event_id);			
 		
 	}
-
-	@RequestMapping("/importcalendar.do")
-	public String importcalendar(){
-		return "management/m_importcalendar";
+	
+	
+	
+	@RequestMapping("/template.do")
+	public String test() {
+		return "template";
 	}
+	
+	@RequestMapping("/testrollbook.do")
+	public String testRollBook(Model model, @PathVariable("study_address") String study_address) {
+		int studyNo =  m_firstservice.get_studyNo(study_address);
+		model.addAttribute("studyNo", studyNo);
+		
+		List<UserInfoVO> memberList = rollbookService.getMemberListByStudyno(studyNo);
+		model.addAttribute("memberList", memberList);
+		
+		return "management/m_rollbook";
+	}
+		
+	@RequestMapping("/getSchedules.do")
+	public View getSchedules(Model model,@RequestParam("studyNo")int studyNo) {
+//		int studyNo = 3;		///이건 나중에 GET으로 받아올 값
+		
+		List<String> scheduleList = rollbookService.getSchedulesByStudyno(studyNo);
+		model.addAttribute("scheduleList", scheduleList);
+		logger.info("scheduleList: " + scheduleList);
+
+		return jsonView;
+	}
+	
+	@RequestMapping("/getAttendCounts.do")
+	public View getAttendCountByStudyno(Model model,@RequestParam("studyNo")int studyNo) {
+		HashMap<String, HashMap<String, Object>> attendCounts = rollbookService.getAttendCountByStudyno(studyNo);
+		model.addAttribute("attendCounts", attendCounts);
+		logger.info("attendCounts: " + attendCounts);
+		return jsonView;
+	}
+	
+	@RequestMapping("/getRollbookByDate.do")
+	public View getRollbookByDate(Model model, @RequestParam("studyNo")int studyNo, @RequestParam("date")String date) throws ParseException {
+		HashMap<String, M_RollbookVO> rollbook = rollbookService.getAttendByDay(studyNo, date);	//date must be pattern 'yyyy-mm-dd';
+		model.addAttribute("rollbook", rollbook);
+		logger.info("rollbook: " + rollbook);
+		return jsonView;
+	}
+	
+	@RequestMapping("/saveRollbookByRbno.do")
+	public View saveRollbookByRbno(Model model, M_RollbookVO rollbook) {
+		logger.info(rollbook);
+		
+		int attendCount = rollbookService.saveRollbookByRbno(rollbook);
+		model.addAttribute("attendCount", attendCount);
+		
+		return jsonView;
+	}
+	
+	@RequestMapping("/addRollbookByRbno.do")
+	public View addRollbookByRbno(HttpSession session, Model model, M_RollbookVO rollbook, @RequestParam("date")String date) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		rollbook.setAttendDay(sdf.parse(date));
+		rollbook.setWriter((String)session.getAttribute("LOGIN_ID"));
+		
+		logger.info(date);
+		logger.info(rollbook);
+
+		HashMap<String, Integer> resultMap =  rollbookService.addRollbookByRbno(rollbook);
+		model.addAttribute("rbNo", resultMap.get("rbNo"));
+		model.addAttribute("attendCount", resultMap.get("attendCount"));
+		
+		return jsonView;
+	}
+
+//	@RequestMapping("/importcalendar.do")
+//	public String importcalendar(){
+//		return "management/m_importcalendar";
+//	}
 }

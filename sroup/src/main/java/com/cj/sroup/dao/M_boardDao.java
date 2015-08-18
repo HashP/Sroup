@@ -11,7 +11,7 @@ import com.cj.sroup.vo.M_boardVO;
 public interface M_boardDao {
 	void addBoard(M_boardVO m_board);		
 	M_boardVO getBoardDetail(int b_no);
-	int getAllBoardNo();
+	int getAllBoardNo(int study_no);
 	List<M_boardVO> getBoard_list(HashMap<String, Integer> num);
 	void delBoard(int b_no);
 	void reBoard(M_boardVO m_board);
@@ -19,6 +19,7 @@ public interface M_boardDao {
 	// 덧글 부분
 	List<M_boardReplyVO> getBoardReply(int b_no);
 	void addBoardReply(M_boardReplyVO b_reply);
+	void reBoardReply(M_boardReplyVO b_reply);
 	void delBoardReply(int re_no);
 	int nowAdd_no(String b_writer);
 }

@@ -4,7 +4,7 @@
 #left_nav {
 	height: 100%;
 	width: 133px;
-	background: url('../resources/images/bg_aside.png') right top repeat-y;
+	background: url('../../resources/images/bg_aside.png') right top repeat-y;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c',
 		endColorstr='#ff222222', GradientType=0);
 	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -17,11 +17,15 @@
 #left-nav2 {
 	height: 100%;
 	width: 278px;
+	position:fixed;
 	background-color: #c84d2e;
 	background-repeat: repeat-x;
+	
 }
 #side_nav{
 	height: 100%;
+	
+	
 	
 }
 
@@ -42,19 +46,19 @@ display:block; /* a태그의 display속성을 block으로 설정 */
 </style> 
 <div id="side_nav">
 	
-	<nav id="left-nav2" class="sidebar, nav nav-pills nav-stacked">
+	<nav id="left-nav2" class="sidebar, nav nav-pills nav-stacked nav-fixed-side left">
 	<nav id="left_nav" class="col-md-2 sidebar, nav nav-pills nav-stacked">
 	<div style="width: 130px; height: 140px;">
-		<img alt="프로필" src="../resources/images/프로필.png"
+		<img alt="프로필" src="../../resources/images/프로필.png"
 			style="width: 130px; height: 130px; margin-bottom: 5px; margin-top: 5px;">
 	</div>
 	<ul class="nav nav-sidebar">		
-		<li><a href="/sroup/m_study/m_main.do" style="padding: 12.5px 15px;">공지사항</a></li>
-		<li><a href="#" style="padding: 12.5px 15px;">출석부</a></li>
-		<li><a href="/sroup/m_study/m_calendar.do" style="padding: 12.5px 15px;">캘린더</a></li>
-		<li><a href="/sroup/m_study/m_album.do" style="padding: 12.5px 15px;">갤러리</a></li>
-		<li><a href="/sroup/m_study/m_comment.do" style="padding: 12.5px 15px;">회원한마디</a></li>
-		<li><a href="/sroup/m_study/m_border.do" style="padding: 12.5px 15px;">게시판</a></li>
+		<li><a href="m_main.do" style="padding: 12.5px 15px;">공지사항</a></li>
+		<li><a href="testrollbook.do" style="padding: 12.5px 15px;">출석부</a></li>
+		<li><a href="m_calendar.do" style="padding: 12.5px 15px;">캘린더</a></li>
+		<li><a href="m_album.do" style="padding: 12.5px 15px;">갤러리</a></li>
+		<li><a href="m_comment.do" style="padding: 12.5px 15px;">회원한마디</a></li>
+		<li><a href="m_border.do" style="padding: 12.5px 15px;">게시판</a></li>
 	</ul>
 	</nav>		
 		<p>내 정보 표시 구간</p>		

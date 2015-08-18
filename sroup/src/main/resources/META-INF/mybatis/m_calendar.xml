@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.M_calendarDao">   
  
-   <select id="getAllEvent" resultType="m_calEvent">
+   <select id="getAllEvent" resultType="m_calEvent" parameterType="int">
   	select  EVENT_START		as event_start,
    			EVENT_END		as event_end,
    			EVENT_TITLE		as event_title,
@@ -13,7 +13,8 @@
    			EVENT_WRITER 	as event_writer,
    			EVENT_COLOR		as event_color,
    			EVENT_ID		as event_id
-	from s_calendar            
+	from s_calendar 
+	where STUDY_NO = #{study_no}          
    </select>
    
    <insert id="addCalEvent" parameterType="m_calendar">
@@ -26,7 +27,7 @@
                         EVENT_TITLE,
                         EVENT_CONTENT,
                         EVENT_COLOR)
-        values (3,
+        values (#{study_no},
                 1,
                 CALEVENT_SEQ.NEXTVAL,
                 #{event_start},

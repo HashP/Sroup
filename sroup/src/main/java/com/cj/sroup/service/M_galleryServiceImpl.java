@@ -57,8 +57,8 @@ public class M_galleryServiceImpl implements M_galleryService{
 	}
 
 	@Override
-	public HashMap<String, Integer> getPrevNext(int g_no) {			
-		return m_gallerydao.getPrevNext(g_no);
+	public HashMap<String, Integer> getPrevNext(M_galleryVO m_gallery) {			
+		return m_gallerydao.getPrevNext(m_gallery);
 	}
 
 	@Override

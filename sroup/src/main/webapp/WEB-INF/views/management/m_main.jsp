@@ -34,9 +34,9 @@ padding-bottom: 15px;
 }
 </style>
 
-<link href="../resources/jquery-ui/jquery-ui.css" rel="stylesheet">
-<script src="../resources/jquery-ui/external/jquery/jquery.js"></script>
-<script src="../resources/jquery-ui/jquery-ui.js"></script>
+<link href="../../resources/jquery-ui/jquery-ui.css" rel="stylesheet">
+<script src="../../resources/jquery-ui/external/jquery/jquery.js"></script>
+<script src="../../resources/jquery-ui/jquery-ui.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -97,7 +97,7 @@ $(function(){
 					<div id="notice-${noticeList.n_no}" class="notice">
 						<div style="margin:0px 10px;">
 						<h2 class="notice-header">
-							<pre><h2><div style="width: 930px; display: inline-block; margin-right: 20px;white-space: nowrap;  text-overflow:ellipsis;overflow:hidden;">${noticeList.n_title }</div></h2></pre>
+							<pre><h2><div style="width: 930px; display: inline-block; margin-right: 20px; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;">${noticeList.n_title }</div></h2></pre>
 							<div style="display: inline-block; margin-bottom: 8px">
 							<a href="#del();" id="${noticeList.n_no}"
 								class="btn btn-default del-btn"

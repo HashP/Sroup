@@ -23,9 +23,9 @@ public class M_noticeServiceImpl implements M_noticeService {
 	}
 
 	@Override
-	public List<M_noticeVO> getAllNotice() {
+	public List<M_noticeVO> getAllNotice(int study_no) {
 		// TODO Auto-generated method stub
-		return m_noticedao.getAllNotice();
+		return m_noticedao.getAllNotice(study_no);
 	}
 
 	@Override

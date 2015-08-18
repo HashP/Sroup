@@ -17,8 +17,8 @@ public class M_calendarServiceImpl implements M_calendarService{
 	@Autowired
 	M_calendarDao m_calendardao;
 	
-	public List<M_calEventVO> getAllEvent() {		
-		return m_calendardao.getAllEvent();
+	public List<M_calEventVO> getAllEvent(int study_no) {		
+		return m_calendardao.getAllEvent(study_no);
 	}
 
 	@Override

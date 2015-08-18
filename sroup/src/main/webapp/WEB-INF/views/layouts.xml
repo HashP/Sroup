@@ -30,7 +30,7 @@
 
 	<definition name="managementdefault"
 		template="/WEB-INF/views/management/management_template.jsp">
-		<put-attribute name="nav" value="/WEB-INF/views/m_navbar.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/views/management/m_navbar.jsp" />
 		<put-attribute name="header" value="" />
 		<put-attribute name="sidebar" value="" />
 		<put-attribute name="content" value="" />

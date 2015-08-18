@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.M_commentDao">   
  
-   <select id="getAllComment" resultType="m_comment">
+   <select id="getAllComment" resultType="m_comment" parameterType="int">
    <!-- 차후 사진 가져오기 위해 회원 테이블과 c_writer를 가지고 조인후 프로필사진을 가져와야함 -->
    select	STUDY_NO	as study_no,
    			LIST_NAME	as list_name,
@@ -14,10 +14,11 @@
    			C_WRITER	as c_writer,   			 
    			C_CONTENT	as c_content   			
 	from s_comment
+	where STUDY_NO = #{value}
     order by C_NO desc      
    </select>
    
-    <select id="getdateComment" resultType="m_comment" parameterType="string">
+    <select id="getdateComment" resultType="m_comment" parameterType="hashmap">
    <!-- 차후 사진 가져오기 위해 회원 테이블과 c_writer를 가지고 조인후 프로필사진을 가져와야함 -->
    select	STUDY_NO	as study_no,
    			LIST_NAME	as list_name,
@@ -26,8 +27,9 @@
    			C_WRITER	as c_writer,   			 
    			C_CONTENT	as c_content   			
 	from s_comment
-	where C_WRITE_DAY >= to_date(#{value},'YYYY-MM-DD')
-	and C_WRITE_DAY &lt;= to_date(#{value},'YYYY-MM-DD')+1
+	where STUDY_NO = #{study_no}  AND
+	(C_WRITE_DAY >= to_date(#{selectDate},'YYYY-MM-DD')
+	and C_WRITE_DAY &lt;= to_date(#{selectDate},'YYYY-MM-DD')+1)
     order by C_NO desc      
    </select>
 
@@ -39,7 +41,7 @@
    							C_WRITER,   			 
    							C_CONTENT)
 		values 
-				(20,
+				(#{study_no},
 				'회원한마디', 
 				<!-- 시퀀스 바꾸기 다른것 들도 -->
 				test_seq.NEXTVAL, 

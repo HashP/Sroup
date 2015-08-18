@@ -41,9 +41,12 @@ margin: 0px;
 border: none;
 padding: 0px; 
 }
+.re_select {color:#f83c02}
+.re_select a{color:#f83c02}
+
 </style>
 
-<div class="col-md-8 col-md-offset-1">
+<div class="col-md-8 col-md-offset-2">
 
 	<div class="col-md-12">
 		<div class="row">
@@ -82,8 +85,7 @@ padding: 0px;
 							</tr>
 							<tr>
 								<td align="left" style="padding: 10px 0px 0px 0px"><pre><strong
-									style="font-size: 17px;"><c:out
-											value="${b_detail.b_title }" /></strong></pre></td>
+									style="font-size: 17px;">${b_detail.b_title }</strong></pre></td>
 							</tr>
 						</table>
 
@@ -104,7 +106,7 @@ padding: 0px;
 		<div class="row">
 		
 		<c:forEach var="b_reply" items="${b_reply }">
-			<div class="reply_content" style="padding-top: 10px;">
+			<div class="reply_content" id="reply_content_${b_reply.re_no}" style="padding-top: 10px;">
 				<div style="width: 70px; display: inline-block; float: left"
 					align="center">
 					<img src=http://api.randomuser.me/portraits/thumb/men/86.jpg
@@ -113,7 +115,8 @@ padding: 0px;
 				<div>
 					<p style="display: inline-block;"><b>${b_reply.re_writer}</b></p>
 					<p style="display: inline-block; padding-left: 5px;"><small style="color: gray;">${b_reply.re_writer_day }</small></p>			
-					<a class="glyphicon glyphicon-remove" id="${b_reply.re_no }" ></a>
+					<a class="glyphicon glyphicon-remove" name="${b_reply.re_no }" ></a>
+					<a class="glyphicon glyphicon-pencil" name="${b_reply.re_no }" ></a>
 					<div class="re_content"><pre>${b_reply.re_content }</pre></div>
 				</div>
 			</div>					
@@ -121,7 +124,7 @@ padding: 0px;
 			<div style="padding: 20px 5px; width: 100%">
 				<table style="width: 100%">
 					<td class="i1"><textarea wrap="hard" id="b_reply" style="overflow: hidden; line-height: 14px; height: 61px; width: 100%;"></textarea></td>
-					<td class="i2"><input type="image" name="" src="../resources/images/ok_btn.gif" alt="확인"></td>
+					<td class="i2"><input type="image" name="" src="../../resources/images/ok_btn.gif" alt="확인"></td>
 				</table>
 			</div>			
 			<div>		
@@ -139,8 +142,10 @@ padding: 0px;
 		
 		$("input[type='image']").on("click", function() {
 			var b_no = ${b_detail.b_no };
-			var content = $("#b_reply").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
-			if(getByteLength(content)>2000){
+			var content = $("#b_reply").val();			
+			if(content.trim() == 0){
+				alert("덧글이 입력되지 않았습니다")
+			}else if(getByteLength(content)>2000){
 				alert("덧글은 한글기준 최대 1000자 영어기준 2000자 까지 입력가능합니다");
 			}else{
 			var form = document.createElement('form');
@@ -161,7 +166,7 @@ padding: 0px;
 			form.submit();
 			}	
 		});
-		$(".glyphicon").hide();
+		
 		
 		$(".reply_content").hover(function(){
 			$(this).find(".glyphicon").show();
@@ -170,14 +175,29 @@ padding: 0px;
 		})
 		
 		$(".glyphicon-remove").on("click",function(){
-			var re_no=$(this).attr("id");
+			var re_no=$(this).attr("name");
 			var b_no = ${b_detail.b_no };
 			location.replace('boardreply_del.do?re_no='+re_no+'&b_no='+b_no);	
+		})		
+		$(".glyphicon-pencil").on("click",function(){
+			$(".rewrite_div").remove();
+			$(".reply_content").children().show();
+			var re_no=$(this).attr("name");
+			var b_no = ${b_detail.b_no };
+			$("#reply_content_"+re_no).children().hide();
+			var html= "<div class=\"rewrite_div\" name="+re_no+" style=\"padding: 20px 10px; width: 100%\">"
+			+"<table style=\"width: 100%\">"
+			+"<tbody><tr><td class=\"i1\"><textarea wrap=\"hard\" id=\"re_b_reply\" style=\"overflow: hidden; line-height: 14px; height: 58px; width: 100%;\"></textarea></td>"
+			+"<tr><td class=\"i2\"><div class=\"re_select\" style=\"float:right;\"><a onclick='re_boardwrite()'>수정</a> / <a onclick='re_cencle("+re_no+")'>취소<a/></div></tr>"
+			+"</tr></tbody></table>"
+			+"</div>"
+			$("#reply_content_"+re_no).append(html);					
+	
 		})		
 		
 		$(".b_rewrite").on("click",function(){			
 			var b_no = ${b_detail.b_no };
-			location.replace('board_rewrite.do?b_no='+b_no);	
+			location.href='board_rewrite.do?b_no='+b_no;	
 		})		
 		
 		$(".b_remove").on("click",function(){
@@ -186,6 +206,45 @@ padding: 0px;
 		})	
 				
 	})
+	
+	function re_boardwrite(){
+		var re_content = $("#re_b_reply").val();
+		if(re_content.trim() == 0){
+			alert("덧글이 입력되지 않았습니다")
+		}else if(getByteLength(re_content)>2000){
+			alert("덧글은 한글기준 최대 1000자 영어기준 2000자 까지 입력가능합니다");
+		}else{
+		var b_no = ${b_detail.b_no };
+		var re_no = $(".rewrite_div").attr("name");		
+		var form = document.createElement('form');
+		var objs;
+		objs = document.createElement('input');
+		objs.setAttribute('type', 'hidden');
+		objs.setAttribute('name', 'b_no');
+		objs.setAttribute('value', b_no);
+		objs2 = document.createElement('input');
+		objs2.setAttribute('type', 'hidden');
+		objs2.setAttribute('name', 're_no');
+		objs2.setAttribute('value', re_no);
+		objs3 = document.createElement('input');
+		objs3.setAttribute('type', 'hidden');
+		objs3.setAttribute('name', 're_content');
+		objs3.setAttribute('value', re_content);
+		
+		form.appendChild(objs);
+		form.appendChild(objs2);
+		form.appendChild(objs3);
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', "boardreply_rewrite.do");
+		document.body.appendChild(form);
+		form.submit();
+		}
+				
+	}
+	function re_cencle(re_no){		
+		$(".rewrite_div").remove();
+		$("#reply_content_"+re_no).children().show();
+	}
 	
 	function getByteLength(input) {
 	var byteLength = 0;

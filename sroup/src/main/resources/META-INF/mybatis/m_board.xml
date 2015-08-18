@@ -7,7 +7,8 @@
  
    <select id="getAllBoardNo" resultType="int">
     select	count(B_NO)	as b_no   			
-	from s_board       
+	from s_board   
+	where STUDY_NO = #{study_no}    
    </select>
    
    <select id="getBoard_list" parameterType="hashmap" resultType="m_board">
@@ -30,8 +31,9 @@
                     B_TITLE     ,
                     B_CONTENT        ,
                     B_HIT                    
-             from s_board    
-             order by B_NO desc )
+             from s_board
+             where STUDY_NO = #{study_no}  
+             order by B_NO desc)
   where rn&lt;=#{end} and rn >=#{start}  
 
    </select>
@@ -58,7 +60,7 @@
    							 B_CONTENT,
    							 B_HIT)
 		values 
-				(20,
+				(#{study_no},
 				'게시판', 
 				board_seq.NEXTVAL, 
 				sysdate, 
@@ -112,13 +114,19 @@
    							RE_WRITER_DAY,	
    							RE_CONTENT)
    					values (#{b_no},
-   							3,
+   							board_reply_seq.NEXTVAL,
    							'cj',
    							2,
    							sysdate,
    							#{re_content}
    							)	   	
    </insert>
+   <update id="reBoardReply" parameterType="m_boardReply">
+ 		UPDATE S_BOARD_REPLY
+		SET RE_CONTENT= #{re_content},		
+		RE_WRITER_DAY=sysdate			
+		WHERE RE_NO = #{re_no}
+   </update>
    
    <delete id="delBoardReply" parameterType="int">
    		delete from S_BOARD_REPLY where RE_NO = #{value}

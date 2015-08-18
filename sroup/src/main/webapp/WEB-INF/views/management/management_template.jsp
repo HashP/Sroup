@@ -41,7 +41,7 @@
 
 	
 </style>
-<script type="text/javascript" src="../resources/jquery/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="../../resources/jquery/jquery-1.11.3.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 

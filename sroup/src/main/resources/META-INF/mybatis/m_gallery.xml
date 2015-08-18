@@ -50,6 +50,7 @@
            		G_LIKE		,
             	G_HIT
          from	s_gallery
+         where STUDY_NO = #{study_no}
          order by G_NO desc	
 		) 
 	where rn&lt;=#{end} and rn>=#{start}
@@ -65,7 +66,7 @@
                       G_IMGNAME ,
                       G_LIKE ,
                       G_HIT	)
-   			values (3,
+   			values (#{study_no},
                     '갤러리',
                     GALLERY_SEQ.NEXTVAL,
                     '창진',                    
@@ -91,10 +92,10 @@
 		WHERE G_NO = #{g_no}
 	 </update>
    
-   <select id="getPrevNext" parameterType="int" resultType="hashmap">
+   <select id="getPrevNext" parameterType="m_gallery" resultType="hashmap">
    select (select max(G_NO) from s_gallery
-        where G_NO&lt;#{value})as prev, (select min(G_NO) from s_gallery
-        where G_NO>#{value}) as next from dual
+        where STUDY_NO=#{study_no} AND G_NO&lt;#{g_no})as next, (select min(G_NO) from s_gallery
+        where STUDY_NO=#{study_no} AND G_NO>#{g_no}) as prev from dual
    </select>
    
    

@@ -15,5 +15,5 @@ public interface M_galleryService {
 	String m_albumImageUpload(MultipartFile photofile);
 	void delGallery(int g_no);
 	void reGallery(M_galleryVO m_gallery);
-	HashMap<String, Integer> getPrevNext(int g_no);
+	HashMap<String, Integer> getPrevNext(M_galleryVO m_gallery);
 }

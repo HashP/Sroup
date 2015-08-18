@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cj.sroup.dao.M_firstDao">   
+    
+   <select id="get_studyNo" parameterType="string" resultType="int">
+    select STUDY_NO from STUDY where P_ADDRESS = #{value}
+   </select> 
+   
+   
+</mapper>

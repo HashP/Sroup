@@ -8,10 +8,6 @@
 
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500">
-<link rel="stylesheet" href="css/screen.css">
-<link rel="stylesheet" href="css/lightbox.css">
-
-<script src="js/lightbox-plus-jquery.min.js"></script>
 
 <style>
 .albumlist_img {
@@ -117,7 +113,7 @@ display: table;
 			$("input[name='re_title']").val(title);
 			$("textarea[name='re_contents']").val(content);
 			$("#blah2").attr("src",src);
-			$("#form2").attr("action","/sroup/album_rewrite.do?photoname="+photoname+"&g_no="+g_no);
+			$("#form2").attr("action","album_rewrite.do?photoname="+photoname+"&g_no="+g_no);
 			
 		})
 		
@@ -220,7 +216,7 @@ display: table;
 		        data:{"g_no":g_no},             
 		        success: function (data) {        
 		        	$("img",this).attr('name',data.g_no);
-					$("#img-detail").attr('src', '../resources/upload/album_photo/'+data.imageName);
+					$("#img-detail").attr('src', '../../resources/upload/album_photo/'+data.imageName);
 		        	$("#detail_title").text(data.g_title);
 					$("#detail_content").text(data.g_content);
 					$.ajax({              
@@ -291,7 +287,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="../resources/upload/album_photo/${galleryList.imageName}"
+							src="../../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -309,7 +305,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="../resources/upload/album_photo/${galleryList.imageName}"
+							src="../../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -326,7 +322,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="../resources/upload/album_photo/${galleryList.imageName}"
+							src="../../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -346,7 +342,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="../resources/upload/album_photo/${galleryList.imageName}"
+							src="../../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -363,7 +359,7 @@ display: table;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="../resources/upload/album_photo/${galleryList.imageName}"
+							src="../../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
@@ -505,7 +501,7 @@ display: table;
 
 					<div class="col-md-4">
 
-						<form id="form1" action="/sroup/m_study/m_album.do" method="post"
+						<form id="form1" action="m_album.do" method="post"
 							enctype="multipart/form-data">
 
 							<input type='file' onclick="readURL(this)"
@@ -564,7 +560,7 @@ display: table;
 
 					<div class="col-md-4">
 
-						<form id="form2" action="/sroup/m_study/album_rewrite.do" method="post"
+						<form id="form2" action="album_rewrite.do" method="post"
 							enctype="multipart/form-data">
 
 							<input type='file' onclick="readURL(this)"
@@ -628,11 +624,11 @@ $("#save").click(function() {
 })
 $("#resave").click(function() {
 	
-	if ($("input[name=title]").val() == "") {
+	if ($("input[name=re_title]").val() == "") {
 		alert("제목을 입력하세요.");
-	} else if (getByteLength($("input[name=title]").val().trim())>20){
+	} else if (getByteLength($("input[name=re_title]").val().trim())>20){
 		alert("제목은 한글기준 10자 영어기준 20자까지 가능합니다.");
-	} else if (getByteLength($("input[name=contents]").val())>1000){
+	} else if (getByteLength($("input[name=re_contents]").val())>1000){
 		alert("내용은 한글기준 500자 영어기준 1000자까지 가능합니다.");
 	}else {
 		$("#form2").submit();

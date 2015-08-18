@@ -21,8 +21,8 @@ public class M_commentServiceImpl implements M_commentService{
 	}
 
 	@Override
-	public List<M_commentVO> getAllComment() {		
-		return m_commentdao.getAllComment();
+	public List<M_commentVO> getAllComment(int study_no) {		
+		return m_commentdao.getAllComment(study_no);
 	}
 
 	@Override
@@ -38,13 +38,13 @@ public class M_commentServiceImpl implements M_commentService{
 	}
 
 	@Override
-	public List<M_commentVO> getdateComment(String selectDate) {		
+	public List<M_commentVO> getdateComment(HashMap<String, String> param) {		
 		
-		if(m_commentdao.getdateComment(selectDate).isEmpty()==true){
+		if(m_commentdao.getdateComment(param).isEmpty()==true){
 			
 			return null;
 		}
-		return m_commentdao.getdateComment(selectDate);
+		return m_commentdao.getdateComment(param);
 	}
 	
 

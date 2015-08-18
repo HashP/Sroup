@@ -21,8 +21,10 @@ public class M_boardServiceImpl implements M_boardService{
 	
 	
 
-	public M_boardVO getBoardDetail(int b_no) {
+	public void board_hitPlus(int b_no){
 		m_boarddao.board_hitPlus(b_no);	
+	}
+	public M_boardVO getBoardDetail(int b_no) {
 		return m_boarddao.getBoardDetail(b_no);
 		
 	}
@@ -65,13 +67,18 @@ public class M_boardServiceImpl implements M_boardService{
 	}
 
 	@Override
-	public int getAllBoardNo() {		
-		return m_boarddao.getAllBoardNo();
+	public int getAllBoardNo(int study_no) {		
+		return m_boarddao.getAllBoardNo(study_no);
 	}
 
 	@Override
 	public List<M_boardVO> getBoard_list(HashMap<String, Integer> num) {		
 		return m_boarddao.getBoard_list(num);				
+	}
+
+	@Override
+	public void reBoardReply(M_boardReplyVO b_reply) {
+		m_boarddao.reBoardReply(b_reply);		
 	}	
 	
 	

@@ -4,8 +4,8 @@
 
 
 
-<link href="../resources/jquery-ui/jquery-ui.css" rel="stylesheet">
-<link rel=stylesheet href="../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
+<link href="../../resources/jquery-ui/jquery-ui.css" rel="stylesheet">
+<link rel=stylesheet href="../../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
 	
 <style>
 	textarea{
@@ -43,15 +43,15 @@ border: none;
 padding: 0px; 
 }
 </style>
-<link rel=stylesheet href="../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
+<link rel=stylesheet href="../../resources/calendarPicker/jquery.calendarPicker.css" type="text/css" media="screen">
 
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-<script src="../resources/jquery-ui/external/jquery/jquery.js"></script>
-<script src="../resources/jquery-ui/jquery-ui.js"></script>
-<script type="text/javascript" src="../resources/calendarPicker/jquery.calendarPicker.js"></script>
-<script type="text/javascript" src="../resources/calendarPicker/test/jquery.mousewheel.js"></script>
+<script src="../../resources/jquery-ui/external/jquery/jquery.js"></script>
+<script src="../../resources/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="../../resources/calendarPicker/jquery.calendarPicker.js"></script>
+<script type="text/javascript" src="../../resources/calendarPicker/test/jquery.mousewheel.js"></script>
 <script type="text/javascript">
 	function commentCheck(){		
 		if($("textarea[name='content']").val().trim() == ""){
@@ -167,10 +167,10 @@ padding: 0px;
 		<h1 id="bordname">회원 한마디</h1>
 		
 		<div class="well" style="height: 200px; width:1105px">
-			<form class="form-horizontal" role="form" action="/sroup/m_study/comment_add.do" method="post">
+			<form class="form-horizontal" role="form" action="comment_add.do" method="post">
 				<h4>What's your think</h4>
 				<div class="form-group" style="padding: 14px 14px 0px 14px;" >
-					<textarea wrap="soft" class="form-control" name="content" placeholder="한 마디를 남겨주세요"
+					<textarea wrap="hard" class="form-control" name="content" placeholder="한 마디를 남겨주세요"
 						style="height: 60px;"></textarea>
 				</div>
 				<div>
@@ -234,7 +234,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
         		+"<a href=\"#\" class=\"btn btn-default glyphicon c_rewrite\" id=\""+c_no+"\" onclick=\"c_rewrite("+c_no+");\" style=\"padding-left: 8px; padding-right: 8px; color: gray\"><span class=\"glyphicon glyphicon-pencil\"></span></a>"
         		+"</div>"
         		+"	<div class=\"c_content\" id=\"c_content_"+c_no+"\">"	
-        		+"		<pre>"+c_content+"<pre>"		
+        		+"		<pre>"+c_content+"<pre>"	
         		+"	</div>"
         		+"	<div class=\"c_profile\" id=\"c_profile_"+c_no+"\">"
         		+"	<small class=\"text-muted c_writer\">"+c_writer+"</small>"
@@ -267,16 +267,18 @@ var calendarPicker = $("#dsel2").calendarPicker({
 		}
 		function c_rewrite(id){
 			$(".comment_content").children().show();
+			var content = $("#comment_content_"+id).find("pre").text()
 			$(".recomment").remove();			
 			$("#comment_content_"+id).children().hide()
 			$("#comment_content_"+id).css({"margin-left": "0"})
+			
 			var html = ""			
 			+"	<div class=\"recomment\">"	
 			+""
 			+"<form class=\"form-horizontal\" role=\"form\" action=\"\">"
 			+"<div class=\"form-group\" style=\"padding: 14px 14px 0px 14px;\">"
-			+"<textarea class=\"form-control rewrite_content\" name=\"recontent\""
-			+"		style=\"height: 60px;\"></textarea>"
+			+"<textarea wrap=\"hard\" class=\"form-control rewrite_content\" name=\"recontent\""
+			+"		style=\"height: 60px;\">"+content+"</textarea>"
 			+"</div>"
 			+"<div>"				
 			+"	<button class=\"btn btn-success pull-right\" type=\"submit\" onclick=\"\"><span class=\"re_btn c_rewrite_ok\" onclick=\"rewirte_ok("+id+");\">수정</span> | <span class=\"re_btn c_rewrite_cencle\" onclick=\"rewirte_cencle("+id+");\") >취소</span></button>"
