@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cj.sroup.dao.CalendarDao">
+	
+	<select id="getCalendarEvents" parameterType="String" resultType="calendar">
+		SELECT 
+			C.EVENT_ID			as eventId
+			, C.STUDY_NO		as "study.study_no"
+			, C.EVENT_START		as eventStart
+			, C.EVENT_END		as eventEnd
+			, C.EVENT_TITLE		as eventTitle
+			, S.STUDY_NAME		as "study.study_name"
+			, S.P_ADDRESS		as "study.p_address"
+		FROM 
+			S_CALENDAR C, STUDY S
+		WHERE 
+			C.STUDY_NO in (SELECT study_no FROM STUDY_MANAGEMENT WHERE STUDY_MANAGEMENT.USER_ID = #{value})
+		    and 
+		    S.STUDY_NO = C.STUDY_NO
+	
+	</select>
+	
+	<select id="getStudyNoList" parameterType="String" resultType="int">
+		SELECT DISTINCT STUDY_NO
+		FROM S_CALENDAR
+		WHERE STUDY_NO in (SELECT study_no FROM STUDY_MANAGEMENT WHERE STUDY_MANAGEMENT.USER_ID = #{value})
+	</select>
+</mapper>
