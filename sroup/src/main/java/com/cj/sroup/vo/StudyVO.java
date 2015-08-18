@@ -13,7 +13,7 @@ public class StudyVO {
 	Date start_date;
 	String start_date_time;
 	String end_date_time;
-	String join_able;//
+	String join_able;
 	String s_summary;
 	String s_detail;
 	String s_image;

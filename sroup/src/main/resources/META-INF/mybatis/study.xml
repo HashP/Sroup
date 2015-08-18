@@ -18,8 +18,9 @@
    						   ) as available
    		from study
    		<where>
+   			hidden = 'N'
 	   		<if test="item1 != null">
-		        c_subject in
+		        and c_subject in
 		        <foreach collection="item1" item="item" index="index1" separator="," open="(" close=")">
 		            #{item}
 		        </foreach>
@@ -49,6 +50,7 @@
    							where study_no = study.STUDY_NO
    						   ) as available
    		from study
+   		where hidden = 'N'
    		order by s_hit desc
    </select>
    <select id="getAllStudiesBySearch" parameterType="string" resultType="Lists">
@@ -63,7 +65,7 @@
    							where study_no = study.STUDY_NO
    						   ) as available
    		from study
-   		where study_name like '%'||#{value}||'%' or c_subject like '%'||#{value}||'%'
+   		where study_name like '%'||#{value}||'%' or c_subject like '%'||#{value}||'%' and hidden = 'N'
    		order by s_hit desc
    </select>
    
@@ -88,6 +90,37 @@
    				check_code = #{check_code},
    				check_y_or_n = #{check_y_or_n}
    			where user_id = #{user_id}
+   </update>
+   
+   <update id="studyHidden" parameterType="integer">
+   		update study
+   			set hidden = 'Y'   			
+   		where study_no = #{study_no}
+   </update>
+   
+   <update id="studyModify" parameterType="Study">
+   		update study
+   			set study_name = #{study_name},
+   				c_area = #{c_area},
+   				c_subject = #{c_subject},
+   				p_address = #{p_address},
+   				end_date = #{end_date},
+   				start_date = #{start_date},
+   				join_able = #{join_able},
+   				s_summary = #{s_summary},
+   				s_detail = #{s_detail},
+   				s_image = #{s_image},
+   				s_dues = #{s_dues},
+   				s_max_person = #{s_max_person},
+   				s_area = #{s_area},
+   				s_application_period = #{s_application_period},
+   				s_admit_method = #{s_admit_method},
+   				map_lat = #{map_lat},
+   				map_lng = #{map_lng},
+   				start_date_time = #{start_date_time},
+   				end_date_time = #{end_date_time},
+   				s_application_period_time = #{s_application_period_time}
+   			where study_no = #{study_no}
    </update>
    <select id="pAddrCheck" parameterType="string" resultType="Study">
    		select 
@@ -129,6 +162,16 @@
    		where
    			sub_value = #{sub_value}
    </select>
+   
+   <select id="getSubValueyByCategory" parameterType="string" resultType="string">
+   		select
+   			sub_value
+   		from
+   			c_subject
+   		where
+   			subject = #{subject}
+   </select>
+   
    <select id="getStudyNo" resultType="integer">
    		select
    			study_seq.nextval
@@ -160,7 +203,7 @@
    </select>
    <select id="getAvailable" resultType="Study" parameterType="integer">
    		select
-   			study_no,  s_max_person - (
+   			study_no, s_max_person,  s_max_person - (
    													select count(*)
    													from study_management
    													where study_no = study.STUDY_NO
@@ -196,6 +239,11 @@
    		set s_hit = s_hit + 1
    		where study_no = #{value}
    </update>
-   
+   <insert id="createSequence">
+     CREATE SEQUENCE  p_address
+        INCREAMENT BY 1
+        START WITH 1
+        NOCACHE;
+   </insert>
    
 </mapper>

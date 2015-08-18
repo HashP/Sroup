@@ -76,7 +76,7 @@
 				  <li role="presentation"><a href="#attend">내가 참여한</a></li>
 				</ul>
 				<div class="tab-content">
-					<div class="study-list tab-pane fade" id="create">
+					<div class="study-list" id="create">
 						<table class="table table-hover">
 							<colgroup>
 								<col width="*">
@@ -113,7 +113,7 @@
 							</tbody>
 						</table>
 					</div>	
-					<div class="study-list tab-pane fade" id="attend" >
+					<div class="study-list" id="attend" >
 						<table class="table table-hover">
 							<colgroup>
 								<col width="*">
@@ -197,7 +197,7 @@ $(function() {
 	$(".studymenu li a").on("click", function(event) {
 		event.preventDefault();
 		
-		/* $(".nav-tabs li").removeClass("active");
+		$(".studymenu li").removeClass("active");
 		$(this).parent().addClass("active");
 		
 		
@@ -206,8 +206,10 @@ $(function() {
 				
 		//클릭된 것 href
 		$clicked = $(this).attr("href");
-		$($clicked).show(); */
-		$(this).tab("show");
+		$($clicked).fadeIn(500);
+		
+		$(window).resize();
+		//$(this).tab("show");
 
 	});
 	

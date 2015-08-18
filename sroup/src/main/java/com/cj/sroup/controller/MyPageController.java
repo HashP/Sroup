@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -247,11 +246,17 @@ public class MyPageController {
 	 */
 	@RequestMapping("/join-manage.do")
 	public String joinManage(@RequestParam(value="studyno", required=false)int studyNo, HttpSession session, Model model) {
+		String loginId = (String)session.getAttribute("LOGIN_ID");
 		
+		StudyVO study = service.getStudyByStudyno(studyNo);
+		if(!loginId.equals(study.getUser_id())) {
+			return "login/login";		/// 나중에 에러페이지로 보내기
+		}
 		List<JoinVO> applicationList = service.getApplicantsByStudyNo(studyNo);
 		model.addAttribute("applicantList", applicationList);
-		model.addAttribute("study", service.getStudyByStudyno(studyNo));
+		model.addAttribute("study", study);
 		//System.out.println(applicationList);
+		
 		
 		return "mypage/join-manage";
 	}

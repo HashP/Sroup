@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +11,8 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="/sroup/resources/uploadify/jquery.uploadify.js"></script>
+	<script type="text/javascript"
+	src="/sroup/resources/fullcalendar/lib/moment.min.js"></script>
 <link rel="stylesheet"
 	href="/sroup/resources/bootstrap/jquery-ui.css">
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
@@ -21,15 +24,6 @@
 	$(function() {
 		$(".content .core .input").mouseover(function(){$(this).next().addClass("focus")})
 		$(".content .core .input").mouseout(function(){$(this).next().removeClass("focus")})
-		
-		var phoneArr = [];
-		var phone = "${userinfo.phone}";
-		
-		phoneArr = phone.split("-");
-		
-		$("#ownerPhone").val(phoneArr[0]);
-		$("#ownerPhoneBody").val(phoneArr[1]);
-		$("#ownerPhoneTail").val(phoneArr[2]);
 		
 		nhn.husky.EZCreator.createInIFrame({
 			oAppRef : oEditors,
@@ -49,7 +43,7 @@
 			},
 			fOnAppLoad : function() {
 				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-				oEditors.getById["content"].exec("PASTE_HTML", [ "" ]);
+				oEditors.getById["content"].exec("PASTE_HTML", [ "${studyInfo.s_detail}" ]);
 			},
 			fCreator : "createSEditor2"
 		});
@@ -120,22 +114,28 @@
 	})
 
 	$(function() {
-		var date = new Date();
-		var year = date.getFullYear();
-		var month = new String(date.getMonth() + 1);
-		var day = new String(date.getDate());
+		
+		var syear = moment("${studyInfo.start_date}", "ddd MMM DD HH:mm:ss Z YYYY").format("YYYY");
+		var smonth = moment("${studyInfo.start_date}", "ddd MMM DD HH:mm:ss Z YYYY").format("MM");
+		var sday = moment("${studyInfo.start_date}", "ddd MMM DD HH:mm:ss Z YYYY").format("DD");
+		var eyear = moment("${studyInfo.end_date}", "ddd MMM DD HH:mm:ss Z YYYY").format("YYYY");
+		var emonth = moment("${studyInfo.end_date}", "ddd MMM DD HH:mm:ss Z YYYY").format("MM");
+		var eday = moment("${studyInfo.end_date}", "ddd MMM DD HH:mm:ss Z YYYY").format("DD");
+		
+		var sayear = moment("${studyInfo.write_day}", "ddd MMM DD HH:mm:ss Z YYYY").format("YYYY");
+		var samonth = moment("${studyInfo.write_day}", "ddd MMM DD HH:mm:ss Z YYYY").format("MM");
+		var saday = moment("${studyInfo.write_day}", "ddd MMM DD HH:mm:ss Z YYYY").format("DD");
+		var eayear = moment("${studyInfo.s_application_period}", "ddd MMM DD HH:mm:ss Z YYYY").format("YYYY");
+		var eamonth = moment("${studyInfo.s_application_period}", "ddd MMM DD HH:mm:ss Z YYYY").format("MM");
+		var eaday = moment("${studyInfo.s_application_period}", "ddd MMM DD HH:mm:ss Z YYYY").format("DD");
 
-		if (month.length == 1) {
-			month = "0" + month;
-		}
-		if (day.length == 1) {
-			day = "0" + day;
-		}
-
-		$("#startEventDate").val(year + "-" + month + "-" + day);
-		$("#endEventDate").val(year + "-" + month + "-" + day);
-		$("#startAcceptDate").val(year + "-" + month + "-" + day);
-		$("#endAcceptDate").val(year + "-" + month + "-" + day);
+		
+		
+		
+		$("#startEventDate").val(syear + "-" + smonth + "-" + sday);
+		$("#endEventDate").val(eyear + "-" + emonth + "-" + eday);
+		$("#startAcceptDate").val(sayear + "-" + samonth + "-" + saday);
+		$("#endAcceptDate").val(eayear + "-" + eamonth + "-" + eaday);
 		
 		$("#startEventDate").datepicker(
 				{
@@ -195,126 +195,30 @@
 
 	})
 	
-	$(function(){
-		var phone;
-		var user_id;
-		var sendCode = false;
-		$("#sendCode").on("click", function() {
-			
-			var head = $("#ownerPhone").val();
-			var body = $("#ownerPhoneBody").val();
-			var tail = $("#ownerPhoneTail").val();
-			
-			if(head.trim() === "") {
-				alert("휴대폰 번호를 입력하세요")
-				
-				return;
-			} else if(body.trim() === "") {
-				alert("휴대폰 번호를 입력하세요")
-				
-				return;
-			} else if(tail.trim() === "") {
-				alert("휴대폰 번호를 입력하세요")
-				
-				return;
-			}
-			
-			sendCode = true;
-			
-			phone = head + body + tail;
-			user_id = "${userinfo.id}";
-			console.log("user_id : " + user_id);
-			$.ajax({
-				url:"sms.do",
-				data: {phone : phone, user_id: user_id},
-				dataType: "text",
-				success : function(data) {
-					alert("메시지가 발송되었습니다.")
-				}
-			})
-		})
-		
-		$("#codeCheck").on("click", function() {
-			
-			var head = $("#ownerPhone").val();
-			var body = $("#ownerPhoneBody").val();
-			var tail = $("#ownerPhoneTail").val();
-			
-			if(head.trim() === "") {
-				alert("휴대폰 번호를 입력하세요")
-				
-				return;
-			} else if(body.trim() === "") {
-				alert("휴대폰 번호를 입력하세요")
-				
-				return;
-			} else if(tail.trim() === "") {
-				alert("휴대폰 번호를 입력하세요")
-				
-				return;
-			}
-			
-			if(!sendCode) {
-				alert("인증번호 발송 버튼을 먼저 클릭하세요.");
-				return;
-			}
-			
-			var code = $("#secretCode").val();
-			
-			if(code.trim() === "") {
-				alert("휴대폰에 전송된 인증번호를 입력하세요.")
-				return;
-			} else if(code.trim().length != 6) {
-				alert("인증번호는 6자리 입니다. 다시 입력 바랍니다.")
-				return;
-			} 
+	
+	
 
-			
-			
-			$.ajax({
-				url:"check.do",
-				data: {code : code, phone : phone, user_id : user_id},
-				dataType: "text",
-				success : function(result) {
-					if(result === "Y") {
-						alert("인증 되었습니다.")
-						selfCheck = "Y";
-					} else {
-						alert("인증번호가 일치하지 않습니다. 다시 입력 바랍니다.")
-					}
-				}
-			})
-			
-		})
+	$(function() {
+		$("#category").val("${sub_value}");
+		$("#title").val("${studyInfo.study_name}");
+		$("#abstract").val("${studyInfo.s_summary}")
+		$('.banner>.innerBanner img').attr("src", "/sroup/upload/2015/08/${studyInfo.s_image}");
+		$(".Access").val("${studyInfo.s_max_person}");
 		
-		$("#pAddrCheck").on("click", function() {
+		if($(".radio:checked").val() === "${studyInfo.s_admit_method}") {
 			
-			var pAddr = $("#inputAddr").val();
-			
-			
-			if(pAddr.trim() === "") {
-				alert("페이지 주소를 입력하세요.")
-				
-				return;
-			}
-			
-			$.ajax({
-				url:"pAddrCheck.do",
-				data: {pAddr : pAddr},
-				dataType: "text",
-				success : function(result) {
-					if(result === "Y") {
-						alert("사용하셔도 좋은 주소입니다.")
-						checkAddr = "Y";
-					} else {
-						alert("존재하는 주소입니다. 다른 주소를 입력해 주시기 바랍니다.")
-						checkAddr = "N";
-					}
-				}
-			})
-			
-		})
+		} else {
+			$(".radio:not(:checked)").attr("checked", "checked");
+		}
+		
+		$(".dues").val("${studyInfo.s_dues}")
+		
+		$("#location").val("${studyInfo.s_area}");
+		
+		$("#inputAddr").val("${studyInfo.p_address}");
+		
 	})
+
 
 	$(function(){
 		$("#searchBtn").on("click", function() {
@@ -488,7 +392,7 @@
 		
 		var secretCode = $("#secretCode").val();
 		var pAddr = $("#inputAddr").val();
-		
+		var study_no = "${studyInfo.study_no}";
 		console.log("map2.do before........................");
 		
 		if(category.trim() === "") {
@@ -520,38 +424,6 @@
 			alert("장소명을 입력해 주세요.");
 			return false;
 		}
-		if(phoneHead.trim() === "") {
-			alert("핸드폰 번호를 입력해 주세요.");
-			return false;
-		}
-		if(phoneBody.trim() === "") {
-			alert("핸드폰 번호를 입력해 주세요.");
-			return false;
-		}
-		if(phoneTail.trim() === "") {
-			alert("핸드폰 번호를 입력해 주세요.");
-			return false;
-		}
-		if(secretCode.trim() === "") {
-			alert("인증번호를 입력해 주세요.");
-			return false;
-		}
-		
-		if(pAddr.trim() === "") {
-			alert("페이지 주소를 입력해 주세요.");
-			return false;
-		} else if(checkAddr.trim() === "") {
-			alert("페이지 중복을 확인해 주세요. ");
-			return false;
-		} else if(checkAddr.trim() === "N") {
-			alert("다른 주소를 입력하고 다시 중복을 확인해 주세요.");
-			return false;
-		}
-		
-		if(selfCheck === "N") {
-			alert("핸드폰으로 본인 인증을 반드시 해야합니다.");
-			return false;
-		}
 		
 		$.ajax({
 			url:"map2.do",
@@ -566,9 +438,9 @@
 				var c_area = data.result.items[0].addrdetail.sido;
 				console.log("c_area: "+ c_area);
 				
-				console.log("studyAdd.do before........................");
+				console.log("modify.do before........................");
 				$.ajax({
-					url:"studyAdd.do",
+					url:"modify.do",
 					async : false,
 					data: {
 						user_id : user_id,
@@ -590,21 +462,23 @@
 						location : location,
 						lat : lat,
 						lng : lng,
-						pAddr : pAddr
+						pAddr : pAddr,
+						study_no : study_no
 					},
 					dataType: "text",
 					success : function(data) {
-						
+						console.log("modify.do success");
 					}
 				});
 			}
 		})
 		
 		
-		
+		return;
 		
 		
 	}
+
 
 </script>
 </head>
@@ -1102,8 +976,8 @@
 									type="hidden" name="sublocality2" id="dong" />
 							</div>
 							<script type="text/javascript">
-								var Lat = 37.5675451;
-								var Lng = 126.9773356;
+								var Lat = "${studyInfo.map_lat}";
+								var Lng = "${studyInfo.map_lng}";
 								
 								var oSeoulCityPoint = new nhn.api.map.LatLng(
 										Lat, Lng);
@@ -1226,22 +1100,22 @@
 								<tr class="admin_num">
 									<th>개설자 전화번호 입력</th>
 									<td><label for="ownerPhone" class="displayNone">전화번호
-											앞부분 입력</label> <input class="text mask-pint" type="text"
+											앞부분 입력</label> <input class="text mask-pint" disabled="disabled" type="text"
 										name="ownerPhone_head" id="ownerPhone" value="" size="4"
 										maxlength="4" /> <label for="ownerPhoneBody"
 										class="displayNone">전화번호 중간부분입력</label> <input
-										id="ownerPhoneBody" class="mask-pint text" type="text"
+										id="ownerPhoneBody" disabled="disabled" class="mask-pint text" type="text"
 										name="ownerPhone_body" value="" size="4" maxlength="4" />
 										<label for="ownerPhoneTail" class="displayNone">전화번호
-											뒷부분 입력</label> <input id="ownerPhoneTail" class="text mask-pint"
+											뒷부분 입력</label> <input id="ownerPhoneTail" disabled="disabled" class="text mask-pint"
 										type="text" name="ownerPhone_tail" value="" size="4"
-										maxlength="4" /><button type="button" id="sendCode">인증번호 발송</button></td>
+										maxlength="4" /><button type="button" id="sendCode" disabled="disabled">인증번호 발송</button></td>
 								</tr>
 								<tr class="admin_check">
 									<th>인증번호 확인</th>
 									<td><input id="secretCode" class="text"
-										type="text" name="ownerCode" value="" />
-										<button type="button" id="codeCheck">인증번호 확인</button>
+										type="text" name="ownerCode" value="" disabled="disabled" />
+										<button type="button" id="codeCheck" disabled="disabled">인증번호 확인</button>
 										<!--<input type="hidden" id="checkEmail" name="checkEmail" value="" equal="0" alias="이메일 중복확인이 되지 않았습니다."/>-->
 									</td>
 								</tr>
@@ -1263,8 +1137,8 @@
 								스터디 페이지 주소 설정 <span class="star">*</span>
 							</h4>
 							<div class="pAddr">
-								<label for="free" id="pAddr">스터디 페이지 주소</label><input id="inputAddr"
-									class="text" type="text" name="pAddr" style="width: 167px" /><button type="button" id="pAddrCheck">중복 확인</button>
+								<label for="free" id="pAddr">스터디 페이지 주소</label><input id="inputAddr" disabled="disabled"
+									class="text" type="text" name="pAddr" style="width: 167px" /><button type="button" id="pAddrCheck" disabled="disabled">중복 확인</button>
 								<br>
 							</div>
 						</div>
@@ -1279,7 +1153,7 @@
 					<div class="saveMsg"></div>
 					<div class="action">
 						<a href="#secondStep" class="prev button" onclick="secondStep()">이전</a><input
-							type="submit" class="confirm button" value="최종확인" />
+							type="submit" class="confirm button" value="수정" />
 					</div>
 				</div>
 			</div>
@@ -1287,6 +1161,5 @@
 		</form>
 		<!--innerBorder end-->
 	</div>
-
 </body>
 </html>

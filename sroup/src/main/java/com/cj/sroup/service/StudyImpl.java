@@ -75,6 +75,23 @@ public class StudyImpl implements StudyService {
 	}
 	
 	@Override
+	public String getSubValueyByCategory(String category) {
+		String sub_value = listdao.getSubValueyByCategory(category);
+		return sub_value;
+	}
+	
+	@Override
+	public void studyHidden(int study_no) {
+		listdao.studyHidden(study_no);
+		
+	}
+	
+	@Override
+	public void studyModify(StudyVO study) {
+		listdao.studyModify(study);
+	}
+	
+	@Override
 	public int getStudyNo() {
 		int studyNo = listdao.getStudyNo();
 		return studyNo;

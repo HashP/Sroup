@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,7 +78,8 @@ public class ListController {
 	}
 
 	@RequestMapping("/studyAdd.do")
-	public String studyAdd(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	public String studyAdd(Model model, HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws Exception {
+		
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		Date endDate = transFormat.parse(req.getParameter("endDate"));
@@ -89,6 +91,7 @@ public class ListController {
 		String lng = req.getParameter("lng");
 		String c_area = req.getParameter("c_area");
 		String maxPerson = req.getParameter("maxPerson");
+		
 		System.out.println("c_area: " + c_area);
 		
 		if(c_area.length() == 4) {
@@ -102,7 +105,8 @@ public class ListController {
 		} else {
 			c_area = "서울";
 		}
-		String user_id = "admin123";
+		String user_id = req.getParameter("user_id");
+		System.out.println("user_id" + user_id);
 
 		StudyVO study = new StudyVO();
 		
@@ -152,6 +156,104 @@ public class ListController {
 		return "redirect:list.do";
 	}
 	
+	@RequestMapping("/hidden.do")
+	public void studyHidden(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		int study_no = Integer.parseInt(req.getParameter("study_no"));
+		StudyVO study = service.getAvailable(study_no);
+		String returnValue = "";
+		
+		System.out.println("참여가능인원 : " + study.getAvailable());
+		System.out.println("최대인원 : " + study.getS_max_person());
+		if( (study.getS_max_person() - study.getAvailable()) == 1 ) {
+			returnValue = "Y";
+			resp.getWriter().write(returnValue);
+			service.studyHidden(study_no);
+		} else {
+			returnValue = "N";
+			resp.getWriter().write(returnValue);
+		}
+	}
+	
+	@RequestMapping("/modify.do")
+	public String modify(Model model, HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws Exception {
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date endDate = transFormat.parse(req.getParameter("endDate"));
+		Date startDate = transFormat.parse(req.getParameter("startDate"));
+		Date periodDate = transFormat.parse(req.getParameter("appPeriodDate"));
+		String checkRule = req.getParameter("checkRule");
+		
+		String lat = req.getParameter("lat");
+		String lng = req.getParameter("lng");
+		String c_area = req.getParameter("c_area");
+		String maxPerson = req.getParameter("maxPerson");
+		
+		System.out.println("c_area: " + c_area);
+		
+		if(c_area.length() == 4) {
+			String a = c_area.substring(0, 1);
+			String b = c_area.substring(2, 3);
+			c_area = a+b;
+		} else if(c_area.length() > 4){
+			c_area = c_area.substring(0, 2);
+		} else if(1 < c_area.length() && c_area.length() < 4) {
+			c_area = c_area.substring(0, 2);
+		} else {
+			c_area = "서울";
+		}
+		String user_id = req.getParameter("user_id");
+		System.out.println("user_id" + user_id);
+
+		StudyVO study = new StudyVO();
+		
+		String subject = service.getSubjectByNo(req.getParameter("category"));
+		
+		int study_no = Integer.parseInt(req.getParameter("study_no"));
+		
+		StudyManagementVO studyManagement = new StudyManagementVO();
+		UserInfoVO user = new UserInfoVO();
+		user.setId(user_id);
+		studyManagement.setStudy(study);
+		studyManagement.setUser(user);
+		studyManagement.setGrade("ADMIN");
+		
+		String join_able = "y";
+		if((Integer.parseInt(maxPerson)-1) < 1) {
+			join_able = "n";
+		}
+		
+		
+		study.setJoin_able(join_able);
+		study.setUser_id(user_id);
+		study.setStudy_no(study_no);
+		
+		study.setC_subject(subject);
+		study.setStudy_name(req.getParameter("title"));
+		System.out.println(req.getParameter("title"));
+		study.setS_summary(req.getParameter("summary"));
+		study.setC_area(c_area);
+		study.setS_image(req.getParameter("s_image"));
+		study.setS_detail(req.getParameter("textEditor"));
+		study.setS_admit_method(checkRule);
+		study.setS_max_person(Integer.parseInt(maxPerson));
+		study.setS_dues(req.getParameter("dues"));
+		study.setStart_date(startDate);
+		study.setStart_date_time(req.getParameter("startDateTime"));
+		study.setEnd_date(endDate);
+		study.setEnd_date_time(req.getParameter("endDateTime"));
+		study.setS_application_period(periodDate);
+		study.setS_application_period_time(req.getParameter("appPeriodDateTime"));
+		study.setS_area(req.getParameter("location"));
+		study.setMap_lat(lat);
+		study.setMap_lng(lng);
+		study.setP_address(req.getParameter("pAddr"));
+
+		service.studyModify(study);
+
+		return "redirect:list.do";
+	}
+	
 	@RequestMapping("/list.do")
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -169,7 +271,6 @@ public class ListController {
 		
 		return mav;
 	}
-	
 	@RequestMapping("/list2.do")
 	public ModelAndView list2(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -209,7 +310,9 @@ public class ListController {
 				param.put("max", 1000000);
 			}
 			
-			
+		}
+		if(orderby == null) {
+			orderby = "s_hit";
 		}
 		String sort = "desc";
 		
@@ -251,11 +354,15 @@ public class ListController {
 	}
 	
 	@RequestMapping("/detail.do")
-	public ModelAndView detail(HttpServletRequest req) {
-		
-		int study_no = Integer.parseInt(req.getParameter("no"));
+	public ModelAndView detail(HttpServletRequest req, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+		if(loginId == null) {
+			loginId = "a";
+		}
+		int study_no = Integer.parseInt(req.getParameter("no"));
+		
 		mav.setViewName("list/detail");
 		service.studyHit(study_no);
 		StudyVO studyInfo = service.getStudyInfoByNo(study_no);
@@ -266,6 +373,7 @@ public class ListController {
 		mav.addObject("available", available);
 		mav.addObject("userInfo", userInfo);
 		mav.addObject("lists", lists);
+		mav.addObject("loginId", loginId);
 		
 		return mav;
 	}
@@ -362,12 +470,46 @@ public class ListController {
 	}
 	
 	@RequestMapping("/add.do")
-	public ModelAndView add() {
-
+	public ModelAndView add(HttpSession session, Model model) {
 		ModelAndView mav = new ModelAndView();
+		
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+
+		if(loginId == null) {
+			session.setAttribute("needLogin", "NEED");
+			mav.setViewName("redirect:/login/login.do");
+			return mav;			
+		}
+		
+		
 		List<CategoryVO> categories = service.getCategories();
+		mav.addObject("userinfo", myService.getUserInfoById(loginId));
 		mav.addObject("categories", categories);
 		mav.setViewName("list/add");
+
+		return mav;
+	}
+	@RequestMapping("/mod.do")
+	public ModelAndView mod(HttpSession session, Model model, HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		
+		String loginId = (String) session.getAttribute("LOGIN_ID");
+
+		if(loginId == null) {
+			session.setAttribute("needLogin", "NEED");
+			mav.setViewName("redirect:/login/login.do");
+			return mav;			
+		}
+		int study_no = Integer.parseInt(req.getParameter("no"));
+		StudyVO study = service.getStudyInfoByNo(study_no);
+		String sub_value = service.getSubValueyByCategory(study.getC_subject());
+		List<CategoryVO> categories = service.getCategories();
+		mav.addObject("userinfo", myService.getUserInfoById(loginId));
+		mav.addObject("categories", categories);
+		mav.addObject("studyInfo", study);
+		mav.addObject("sub_value", sub_value);
+		
+		mav.setViewName("list/mod");
 
 		return mav;
 	}
@@ -458,7 +600,7 @@ public class ListController {
 
 		sms.appversion("TEST/1.0");
 		sms.charset("utf8");
-		//sms.setuser("1234", "zxcv1234");				// coolsms 계정 입력해주시면되요
+		//sms.setuser("wysee", "zxcv1234");				// coolsms 계정 입력해주시면되요
 
 		String phone = req.getParameter("phone");
 		String user_id = req.getParameter("user_id");
@@ -502,14 +644,14 @@ public class ListController {
 			System.out.println("그냥 : " + ran);
 			//try {
 			//sms.connect();
-			// sms.send();
+			//sms.send();
 			//sms.disconnect();
 
 			//} catch (IOException e) {
 			//     System.out.println(e.toString());
-			// }
-			sms.printr();
-			sms.emptyall();
+			//}
+			//sms.printr();
+			//sms.emptyall();
 		}
 
 	}

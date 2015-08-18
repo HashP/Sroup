@@ -2259,7 +2259,11 @@ button.attach:hover,
 	color: #fff;
 	text-decoration: none;
 }
-
+.detailBtn a {
+	margin: 10px;
+	font-size: 13px;
+	font-weight: bold;
+}
 
 
 

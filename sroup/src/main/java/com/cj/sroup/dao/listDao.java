@@ -20,8 +20,11 @@ public interface listDao {
 	public void addCheck(CheckVO check);
 	public CheckVO userCheck(String user_id);
 	public void modifyCheck(CheckVO check);
+	public void studyHidden(int study_no);
 	public StudyVO pAddrCheck(String p_address);
 	public String getSubjectByNo(String sub_value);
+	public String getSubValueyByCategory(String category);
+	public void studyModify(StudyVO study);
 	public List<CategoryVO> getCategories();
 	public int getStudyNo();
 	public void addJoin(JoinVO join);
