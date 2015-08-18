@@ -68,8 +68,8 @@
 	
 	
 </style>
-<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script type="text/javascript" src="/sroup/resources/jquery/jquery-1.11.3.js"></script>
+<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function() {

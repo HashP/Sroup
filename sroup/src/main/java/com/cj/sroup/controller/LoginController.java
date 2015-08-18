@@ -71,7 +71,7 @@ public class LoginController {
 			session.setAttribute("LOGIN_ID", user.getId());
 			session.setAttribute("LOGIN_NAME", service.getUserName(user.getId()));
 			
-			return "redirect:/mypage/profileupdate.do";
+			return "redirect:/list.do";
 		} else {
 			session.setAttribute("loginResult", "FAILED");
 			return "redirect:login.do";
