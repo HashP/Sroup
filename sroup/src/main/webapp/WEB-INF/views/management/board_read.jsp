@@ -121,7 +121,7 @@ padding: 0px;
 			<div style="padding: 20px 5px; width: 100%">
 				<table style="width: 100%">
 					<td class="i1"><textarea wrap="hard" id="b_reply" style="overflow: hidden; line-height: 14px; height: 61px; width: 100%;"></textarea></td>
-					<td class="i2"><input type="image" name="" src="resources/images/ok_btn.gif" alt="확인"></td>
+					<td class="i2"><input type="image" name="" src="../resources/images/ok_btn.gif" alt="확인"></td>
 				</table>
 			</div>			
 			<div>		
@@ -180,7 +180,7 @@ padding: 0px;
 			location.replace('board_rewrite.do?b_no='+b_no);	
 		})		
 		
-		$(".b_remove").on("click",function(){			
+		$(".b_remove").on("click",function(){
 			var b_no = ${b_detail.b_no };
 			location.replace('board_del.do?b_no='+b_no);	
 		})	

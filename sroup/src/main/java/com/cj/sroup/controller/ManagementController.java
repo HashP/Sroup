@@ -229,7 +229,7 @@ public class ManagementController {
 		M_boardVO m_board = new M_boardVO();
 		m_board.setB_title(title);
 		m_board.setB_content(content);
-
+		
 		m_boardservice.addBoard(m_board);
 		//int_b_no=m_boardservice.nowAdd_no(b_writer;)
 		// 차후 작성글 바로 보기로 페이지 변경
@@ -238,7 +238,7 @@ public class ManagementController {
 	@RequestMapping("/board_del.do")	
 	public String board_del(@RequestParam("b_no")int b_no){					
 		m_boardservice.delBoard(b_no);	
-		return "redirect:board_read.do?b_no="+b_no;
+		return "m_border.do";
 	}
 	@RequestMapping("/board_resave.do")
 	public String board_resave(@RequestParam("title")String title,
@@ -252,7 +252,7 @@ public class ManagementController {
 		
 		m_boardservice.reBoard(m_board);
 		// 차후 작성글 바로 보기로 페이지 변경
-		return "redirect:m_border.do";
+		return "redirect:board_read.do?b_no="+b_no;
 	}
 	
 	// 덧글 등록 삭제 기능 

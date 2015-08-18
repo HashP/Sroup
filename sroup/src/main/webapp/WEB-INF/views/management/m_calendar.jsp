@@ -276,8 +276,8 @@ $(document).ready(function()
                     	 $("#datetimepicker2 .input-group-addon").css("border-color","red");
                     	 $("#end_d").attr("placeholder", "종료일을 선택하세요"); 
                      }else{
-                      var e_memo = $("#e_memo").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
-                      var e_title = $("#e_title").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
+                      var e_memo = $("#e_memo").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt;");
+                      var e_title = $("#e_title").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt;");
                       var allData = {"event_start":$("#start_d").val(),"event_end":$("#end_d").val(),"event_title":e_title,"event_content":e_memo,"event_color":$("#e_color").select().val()}
                       $.ajax({        
                     	  type:"POST",
@@ -395,7 +395,7 @@ $(document).ready(function()
                       event.id =  item.event_id;
                       event.start = new Date(item.event_start);
                       event.end = new Date(item.event_end);
-                      event.title = item.event_title;
+                      event.title = item.event_title.val().replace(/&amp/g, '&;').replace(/&lt;/g,"<").replace(/&gt;/">");;
                       event.content = item.event_content;
                       event.color = item.event_color;
                       event.allDay = false;

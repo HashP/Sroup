@@ -9,7 +9,7 @@
 <h1 id="noticename">공지사항 글쓰기</h1>
 <hr>
 <div style="text-align:center">
-<form id="frm" action="/sroup/notice_writesave.do" method="post" >
+<form id="frm" action="/sroup/m_study/notice_writesave.do" method="post" >
 <table style="width: 802px; margin:0 auto;">
 		<tr>
 			<th>제목</th>

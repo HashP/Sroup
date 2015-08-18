@@ -57,9 +57,6 @@ padding: 0px;
 		if($("textarea[name='content']").val().trim() == ""){
 			event.preventDefault();
 			alert("내용을 입력해주세요")
-		}else{
-			var changetext = $("textarea[name='content']").val().replace(/&/g, '&amp;').replace(/\</g,"&lt;").replace(/>/g,"&gt");
-			//$("textarea[name='content']").val(changetext);
 		}
 	}
 	
@@ -141,16 +138,17 @@ padding: 0px;
 		
 	})
 	function rewirte_ok(id){		
+		event.preventDefault();
 		var c_content = $(".rewrite_content").val();
 		 $.ajax({              
-             url: "comment_rewrite.do",
+             url: "comment_resave.do",
              data :  {"c_no":id,"c_content":c_content},                         
              success: function (data) {	            	 
             	 $("#comment_content_"+id).css({"margin-left": "-40px"})
-         		 $(".recomment").remove();
+         		 $(".recomment").remove();            	 
+            	 $("#c_content_"+id).html("<pre>"+data.c_content+"</pre>");            	 
             	 
-            	 $("#comment_content_"+id+" .c_content_p").text(data.c_content)
-            	 .children().show();
+            	 $("#comment_content_"+id).children().show();
            	  	
              }     
 	})
@@ -169,7 +167,7 @@ padding: 0px;
 		<h1 id="bordname">회원 한마디</h1>
 		
 		<div class="well" style="height: 200px; width:1105px">
-			<form class="form-horizontal" role="form" action="/sroup/comment_add.do">
+			<form class="form-horizontal" role="form" action="/sroup/m_study/comment_add.do" method="post">
 				<h4>What's your think</h4>
 				<div class="form-group" style="padding: 14px 14px 0px 14px;" >
 					<textarea wrap="soft" class="form-control" name="content" placeholder="한 마디를 남겨주세요"

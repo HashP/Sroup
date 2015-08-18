@@ -38,7 +38,7 @@ padding: 0px;
 		</tbody>
 	</table>
 	<div>
-	<a href="/sroup/board_write.do"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a></div>
+	<a href="/sroup/m_study/board_write.do"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a></div>
 	<div class="row text-center">
 		<!-- <div class="col-lg-12">
 			<ul class="pagination">

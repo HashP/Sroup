@@ -505,7 +505,7 @@ display: table;
 
 					<div class="col-md-4">
 
-						<form id="form1" action="/sroup/m_album.do" method="post"
+						<form id="form1" action="/sroup/m_study/m_album.do" method="post"
 							enctype="multipart/form-data">
 
 							<input type='file' onclick="readURL(this)"
@@ -564,7 +564,7 @@ display: table;
 
 					<div class="col-md-4">
 
-						<form id="form2" action="/sroup/album_rewrite.do" method="post"
+						<form id="form2" action="/sroup/m_study/album_rewrite.do" method="post"
 							enctype="multipart/form-data">
 
 							<input type='file' onclick="readURL(this)"

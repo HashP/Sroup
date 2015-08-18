@@ -9,7 +9,7 @@
 <h1 id="bordname">게시판 글쓰기</h1>
 <hr>
 <div style="text-align:center">
-<form id="frm" action="/sroup/board_writesave.do" method="post" >
+<form id="frm" action="/sroup/m_study/board_writesave.do" method="post" >
 <table style="width: 802px; margin:0 auto;">
 		<tr>
 			<th>제목</th>
@@ -41,7 +41,7 @@ $(function(){
 						oAppRef: oEditors,
 						elPlaceHolder: "ir1",
 						//SmartEditor2Skin.html 파일이 존재하는 경로
-						sSkinURI: "resources/editor/SmartEditor2Skin.html",	
+						sSkinURI: "../resources/editor/SmartEditor2Skin.html",	
 						htParams : {
 							// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 							bUseToolbar : true,				
