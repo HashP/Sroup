@@ -117,17 +117,18 @@ display: table;
 			
 		})
 		
-		// 사진 상세 보기시 현제 저장된 값 보여주는 기능
+		// 사진 상세 보기시 현재 저장된 값 보여주는 기능
 		$(".photo_a").click(function() {
 			var img = $("img", this).attr('src');	
 			var g_no = $("img",this).attr('name');				
 			var g_title = $("#gallery_"+g_no).find(".g_title").text();
 			var g_content = $("#gallery_"+g_no).find(".g_content").text();
-			
+			var photoname = $("#gallery_"+g_no).attr("name");
 			
 			$("#detail_title").text(g_title);
 			$("#detail_content").text(g_content);
-			$("#img-detail").attr('src', img);			
+			$("#img-detail").attr('src', img);	
+			$(".profile_photo img").attr('src',photoname);
 			$("#myModal").attr('name', g_no);
 			
 			// 현재 사진의 앞사진과 뒷사진 번호 가지고옴
@@ -192,6 +193,7 @@ display: table;
 	}
 
 	$(function() {
+		
 		$(".lb-prev").children().hide();
 		$(".lb-next").children().hide();
 
@@ -282,7 +284,7 @@ display: table;
 			<div class="row">
 				<c:forEach var="galleryList" items="${galleryList }" begin="0"
 					end="2">
-					<div class="col-md-4 portfolio-item" id="gallery_${galleryList.g_no}">
+					<div class="col-md-4 portfolio-item" name="${galleryList.photoname}" id="gallery_${galleryList.g_no}">
 						<a href="#" class="photo_a" data-toggle="modal"
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
@@ -300,7 +302,7 @@ display: table;
 			<div class="row">
 				<c:forEach var="galleryList" items="${galleryList }" begin="3"
 					end="5">
-					<div class="col-md-4 portfolio-item" id="gallery_${galleryList.g_no}">
+					<div class="col-md-4 portfolio-item"  name="${galleryList.photoname}" id="gallery_${galleryList.g_no}">
 						<a href="#" class="photo_a" data-toggle="modal"
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
@@ -337,7 +339,7 @@ display: table;
 			<div class="row">
 				<c:forEach var="galleryList" items="${galleryList }" begin="0"
 					end="2">
-					<div class="col-md-4 portfolio-item" id="gallery_${galleryList.g_no}">
+					<div class="col-md-4 portfolio-item"  name="${galleryList.photoname}" id="gallery_${galleryList.g_no}">
 						<a href="#" class="photo_a" data-toggle="modal"
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
@@ -353,8 +355,8 @@ display: table;
 				</c:forEach>
 			</div>
 			<div class="row">
-				<c:forEach var="galleryList" items="${galleryList }" begin="3">
-					<div class="col-md-4 portfolio-item" id="gallery_${galleryList.g_no}">
+				<c:forEach var="galleryList"  items="${galleryList }" begin="3">
+					<div class="col-md-4 portfolio-item" name="${galleryList.photoname}" id="gallery_${galleryList.g_no}">
 						<a href="#" class="photo_a" data-toggle="modal"
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
@@ -374,7 +376,7 @@ display: table;
 		<c:otherwise>
 			<div class="row">
 				<c:forEach var="galleryList" items="${galleryList }" begin="0">
-					<div class="col-md-4 portfolio-item" id="gallery_${galleryList.g_no}">
+					<div class="col-md-4 portfolio-item"  name="${galleryList.photoname}" id="gallery_${galleryList.g_no}">
 						<a href="#" class="photo_a" data-toggle="modal"
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
@@ -450,7 +452,7 @@ display: table;
 						<footer>
 							<div style="margin-bottom: 3px; "><button class="btn btn-default btn-xs album_rewrite"  data-toggle="modal" data-target="#rewriteModal">수정</button><button class="btn btn-default btn-xs album_del" data-dismiss="modal">삭제</button></div>
 							<small class="text-muted">stive</small> <small class="text-muted">10:33</small>
-							<a href="#" class="pull-right"><img
+							<a href="#" class="pull-right profile_photo"><img
 								src="http://api.randomuser.me/portraits/thumb/men/86.jpg"
 								class="img-circle"></a>
 						</footer>

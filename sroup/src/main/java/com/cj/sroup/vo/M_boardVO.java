@@ -12,7 +12,7 @@ public class M_boardVO {
 	private String b_title; 
 	private String b_content;
 	private int b_hit;
-	
+	private String photoname;
 	public int getStudy_no() {
 		return study_no;
 	}
@@ -61,6 +61,12 @@ public class M_boardVO {
 	}
 	public void setB_hit(int b_hit) {
 		this.b_hit = b_hit;
+	}
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
 	}
 	
 	

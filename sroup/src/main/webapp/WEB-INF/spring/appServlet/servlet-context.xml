@@ -74,4 +74,8 @@
 	<bean id="jsonView"
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">		
 	</bean>
+	
+
+	
+	<bean id="excelView" class="com.cj.sroup.view.ExcelView"></bean>	
 </beans>

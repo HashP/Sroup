@@ -2,12 +2,17 @@ package com.cj.sroup.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
+
+
+
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +36,8 @@ import com.cj.sroup.service.M_firstService;
 import com.cj.sroup.service.M_galleryService;
 import com.cj.sroup.service.M_noticeService;
 import com.cj.sroup.service.M_rollbookService;
+import com.cj.sroup.view.ExcelView;
+import com.cj.sroup.vo.E_rollbookVO;
 import com.cj.sroup.vo.M_RollbookVO;
 import com.cj.sroup.vo.M_boardReplyVO;
 import com.cj.sroup.vo.M_boardVO;
@@ -40,6 +47,7 @@ import com.cj.sroup.vo.M_commentVO;
 import com.cj.sroup.vo.M_galleryVO;
 import com.cj.sroup.vo.M_noticeVO;
 import com.cj.sroup.vo.UserInfoVO;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 @Controller
@@ -60,6 +68,8 @@ public class ManagementController {
 	M_firstService m_firstservice;
 	@Autowired
 	private M_rollbookService rollbookService;
+	@Autowired
+	private ExcelView excelView;
 	
 	private Logger logger= Logger.getLogger(TestController.class);
 	@Autowired
@@ -153,7 +163,7 @@ public class ManagementController {
 		num.put("end", end);
 		num.put("study_no", study_no);
 		List<M_galleryVO> galleryList =	m_galleryservice.getGallery_list(num);
-		int g_tot =m_galleryservice.getAllGalleryNo();
+		int g_tot =m_galleryservice.getAllGalleryNo(study_no);
 		mav.addObject("galleryList",galleryList);
 		mav.addObject("g_tot", g_tot);			
 		mav.addObject("cPage",cPage);
@@ -561,6 +571,34 @@ public class ManagementController {
 		model.addAttribute("attendCount", resultMap.get("attendCount"));
 		
 		return jsonView;
+	}
+	
+	@RequestMapping("/xls.do")
+		public ModelAndView excel(@RequestParam("excel_row") String[] excel_row){
+	
+		
+		ModelAndView mav = new ModelAndView();
+		E_rollbookVO rollbook = new E_rollbookVO();
+		
+		rollbook.setName(excel_row[0]);
+		rollbook.setAttend(excel_row[1]);
+		rollbook.setNote(excel_row[2]);
+		rollbook.setAttend_rate(excel_row[3]);		
+			
+		ArrayList<E_rollbookVO> rollbooks = new ArrayList<E_rollbookVO>();
+		rollbooks.add(rollbook);
+//		rollbooks.add(new Contact(23,"이순신","010-1234-5678","lee@naver.com"));
+//		contacts.add(new Contact(24,"강감찬","010-1111-2222","kang@naver.com"));
+//		contacts.add(new Contact(25,"홍길동","010-3333-4444","hong@naver.com"));
+//		contacts.add(new Contact(26,"김유신","010-5555-6666","kim@naver.com"));
+//		contacts.add(new Contact(27,"을지문덕","010-7777-8888","eulzi@naver.com"));
+		
+		mav.addObject("rollbooks", rollbooks);
+		mav.setView(excelView);
+		return mav;
+		
+		
+		
 	}
 
 //	@RequestMapping("/importcalendar.do")

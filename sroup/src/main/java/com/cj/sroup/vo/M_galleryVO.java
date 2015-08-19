@@ -14,7 +14,15 @@ public class M_galleryVO {
 	private String imageName;
 	private int g_like;
 	private int g_hit;
+	private String photoname;
 	
+	
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
+	}
 	public int getStudy_no() {
 		return study_no;
 	}

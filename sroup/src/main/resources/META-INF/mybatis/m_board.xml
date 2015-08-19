@@ -38,16 +38,16 @@
 
    </select>
    
-   <select id="getBoardDetail" parameterType="int" resultType="m_board">
-   select 	B_NO		as b_no, 
+   <select id="getBoardDetail" parameterType="int" resultType="m_board">   
+   	select 	B_NO		as b_no, 
    			B_WRITE_DAY	as b_write_day, 
    			B_WRITER	as b_writer,
    			B_TITLE		as b_title, 
    			B_CONTENT	as b_content,
-   			B_HIT		as b_hit
-   from s_board
-   where B_NO = #{value}
-   	
+   			B_HIT		as b_hit,
+        USER_PROFILEPHOTO as photoname
+   from s_board b, user_info u
+   where B_NO = #{value} and (u.USER_NICKNAME=b.B_WRITER )
    </select>
 
    <insert id="addBoard" parameterType="m_board">
@@ -101,9 +101,10 @@
    			RE_WRITER		as re_writer, 
    			RE_WRITER_NO	as re_writer_no, 
    			RE_WRITER_DAY	as re_writer_day,
-   			RE_CONTENT		as re_content 
-   	from 	S_BOARD_REPLY
-    where	B_NO = #{value}
+   			RE_CONTENT		as re_content,
+   			USER_PROFILEPHOTO as photoname
+   	from 	S_BOARD_REPLY b, user_info u
+   where B_NO = #{value} and (u.USER_NICKNAME=RE_WRITER )   
    </select>
    
    <insert id="addBoardReply" parameterType="m_boardReply">
