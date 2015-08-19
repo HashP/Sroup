@@ -43,7 +43,9 @@
 			},
 			fOnAppLoad : function() {
 				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-				oEditors.getById["content"].exec("PASTE_HTML", [ "${studyInfo.s_detail}" ]);
+				var detail = '${studyInfo.s_detail}';
+				
+				oEditors.getById["content"].exec("PASTE_HTML", [ detail ]);
 			},
 			fCreator : "createSEditor2"
 		});
