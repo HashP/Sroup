@@ -12,4 +12,6 @@ public interface StudyManagementDao {
 	public List<StudyManagementVO> getFinishedAttendStudiesById(String id);
 	
 	public void addNewMember(StudyManagementVO newMember);
+	
+	public List<String> getStudyMember(int studyNo);
 }

@@ -106,4 +106,13 @@
 		VALUES (#{study.study_no}, #{user.id}, 'NORMAL')
 	</insert>
 	
+	<select id="getStudyMember" parameterType="int" resultType="String">
+		SELECT 
+			USER_ID
+		FROM 
+			STUDY_MANAGEMENT
+		WHERE
+			STUDY_NO = #{value}
+	
+	</select>
 </mapper>

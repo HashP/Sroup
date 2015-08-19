@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<link href="../resources/croppic/croppic.css" rel="stylesheet">
 <style type="text/css">
 
 
@@ -46,6 +47,12 @@
 	text-align: center;
 }
 
+#cropContainerModal {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border: 1px solid #ccc;
+}
 
 </style>
 
@@ -82,7 +89,7 @@
 				<input type="text" class="form-control input" placeholder="이메일 주소" name="email" id="email" value="${userinfo.email }">
 				<p class="error-message">이메일 형식에 맞지 않습니다.</p>
 			</div>
-			<div class="form-group">
+			<%-- <div class="form-group">
 				<label for="profilephoto" class="control-label">프로필 사진</label>
 				<input type="file" accept="image/*" class="form-control input" placeholder="프로필 사진" name="photofile" id="profilephoto">
 				<br>
@@ -90,6 +97,11 @@
 				<div id="img-thumbnail" >
 					<img alt="" src="${imgpath}${userinfo.profilephoto }">
 				</div>
+			</div> --%>
+			<div class="test">
+				<label class="control-label">프로필 사진</label>
+				<div id="cropContainerModal"></div>
+				<input type="hidden" name="profilephoto" id="myOutputId" value="${imgpath}${userinfo.profilephoto }">
 			</div>
 			<br>
 			<div class="form-group">
@@ -98,6 +110,7 @@
 		</form>
 	</div>
 </div>
+<script src="../resources/croppic/croppic.js"></script>
 <script type="text/javascript" src="../resources/js/form-validation.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -176,6 +189,15 @@ $(function(){
 			return false;
 		}
 		
+		if($('#myOutputId').val() == "") {
+			$('#myOutputId').val("default_profile.jpg");
+		} else {
+			
+			var tmp = $('#myOutputId').val().split('\\');
+			$('#myOutputId').val(tmp[tmp.length-1]);
+			
+		}
+		
 		validation = validation & namecheck() & nickcheck() & emailcheck(); 
 		
 
@@ -195,7 +217,27 @@ $(function(){
 	$("#email").on("blur", emailcheck);
 	
 	
+	
+	
+	
 //**	
+	
+	var croppicContainerModalOptions = {
+			uploadUrl:'/sroup/login/img_save_to_file.do',
+			cropUrl:'/sroup/login/img_crop_to_file.do',
+			modal:true,
+			doubleZoomControls:false,
+		    rotateControls: false,
+			imgEyecandyOpacity:0.4,
+			outputUrlId:'myOutputId',
+			loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> '
+	}
+	var cropContainerModal = new Croppic('cropContainerModal', croppicContainerModalOptions);
+	var imgsrc = $('#myOutputId').val();
+	$("#cropContainerModal").append("<img class='croppedImg' src='" + imgsrc + "'>");
+	
+	
+	
 	var holder = document.getElementById('img-thumbnail');
 
 	var uploadchange = function(e) {
