@@ -24,6 +24,10 @@
 			<mvc:mapping path="/mod.do"/>
 			<bean class="com.cj.sroup.interceptor.ListInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/m_study/*"/>
+			<bean class="com.cj.sroup.interceptor.M_StudyInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	
