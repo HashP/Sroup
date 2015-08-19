@@ -97,8 +97,7 @@ hr {
 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary btn-lg btn-block">Sign In</button>
-				<span class="pull-right"><a href="signup.do">회원가입하기</a></span><span><a
-					href="#">Need help?</a></span>
+				<span class="pull-right" style="margin-top: 10px;"><a href="signup.do">회원가입하기</a></span>
 			</div>
 		</form>
 	</div>

@@ -11,12 +11,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.cj.sroup.dao.MessageDao;
+import com.cj.sroup.dao.listDao;
+import com.cj.sroup.vo.ListVO;
 import com.cj.sroup.vo.MessageVO;
 
 public class MypageInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	MessageDao messageDao;
+	@Autowired
+	private listDao listdao;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
@@ -49,6 +53,8 @@ public class MypageInterceptor extends HandlerInterceptorAdapter {
 		List<MessageVO> navmsgList = messageDao.getMessageForNav(loginId);
 		modelAndView.addObject("navmsgList", navmsgList);
 		
+		List<ListVO> lists = listdao.getAllStudiesDefault();
+		modelAndView.addObject("lists", lists);
 		//super.postHandle(request, response, handler, modelAndView);
 	}
 }

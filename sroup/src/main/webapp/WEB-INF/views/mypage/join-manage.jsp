@@ -39,9 +39,20 @@ td small {
 	color: #aaa;
 }
 
-td strong {
+td strong, a strong {
 	color: #4d98ee;
 }
+
+.profilephoto {
+	width: 50px;
+	height: 50px;
+}
+
+.msguserinfo div {
+	display: inline-block;
+	vertical-align: middle;
+}
+
 </style>
 	
 	<div class="panel panel-default" >
@@ -52,8 +63,12 @@ td strong {
 
 	<div class="panel panel-default" id="join-manage">
 		<div class="panel-body">
-			<h5>${study.study_name } 의 스터디 신청 관리 페이지 입니다.</h5>
-		
+			<div style="padding: 1px;">
+				<h5><a href="/sroup/detail.do?no=${study.study_no }"><strong>${study.study_name }</strong></a> 의 스터디 신청 관리 페이지 입니다.</h5>
+				
+				
+			</div>
+			
 			<div id="list-box">
 				<table class="table table-hover" id="application-list">
 					<colgroup>
@@ -77,10 +92,12 @@ td strong {
 						<c:forEach var="user" items="${applicantList}">
 						<tr>
 							<td><input type="checkbox" class="joincheck"/></td>
-							<td>
+							<td class="msguserinfo">
 								<div>
 									<!-- 나중에 이미지 넣기 -->
+									<img class="profilephoto img-rounded" src="/sroup/resources/images/profile/${user.applicant.profilephoto }">
 								</div>
+								&nbsp;
 								<div>
 									<strong>${user.applicant.nickname }</strong><br>
 									<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${user.regDate }" pattern="hh:mm a yy/MM/dd"/></small>

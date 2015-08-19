@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<link href="../resources/croppic/croppic.css" rel="stylesheet">
 <style type="text/css">
 
 body {
@@ -39,8 +39,14 @@ hr {
 	color: #a94442;
 }
 
+#cropContainerModal {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border: 1px solid #ccc;
+}
+
 </style>
- 
 <div id="page-wrapper">
 	<div  id="signform">
 		<form class="form" method="post" action="register.do" enctype="multipart/form-data">
@@ -81,12 +87,17 @@ hr {
 				<input type="text" class="form-control " placeholder="이메일 주소" name="email" id="email">
 				<p class="error-message">이메일 형식에 맞지 않습니다.</p>
 			</div>
-			<div class="form-group">
+<!-- 			<div class="form-group">
 				<label for="profilephoto" class="control-label">프로필 사진</label>
 				<input type="file" accept="image/*" class="form-control " placeholder="프로필 사진" name="photofile" id="profilephoto">
 				<br>
 				<div id="img-thumbnail">
 				</div>
+			</div> -->
+			<div class="test">
+				<label class="control-label">프로필 사진</label>
+				<div id="cropContainerModal"></div>
+				<input type="hidden" name="profilephoto" id="myOutputId">
 			</div>
 			<hr>
 			<div class="form-group">
@@ -97,6 +108,7 @@ hr {
 	</div>
 
 </div>    
+<script src="../resources/croppic/croppic.js"></script>
 <script type="text/javascript" src="../resources/js/form-validation.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -244,6 +256,15 @@ $(function(){
 			return false;
 		}
 		
+		if($('#myOutputId').val() == "") {
+			$('#myOutputId').val("default_profile.jpg");
+		} else {
+			
+			var tmp = $('#myOutputId').val().split('\\');
+			$('#myOutputId').val(tmp[tmp.length-1]);
+			
+		}
+		
 		validation = validation & isValidId & pwdcheck() & namecheck() & nickcheck() & emailcheck(); 
 		
 		// 다 검사해야 다음페이지로 
@@ -319,5 +340,18 @@ $(function(){
 		
 		return true;
 	}
+	
+	var croppicContainerModalOptions = {
+			uploadUrl:'img_save_to_file.do',
+			cropUrl:'img_crop_to_file.do',
+			modal:true,
+			doubleZoomControls:false,
+		    rotateControls: false,
+			imgEyecandyOpacity:0.4,
+			outputUrlId:'myOutputId',
+			loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> '
+	}
+	var cropContainerModal = new Croppic('cropContainerModal', croppicContainerModalOptions);
+	
 });
 </script> 

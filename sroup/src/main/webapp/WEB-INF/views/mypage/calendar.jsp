@@ -64,7 +64,7 @@ $(function(){
                 start: element.eventStart,
                 end: element.eventEnd, 
                 allDay: false,
-                url: '../m_main.do',
+                url: '/sroup/m_study/'+ element.study.p_address +'/m_main.do',
                 tooltip:element.eventTitle,
                 className:'study'+element.study.study_no		
 	    	});

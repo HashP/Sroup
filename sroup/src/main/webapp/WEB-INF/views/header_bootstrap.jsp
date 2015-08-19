@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/sroup/resources/bootstrap/style.css">
 <link rel="stylesheet" href="/sroup/resources/bootstrap/style-theme.css">
 <!-- <link rel="stylesheet" href="/sroup/resources/bootstrap/boot.css"> -->
@@ -39,6 +40,36 @@
 
 }
 </style>
+<script type="text/javascript">
+$(function() {
+var i = 0;
+var j = 1;
+
+	$(".searchArea .area2 a").hide();
+	$(".searchArea .area2 a:eq(0)").show();
+
+	setInterval(function(){ 
+		
+		$(".searchArea .area2 a:eq("+i+")").hide("slow");
+		$(".searchArea .area2 a:eq("+j+")").show("slow");
+		i++;
+		j++;
+		if(i == 5) {
+			i=0;
+		}
+		if(j == 5) {
+			j=0;
+		}
+	}, 5000);
+	
+	
+
+	
+		
+		
+
+	})
+</script>
 <div class="header">
 	<div class="logoSearchArea">
 		<h1>
@@ -48,12 +79,14 @@
 		<div class="fieldset">
 			<div class="searchArea">
 				<div class="area1">
-					<input id="searchInput" type="text"> <input type="submit"
+					<input id="searchInput" type="text" placeholder="키워드를 입력해 주세요"> <input type="submit"
 						class="searchBtn" value="검색">
 				</div>
 				<div class="area2">
-					<span class="glyphicon glyphicon-search"></span> <a href="#;"
-						target="_blank">[패스트캠퍼스] 재태크 CAMP</a>
+					<span class="glyphicon glyphicon-search"></span> 
+					<c:forEach var="l" items="${lists }" begin="10" end="14">
+						<a href="detail.do?no=${l.study_no }" target="_blank">${l.study_name }</a>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
