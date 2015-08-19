@@ -9,5 +9,10 @@
     select STUDY_NO from STUDY where P_ADDRESS = #{value}
    </select> 
    
+   <select id="get_Admin" parameterType="int" resultType="string">
+  	SELECT USER_ID 
+	FROM STUDY 
+	WHERE STUDY_NO = #{value}
+   </select>
    
 </mapper>

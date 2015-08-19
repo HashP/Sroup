@@ -310,8 +310,8 @@ $(function() {
 
 	<div class="content">
 		<h1><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Study 출석부</h1>
-		<button id='btnExport' type='button'>Export</button>
 		<div class="rollbook-box">
+		<a class="btn btn-default  pull-right glyphicon glyphicon-save-file" id='btnExport' type='button'>Excel</a>
 			<h3 id="rolldate"><fmt:formatDate value="${now }" pattern="yyyy년 MM월 dd일"/></h3>
 			<div>
 				<div id="datepicker"></div>
@@ -408,17 +408,17 @@ $(function() {
 	</div>
 <script>
 		$("#btnExport").click(function(){
-			var arr = [name, attend, note, rate];
-			var rb_excel = [];
 			
+			var rb_excel=[];
 			
-			var name= $("#tblExport tbody tr .member-name").text().trim();
-			var attend = $("#tblExport tbody tr .member-attend select").val();
-			var note =$("#tblExport tbody tr .member-note .view-roll").text();
-			var rate = $("#tblExport tbody tr .member-rate").text();
+			for(var i=1; i<=$("#tblExport tbody tr").length; i++ ){
+			var name= $("#tblExport tbody tr:nth-child("+i+") .member-name").text().trim();
+			var attend = $("#tblExport tbody tr:nth-child("+i+") .member-attend select").val();
+			var note =$("#tblExport tbody tr:nth-child("+i+") .member-note .view-roll").text();
+			var rate = $("#tblExport tbody tr:nth-child("+i+") .member-rate").text();
 			
-			rb_excel.push(arr);
-			
+			rb_excel.push(name, attend, note, rate);
+			}
 			/*jQuery.ajaxSettings.traditional = true;
 			 $.ajax({      
 				 method      : 'POST',

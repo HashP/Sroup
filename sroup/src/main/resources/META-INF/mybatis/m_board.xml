@@ -47,7 +47,7 @@
    			B_HIT		as b_hit,
         USER_PROFILEPHOTO as photoname
    from s_board b, user_info u
-   where B_NO = #{value} and (u.USER_NICKNAME=b.B_WRITER )
+   where B_NO = #{value} and (u.USER_ID=b.B_WRITER )
    </select>
 
    <insert id="addBoard" parameterType="m_board">
@@ -64,7 +64,7 @@
 				'게시판', 
 				board_seq.NEXTVAL, 
 				sysdate, 
-				'cj',
+				#{b_writer},
 				#{b_title}, 
 				#{b_content}, 
 				3)
@@ -104,7 +104,7 @@
    			RE_CONTENT		as re_content,
    			USER_PROFILEPHOTO as photoname
    	from 	S_BOARD_REPLY b, user_info u
-   where B_NO = #{value} and (u.USER_NICKNAME=RE_WRITER )   
+   where B_NO = #{value} and (u.USER_ID=RE_WRITER )   
    </select>
    
    <insert id="addBoardReply" parameterType="m_boardReply">
@@ -116,7 +116,7 @@
    							RE_CONTENT)
    					values (#{b_no},
    							board_reply_seq.NEXTVAL,
-   							'cj',
+   							#{re_writer},
    							2,
    							sysdate,
    							#{re_content}

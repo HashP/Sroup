@@ -29,6 +29,10 @@ public class E_rollbookVO {
 	public void setAttend_rate(String attend_rate) {
 		this.attend_rate = attend_rate;
 	}
-	
+	@Override
+	public String toString() {
+		return "E_rollbookVO [name=" + name + ", note=" + note + ", attend="
+				+ attend + ", attend_rate=" + attend_rate + "]";
+	}
 	
 }

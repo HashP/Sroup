@@ -144,6 +144,7 @@ function removeClick(calEvent_id){
 
 $(document).ready(function()
 {
+	
 	$("#e_title").click(function(){
 		 $("#e_title").attr("placeholder", "");
     	 $("#e_title").css("border-color","rgb(204, 204, 204)");

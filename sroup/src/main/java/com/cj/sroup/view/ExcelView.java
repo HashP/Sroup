@@ -37,6 +37,9 @@ public class ExcelView extends AbstractExcelView {
 		ArrayList<E_rollbookVO> rollbooks = (ArrayList<E_rollbookVO>)model.get("rollbooks");
 		System.out.println("["+rollbooks.get(0).getName()+"!");
 		System.out.println("? : "+rollbooks.size());
+		System.out.println(rollbooks.get(0).getName());
+		System.out.println(rollbooks.get(1).getName());
+		System.out.println(rollbooks.get(2).getName());
 		int cnt=0;
 		for(int i=0; i<rollbooks.size(); i++){
 			E_rollbookVO e = rollbooks.get(i);

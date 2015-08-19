@@ -56,7 +56,7 @@
          order by G_NO desc	
 		),user_info
 	where rn&lt;=#{end} and rn>=#{start}
-	 and G_WRITER = user_info.USER_NICKNAME
+	 and G_WRITER = user_info.USER_ID
 	</select>
    <insert id="addGallery" parameterType="m_gallery">
    	insert into s_gallery(STUDY_NO,
@@ -72,7 +72,7 @@
    			values (#{study_no},
                     '갤러리',
                     GALLERY_SEQ.NEXTVAL,
-                    '창진',                    
+                    #{g_writer},                    
                     sysdate,
                     #{g_title},
                     #{g_content},

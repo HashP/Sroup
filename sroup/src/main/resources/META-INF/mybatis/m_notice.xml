@@ -30,7 +30,7 @@
 				(#{study_no},				 
 				notice_seq.NEXTVAL, 
 				sysdate, 
-				'cj',
+				#{n_writer},
 				#{n_title}, 
 				#{n_content}
 				)

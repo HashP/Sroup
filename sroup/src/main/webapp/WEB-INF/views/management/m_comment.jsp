@@ -95,6 +95,12 @@ padding: 0px;
 		}
 	$(function() {		
 		
+		//$(".admin_btn").hide();
+		if("${admin}"!="${sessionScope.LOGIN_ID}"&&){
+			//$(".admin_btn").remove();
+			$(this).find(".glyphicon").hide();
+		}
+		
 		$(".c_remove").click(function(){
 			var id = $(this).attr("id");
 			 $.ajax({              
