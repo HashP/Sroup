@@ -48,7 +48,7 @@ public class LoginController {
 		
 		logger.info("loginId : [" + loginId + "]");
 		if(loginId != null) {
-			return "redirect:/mypage/profileupdate.do";
+			return "redirect:/list.do";
 		}
 		
 		String loginResult = (String) session.getAttribute("loginResult");
@@ -225,7 +225,6 @@ public class LoginController {
 							) throws IOException {
 		
 		System.out.println("========================img_crop_to_file.do=============================");
-		int jpeg_quality = 100;
 		
 		String[] temp = imgUrl.split("\\.");
 		String type = temp[temp.length-1];

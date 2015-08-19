@@ -145,7 +145,7 @@ td strong {
 													<strong>${message.study.study_name }</strong> 참여 신청이 승인되었습니다. <br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
 												</td>
-												<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">이동</a></td>
+												<td><a href="/sroup/m_study/${message.study.p_address}/m_main.do" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">이동</a></td>
 												<td><a href="${message.no }" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="이 메시지 삭제하기">삭제</a></td>
 											</tr>
 										</c:when>								
@@ -266,7 +266,7 @@ td strong {
 													<strong>${message.study.study_name }</strong> 참여 신청이 승인되었습니다. <br>
 													<small><span class="glyphicon glyphicon-time"></span> <fmt:formatDate value="${message.writeDate }" pattern="hh:mm a yy/MM/dd"/></small>
 												</td>
-												<td><a href="#" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">이동</a></td>
+												<td><a href="/sroup/m_study/${message.study.p_address}/m_main.do" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">이동</a></td>
 												<td><a href="${message.no }" class="btn btn-danger btn-xs del-btn" data-toggle="tooltip" data-placement="left" title="이 메시지 삭제하기">삭제</a></td>
 											</tr>
 										</c:when>								

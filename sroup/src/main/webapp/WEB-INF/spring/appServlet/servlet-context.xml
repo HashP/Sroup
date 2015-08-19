@@ -17,6 +17,13 @@
 			<mvc:exclude-mapping path="/mypage/ajax/*"/>
 			<bean class="com.cj.sroup.interceptor.MypageInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/list.do"/>
+			<mvc:mapping path="/detail.do"/>
+			<mvc:mapping path="/add.do"/>
+			<mvc:mapping path="/mod.do"/>
+			<bean class="com.cj.sroup.interceptor.ListInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	
