@@ -25,11 +25,14 @@ public class ListInterceptor  extends HandlerInterceptorAdapter {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		String loginId = (String) session.getAttribute("LOGIN_ID");
+		if(session != null) {
+			String loginId = (String) session.getAttribute("LOGIN_ID");
+
+			if(loginId != null) {
+				List<MessageVO> navmsgList = messageDao.getMessageForNav(loginId);
+				modelAndView.addObject("navmsgList", navmsgList);
+			}
+		}
 		
-		List<MessageVO> navmsgList = messageDao.getMessageForNav(loginId);
-		modelAndView.addObject("navmsgList", navmsgList);
-		
-		//super.postHandle(request, response, handler, modelAndView);
 	}
 }

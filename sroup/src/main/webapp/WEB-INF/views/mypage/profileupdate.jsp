@@ -52,6 +52,8 @@
     height: 200px;
     position: relative;
     border: 1px solid #ccc;
+    
+    display: inline-block;
 }
 
 </style>
