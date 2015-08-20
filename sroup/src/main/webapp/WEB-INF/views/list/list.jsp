@@ -60,8 +60,13 @@ $(function() {
 	
 	$(".searchBtn").click(function() {
 		var keyword =  $("#searchInput").val();
+		
 		if(keyword.trim() === "") {
 			alert("검색어를 입력하세요.")
+			return;
+		}
+		if(keyword.length > 15) {
+			alert("검색어 길이는 15자내로 해주세요.");
 			return;
 		}
 		$.ajax({
