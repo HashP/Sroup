@@ -92,8 +92,8 @@ var j = 1;
 		</div>
 		<div class="headerBannerImg">
 			<p>
-				<a href="#;" target="_blank"><img
-					src="http://cfile1.onoffmix.com/attach/PJWKcbgBCD2y6U2NFzHWIsj6Mwqj14YK"/></a>
+				<a href="detail.do?no=79" target="_blank"><img
+					src="/sroup/resources/images/캘리.jpg"/></a>
 			</p>
 		</div>
 	</div>
