@@ -42,6 +42,14 @@
 </style>
 <script type="text/javascript">
 $(function() {
+	var ab = location.pathname;
+	ab = ab.substring(7,9);
+	$(".searchBtn").click(function() {
+		if(ab != "li") {
+			alert("검색은 모임페이지에서만 가능합니다.");
+			return;
+		}
+	})
 var i = 0;
 var j = 1;
 
@@ -87,8 +95,8 @@ var j = 1;
 		</div>
 		<div class="headerBannerImg">
 			<p>
-				<a href="#;" target="_blank"><img
-					src="http://cfile1.onoffmix.com/attach/PJWKcbgBCD2y6U2NFzHWIsj6Mwqj14YK"/></a>
+				<a href="detail.do?no=79" target="_blank"><img
+					src="/sroup/resources/images/캘리.jpg"/></a>
 			</p>
 		</div>
 	</div>
