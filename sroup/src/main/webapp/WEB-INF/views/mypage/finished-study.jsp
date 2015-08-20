@@ -81,11 +81,15 @@
 							<colgroup>
 								<col width="*">
 								<col width="50px">
+								<col width="50px">
 							</colgroup>
 							<tbody>
 								<c:forEach var="study" items="${createStudy }">
 									<tr>
 										<td><span class="label label-default">종료</span> ${study.study.study_name }</td>
+										<td>											
+											<a href="/sroup/detail.do?no=${study.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a>
+										</td>
 										<td><a href="/sroup/m_study/${study.study.p_address}/m_main.do" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>
 									</tr>
 								</c:forEach>

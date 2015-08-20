@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,9 +45,9 @@ public class M_galleryServiceImpl implements M_galleryService{
 					
 					// 업로드된 파일을 지정된 폴더에 저장하기
 					byte[] filedate;
-					try {
+					try {						
 						filedate = photofile.getBytes();
-						File file = new File("C:/Users/jhta/git/Sroup/sroup/src/main/webapp/resources/upload/album_photo",filename);
+						File file = new File("C:/web_study/apache-tomcat-8.0.23/webapps/sroup/resources/upload/album_photo",filename);
 						FileCopyUtils.copy(filedate, file);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block

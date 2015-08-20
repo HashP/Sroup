@@ -29,4 +29,9 @@ public class M_firstServiceImpl implements M_firstService {
 		return m_firstdao.check_cafeuser(map);
 	}
 
+	@Override
+	public String get_profileName(String login_id) {		
+		return m_firstdao.get_profileName(login_id);
+	}
+
 }

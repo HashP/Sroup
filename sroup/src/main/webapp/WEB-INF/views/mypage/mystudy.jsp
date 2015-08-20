@@ -116,8 +116,8 @@
 										</td>
 										
 										<td>
+											<a href="/sroup/detail.do?no=${study.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a>
 											<c:if test="${!(study.study.s_application_period lt now)}">
-												<a href="/sroup/detail.do?no=${study.study.study_no }" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="모집 페이지로 이동">detail</a>
 											</c:if>
 										</td>
 										<td><a href="/sroup/m_study/${study.study.p_address}/m_main.do" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="left" title="스터디 페이지로 이동">study</a></td>

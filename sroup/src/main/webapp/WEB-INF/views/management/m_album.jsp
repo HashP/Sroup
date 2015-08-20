@@ -67,6 +67,11 @@ display: table;
     display: table-cell;
     vertical-align: middle;
 }
+pre{
+margin: 0px;
+border: none;
+padding: 0px; 
+}
 </style>
 <script type="text/javascript">
 	function readURL(input) {
@@ -321,7 +326,7 @@ display: table;
 						<h3>
 							<a href="#" class="g_title">${galleryList.g_title}</a>							
 						</h3>
-						<p class="g_content">${galleryList.g_content}</p>
+						<pre><p class="g_content" style="width: 100%; height:60px;  text-overflow:ellipsis; overflow:hidden;">${galleryList.g_content}</p></pre>
 						<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
 						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
@@ -341,7 +346,7 @@ display: table;
 						<h3>
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
-						<p class="g_content">${galleryList.g_content}</p>
+						<pre><p class="g_content" style="width: 100%; height:60px;  text-overflow:ellipsis; overflow:hidden;">${galleryList.g_content}</p></pre>
 							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
 						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
@@ -360,7 +365,7 @@ display: table;
 						<h3>
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
-						<p class="g_content">${galleryList.g_content}</p>
+						<pre><p class="g_content" style="width: 100%; height:60px;  text-overflow:ellipsis; overflow:hidden;">${galleryList.g_content}</p></pre>
 							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
 						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
@@ -382,7 +387,7 @@ display: table;
 						<h3>
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
-						<p class="g_content">${galleryList.g_content}</p>
+						<pre><p class="g_content" style="width: 100%; height:60px;  text-overflow:ellipsis; overflow:hidden;">${galleryList.g_content}</p></pre>
 							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
 						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
@@ -401,7 +406,7 @@ display: table;
 						<h3>
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
-						<p class="g_content">${galleryList.g_content}</p>
+						<pre><p class="g_content" style="width: 100%; height:60px;  text-overflow:ellipsis; overflow:hidden;">${galleryList.g_content}</p></pre>
 							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
 						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
@@ -423,7 +428,7 @@ display: table;
 						<h3>
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
-						<p class="g_content">${galleryList.g_content}</p>
+						<pre><p class="g_content" style="width: 100%; height:60px;  text-overflow:ellipsis; overflow:hidden;">${galleryList.g_content}</p></pre>
 							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
 						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
@@ -555,7 +560,7 @@ display: table;
 								</div>
 							</div>
 
-							<textarea rows="15" class="form-control" placeholder="내용"
+							<textarea wrap="hard" rows="15" class="form-control" placeholder="내용"
 								name="contents"></textarea>
 							<input type="button" id="save" style="float: right;" value="올리기"/>
 						</form>

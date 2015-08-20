@@ -1,5 +1,6 @@
 package com.cj.sroup.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,7 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 
 
@@ -94,6 +98,19 @@ public class ManagementController {
 			System.out.println("check : "+check);
 			return "true";
 		}
+		
+	}
+	@RequestMapping("/getprofile.do")
+	@ResponseBody
+	public void getprofile(HttpSession session, HttpServletResponse response) throws IOException{		
+		String login_id = (String) session.getAttribute("LOGIN_ID");
+		System.out.println("login_id:"+login_id);
+		String profileName = m_firstservice.get_profileName(login_id);
+		System.out.println(profileName);
+		
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().print(profileName);
 		
 	}
 	

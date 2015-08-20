@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ 
 <style type="text/css">
 #left_nav {
 	height: 100%;
@@ -43,13 +44,14 @@ display:block; /* a태그의 display속성을 block으로 설정 */
 	border-left:5px solid #b6e24c; /* 줄어든 여백만큼 border로 5px을 지정해 준다. */
 	color:#FFF; /* 폰트 색상 */
 }
-</style> 
+</style>
+
 <div id="side_nav">
 	
 	<nav id="left-nav2" class="sidebar, nav nav-pills nav-stacked nav-fixed-side left">
 	<nav id="left_nav" class="col-md-2 sidebar, nav nav-pills nav-stacked">
 	<div style="width: 130px; height: 140px;">
-		<img alt="프로필" src="../../resources/images/프로필.png"
+		<img id="loginuser_profileName" alt="프로필" src=""
 			style="width: 130px; height: 130px; margin-bottom: 5px; margin-top: 5px;">
 	</div>
 	<ul class="nav nav-sidebar">		

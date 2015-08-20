@@ -51,6 +51,8 @@
    						   ) as available
    		from study
    		where hidden = 'N'
+   			and 
+   			s_application_period >= sysdate
    		order by s_hit desc
    </select>
    <select id="getAllStudiesBySearch" parameterType="string" resultType="Lists">
