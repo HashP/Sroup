@@ -56,7 +56,7 @@ padding: 0px;
 				<tr>
 					<td nowrap="nowrap" width=120 height=140 align=center><a
 						href="" target=_blank><img
-							src=http://api.randomuser.me/portraits/thumb/men/86.jpg
+							src="../../resources/images/profile/${b_detail.photoname }"
 							width=100px></a></td>
 
 					<td valign=top align=left width=100%
@@ -109,7 +109,7 @@ padding: 0px;
 			<div class="reply_content" id="reply_content_${b_reply.re_no}" style="padding-top: 10px;">
 				<div style="width: 70px; display: inline-block; float: left"
 					align="center">
-					<img src=http://api.randomuser.me/portraits/thumb/men/86.jpg
+					<img src="../../resources/images/profile/${b_reply.photoname }"
 						width=50px height="50px">
 				</div>
 				<div>

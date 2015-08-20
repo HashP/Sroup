@@ -9,7 +9,7 @@ import com.cj.sroup.vo.M_galleryVO;
 
 public interface M_galleryService {
 	void addGallery(M_galleryVO m_gallery);	
-	int getAllGalleryNo();
+	int getAllGalleryNo(int study_no);
 	List<M_galleryVO> getGallery_list(HashMap<String, Integer> num);
 	M_galleryVO detail_Gallery(int g_no);
 	String m_albumImageUpload(MultipartFile photofile);

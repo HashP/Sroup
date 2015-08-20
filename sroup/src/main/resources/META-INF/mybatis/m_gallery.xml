@@ -5,9 +5,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.cj.sroup.dao.M_galleryDao">   
   
-   <select id="getAllGalleryNo" resultType="int">
+   <select id="getAllGalleryNo" parameterType="int" resultType="int">
    	select	count(G_NO)
-    from s_gallery             
+    from s_gallery 
+    where STUDY_NO = #{value}             
    </select>
    
    
@@ -36,7 +37,8 @@
             G_CONTENT	as g_content,
             G_IMGNAME   as imageName,
             G_LIKE		as g_like,
-            G_HIT		as g_hit
+            G_HIT		as g_hit,
+            USER_PROFILEPHOTO as photoname
 	from	
 		(select ROW_NUMBER() OVER (order by study_no asc)rn,
 				STUDY_NO	,
@@ -52,8 +54,9 @@
          from	s_gallery
          where STUDY_NO = #{study_no}
          order by G_NO desc	
-		) 
+		),user_info
 	where rn&lt;=#{end} and rn>=#{start}
+	 and G_WRITER = user_info.USER_ID
 	</select>
    <insert id="addGallery" parameterType="m_gallery">
    	insert into s_gallery(STUDY_NO,
@@ -69,7 +72,7 @@
    			values (#{study_no},
                     '갤러리',
                     GALLERY_SEQ.NEXTVAL,
-                    '창진',                    
+                    #{g_writer},                    
                     sysdate,
                     #{g_title},
                     #{g_content},

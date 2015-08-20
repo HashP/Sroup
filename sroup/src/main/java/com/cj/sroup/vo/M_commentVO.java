@@ -10,7 +10,7 @@ public class M_commentVO {
 	private Date c_write_day;
 	private String c_writer;
 	private String c_content;
-	
+	private String photoname;
 	
 	public int getStudy_no() {
 		return study_no;

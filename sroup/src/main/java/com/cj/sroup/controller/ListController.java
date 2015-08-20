@@ -33,12 +33,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
+import com.cj.sroup.dao.MessageDao;
 import com.cj.sroup.service.MyPageService;
 import com.cj.sroup.service.StudyService;
 import com.cj.sroup.vo.CategoryVO;
 import com.cj.sroup.vo.CheckVO;
 import com.cj.sroup.vo.JoinVO;
 import com.cj.sroup.vo.ListVO;
+import com.cj.sroup.vo.MessageVO;
 import com.cj.sroup.vo.StudyManagementVO;
 import com.cj.sroup.vo.StudyVO;
 import com.cj.sroup.vo.UserInfoVO;
@@ -48,6 +50,9 @@ public class ListController {
 
 	@Autowired
 	StudyService service;
+	
+	@Autowired
+	MessageDao dao;
 
 	@Autowired
 	private MappingJackson2JsonView jsonView;
@@ -411,6 +416,8 @@ public class ListController {
 		int study_no = Integer.parseInt(req.getParameter("study_no"));
 		String user_id = req.getParameter("user_id");
 		String admit = req.getParameter("admit");
+		String studyAdmin = req.getParameter("studyAdmin");
+		
 		
 		StudyVO study = new StudyVO();
 		study.setStudy_no(study_no);
@@ -418,6 +425,15 @@ public class ListController {
 		UserInfoVO user = new UserInfoVO();
 		user.setId(user_id);
 		String grade = "";
+		
+		MessageVO message = new MessageVO();
+		
+		message.setSender(user);
+		message.setReceiver(studyAdmin);
+		message.setType("REQUEST");
+		message.setStudy(study);
+		
+		dao.sendMessage(message);
 		
 		JoinVO join2 = new JoinVO();
 		join2.setStudy(study);

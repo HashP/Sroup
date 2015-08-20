@@ -32,7 +32,7 @@
                 CALEVENT_SEQ.NEXTVAL,
                 #{event_start},
                 #{event_end},
-                'cj',
+                #{event_writer},
                 #{event_title},
                 #{event_content},
                 #{event_color}

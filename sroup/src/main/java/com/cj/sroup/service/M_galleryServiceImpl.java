@@ -68,8 +68,8 @@ public class M_galleryServiceImpl implements M_galleryService{
 
 
 	@Override
-	public int getAllGalleryNo() {		
-		return m_gallerydao.getAllGalleryNo();
+	public int getAllGalleryNo(int study_no) {		
+		return m_gallerydao.getAllGalleryNo(study_no);
 	}
 
 

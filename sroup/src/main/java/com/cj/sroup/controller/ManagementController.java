@@ -2,12 +2,18 @@ package com.cj.sroup.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
+
+
+
+
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +37,8 @@ import com.cj.sroup.service.M_firstService;
 import com.cj.sroup.service.M_galleryService;
 import com.cj.sroup.service.M_noticeService;
 import com.cj.sroup.service.M_rollbookService;
+import com.cj.sroup.view.ExcelView;
+import com.cj.sroup.vo.E_rollbookVO;
 import com.cj.sroup.vo.M_RollbookVO;
 import com.cj.sroup.vo.M_boardReplyVO;
 import com.cj.sroup.vo.M_boardVO;
@@ -40,6 +48,7 @@ import com.cj.sroup.vo.M_commentVO;
 import com.cj.sroup.vo.M_galleryVO;
 import com.cj.sroup.vo.M_noticeVO;
 import com.cj.sroup.vo.UserInfoVO;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 @Controller
@@ -60,6 +69,8 @@ public class ManagementController {
 	M_firstService m_firstservice;
 	@Autowired
 	private M_rollbookService rollbookService;
+	@Autowired
+	private ExcelView excelView;
 	
 	private Logger logger= Logger.getLogger(TestController.class);
 	@Autowired
@@ -68,11 +79,12 @@ public class ManagementController {
 	//  메뉴 페이지 이동 경로
 	@RequestMapping("/m_main.do")
 	public ModelAndView main(@PathVariable("study_address") String study_address){
-		int study_no = m_firstservice.get_studyNo(study_address);
-		
+		int study_no = m_firstservice.get_studyNo(study_address);	
+		String admin = m_firstservice.get_Admin(study_no);
 		ModelAndView mav = new ModelAndView();
 		List<M_noticeVO> noticeList = m_noticeservice.getAllNotice(study_no);
 		mav.addObject("noticeList",noticeList);
+		mav.addObject("admin",admin);
 		mav.setViewName("management/m_main");
 
 		return mav;
@@ -103,14 +115,15 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("/m_comment.do")
-	public ModelAndView memberspeak(@PathVariable("study_address") String study_address){
-		
+	public ModelAndView memberspeak(@PathVariable("study_address") String study_address){		
 		int study_no = m_firstservice.get_studyNo(study_address);
+		String admin = m_firstservice.get_Admin(study_no);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		List<M_commentVO> commentList = m_commentservice.getAllComment(study_no);
 		mav.addObject("commentList",commentList);		
+		mav.addObject("admin",admin);		
 		mav.setViewName("management/m_comment");
 
 		return mav;		
@@ -153,7 +166,7 @@ public class ManagementController {
 		num.put("end", end);
 		num.put("study_no", study_no);
 		List<M_galleryVO> galleryList =	m_galleryservice.getGallery_list(num);
-		int g_tot =m_galleryservice.getAllGalleryNo();
+		int g_tot =m_galleryservice.getAllGalleryNo(study_no);
 		mav.addObject("galleryList",galleryList);
 		mav.addObject("g_tot", g_tot);			
 		mav.addObject("cPage",cPage);
@@ -237,9 +250,10 @@ public class ManagementController {
 	public String albumAdd(@PathVariable("study_address") String study_address,
 			@RequestParam("title")String title,
 			@RequestParam("contents")String contents,
-			@RequestParam("albumphoto")MultipartFile photofile){
+			@RequestParam("albumphoto")MultipartFile photofile,  HttpSession session){
 		
 		int study_no = m_firstservice.get_studyNo(study_address);
+		String login_id = (String) session.getAttribute("LOGIN_ID");
 		
 		title=title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		contents=contents.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
@@ -250,6 +264,7 @@ public class ManagementController {
 		m_gallery.setG_content(contents);
 		m_gallery.setImageName(photoname);
 		m_gallery.setStudy_no(study_no);
+		m_gallery.setG_writer(login_id);
 		
 		m_galleryservice.addGallery(m_gallery);
 		return "redirect:m_album.do";
@@ -276,15 +291,17 @@ public class ManagementController {
 	@RequestMapping("/board_writesave.do")
 	public String board_writesave(@PathVariable("study_address") String study_address,
 			@RequestParam("title")String title,
-			@RequestParam("content")String content){
+			@RequestParam("content")String content,HttpSession session){
 		
 		int study_no = m_firstservice.get_studyNo(study_address);
+		String login_id = (String) session.getAttribute("LOGIN_ID");
 		
 		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		M_boardVO m_board = new M_boardVO();
 		m_board.setStudy_no(study_no);
 		m_board.setB_title(title);
 		m_board.setB_content(content);
+		m_board.setB_writer(login_id);
 		
 		m_boardservice.addBoard(m_board);
 		//int_b_no=m_boardservice.nowAdd_no(b_writer;)
@@ -315,11 +332,13 @@ public class ManagementController {
 	// 덧글 등록 삭제 수정 기능 
 	@RequestMapping(value="/boardreply_add.do" ,method=RequestMethod.POST)	
 	public String boardreply_save(@RequestParam("b_no")int b_no,
-			@RequestParam("content")String content){
+			@RequestParam("content")String content,HttpSession session){
 		content = content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+		String login_id = (String) session.getAttribute("LOGIN_ID");
 		M_boardReplyVO m_boardreply = new M_boardReplyVO();
 		m_boardreply.setB_no(b_no);
 		m_boardreply.setRe_content(content);
+		m_boardreply.setRe_writer(login_id);
 				
 		m_boardservice.addBoardReply(m_boardreply);
 		return "redirect:board_read.do?b_no="+b_no;
@@ -346,9 +365,10 @@ public class ManagementController {
 	@RequestMapping("/notice_writesave.do")
 	public String notice_writesave(@PathVariable("study_address") String study_address,
 			@RequestParam("title")String title,
-			@RequestParam("content")String content){		
+			@RequestParam("content")String content,HttpSession session){		
 		// 차후 작성글 바로 보기로 페이지 변경
 		int study_no = m_firstservice.get_studyNo(study_address);
+		String login_id = (String) session.getAttribute("LOGIN_ID");
 		
 		title = title.trim().replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");		
 		System.out.println(title + content + " 1번");
@@ -356,7 +376,8 @@ public class ManagementController {
 		m_notice.setN_title(title);
 		m_notice.setN_content(content);
 		m_notice.setStudy_no(study_no);
-
+		m_notice.setN_writer(login_id);
+		
 		m_noticeservice.addNotice(m_notice);
 
 		return "redirect:m_main.do";
@@ -449,8 +470,9 @@ public class ManagementController {
 			@RequestParam("event_end") String event_end,
 			@RequestParam("event_title") String event_title,
 			@RequestParam("event_content") String event_content, 
-			@RequestParam("event_color") String event_color)throws ParseException{	
+			@RequestParam("event_color") String event_color, HttpSession session)throws ParseException{	
 		int study_no = m_firstservice.get_studyNo(study_address);
+		String login_id = (String) session.getAttribute("LOGIN_ID");
 		
 		SimpleDateFormat sd = new SimpleDateFormat(
 				"yyyy.MM.dd aa hh시 mm분");
@@ -464,6 +486,7 @@ public class ManagementController {
 		m_calendar.setEvent_content(event_content);
 		m_calendar.setEvent_color(event_color);
 		m_calendar.setStudy_no(study_no);
+		m_calendar.setEvent_writer(login_id);
 
 		m_calendarservice.addCalEvent(m_calendar);			
 
@@ -538,8 +561,11 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("/saveRollbookByRbno.do")
-	public View saveRollbookByRbno(Model model, M_RollbookVO rollbook) {
+	public View saveRollbookByRbno(Model model, M_RollbookVO rollbook, HttpSession session) {
 		logger.info(rollbook);
+		
+		String loginId = (String)session.getAttribute("LOGIN_ID");
+		rollbook.setWriter(loginId);
 		
 		int attendCount = rollbookService.saveRollbookByRbno(rollbook);
 		model.addAttribute("attendCount", attendCount);
@@ -561,6 +587,55 @@ public class ManagementController {
 		model.addAttribute("attendCount", resultMap.get("attendCount"));
 		
 		return jsonView;
+	}
+	
+	@RequestMapping("/xls.do")
+		public ModelAndView excel(@RequestParam("excel_row") String[] excel_row){
+	
+		
+		ModelAndView mav = new ModelAndView();
+		ArrayList<E_rollbookVO> rollbooks = new ArrayList<E_rollbookVO>();		
+			
+		int cnt = 3;
+		System.out.println(excel_row.length+"!");
+		for(int i=0; i<(excel_row.length)/4; i++){
+			if (i != 0) {
+				E_rollbookVO rollbook = new E_rollbookVO();
+			
+				rollbook.setName(excel_row[i + cnt]);
+				rollbook.setAttend(excel_row[i + 1 + cnt]);
+				rollbook.setNote(excel_row[i + 2 + cnt]);
+				rollbook.setAttend_rate(excel_row[i + 3 + cnt]);			
+				cnt = cnt * 2;
+				rollbooks.add(i, rollbook);				
+				
+			} else if (i == 0) {
+				E_rollbookVO rollbook = new E_rollbookVO();				
+				rollbook.setName(excel_row[i]);
+				rollbook.setAttend(excel_row[i + 1]);
+				rollbook.setNote(excel_row[i + 2]);
+				rollbook.setAttend_rate(excel_row[i + 3]);
+				rollbooks.add(i, rollbook);
+			} else {
+			}
+			
+		
+		}
+		
+		mav.addObject("rollbooks", rollbooks);
+		mav.setView(excelView);
+		return mav;
+
+
+//		rollbooks.add(new Contact(23,"이순신","010-1234-5678","lee@naver.com"));
+//		contacts.add(new Contact(24,"강감찬","010-1111-2222","kang@naver.com"));
+//		contacts.add(new Contact(25,"홍길동","010-3333-4444","hong@naver.com"));
+//		contacts.add(new Contact(26,"김유신","010-5555-6666","kim@naver.com"));
+//		contacts.add(new Contact(27,"을지문덕","010-7777-8888","eulzi@naver.com"));
+		
+		
+		
+		
 	}
 
 //	@RequestMapping("/importcalendar.do")

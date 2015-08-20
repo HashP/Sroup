@@ -44,6 +44,8 @@ public class M_noticeServiceImpl implements M_noticeService {
 	public M_noticeVO reNoticeInfo(int n_no) {
 		return m_noticedao.reNoticeInfo(n_no);		
 	}
+	
+	
 
 	
 }

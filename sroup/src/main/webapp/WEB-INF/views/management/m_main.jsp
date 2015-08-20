@@ -40,7 +40,16 @@ padding-bottom: 15px;
 <script type="text/javascript">
 
 $(function(){
-	
+	$(".admin_btn").hide();
+	if("${admin}"!="${sessionScope.LOGIN_ID}"){
+		$(".admin_btn").remove();
+	}
+		
+	$(".notice").hover(function(){
+		$(this).find(".admin_btn").show();
+	},function(){
+		$(this).find(".admin_btn").hide();
+	})
 	$(".del-btn").click(function del(){	
 		var id = $(this).attr("id");
 		 $.ajax({              
@@ -72,7 +81,6 @@ $(function(){
 	
 	
 });
-
 </script>
 
 <div class="container">
@@ -98,7 +106,7 @@ $(function(){
 						<div style="margin:0px 10px;">
 						<h2 class="notice-header">
 							<pre><h2><div style="width: 930px; display: inline-block; margin-right: 20px; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;">${noticeList.n_title }</div></h2></pre>
-							<div style="display: inline-block; margin-bottom: 8px">
+							<div style="display: inline-block; margin-bottom: 8px" class="admin_btn">
 							<a href="#del();" id="${noticeList.n_no}"
 								class="btn btn-default del-btn"
 								style="float: right;"> <span

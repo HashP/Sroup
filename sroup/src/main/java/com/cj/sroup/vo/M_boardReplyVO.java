@@ -11,7 +11,14 @@ public class M_boardReplyVO {
 	private String re_content;
 	private int re_writer_no;
 	private String writer_profilephoto;
-	
+	private String photoname;
+
+	public String getPhotoname() {
+	return photoname;
+}
+public void setPhotoname(String photoname) {
+	this.photoname = photoname;
+}
 	public int getB_no() {
 		return b_no;
 	}

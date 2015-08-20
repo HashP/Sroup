@@ -16,4 +16,10 @@ public class M_firstServiceImpl implements M_firstService {
 		return m_firstdao.get_studyNo(study_address);
 	}
 
+	@Override
+	public String get_Admin(int study_no) {
+		
+		return m_firstdao.get_Admin(study_no);
+	}
+
 }

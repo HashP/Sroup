@@ -25,11 +25,13 @@
    			C_NO		as c_no, 
    			C_WRITE_DAY	as c_write_day, 
    			C_WRITER	as c_writer,   			 
-   			C_CONTENT	as c_content   			
-	from s_comment
+   			C_CONTENT	as c_content,
+   			USER_PROFILEPHOTO as photoname 			
+	from s_comment, user_info
 	where STUDY_NO = #{study_no}  AND
 	(C_WRITE_DAY >= to_date(#{selectDate},'YYYY-MM-DD')
 	and C_WRITE_DAY &lt;= to_date(#{selectDate},'YYYY-MM-DD')+1)
+	  and C_WRITER = user_info.USER_NICKNAME
     order by C_NO desc      
    </select>
 

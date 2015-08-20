@@ -98,6 +98,8 @@
 		var study_no = "${studyInfo.study_no}";
 		var user_id = "${loginId}";
 		var admit = "${studyInfo.s_admit_method }";
+		var studyAdmin = "${studyInfo.user_id}";
+		
 		if (user_id === "a") {
 			alert("참여 신청은 로그인 후 가능합니다.");
 			return;
@@ -107,7 +109,8 @@
 			data : {
 				study_no : study_no,
 				user_id : user_id,
-				admit : admit
+				admit : admit,
+				studyAdmin : studyAdmin
 			},
 			dataType : "text",
 			success : function(data) {
@@ -317,12 +320,6 @@
 					<div class="attendMsg" style="display: none">* 본 스터디 인원모집이
 						마감되었습니다.</div>
 				</center>
-				<div class="barBanner">
-					<a href="http://www.onoffmix.com/service/partner/sarammajung/"
-						target=""> <img
-						src="http://cfile1.onoffmix.com/attach/DcomOTixd7l0oMphbZS8hm2hEXT7z8CC"
-						alt="" width="664" /></a>
-				</div>
 
 				<div id="comment" class="comment"
 					style="position: relative; display: none;">

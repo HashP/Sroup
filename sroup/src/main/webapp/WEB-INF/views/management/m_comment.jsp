@@ -95,6 +95,12 @@ padding: 0px;
 		}
 	$(function() {		
 		
+		//$(".admin_btn").hide();
+		if("${admin}"!="${sessionScope.LOGIN_ID}"&&){
+			//$(".admin_btn").remove();
+			$(this).find(".glyphicon").hide();
+		}
+		
 		$(".c_remove").click(function(){
 			var id = $(this).attr("id");
 			 $.ajax({              
@@ -227,6 +233,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
             		var c_content = data.commentList[i].c_content;
             		var c_writer = data.commentList[i].c_writer;
             		var c_write_day = data.commentList[i].c_write_day;
+            		var imagename = data.commentList[i].photoname
            		html += 
         		"<div class=\"comment_content\" id=\"comment_content_"+c_no+"\" style=\"margin-left: -40px;\">"
         		+"<div class=\"c_hiddenBtn\">"
@@ -240,7 +247,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
         		+"	<small class=\"text-muted c_writer\">"+c_writer+"</small>"
         		+"			<small class=\"text-muted c_write_day\">"+c_write_day+"</small>"
         		+"		<a href=\"#\" class=\"pull-right\">"        		
-        		+"		<img src=\"http://api.randomuser.me/portraits/thumb/men/86.jpg\" class=\"img-circle\"></a>"			       				
+        		+"		<img src=\"../../resources/images/profile/"+imagename+"\" class=\"img-circle\"></a>"			       				
         			+"	</div>"
         			+"<HR>"
         			+"</div>";

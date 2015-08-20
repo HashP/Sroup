@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="application/vnd.ms-excel;charset=euc-kr">
 <title>Test - 출석부 </title>
 <link rel="shortcut icon" href="../../resources/images/favicon/favicon.png" />
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
@@ -310,12 +310,12 @@ $(function() {
 
 	<div class="content">
 		<h1><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Study 출석부</h1>
-		
 		<div class="rollbook-box">
+		<a class="btn btn-default  pull-right glyphicon glyphicon-save-file" id='btnExport' type='button'>Excel</a>
 			<h3 id="rolldate"><fmt:formatDate value="${now }" pattern="yyyy년 MM월 dd일"/></h3>
 			<div>
 				<div id="datepicker"></div>
-				<table class="table table-default table-hover rollbook">
+				<table class="table table-default table-hover rollbook" id='tblExport'>
 					<colgroup>
 						<col width="100px"/>
 						<col width="100px"/>
@@ -332,7 +332,7 @@ $(function() {
 					</thead>		
 					<tbody>
 						<c:forEach var="member" items="${memberList }">
-							<tr>
+							<tr id="${member.id }">
 								<td id="member-${member.id }" class="member-name">
 									<p>${member.name }</p>
 								</td>
@@ -406,6 +406,34 @@ $(function() {
 			</div>
 		</div>
 	</div>
-
+<script>
+		$("#btnExport").click(function(){
+			
+			var rb_excel=[];
+			
+			for(var i=1; i<=$("#tblExport tbody tr").length; i++ ){
+			var name= $("#tblExport tbody tr:nth-child("+i+") .member-name").text().trim();
+			var attend = $("#tblExport tbody tr:nth-child("+i+") .member-attend select").val();
+			var note =$("#tblExport tbody tr:nth-child("+i+") .member-note .view-roll").text();
+			var rate = $("#tblExport tbody tr:nth-child("+i+") .member-rate").text();
+			
+			rb_excel.push(name, attend, note, rate);
+			}
+			/*jQuery.ajaxSettings.traditional = true;
+			 $.ajax({      
+				 method      : 'POST',
+	             url: "xls.do",
+	             data :  {"excel_row":rb_excel},                         
+	             success: function (data) {	            	 
+	            	 alert("!!");
+	           	  	
+	             }     
+		})*/
+		var form = "<form action='xls.do' method='post'>"; 
+			 form += "<input type='hidden' name='excel_row' value='"+rb_excel+"' />"; 
+			 form += "</form>"; 
+			 jQuery(form).appendTo("body").submit().remove(); 
+		});
+	</script>
 </body>
 </html>
