@@ -40,6 +40,17 @@ padding-bottom: 15px;
 <script type="text/javascript">
 
 $(function(){
+	 $.ajax({              
+         url: "checkuser.do",  
+         data:{}, 
+         success: function (data) {            	 
+        	if(data == "false"){
+        	 alert("가입한 스터디가 아닙니다.");
+    	  	 location.replace('../../main.do');
+        	}else {
+        	}
+         }                  	     
+	 	 });
 	$(".admin_btn").hide();
 	if("${admin}"!="${sessionScope.LOGIN_ID}"){
 		$(".admin_btn").remove();

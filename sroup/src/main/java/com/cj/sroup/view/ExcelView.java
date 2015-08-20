@@ -45,10 +45,16 @@ public class ExcelView extends AbstractExcelView {
 			E_rollbookVO e = rollbooks.get(i);
 
 			HSSFRow data_row = sheet.createRow(1+i);
-
+			
 			
 			data_row.createCell(0).setCellValue(e.getName());
-			data_row.createCell(1).setCellValue(e.getAttend());
+			if(e.getAttend() == "attend"){
+				data_row.createCell(1).setCellValue("출석");				
+			} else if(e.getAttend() == "absence"){
+				data_row.createCell(1).setCellValue("결석");
+			} else{
+				data_row.createCell(1).setCellValue("미입력");
+			}
 			data_row.createCell(2).setCellValue(e.getNote());
 			data_row.createCell(3).setCellValue(e.getAttend_rate());
 //			data_row.createCell(5).setCellValue(e.getSalary());

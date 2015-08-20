@@ -80,3 +80,16 @@ padding: 0px;
 	</div>
 	</div>
 	</div>
+	<script>
+	 $.ajax({              
+         url: "checkuser.do",  
+         data:{}, 
+         success: function (data) {            	 
+        	if(data == "false"){
+        	 alert("가입한 스터디가 아닙니다.");
+    	  	 location.replace('../../main.do');
+        	}else {
+        	}
+         }                  	     
+	 	 });
+	</script>

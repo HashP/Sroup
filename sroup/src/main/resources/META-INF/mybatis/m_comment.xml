@@ -31,7 +31,7 @@
 	where STUDY_NO = #{study_no}  AND
 	(C_WRITE_DAY >= to_date(#{selectDate},'YYYY-MM-DD')
 	and C_WRITE_DAY &lt;= to_date(#{selectDate},'YYYY-MM-DD')+1)
-	  and C_WRITER = user_info.USER_NICKNAME
+	and C_WRITER = user_info.USER_ID
     order by C_NO desc      
    </select>
 
@@ -48,7 +48,7 @@
 				<!-- 시퀀스 바꾸기 다른것 들도 -->
 				test_seq.NEXTVAL, 
 				sysdate, 
-				'cj',				 
+				#{c_writer},				 
 				#{c_content}
 				)
    </insert>

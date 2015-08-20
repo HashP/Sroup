@@ -115,6 +115,7 @@ display: table;
 			$("#blah2").attr("src",src);
 			$("#form2").attr("action","album_rewrite.do?photoname="+photoname+"&g_no="+g_no);
 			
+			
 		})
 		
 		// 사진 상세 보기시 현재 저장된 값 보여주는 기능
@@ -124,12 +125,26 @@ display: table;
 			var g_title = $("#gallery_"+g_no).find(".g_title").text();
 			var g_content = $("#gallery_"+g_no).find(".g_content").text();
 			var photoname = $("#gallery_"+g_no).attr("name");
-			
+			var writer = $("#temp_writer_"+g_no).attr("name");
+			var writetime = $("#temp_time_"+g_no).attr("name");
 			$("#detail_title").text(g_title);
 			$("#detail_content").text(g_content);
 			$("#img-detail").attr('src', img);	
 			$(".profile_photo img").attr('src',photoname);
 			$("#myModal").attr('name', g_no);
+			$(".writer_id").text(writer);
+			$(".writet_time").text(writetime);
+			
+			if($(this).find('b').text()!="${sessionScope.LOGIN_ID} "&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+				$(".album_rewrite").hide();
+				$(".album_del").hide();				
+			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
+				
+			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
+							
+			}else if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
+				$(".album_rewrite").hide();		
+			}
 			
 			// 현재 사진의 앞사진과 뒷사진 번호 가지고옴
 			$.ajax({              
@@ -193,7 +208,18 @@ display: table;
 	}
 
 	$(function() {
-		
+		 $.ajax({              
+             url: "checkuser.do",  
+             data:{}, 
+             success: function (data) {            	 
+            	if(data == "false"){
+            	 alert("가입한 스터디가 아닙니다.");
+        	  	 location.replace('../../main.do');
+            	}else {
+            	}
+             }                  	     
+   	 	 });
+		 
 		$(".lb-prev").children().hide();
 		$(".lb-next").children().hide();
 
@@ -296,6 +322,8 @@ display: table;
 							<a href="#" class="g_title">${galleryList.g_title}</a>							
 						</h3>
 						<p class="g_content">${galleryList.g_content}</p>
+						<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
+						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
 				</c:forEach>
 			</div>
@@ -314,6 +342,8 @@ display: table;
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
 						<p class="g_content">${galleryList.g_content}</p>
+							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
+						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
 				</c:forEach>
 			</div>
@@ -331,6 +361,8 @@ display: table;
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
 						<p class="g_content">${galleryList.g_content}</p>
+							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
+						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
 				</c:forEach>
 			</div>
@@ -351,6 +383,8 @@ display: table;
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
 						<p class="g_content">${galleryList.g_content}</p>
+							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
+						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
 				</c:forEach>
 			</div>
@@ -368,6 +402,8 @@ display: table;
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
 						<p class="g_content">${galleryList.g_content}</p>
+							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
+						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
 				</c:forEach>
 			</div>
@@ -388,6 +424,8 @@ display: table;
 							<a href="#" class="g_title">${galleryList.g_title}</a>
 						</h3>
 						<p class="g_content">${galleryList.g_content}</p>
+							<input type="hidden" id="temp_writer_${galleryList.g_no}" name="${galleryList.g_writer}"/>
+						<input type="hidden" id="temp_time_${galleryList.g_no}" name="${galleryList.g_write_day}"/>
 					</div>
 				</c:forEach>
 			</div>
@@ -451,7 +489,7 @@ display: table;
 						<br><br>
 						<footer>
 							<div style="margin-bottom: 3px; "><button class="btn btn-default btn-xs album_rewrite"  data-toggle="modal" data-target="#rewriteModal">수정</button><button class="btn btn-default btn-xs album_del" data-dismiss="modal">삭제</button></div>
-							<small class="text-muted">stive</small> <small class="text-muted">10:33</small>
+							<small class="text-muted writer_id">stive</small> <small class="text-muted write_time">10:33</small>
 							<a href="#" class="pull-right profile_photo"><img
 								src="http://api.randomuser.me/portraits/thumb/men/86.jpg"
 								class="img-circle"></a>

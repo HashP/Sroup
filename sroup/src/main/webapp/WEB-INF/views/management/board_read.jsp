@@ -138,8 +138,28 @@ padding: 0px;
 </div>
 <script>
 	$(function() {
-		
-		
+		 $.ajax({              
+             url: "checkuser.do",  
+             data:{}, 
+             success: function (data) {            	 
+            	if(data == "false"){
+            	 alert("가입한 스터디가 아닙니다.");
+        	  	 location.replace('../../main.do');
+            	}else {
+            	}
+             }                  	     
+   	 	 });
+		 
+		if($('.font12').text()!="${sessionScope.LOGIN_ID} "&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+			$(".b_rewrite").remove();
+			$(".b_remove").remove();			
+		}else if($('.font12').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
+			
+		}else if($('.font12').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
+			
+		}else if($('.font12').text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
+			$(".b_rewrite").remove();
+		}		
 		$("input[type='image']").on("click", function() {
 			var b_no = ${b_detail.b_no };
 			var content = $("#b_reply").val();			
@@ -168,8 +188,17 @@ padding: 0px;
 		});
 		
 		
+			$(".glyphicon").hide();
 		$(".reply_content").hover(function(){
-			$(this).find(".glyphicon").show();
+			if($(this).find('b').text()!="${sessionScope.LOGIN_ID} "&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+				$(".glyphicon").hide();			
+			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
+				$(this).find(".glyphicon").show();	
+			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
+				$(this).find(".glyphicon").show();				
+			}else if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
+				$(this).find('.glyphicon-remove').show();			
+			}		
 		},function(){
 			$(".glyphicon").hide();
 		})

@@ -71,12 +71,14 @@ padding: 0px;
 		$(".glyphicon").hide();
 		
 		$(".comment_content").hover(function(){
-			
-			if(today!=c_write_day){
-				$(this).find(".c_remove").show();
-				$(this).find(".glyphicon-remove").show();				
-			} else{
+			if($(this).find(".c_writer").attr("name")=="${sessionScope.LOGIN_ID}" && today!=c_write_day){
+			$(this).find(".c_remove").show();
+			$(this).find(".glyphicon-remove").show();	
+			} else if($(this).find(".c_writer").attr("name")=="${sessionScope.LOGIN_ID}"&& today==c_write_day){
 				$(this).find(".glyphicon").show();
+			} else if("${admin}"=="${sessionScope.LOGIN_ID}"){
+				$(this).find(".c_remove").show();
+				$(this).find(".glyphicon-remove").show();
 			}
 			
 		},function(){
@@ -95,11 +97,19 @@ padding: 0px;
 		}
 	$(function() {		
 		
+		 $.ajax({              
+             url: "checkuser.do",  
+             data:{}, 
+             success: function (data) {            	 
+            	if(data == "false"){
+            	 alert("가입한 스터디가 아닙니다.");
+        	  	 location.replace('../../main.do');
+            	}else {
+            	}
+             }                  	     
+   	 	 });
 		//$(".admin_btn").hide();
-		if("${admin}"!="${sessionScope.LOGIN_ID}"&&){
-			//$(".admin_btn").remove();
-			$(this).find(".glyphicon").hide();
-		}
+		
 		
 		$(".c_remove").click(function(){
 			var id = $(this).attr("id");
@@ -236,7 +246,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
             		var imagename = data.commentList[i].photoname
            		html += 
         		"<div class=\"comment_content\" id=\"comment_content_"+c_no+"\" style=\"margin-left: -40px;\">"
-        		+"<div class=\"c_hiddenBtn\">"
+        		+"<div class=\"c_hiddenBtn \" >"
         		+"<button href=\"#\" class=\"btn btn-default glyphicon c_remove\"  id=\""+c_no+"\" onclick=\"c_remove("+c_no+");\" style=\"padding-left: 8px; padding-right: 8px; color: gray\"><span class=\"glyphicon glyphicon-remove \"></span></button><br>"
         		+"<a href=\"#\" class=\"btn btn-default glyphicon c_rewrite\" id=\""+c_no+"\" onclick=\"c_rewrite("+c_no+");\" style=\"padding-left: 8px; padding-right: 8px; color: gray\"><span class=\"glyphicon glyphicon-pencil\"></span></a>"
         		+"</div>"
@@ -244,7 +254,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
         		+"		<pre>"+c_content+"<pre>"	
         		+"	</div>"
         		+"	<div class=\"c_profile\" id=\"c_profile_"+c_no+"\">"
-        		+"	<small class=\"text-muted c_writer\">"+c_writer+"</small>"
+        		+"	<small class=\"text-muted c_writer \" name="+c_writer+">"+c_writer+"</small>"
         		+"			<small class=\"text-muted c_write_day\">"+c_write_day+"</small>"
         		+"		<a href=\"#\" class=\"pull-right\">"        		
         		+"		<img src=\"../../resources/images/profile/"+imagename+"\" class=\"img-circle\"></a>"			       				

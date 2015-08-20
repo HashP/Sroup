@@ -76,6 +76,27 @@ public class ManagementController {
 	@Autowired
 	private MappingJackson2JsonView jsonView;	
 	
+	// 카페 회원 여부 검사
+	@RequestMapping("/checkuser")
+	@ResponseBody
+	public String checkuser(HttpSession session, @PathVariable("study_address") String study_address){
+		int study_no = m_firstservice.get_studyNo(study_address);
+		String login_id = (String) session.getAttribute("LOGIN_ID");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("study_no", new Integer(study_no).toString());
+		map.put("login_id", login_id);
+		
+		String check = m_firstservice.check_cafeuser(map);
+		if(check==null){
+			System.out.println("check : "+check);
+			return "false";
+		} else {
+			System.out.println("check : "+check);
+			return "true";
+		}
+		
+	}
+	
 	//  메뉴 페이지 이동 경로
 	@RequestMapping("/m_main.do")
 	public ModelAndView main(@PathVariable("study_address") String study_address){
@@ -156,7 +177,7 @@ public class ManagementController {
 			@RequestParam (value="cPage", defaultValue= "1" ) int cPage){
 		
 		int study_no = m_firstservice.get_studyNo(study_address);
-		
+		String admin = m_firstservice.get_Admin(study_no);
 		ModelAndView mav = new ModelAndView();		
 		
 		int start = (cPage - 1) * 9 + 1;	
@@ -170,6 +191,7 @@ public class ManagementController {
 		mav.addObject("galleryList",galleryList);
 		mav.addObject("g_tot", g_tot);			
 		mav.addObject("cPage",cPage);
+		mav.addObject("admin",admin);
 		mav.setViewName("management/m_album");
 		return mav;
 	}
@@ -233,13 +255,16 @@ public class ManagementController {
 		return "management/notice_write";
 	}	
 	@RequestMapping("/board_read.do")
-	public ModelAndView board_read(@RequestParam("b_no") int b_no){
+	public ModelAndView board_read(@RequestParam("b_no") int b_no, @PathVariable("study_address") String study_address){
 		m_boardservice.board_hitPlus(b_no);
+		int study_no = m_firstservice.get_studyNo(study_address);	
+		String admin = m_firstservice.get_Admin(study_no);
 		ModelAndView mav = new ModelAndView();
 		M_boardVO b_detail =  m_boardservice.getBoardDetail(b_no);
 		List<M_boardReplyVO> b_reply =m_boardservice.getBoardReply(b_no);
 		mav.addObject("b_detail", b_detail);
 		mav.addObject("b_reply",b_reply);
+		mav.addObject("admin",admin);
 		mav.setViewName("management/board_read");
 		return mav;
 	}
@@ -409,15 +434,16 @@ public class ManagementController {
 	@RequestMapping("/comment_add.do")
 	// 차후 작성자 아이디 도 가져와야함 writer
 	public String comment_writesave(@PathVariable("study_address") String study_address,
-					@RequestParam("content")String content){		
+					@RequestParam("content")String content,HttpSession session){		
 		
 		int study_no = m_firstservice.get_studyNo(study_address);
+		String login_id = (String) session.getAttribute("LOGIN_ID");
 		
 		M_commentVO m_comment = new M_commentVO();
-		
 		content = content.replaceAll("&", "&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 		System.out.println(content);
 		m_comment.setC_content(content);
+		m_comment.setC_writer(login_id);
 		m_comment.setStudy_no(study_no);
 		m_commentservice.addComment(m_comment);
 		// 차후 작성글 바로 보기로 페이지 변경

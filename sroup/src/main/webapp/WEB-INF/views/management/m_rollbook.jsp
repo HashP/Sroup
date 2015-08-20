@@ -91,6 +91,17 @@
 //var array = [moment("2015-08-14"), moment("2015-08-15"),moment("2015-08-26")];
 
 $(function() {
+	 $.ajax({              
+         url: "checkuser.do",  
+         data:{}, 
+         success: function (data) {            	 
+        	if(data == "false"){
+        	 alert("가입한 스터디가 아닙니다.");
+    	  	 location.replace('../../main.do');
+        	}else {
+        	}
+         }                  	     
+	 	 });
 		var studyNo = ${studyNo};
 		var scheduleCount = 0;
 //****************************************************************

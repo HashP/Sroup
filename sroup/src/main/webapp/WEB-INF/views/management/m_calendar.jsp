@@ -144,7 +144,18 @@ function removeClick(calEvent_id){
 
 $(document).ready(function()
 {
-	
+	 $.ajax({              
+         url: "checkuser.do",  
+         data:{}, 
+         success: function (data) {            	 
+        	if(data == "false"){
+        	 alert("가입한 스터디가 아닙니다.");
+    	  	 location.replace('../../main.do');
+        	}else {
+        	}
+         }                  	     
+	 	 });
+	 
 	$("#e_title").click(function(){
 		 $("#e_title").attr("placeholder", "");
     	 $("#e_title").css("border-color","rgb(204, 204, 204)");

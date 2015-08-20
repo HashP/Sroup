@@ -1,5 +1,8 @@
 package com.cj.sroup.service;
 
+import java.util.HashMap;
+
+import org.apache.xmlbeans.impl.jam.mutable.MField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +20,13 @@ public class M_firstServiceImpl implements M_firstService {
 	}
 
 	@Override
-	public String get_Admin(int study_no) {
-		
+	public String get_Admin(int study_no) {		
 		return m_firstdao.get_Admin(study_no);
+	}
+
+	@Override
+	public String check_cafeuser(HashMap<String, String> map) {		
+		return m_firstdao.check_cafeuser(map);
 	}
 
 }

@@ -15,4 +15,8 @@
 	WHERE STUDY_NO = #{value}
    </select>
    
+   <select id="check_cafeuser" parameterType="map" resultType="string">
+  	 select user_id from STUDY_MANAGEMENT
+	where study_no=#{study_no} and user_id = #{login_id}
+   </select>
 </mapper>
