@@ -42,6 +42,14 @@
 </style>
 <script type="text/javascript">
 $(function() {
+	var ab = location.pathname;
+	ab = ab.substring(7,9);
+	$(".searchBtn").click(function() {
+		if(ab != "li") {
+			alert("검색은 모임페이지에서만 가능합니다.");
+			return;
+		}
+	})
 var i = 0;
 var j = 1;
 

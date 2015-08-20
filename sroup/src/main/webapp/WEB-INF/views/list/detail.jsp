@@ -23,6 +23,7 @@
 <title>Sroup</title>
 <script type="text/javascript">
 	$(function() {
+		
 		var user = "${loginId}";
 		var studyId = "${userInfo.id}";
 		if (user === studyId) {

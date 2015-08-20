@@ -57,8 +57,13 @@ function getCost() {
 }
 
 $(function() {
+	
 	$(".searchBtn").click(function() {
 		var keyword =  $("#searchInput").val();
+		if(keyword.trim() === "") {
+			alert("검색어를 입력하세요.")
+			return;
+		}
 		$.ajax({
 			url: "search.do",
 			data: {keyword : keyword},
