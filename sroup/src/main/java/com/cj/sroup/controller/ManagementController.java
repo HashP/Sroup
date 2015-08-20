@@ -184,6 +184,7 @@ public class ManagementController {
 		}		
 		List<M_commentVO> commentList = m_commentservice.getdateComment(param);
 		
+		
 		map.put("commentList", commentList);
 		
 
@@ -314,7 +315,7 @@ public class ManagementController {
 	
 	@RequestMapping("/detail_album.do")
 	@ResponseBody
-	public M_galleryVO detail_album(@RequestParam("g_no") int g_no){
+	public M_galleryVO detail_album(@RequestParam("g_no") int g_no){		
 		return m_galleryservice.detail_Gallery(g_no);
 	}
 	

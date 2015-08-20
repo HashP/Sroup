@@ -12,6 +12,12 @@ public class M_commentVO {
 	private String c_content;
 	private String photoname;
 	
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
+	}
 	public int getStudy_no() {
 		return study_no;
 	}

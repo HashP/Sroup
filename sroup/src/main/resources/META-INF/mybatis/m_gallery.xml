@@ -22,9 +22,10 @@
             G_CONTENT	as g_content,
             G_IMGNAME   as imageName,
             G_LIKE		as g_like,
-            G_HIT		as g_hit
-	from s_gallery
-	where G_NO = #{value} 
+            G_HIT		as g_hit,
+            USER_PROFILEPHOTO as photoname
+	from s_gallery, user_info
+	where G_NO = #{value} and G_WRITER = user_info.USER_ID
    </select>
    
 <select id="getGallery_list" parameterType="hashmap" resultType="m_gallery">  

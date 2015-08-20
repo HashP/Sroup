@@ -257,7 +257,7 @@ var calendarPicker = $("#dsel2").calendarPicker({
         		+"	<small class=\"text-muted c_writer \" name="+c_writer+">"+c_writer+"</small>"
         		+"			<small class=\"text-muted c_write_day\">"+c_write_day+"</small>"
         		+"		<a href=\"#\" class=\"pull-right\">"        		
-        		+"		<img src=\"../../resources/images/profile/"+imagename+"\" class=\"img-circle\"></a>"			       				
+        		+"		<img style=\"width:55px;\" src=\"../../resources/images/profile/"+imagename+"\" class=\"img-circle\"></a>"			       				
         			+"	</div>"
         			+"<HR>"
         			+"</div>";
