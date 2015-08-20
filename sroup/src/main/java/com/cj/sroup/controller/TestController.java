@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.cj.sroup.dao.StudyDao;
 import com.cj.sroup.service.M_rollbookService;
 import com.cj.sroup.vo.M_RollbookVO;
+import com.cj.sroup.vo.StudyVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Controller
@@ -26,12 +28,36 @@ public class TestController{
 	@Autowired
 	private M_rollbookService rollbookService;
 	@Autowired
+	private StudyDao studyDao;
+	@Autowired
 	private MappingJackson2JsonView jsonView;
 	private Logger logger= Logger.getLogger(TestController.class);
 	
 	@RequestMapping("/template.do")
 	public String test() {
 		return "template";
+	}
+	
+	@RequestMapping("/main.do")
+	public String main(Model model) {
+		String[] imgurl = {"https://unsplash.it/650/350?image=535"
+						,"https://unsplash.it/650/350?image=534"
+						,"https://unsplash.it/650/350?image=532"
+						,"https://unsplash.it/650/350?image=533"
+						,"https://unsplash.it/650/350?image=531"
+						,"https://unsplash.it/650/350?image=625"
+		};
+		List<StudyVO> studyList = studyDao.getMainStudyList();
+		
+		for(int i=0; i<studyList.size(); i++) {
+			studyList.get(i).setS_image(imgurl[i]);
+			
+		}
+		
+		
+		model.addAttribute("studyList", studyList);
+		
+		return "main.jsp";
 	}
 	
 	@RequestMapping("/testrollbook.do")

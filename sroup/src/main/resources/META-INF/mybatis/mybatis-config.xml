@@ -32,6 +32,7 @@
     <mapper resource="META-INF/mybatis/m_notice.xml"/>
     <mapper resource="META-INF/mybatis/userinfo.xml"/>
     <mapper resource="META-INF/mybatis/study.xml"/>
+    <mapper resource="META-INF/mybatis/study2.xml"/>
     <mapper resource="META-INF/mybatis/study-management.xml"/>
     <mapper resource="META-INF/mybatis/message.xml"/>
     <mapper resource="META-INF/mybatis/join.xml"/>

@@ -47,8 +47,14 @@ li.message-preview {
 
 li.message-preview .media p {
 	white-space: normal;
+	margin-bottom: 0px;
+	font-size: 14px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+li.message-preview .media p.small {
+	font-size: 12px;
+}
 </style>
 
 <nav class="navbar navbar-inverse">

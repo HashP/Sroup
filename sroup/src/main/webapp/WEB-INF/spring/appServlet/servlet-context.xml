@@ -22,10 +22,11 @@
 			<mvc:mapping path="/detail.do"/>
 			<mvc:mapping path="/add.do"/>
 			<mvc:mapping path="/mod.do"/>
+			<mvc:mapping path="/main.do"/>
 			<bean class="com.cj.sroup.interceptor.ListInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/m_study/*"/>
+			<mvc:mapping path="/m_study/{study_address}/*"/>
 			<bean class="com.cj.sroup.interceptor.M_StudyInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
