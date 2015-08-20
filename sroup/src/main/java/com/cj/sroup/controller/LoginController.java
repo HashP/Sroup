@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.cj.sroup.dao.listDao;
 import com.cj.sroup.service.LoginService;
+import com.cj.sroup.vo.ListVO;
 import com.cj.sroup.vo.UserInfoVO;
 
 @Controller
@@ -33,6 +36,8 @@ public class LoginController {
  
 	@Autowired
 	private LoginService service;
+	@Autowired
+	private listDao listdao;
 	private Logger logger= Logger.getLogger(LoginController.class);
 	
 	@Autowired
@@ -59,6 +64,9 @@ public class LoginController {
 		
 		String needLogin = (String) session.getAttribute("needLogin");
 		session.removeAttribute("needLogin");
+		
+		List<ListVO> lists = listdao.getAllStudiesDefault();
+		model.addAttribute("lists", lists);
 		
 		model.addAttribute("loginResult", loginResult);
 		model.addAttribute("signResult", signResult);
@@ -88,6 +96,9 @@ public class LoginController {
 	@RequestMapping("/signup.do")
 	public String signup(Model model) {
 		model.addAttribute("pagetitle", "회원가입");
+		List<ListVO> lists = listdao.getAllStudiesDefault();
+		model.addAttribute("lists", lists);
+		
 		return "login/signup";
 	}
 	
