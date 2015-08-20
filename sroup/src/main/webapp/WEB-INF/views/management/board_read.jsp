@@ -128,12 +128,11 @@ padding: 0px;
 				</table>
 			</div>			
 			<div>		
-					
+						<button class="btn btn-default btn-sm b_list" style="float: left; margin-top: 10px" ><span>목록</span></button>			
 						<button class="btn btn-default btn-sm b_rewrite" style="float: right; margin-top: 10px" ><span>수정</span></button>			
 						<button class="btn btn-default btn-sm b_remove" style="float: right; margin-top: 10px" ><spna>삭제</sapn></button>						
 			</div>		
 		</div>
-		
 	</div>
 </div>
 <script>
@@ -233,6 +232,15 @@ padding: 0px;
 			var b_no = ${b_detail.b_no };
 			location.replace('board_del.do?b_no='+b_no);	
 		})	
+
+		$(".b_list").on("click",function(){
+			var cPage = '${param.cPage}';
+			if (cPage) {
+				location.replace('m_border.do?cPage='+cPage);
+			} else {
+				location.replace('m_border.do?cPage=1');
+			}
+		})	
 				
 	})
 	
@@ -276,21 +284,21 @@ padding: 0px;
 	}
 	
 	function getByteLength(input) {
-	var byteLength = 0;
-	if (input == null)
-		return 0;
-	for (var inx = 0; inx < input.length; inx++) {
-		var oneChar = escape(input.charAt(inx));
-		if (oneChar.length == 1) {
-			byteLength++;
-		} else if (oneChar.indexOf("%u") != -1) {
-			byteLength += 2;
-		} else if (oneChar.indexOf("%") != -1) {
-			byteLength += oneChar.length / 3;
-		}
-	} // enf of for loop
-	return byteLength;
-}
+		var byteLength = 0;
+		if (input == null)
+			return 0;
+		for (var inx = 0; inx < input.length; inx++) {
+			var oneChar = escape(input.charAt(inx));
+			if (oneChar.length == 1) {
+				byteLength++;
+			} else if (oneChar.indexOf("%u") != -1) {
+				byteLength += 2;
+			} else if (oneChar.indexOf("%") != -1) {
+				byteLength += oneChar.length / 3;
+			}
+		} // enf of for loop
+		return byteLength;
+	}
 
 
 </script>

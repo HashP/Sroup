@@ -29,7 +29,7 @@ padding: 0px;
 		<c:forEach var="boardList" items="${boardList }">			
 			<tr>
 				<td>${boardList.b_no }</td>
-				<td><a class="b_title" href="board_read.do?b_no=${boardList.b_no }"><pre>${boardList.b_title }</pre></a></td>
+				<td><a class="b_title" href="board_read.do?b_no=${boardList.b_no }&cPage=${param.cPage}"><pre>${boardList.b_title }</pre></a></td>
 				<td>${boardList.b_writer }</td>
 				<td>${boardList.b_write_day }</td>
 				<td>${boardList.b_hit }</td>
