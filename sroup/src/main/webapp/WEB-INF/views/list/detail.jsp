@@ -18,7 +18,7 @@
 	href="/sroup/resources/jquery.fancybox-1.3.4/fancybox/jquery.fancybox-1.3.4.css"
 	media="screen" />
 <script type="text/javascript"
-	src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
+	src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=fdfd44094bda508193c65c95eea570d5"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sroup</title>
 <script type="text/javascript">
