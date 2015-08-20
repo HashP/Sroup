@@ -63,17 +63,12 @@ var j = 1;
 	}, 5000);
 	
 	
-
-	
-		
-		
-
 	})
 </script>
 <div class="header">
 	<div class="logoSearchArea">
 		<h1>
-			<a href="#;"> <img src="/sroup/resources/images/sroup2.jpg">
+			<a href="/sroup/"> <img src="/sroup/resources/images/sroup2.jpg">
 			</a>
 		</h1>
 		<div class="fieldset">
