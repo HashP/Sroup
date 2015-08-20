@@ -190,14 +190,14 @@ padding: 0px;
 		
 			$(".glyphicon").hide();
 		$(".reply_content").hover(function(){
-			if($(this).find('b').text()!="${sessionScope.LOGIN_ID} "&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+			if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&& "${admin}"!="${sessionScope.LOGIN_ID}"){
 				$(".glyphicon").hide();			
 			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
 				$(this).find(".glyphicon").show();	
 			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
-				$(this).find(".glyphicon").show();				
+				$(this).find(".glyphicon").show();			
 			}else if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
-				$(this).find('.glyphicon-remove').show();			
+				$(this).find('.glyphicon-remove').show();							
 			}		
 		},function(){
 			$(".glyphicon").hide();
