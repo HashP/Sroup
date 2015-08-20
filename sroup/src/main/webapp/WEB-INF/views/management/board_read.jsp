@@ -149,7 +149,7 @@ padding: 0px;
              }                  	     
    	 	 });
 		 
-		if($('.font12').text()!="${sessionScope.LOGIN_ID} "&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+		if($('.font12').text()!="${sessionScope.LOGIN_ID}"&& "${admin}"!="${sessionScope.LOGIN_ID}"){
 			$(".b_rewrite").remove();
 			$(".b_remove").remove();			
 		}else if($('.font12').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){

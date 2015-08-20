@@ -141,14 +141,14 @@ padding: 0px;
 			$(".writer_id").text(writer);
 			$(".writet_time").text(writetime);
 			
-			if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+			if($(".writer_id").text()!="${sessionScope.LOGIN_ID}"&& "${admin}"!="${sessionScope.LOGIN_ID}"){
 				$(".album_rewrite").hide();
 				$(".album_del").hide();				
-			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
+			}else if($(".writer_id").text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
 				
-			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
+			}else if($(".writer_id").text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
 							
-			}else if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
+			}else if($(".writer_id").text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
 				$(".album_rewrite").hide();		
 			}
 			

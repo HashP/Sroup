@@ -715,7 +715,7 @@
 
 							<div class="innerBanner">
 								<img
-									src="http://static.onoffmix.com/images2/default/thumbnail_null.jpg"
+									src="/sroup/resources/images/default.jpg"
 									default="http://static.onoffmix.com/images2/default/thumbnail_null.jpg"
 									alt="대표이미지" />
 
