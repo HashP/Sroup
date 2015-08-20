@@ -838,7 +838,7 @@
 				style="display: none;">
 				<div class="firstCore">
 					<div class="title">
-						<h3 class="title2">step.2 일정 / 장소 정보 입력</h3>
+						<h3 class="title2" style="background-position: 0 -40px;">step.2 일정 / 장소 정보 입력</h3>
 
 						<div class="menu">
 							<div class="step">
@@ -1248,7 +1248,7 @@
 				style="display: none;">
 				<div class="firstCore">
 					<div class="title">
-						<h3 class="title2">step.3 부가 정보 입력</h3>
+						<h3 class="title2" style="background-position: 0 -82px;">step.3 부가 정보 입력</h3>
 
 						<div class="menu">
 							<div class="step">
