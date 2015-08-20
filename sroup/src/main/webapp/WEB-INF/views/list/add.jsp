@@ -12,7 +12,7 @@
 	src="/sroup/resources/uploadify/jquery.uploadify.js"></script>
 <link rel="stylesheet"
 	href="/sroup/resources/bootstrap/jquery-ui.css">
-<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=fdfd44094bda508193c65c95eea570d5"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 	var checkAddr = "";
@@ -207,7 +207,6 @@
 			
 			if(head.trim() === "") {
 				alert("휴대폰 번호를 입력하세요")
-				
 				return;
 			} else if(body.trim() === "") {
 				alert("휴대폰 번호를 입력하세요")
@@ -215,6 +214,19 @@
 				return;
 			} else if(tail.trim() === "") {
 				alert("휴대폰 번호를 입력하세요")
+				
+				return;
+			}
+			
+			if(head.length > 3) {
+				alert("휴대폰 번호를 제대로 입력해 주세요.")
+				return;
+			} else if(body.length > 4) {
+				alert("휴대폰 번호를 제대로 입력해 주세요.")
+				
+				return;
+			} else if(tail.length > 4) {
+				alert("휴대폰 번호를 제대로 입력해 주세요.")
 				
 				return;
 			}
@@ -295,6 +307,10 @@
 			if(pAddr.trim() === "") {
 				alert("페이지 주소를 입력하세요.")
 				
+				return;
+			}
+			if(pAddr.length > 15) {
+				alert("페이지 주소는 열다섯자 내로 입력해 주세요.")
 				return;
 			}
 			
@@ -520,6 +536,33 @@
 			alert("장소명을 입력해 주세요.");
 			return false;
 		}
+		
+		if(title.length > 25) {
+			alert("제목은 20글자 내로 입력해 주세요.");
+			return false;
+		}
+		if(summary.length > 300) {
+			alert("요약내용은 300글자 내로 입력해 주세요.");
+			return false;
+		}
+		if(textEditor.length > 600) {
+			alert("상세내용은 600글자 내로 입력해 주세요..");
+			
+			return false;
+		}
+		if(maxPerson > 150) {
+			alert("최대 인원은 150명을 넘을 수 없습니다.");
+			return false;
+		}
+		if(dues.trim() === "") {
+			alert("회비를 입력해 주세요.");
+			return false;
+		}
+		if(location.length > 30) {
+			alert("장소명은 30글자 내로 입력해 주세요.");
+			return false;
+		}
+		
 		if(phoneHead.trim() === "") {
 			alert("핸드폰 번호를 입력해 주세요.");
 			return false;

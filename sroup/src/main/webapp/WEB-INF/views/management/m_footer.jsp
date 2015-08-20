@@ -2,7 +2,7 @@
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#" style="font-family: '';">SROUP</a>
+				<a class="navbar-brand" href="../../main.do" style="font-family: ''; ">SROUP</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">

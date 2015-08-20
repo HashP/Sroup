@@ -19,6 +19,8 @@
    		from study
    		<where>
    			hidden = 'N'
+   			and 
+   			s_application_period >= sysdate
 	   		<if test="item1 != null">
 		        and c_subject in
 		        <foreach collection="item1" item="item" index="index1" separator="," open="(" close=")">

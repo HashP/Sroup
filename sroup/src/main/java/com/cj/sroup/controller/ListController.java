@@ -499,6 +499,10 @@ public class ListController {
 		
 		
 		List<CategoryVO> categories = service.getCategories();
+		List<ListVO> lists = new ArrayList<ListVO>();
+		lists = service.getAllStudiesDefault();
+		
+		mav.addObject("lists", lists);
 		mav.addObject("userinfo", myService.getUserInfoById(loginId));
 		mav.addObject("categories", categories);
 		mav.setViewName("list/add");

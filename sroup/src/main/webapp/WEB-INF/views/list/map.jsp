@@ -8,7 +8,7 @@
 <script type="text/javascript">
                         try {document.execCommand('BackgroundImageCache', false, true);} catch(e) {}</script>
 <script type="text/javascript"
-	src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=5c2814aa90dac61ea095ac66fe8cda82"></script>
+	src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=fdfd44094bda508193c65c95eea570d5"></script>
 </head>
 
 <body>
