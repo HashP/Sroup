@@ -74,7 +74,7 @@ $(function(){
            	 		+"<div style='height: 300px; display: table-cell; vertical-align: middle;'>"
            	 		+"<div style='vertical-align: middle;''>"
            	 		+"			<p style='font-size: 16px;''>첫 번째 공지사항을 작성주세요</p>"
-           			+"             <a href='notice_write.do' class='btn btn-success del-btn'>공지사항 쓰러가기</a>"
+           			+"             <a href='notice_write.do' class='btn btn-success del-btn' onclick=\"notice_first()\">공지사항 쓰러가기</a>"
            			+"           </div>"
            			+"           </div>"
            			+"  </div>"
@@ -91,7 +91,15 @@ $(function(){
 	});
 	
 	
+	
 });
+
+function notice_first(){
+	if("${admin}"!="${sessionScope.LOGIN_ID}"){
+		event.preventDefault();
+		alert("공지사항은 카페관리자만 작성할수 있습니다");
+	}
+}
 </script>
 
 <div class="container">
@@ -106,7 +114,7 @@ $(function(){
 				<div style="height: 300px; display: table-cell;vertical-align: middle;">
 				<div style="vertical-align: middle;">
 							<p style="font-size: 16px;">첫 번째 공지사항을 작성주세요</p>
-                             <a href="notice_write.do" class="btn btn-success del-btn">공지사항 쓰러가기</a>
+                             <a href="notice_write.do" class="btn btn-success del-btn" onclick="notice_first()">공지사항 쓰러가기</a>
                           </div>
                           </div>
                 </div>

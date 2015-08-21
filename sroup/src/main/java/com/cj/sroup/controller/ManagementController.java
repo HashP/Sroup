@@ -645,7 +645,7 @@ public class ManagementController {
 		for(int i=0; i<(excel_row.length)/4; i++){
 			if (i != 0) {
 				E_rollbookVO rollbook = new E_rollbookVO();
-			
+				System.out.println("돈다");
 				rollbook.setName(excel_row[i + cnt]);
 				rollbook.setAttend(excel_row[i + 1 + cnt]);
 				rollbook.setNote(excel_row[i + 2 + cnt]);
@@ -654,6 +654,7 @@ public class ManagementController {
 				rollbooks.add(i, rollbook);				
 				
 			} else if (i == 0) {
+				System.out.println("돈다");
 				E_rollbookVO rollbook = new E_rollbookVO();				
 				rollbook.setName(excel_row[i]);
 				rollbook.setAttend(excel_row[i + 1]);
