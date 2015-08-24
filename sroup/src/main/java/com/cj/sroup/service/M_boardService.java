@@ -10,7 +10,8 @@ public interface M_boardService {
 	void addBoard(M_boardVO m_board);
 	M_boardVO getBoardDetail(int b_no);
 	int getAllBoardNo(int study_no);
-	List<M_boardVO> getBoard_list(HashMap<String, Integer> num);	
+	List<M_boardVO> getBoard_list(HashMap<String, Integer> num);
+	List<M_boardVO> getSearchBoard_list(HashMap<String, Object> searchOption);	
 	void delBoard(int b_no);
 	void reBoard(M_boardVO m_board);
 	int nowAdd_no(String b_writer);

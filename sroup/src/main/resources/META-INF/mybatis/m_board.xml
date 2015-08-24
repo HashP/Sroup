@@ -37,6 +37,45 @@
   where rn&lt;=#{end} and rn >=#{start}  
 
    </select>
+
+   <select id="getSearchBoard_list" parameterType="hashmap" resultType="m_board">
+    select   rn,
+             STUDY_NO   	as study_no,
+             LIST_NAME      as list_name,
+             B_NO           as b_no,
+             B_WRITE_DAY  	as b_write_day,
+             B_WRITER       as b_writer,
+             B_TITLE        as b_title,
+             B_CONTENT      as b_content,
+             B_HIT          as b_hit
+             from                                                                                        
+            (select ROW_NUMBER() OVER (order by study_no asc) rn,     
+                    STUDY_NO          ,
+                    LIST_NAME        ,
+                    B_NO                     ,
+                    B_WRITE_DAY  ,
+                    B_WRITER           ,
+                    B_TITLE     ,
+                    B_CONTENT        ,
+                    B_HIT                    
+             from s_board
+             where STUDY_NO = #{study_no}
+             	and
+             	<choose>
+             		<when test="searchoption == 'title'">
+             			B_TITLE like '%' || #{searchkeyword} || '%'
+             		</when>
+             		<when test="searchoption == 'content'">
+             			B_CONTENT like '%' || #{searchkeyword} || '%'
+             		</when>
+             		<when test="searchoption == 'writer'">
+             			B_WRITER like '%' || #{searchkeyword} || '%'
+             		</when>
+             	</choose>  
+             order by B_NO desc)
+  where rn&lt;=#{end} and rn >=#{start}  
+
+   </select>
    
    <select id="getBoardDetail" parameterType="int" resultType="m_board">   
    	select 	B_NO		as b_no, 

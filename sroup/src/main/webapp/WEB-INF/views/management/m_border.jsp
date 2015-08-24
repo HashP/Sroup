@@ -38,6 +38,9 @@ padding: 0px;
 		</tbody>
 	</table>
 	<div>
+	<c:if test="${not empty search}">
+			<a href="m_border.do"><button type="button" class="btn btn-default" style="float: left;">돌아가기</button></a></div>
+	</c:if>
 	<a href="board_write.do?check=${param.cPage}"><button type="button" class="btn btn-default" style="float: right;">글쓰기</button></a></div>
 	<div class="row text-center">
 		<!-- <div class="col-lg-12">
@@ -56,31 +59,33 @@ padding: 0px;
 	
 	<div class="row" >
 	<div class="col-lg-6 col-md-offset-3" >
-		<div class="input-group">
-			<div class="input-group-btn">
-				<button type="button" class="btn btn-default dropdown-toggle"
-					data-toggle="dropdown" aria-expanded="false">
-					제목 <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">제목</a></li>
-					<li><a href="#">내용</a></li>
-					<li><a href="#">작성자</a></li>					
-				</ul>
+		<form action="m_searchborder.do" method="get">
+			<div class="input-group">
+				<div class="input-group-btn">
+					<a id="searchoptionmenu"  class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false">
+						제목 <span class="caret"></span>
+					</a>
+					<input type="hidden" value="title" name="searchoption">
+					<ul class="dropdown-menu" id="searchoption" role="menu">
+						<li><a href="title">제목</a></li>
+						<li><a href="content">내용</a></li>
+						<li><a href="writer">작성자</a></li>					
+					</ul>
+				</div>
+				<!-- /btn-group -->
+				<input type="text" class="form-control" name="searchkeyword" placeholder="Search for...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit" style="padding-bottom: 9px; padding-top: 9px;"><i class="glyphicon glyphicon-search" style="height: 100%"></i></button>				
+				</span>
 			</div>
-			<!-- /btn-group -->
-			<input type="text" class="form-control" placeholder="Search for...">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" style="padding-bottom: 9px; padding-top: 9px;"><i class="glyphicon glyphicon-search" style="height: 100%"></i></button>				
-			</span>
-		</div>
+		</form>	
 		<!-- /input-group -->
 	</div>
 	<!-- /.col-lg-6 -->
 	</div>
-	</div>
-	</div>
-	<script>
+</div>
+<script>
 	 $.ajax({              
          url: "checkuser.do",  
          data:{}, 
@@ -92,4 +97,18 @@ padding: 0px;
         	}
          }                  	     
 	 	 });
-	</script>
+
+$(function() {
+	
+	$("#searchoption li a").click(function(event) {
+		event.preventDefault();
+		var text = $(this).text();
+		var value = $(this).attr("href");
+		
+		$("#searchoptionmenu").html(text + ' <span class="caret"></span>');
+		$("input[name='searchoption']").val(value);
+	
+	});
+	
+})	 
+</script>

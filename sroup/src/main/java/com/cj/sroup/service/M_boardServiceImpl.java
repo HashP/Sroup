@@ -75,6 +75,13 @@ public class M_boardServiceImpl implements M_boardService{
 	public List<M_boardVO> getBoard_list(HashMap<String, Integer> num) {		
 		return m_boarddao.getBoard_list(num);				
 	}
+	
+	@Override
+	public List<M_boardVO> getSearchBoard_list(
+			HashMap<String, Object> searchOption) {
+		// TODO Auto-generated method stub
+		return m_boarddao.getSearchBoard_list(searchOption);
+	}
 
 	@Override
 	public void reBoardReply(M_boardReplyVO b_reply) {

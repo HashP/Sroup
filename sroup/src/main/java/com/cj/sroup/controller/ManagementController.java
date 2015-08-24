@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 
 
@@ -149,6 +151,38 @@ public class ManagementController {
 		mav.addObject("cPage",cPage);
 		mav.setViewName("management/m_border");
 
+		return mav;
+	}
+	
+	@RequestMapping("/m_searchborder.do")
+	public ModelAndView searchboard(@PathVariable("study_address")String study_address,
+						@RequestParam (value="cPage", defaultValue= "1" ) int cPage,
+						@RequestParam ("searchoption")String searchOption,
+						@RequestParam ("searchkeyword")String searchKeyword,
+						HttpServletRequest request){
+		
+		System.out.println("	searchoption: " + searchOption);
+		System.out.println("	searchkeyword: " + searchKeyword);
+		
+		int study_no = m_firstservice.get_studyNo(study_address);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		int start = (cPage - 1) * 20 + 1;	
+		int end = cPage * 20;	
+		HashMap<String, Object> search = new HashMap<String, Object>();
+		search.put("study_no", study_no);
+		search.put("start", start);
+		search.put("end", end);
+		search.put("searchoption", searchOption);
+		search.put("searchkeyword", searchKeyword);
+		List<M_boardVO> boardList =	m_boardservice.getSearchBoard_list(search);
+		int b_tot = m_boardservice.getAllBoardNo(study_no);
+		mav.addObject("search", "search");
+		mav.addObject("boardList",boardList);
+		mav.addObject("b_tot", b_tot);
+		mav.addObject("cPage",cPage);
+		mav.setViewName("management/m_border");
 		return mav;
 	}
 	
@@ -645,7 +679,7 @@ public class ManagementController {
 		for(int i=0; i<(excel_row.length)/4; i++){
 			if (i != 0) {
 				E_rollbookVO rollbook = new E_rollbookVO();
-			
+				System.out.println("돈다");
 				rollbook.setName(excel_row[i + cnt]);
 				rollbook.setAttend(excel_row[i + 1 + cnt]);
 				rollbook.setNote(excel_row[i + 2 + cnt]);
@@ -654,6 +688,7 @@ public class ManagementController {
 				rollbooks.add(i, rollbook);				
 				
 			} else if (i == 0) {
+				System.out.println("돈다");
 				E_rollbookVO rollbook = new E_rollbookVO();				
 				rollbook.setName(excel_row[i]);
 				rollbook.setAttend(excel_row[i + 1]);
