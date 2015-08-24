@@ -141,14 +141,14 @@ padding: 0px;
 			$(".writer_id").text(writer);
 			$(".writet_time").text(writetime);
 			
-			if($(this).find('b').text()!="${sessionScope.LOGIN_ID} "&& "${admin}"!="${sessionScope.LOGIN_ID}"){
+			if($(".writer_id").text()!="${sessionScope.LOGIN_ID}"&& "${admin}"!="${sessionScope.LOGIN_ID}"){
 				$(".album_rewrite").hide();
 				$(".album_del").hide();				
-			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
+			}else if($(".writer_id").text()=="${sessionScope.LOGIN_ID}"&&"${admin}"!="${sessionScope.LOGIN_ID}"){
 				
-			}else if($(this).find('b').text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
+			}else if($(".writer_id").text()=="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}") {
 							
-			}else if($(this).find('b').text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
+			}else if($(".writer_id").text()!="${sessionScope.LOGIN_ID}"&&"${admin}"=="${sessionScope.LOGIN_ID}"){
 				$(".album_rewrite").hide();		
 			}
 			
@@ -423,7 +423,7 @@ padding: 0px;
 							data-target="#myModal"> <img
 							class="img-responsive albumlist_img"
 							name="${galleryList.g_no}"
-							src="../resources/upload/album_photo/${galleryList.imageName}"
+							src="../../resources/upload/album_photo/${galleryList.imageName}"
 							alt="">
 						</a>
 						<h3>
