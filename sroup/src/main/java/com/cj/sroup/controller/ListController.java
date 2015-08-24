@@ -68,7 +68,7 @@ public class ListController {
 		String lng = req.getParameter("lng");
 		String latlng = lng+","+lat;
 		System.out.println(latlng);
-		URL urlMy=new URL("http://openapi.map.naver.com/api/reversegeocode?key=5c2814aa90dac61ea095ac66fe8cda82&encoding=utf-8&coord=latlng&output=json&query="+ latlng);
+		URL urlMy=new URL("http://openapi.map.naver.com/api/reversegeocode?key=fdfd44094bda508193c65c95eea570d5&encoding=utf-8&coord=latlng&output=json&query="+ latlng);
 		URLConnection tc = urlMy.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(tc.getInputStream()));
 		String line = "";
@@ -157,7 +157,7 @@ public class ListController {
 
 		service.addStudy(study);
 		service.addStudyManagement(studyManagement);
-
+		
 		return "redirect:list.do";
 	}
 	
