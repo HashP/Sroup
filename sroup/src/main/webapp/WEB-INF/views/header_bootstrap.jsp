@@ -88,7 +88,7 @@ var j = 1;
 				<div class="area2">
 					<span class="glyphicon glyphicon-search"></span> 
 					<c:forEach var="l" items="${lists }" begin="10" end="14">
-						<a href="detail.do?no=${l.study_no }" target="_blank">${l.study_name }</a>
+						<a href="/sroup/detail.do?no=${l.study_no }" target="_blank">${l.study_name }</a>
 					</c:forEach>
 				</div>
 			</div>
