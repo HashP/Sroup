@@ -18,7 +18,7 @@
 #left-nav2 {
 	height: 100%;
 	width: 278px;
-	position:fixed;
+
 	background-color: #c84d2e;
 	background-repeat: repeat-x;
 	

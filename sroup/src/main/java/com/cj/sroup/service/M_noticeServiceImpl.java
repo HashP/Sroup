@@ -1,5 +1,6 @@
 package com.cj.sroup.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,12 @@ public class M_noticeServiceImpl implements M_noticeService {
 	@Override
 	public M_noticeVO reNoticeInfo(int n_no) {
 		return m_noticedao.reNoticeInfo(n_no);		
+	}
+
+	@Override
+	public List<M_noticeVO> getMuhanNotice(HashMap<String, String> map) {
+		return m_noticedao.getMuhanNotice(map);
+		
 	}
 	
 	

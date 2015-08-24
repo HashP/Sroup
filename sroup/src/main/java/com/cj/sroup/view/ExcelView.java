@@ -37,22 +37,22 @@ public class ExcelView extends AbstractExcelView {
 		ArrayList<E_rollbookVO> rollbooks = (ArrayList<E_rollbookVO>)model.get("rollbooks");
 		System.out.println("["+rollbooks.get(0).getName()+"!");
 		System.out.println("? : "+rollbooks.size());
-		System.out.println(rollbooks.get(0).getName());
-		System.out.println(rollbooks.get(1).getName());
-		System.out.println(rollbooks.get(2).getName());
 		int cnt=0;
 		for(int i=0; i<rollbooks.size(); i++){
 			E_rollbookVO e = rollbooks.get(i);
 
 			HSSFRow data_row = sheet.createRow(1+i);
 			
-			
+			System.out.println("attend?"+e.getAttend());
 			data_row.createCell(0).setCellValue(e.getName());
-			if(e.getAttend() == "attend"){
+			if(e.getAttend().equals("attend")){
+				System.out.println("1");
 				data_row.createCell(1).setCellValue("출석");				
-			} else if(e.getAttend() == "absence"){
+			} else if(e.getAttend().equals("absence")){
+				System.out.println("2");
 				data_row.createCell(1).setCellValue("결석");
 			} else{
+				
 				data_row.createCell(1).setCellValue("미입력");
 			}
 			data_row.createCell(2).setCellValue(e.getNote());

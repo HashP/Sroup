@@ -6,16 +6,25 @@
  <mapper namespace="com.cj.sroup.dao.M_noticeDao">   
  
     <select id="getAllNotice" resultType="m_notice" parameterType="int">
-   select	STUDY_NO	as study_no,   			
+  select rn,
+       STUDY_NO	as study_no,   			
    			N_NO		as n_no, 
    			N_WRITE_DAY	as n_write_day, 
    			N_WRITER	as n_writer,
    			N_TITLE		as n_title, 
-   			N_CONTENT	as n_content 			
+   			N_CONTENT	as n_content 	from(
+  select	ROW_NUMBER() OVER (order by N_NO desc)rn,
+        STUDY_NO,	
+   			N_NO,	
+   			N_WRITE_DAY,
+   			N_WRITER,
+   			N_TITLE,
+   			N_CONTENT				
 	from s_notice
-	where STUDY_NO = #{value}
+	where STUDY_NO = #{value}  
 	order by N_NO desc 
-          
+	) where rn>0 and rn&lt;=4
+    order by N_NO desc       
    </select>
 
    <insert id="addNotice" parameterType="m_notice">
@@ -61,4 +70,28 @@
    from s_notice
    where N_NO = #{value}   	
    </select>
+   
+   <select id="getMuhanNotice" resultType="m_notice" parameterType="map"> 
+	
+	 select rn,
+       STUDY_NO	as study_no,   			
+   			N_NO		as n_no, 
+   			N_WRITE_DAY	as n_write_day, 
+   			N_WRITER	as n_writer,
+   			N_TITLE		as n_title, 
+   			N_CONTENT	as n_content 
+   			from(select	ROW_NUMBER() OVER (order by N_NO desc)rn,
+        STUDY_NO,	
+   			N_NO,	
+   			N_WRITE_DAY,
+   			N_WRITER,
+   			N_TITLE,
+   			N_CONTENT				
+	from s_notice
+	where STUDY_NO = #{study_no}
+	order by N_NO desc 
+	) where rn>#{start} and rn&lt;=#{end}
+	order by N_NO desc 
+      
+   </select>  
 </mapper>

@@ -121,7 +121,7 @@ function notice_first(){
                            </c:when>
 			<c:otherwise>
 				<c:forEach var="noticeList" items="${noticeList }">
-					<div id="notice-${noticeList.n_no}" class="notice">
+					<div id="notice-${noticeList.n_no}" class="notice" name="${noticeList.n_no}">
 						<div style="margin:0px 10px;">
 						<h2 class="notice-header">
 							<pre><h2><div style="width: 930px; display: inline-block; margin-right: 20px; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;">${noticeList.n_title }</div></h2></pre>
@@ -139,7 +139,7 @@ function notice_first(){
 						</h2>
 
 						<img data-src="holder.js/200x200/auto/sky" class="img-responsive"
-							alt="날짜 : 2015-07-27 작성자:cj" style="float: right;"> <br>
+							alt="날짜 : ${noticeList.n_write_day} 작성자:${noticeList.n_writer}" style="float: right;"> <br>
 						<Br>
 						<p style="clear: right;">${noticeList.n_content }
 						</p>
@@ -153,3 +153,55 @@ function notice_first(){
 </div>
 	</div>
 </div>
+<script>
+var fnInfiniteScroll = function () {
+	var s= $(".notice").length;
+	
+        $.ajax({
+            url:"m_main_muhan.do",
+            data:{
+                start:s
+            },          
+            type:'post',
+            success:function(result) {
+               // $('.notice').fadeOut(300);
+                for(var i in result){
+                	var html = "<div id=\"notice-"+result[i].n_no+"\" class=\"notice\" name="+result[i].n_no+">"
+                		+"<div style=\"margin:0px 10px;\">"
+                		+"<h2 class=\"notice-header\">"
+                		+"<pre><h2><div style=\"width: 930px; display: inline-block; margin-right: 20px; white-space: nowrap; text-overflow:ellipsis; overflow:hidden;\">"+result[i].n_title+"</div></h2></pre>"
+                		+"<div style=\"display: inline-block; margin-bottom: 8px\" class=\"admin_btn\">"
+                		+"<a href=\"#del();\" id="+result[i].n_no+" class=\"btn btn-default del-btn\" style=\"float: right;\">"
+                		+"<span class=\"glyphicon glyphicon-remove\"></span></a> <a href=\"notice_rewrite.do?n_no="+result[i].n_no+"\" class=\"btn btn-default\" style=\"float: right; \">"
+                		+"	<span class=\"glyphicon glyphicon-ok\"></span>"
+                		+"</a> <a href=\"notice_write.do\" class=\"btn btn-default\" style=\"float: right; \">"
+                		+"<span class=\"glyphicon glyphicon-pencil\"></span></a>"
+                		+"	</div>"
+                		+"</h2>"
+                		+"<img data-src=\"holder.js/200x200/auto/sky\" class=\"img-responsive\" alt=\"날짜 : "+result[i].n_write_day+" 작성자:"+result[i].n_writer+"\" style=\"float: right;\"> <br>"
+                		+"<Br>"
+                		+"<p style=\"clear: right;\">"+result[i].n_content+"</p>"
+                		+"<footer style=\"float: right\"> </footer>"
+                		+"<br> <br>"
+                		+"</div>"
+                		+"</div>"
+                	$('.notice_fild').append(html);
+                }
+                 
+               // clearTimeout(fnInfiniteScroll);
+            }, error:function() {
+               
+            }
+        });
+    };
+ 
+$(window).scroll(function() {   
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                // ajax로 다음 페이지 불러오기 appendTo...
+                $('.notice').fadeIn(500);
+                 
+                setTimeout(function() { fnInfiniteScroll(); }, 800);
+            }
+ 
+    });
+</script>

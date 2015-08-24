@@ -123,11 +123,32 @@ public class ManagementController {
 		String admin = m_firstservice.get_Admin(study_no);
 		ModelAndView mav = new ModelAndView();
 		List<M_noticeVO> noticeList = m_noticeservice.getAllNotice(study_no);
+		
 		mav.addObject("noticeList",noticeList);
 		mav.addObject("admin",admin);
 		mav.setViewName("management/m_main");
 
 		return mav;
+	} 
+	@RequestMapping("/m_main_muhan.do")
+	@ResponseBody
+	public List<M_noticeVO> mainmuhan(@PathVariable("study_address") String study_address,
+			@RequestParam("start") int start
+			){
+		int study_no = m_firstservice.get_studyNo(study_address);		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("study_no", Integer.toString(study_no));
+		map.put("start", Integer.toString(start));
+		map.put("end", Integer.toString(start+4));
+		System.out.println(start);
+		
+		
+		List<M_noticeVO> noticeList = m_noticeservice.getMuhanNotice(map);
+		System.out.println("??"+noticeList.size());
+		
+		
+		
+		return noticeList;
 	} 
 	
 	@RequestMapping("/m_border.do")
@@ -684,7 +705,7 @@ public class ManagementController {
 				rollbook.setAttend(excel_row[i + 1 + cnt]);
 				rollbook.setNote(excel_row[i + 2 + cnt]);
 				rollbook.setAttend_rate(excel_row[i + 3 + cnt]);			
-				cnt = cnt * 2;
+				cnt = cnt + 3;
 				rollbooks.add(i, rollbook);				
 				
 			} else if (i == 0) {

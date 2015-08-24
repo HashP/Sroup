@@ -1,5 +1,6 @@
 package com.cj.sroup.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.cj.sroup.vo.M_boardVO;
@@ -13,4 +14,5 @@ public interface M_noticeDao {
 	void delNotice(int n_no);
 	void reNotice(M_noticeVO m_notice);
 	M_noticeVO reNoticeInfo(int n_no);
+	List<M_noticeVO> getMuhanNotice(HashMap<String, String> map);
 }
