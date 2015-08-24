@@ -61,8 +61,8 @@ $(function(){
 	    	
     		events.push({
                 title: element.study.study_name, 
-                start: element.eventStart,
-                end: element.eventEnd, 
+                start: new Date(element.eventStart),
+                end: new Date(element.eventEnd), 
                 allDay: false,
                 url: '/sroup/m_study/'+ element.study.p_address +'/m_main.do',
                 tooltip:element.eventTitle,
