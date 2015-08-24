@@ -53,7 +53,14 @@ padding: 0px;
 				<li><a href="#">5</a></li>
 				<li><a href="#">&raquo;</a></li>
 			</ul> -->
-			<tags:paginate total="${b_tot }" page="${cPage }" max="20" cssClass="pagination"/>
+			<c:choose>
+				<c:when test="${not empty search}">
+					<tags:paginate total="${b_tot }" page="${cPage }" max="20" queryString="searchoption=${param.searchoption }&searchkeyword=${param.searchkeyword }" cssClass="pagination"/>
+				</c:when>
+				<c:otherwise>
+					<tags:paginate total="${b_tot }" page="${cPage }" max="20" cssClass="pagination"/>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	
